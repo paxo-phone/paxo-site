@@ -1,0 +1,8 @@
+site_name: Paxo
+site_url: https://www.paxo.fr
+theme: readthedocs
+
+nav:
+  - Accueil:  index.md
+  - Software: software.md
+  - Hardware: hardware.md
