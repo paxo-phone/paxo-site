@@ -1,0 +1,395 @@
+@import url('reset.css');
+
+*, ::before, ::after {
+    box-sizing: border-box;
+}
+
+html, body {
+    background: #fff;
+    color: #000;
+    font-family: Helvetica, Arial, sans-serif;
+    font-size: 20px;
+}
+
+img {
+    max-width: 100%;
+}
+
+a {
+    text-decoration: none;
+    color: blue;
+}
+
+
+p {
+    line-height: 1.3em;
+}
+
+iframe {
+    width: 100%;
+}
+
+/* blockquote */
+
+blockquote {
+    text-align: center;
+    font-size: 2.4rem;
+    font-weight: bold;
+    position: relative;
+}
+
+blockquote:before  {
+    position: absolute;
+    top: -50%;
+    left: -0%;
+    
+    content:"“";
+    font-size: 255px;
+    color: rgba(0,0,0,0.1);
+}
+
+cite {
+    display: block;
+    width: 100%;
+    text-align: right;
+    padding: 1rem 0;
+    color: gray;
+}
+
+/* button */
+
+.btn {
+    outline: none;
+    border: none; 
+
+    display: block;
+    width: fit-content;
+    font-size: 1rem;
+
+    text-decoration: none;
+    
+    background: black;
+    color: white !important;
+    padding: 1rem 2rem;
+
+    cursor: pointer;
+}
+
+.btn-white {
+    background: white;
+    color: black;
+}
+
+.btn-inverted {
+    border: black 2px solid;
+    color: black;
+    background: none;
+}
+
+.btn-inverted.btn-white {
+    border: white 2px solid;
+    color: white;
+    background: none;
+}
+
+.btn.btn-full {
+    width: 100%;
+}
+
+/* card */
+
+.card {
+    background: #e8e8e8;
+    width: 100%;
+    padding: 2rem;
+    margin: 3rem 0;
+}
+
+.card-title {
+    font-size: 30px;
+    font-weight: bold;
+    margin-bottom: 1rem;
+}
+
+.card-description {
+    line-height: 1.3em;
+    font-weight: lighter;
+    margin-bottom: 1rem;
+}
+
+/* form */
+
+form {
+    max-width: 600px;
+    margin: 0 auto;
+}
+
+.form-block {
+    display: block;
+    width: 100%;
+    margin-bottom: 2rem;
+}
+
+label {
+    font-weight: bold;
+    display: block;
+    width: 100%;
+    margin-bottom: .5rem;
+}
+
+input[type="text"],
+input[type="email"],
+textarea {
+    display: block;
+    width: 100%;
+
+    border: none;
+    background: #e8e8e8;
+    padding: 1rem;
+    font-family: inherit;
+    font-size: 1rem;
+}
+
+input[type="text"]:focus,
+input[type="email"]:focus,
+textarea:focus {
+    outline: black 2px solid;
+}
+
+textarea {
+    resize: vertical;
+}
+
+input[type="submit"] {
+    outline: none;
+    border: none; 
+
+    display: block;
+    width: 100%;
+    font-size: 1rem;
+    
+    background: black;
+    color: white;
+    padding: 1rem 2rem;
+
+    cursor: pointer;
+
+    border: black 2px solid;
+}
+
+input[type="submit"]:hover {
+    background: white;
+    color: black;
+}
+
+/* header */
+
+.header {
+    padding: 50px 7%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.header .logo {
+    font-size: 33px;
+    font-weight: bold;
+    text-transform: uppercase;
+}
+
+.header .nav
+{}
+
+.header .nav .nav-list {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.header .nav .nav-list .nav-item {
+    padding: 0 1rem;
+}
+
+.header .nav .nav-list .nav-item .nav-link {
+    text-decoration: none;
+    color: inherit;
+    text-transform: uppercase;
+    font-size: 16px;
+    font-weight: bold;
+}
+
+.header .nav .nav-list .nav-item .nav-link:hover {
+    color: gray;
+}
+
+.header.header-white {
+    color: white !important;
+}
+
+.header.header-floating {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+}
+
+/* block */
+
+.block {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    
+    padding: 10%;
+}
+
+/* container */
+
+.container {
+    padding: 5% 10%;
+}
+
+/* footer */
+
+footer {
+    min-height: 10vh;
+    background: #0A0A0A;
+    padding: 5% 0;
+
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+
+    gap: 2rem;
+}
+
+.social {}
+
+.social ul {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 1.4rem;
+}
+
+.social ul li a {
+    text-decoration: none;
+    color: white;
+    font-size: 40px;
+    cursor: pointer;
+}
+
+.footer-nav {
+    display: flex;
+    gap: 1rem;
+}
+
+.footer-nav a {
+    color: white;
+}
+
+.footer-nav a:hover { 
+    text-decoration: underline;
+}
+
+/* lead */
+
+.lead {
+    font-weight: lighter;
+    font-size: 1.3rem;
+}
+
+/* gallery */
+
+.gallery {
+    padding: 10%;
+}
+
+.gallery-grid {
+    width: 100%;
+    max-width: 900px;
+    margin: 0 auto;
+    
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    row-gap: 2rem;
+    column-gap: 2rem;
+}
+
+@media screen and (max-width: 992px)  {
+    .gallery-grid
+    { grid-template-columns: 1fr 1fr; }    
+}
+
+@media screen and (max-width: 576px)  {
+    .gallery-grid
+    { grid-template-columns: 1fr ; }    
+}
+
+.gallery-grid > img {
+    width: 300px;
+    height: 300px;
+    object-fit: cover;
+    max-width: 100%;
+}
+
+/* utils */
+
+.h1 {
+    font-weight: bold;
+    line-height: 1.2em;
+    font-size: 2.4rem;
+}
+
+.h2 {
+    font-weight: bold;
+    line-height: 1.2em;
+    font-size: 1.9rem;
+}
+
+.text-white { color: #fff; }
+.text-black { color: #000; }
+
+.text-center { text-align: center; }
+.text-left { text-align: left; }
+.text-right { text-align: right; }
+
+.h-80  { min-height: 80vh; }
+.h-50  { min-height: 50vh; }
+.h-40  { min-height: 40vh; }
+.h-100 { min-height: 100vh;}
+
+.mb-1 { margin-bottom: 1rem; }
+.mb-2 { margin-bottom: 2rem; }
+.mb-3 { margin-bottom: 3rem; }
+.mb-4 { margin-bottom: 4rem; }
+.mb-5 { margin-bottom: 5rem; }
+
+.w-100 {
+    width: 100%;
+}
+
+.flex { 
+    display: flex; 
+}
+
+.flex-1 {
+    flex: 1;
+}
+
+.flex-col { flex-direction: column;  }
+.flex-row { flex-direction: row;     }
+.flex-col-reverse { flex-direction: column-reverse; }
+.flex-row-reverse { flex-direction: row-reverse; }
+
+.gap-1 { gap: 1rem; }
+.gap-2 { gap: 2rem; }
+
+.justify-center { justify-content: center;}
+.justify-between { justify-content: space-between;}
+
+.align-center { align-items: center; }
+.align-start  { align-items: start;  }
+.align-end    { align-items: end;    }
+
