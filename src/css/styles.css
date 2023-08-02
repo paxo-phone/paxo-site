@@ -1,3 +1,14 @@
+/*
+    *breakpoints*
+    
+    xs : 0,
+    sm : 576px,
+    md : 768px,
+    lg : 992px,
+    xl : 1200px,
+    xxl : 1400px
+*/
+
 @import url('reset.css');
 
 *, ::before, ::after {
@@ -8,7 +19,14 @@ html, body {
     background: #fff;
     color: #000;
     font-family: Helvetica, Arial, sans-serif;
-    font-size: 20px;
+    font-size: 16px;
+}
+
+@media screen and (min-width: 768px) {
+    html, body {
+        font-size: 20px;
+    }
+    
 }
 
 img {
@@ -19,7 +37,6 @@ a {
     text-decoration: none;
     color: blue;
 }
-
 
 p {
     line-height: 1.3em;
@@ -117,71 +134,6 @@ cite {
     margin-bottom: 1rem;
 }
 
-/* form */
-
-form {
-    max-width: 600px;
-    margin: 0 auto;
-}
-
-.form-block {
-    display: block;
-    width: 100%;
-    margin-bottom: 2rem;
-}
-
-label {
-    font-weight: bold;
-    display: block;
-    width: 100%;
-    margin-bottom: .5rem;
-}
-
-input[type="text"],
-input[type="email"],
-textarea {
-    display: block;
-    width: 100%;
-
-    border: none;
-    background: #e8e8e8;
-    padding: 1rem;
-    font-family: inherit;
-    font-size: 1rem;
-}
-
-input[type="text"]:focus,
-input[type="email"]:focus,
-textarea:focus {
-    outline: black 2px solid;
-}
-
-textarea {
-    resize: vertical;
-}
-
-input[type="submit"] {
-    outline: none;
-    border: none; 
-
-    display: block;
-    width: 100%;
-    font-size: 1rem;
-    
-    background: black;
-    color: white;
-    padding: 1rem 2rem;
-
-    cursor: pointer;
-
-    border: black 2px solid;
-}
-
-input[type="submit"]:hover {
-    background: white;
-    color: black;
-}
-
 /* header */
 
 .header {
@@ -204,6 +156,7 @@ input[type="submit"]:hover {
     display: flex;
     justify-content: center;
     align-items: center;
+    flex-wrap: wrap;
 }
 
 .header .nav .nav-list .nav-item {
@@ -239,8 +192,16 @@ input[type="submit"]:hover {
     display: flex;
     justify-content: center;
     align-items: center;
+    flex-direction: column;
     
     padding: 10%;
+}
+
+@media screen and (min-width: 768px)
+{
+    .block {
+        flex-direction: row;
+    }
 }
 
 /* container */
@@ -270,8 +231,10 @@ footer {
     display: flex;
     justify-content: center;
     align-items: center;
+    flex-direction: row;
     gap: 1.4rem;
 }
+
 
 .social ul li a {
     text-decoration: none;
@@ -282,6 +245,10 @@ footer {
 
 .footer-nav {
     display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+
     gap: 1rem;
 }
 
@@ -291,6 +258,13 @@ footer {
 
 .footer-nav a:hover { 
     text-decoration: underline;
+}
+
+@media screen and (min-width: 576px)
+{
+    .footer-nav {
+        flex-direction: row;
+    }
 }
 
 /* lead */
@@ -312,20 +286,21 @@ footer {
     margin: 0 auto;
     
     display: grid;
-    grid-template-columns: 1fr 1fr 1fr;
+    grid-template-columns: 1fr;
     row-gap: 2rem;
     column-gap: 2rem;
 }
 
-@media screen and (max-width: 992px)  {
+@media screen and (min-width: 576px)  {
     .gallery-grid
-    { grid-template-columns: 1fr 1fr; }    
+    { grid-template-columns: 1fr 1fr ; }    
 }
 
-@media screen and (max-width: 576px)  {
+@media screen and (min-width: 992px)  {
     .gallery-grid
-    { grid-template-columns: 1fr ; }    
+    { grid-template-columns: 1fr 1fr 1fr; }    
 }
+
 
 .gallery-grid > img {
     width: 300px;
@@ -392,4 +367,3 @@ footer {
 .align-center { align-items: center; }
 .align-start  { align-items: start;  }
 .align-end    { align-items: end;    }
-
