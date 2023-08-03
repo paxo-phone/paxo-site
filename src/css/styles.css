@@ -281,14 +281,7 @@ cite {
     align-items: center;
     flex-direction: column;
     
-    padding: 7%;
-}
-
-@media screen and (min-width: 576px)
-{
-    .block {
-        padding: 10%;
-    }
+    padding: 10%;
 }
 
 @media screen and (min-width: 768px)
@@ -431,6 +424,12 @@ footer {
 .text-left { text-align: left; }
 .text-right { text-align: right; }
 
+@media screen and (min-width: 728px) {
+    .md\:h-80  { min-height: 80vh; }
+    .md\:h-50  { min-height: 50vh; }
+    .md\:h-40  { min-height: 40vh; }
+    .md\:h-100 { min-height: 100vh;}
+}
 .h-80  { min-height: 80vh; }
 .h-50  { min-height: 50vh; }
 .h-40  { min-height: 40vh; }
@@ -441,6 +440,13 @@ footer {
 .mb-3 { margin-bottom: 3rem; }
 .mb-4 { margin-bottom: 4rem; }
 .mb-5 { margin-bottom: 5rem; }
+
+
+@media screen and (min-width: 728px) {
+    .md\:w-50 {
+        width: 50%;
+    }
+}
 
 .w-100 {
     width: 100%;
@@ -464,6 +470,15 @@ footer {
 
 .justify-center { justify-content: center;}
 .justify-between { justify-content: space-between;}
+.justify-end { justify-content: flex-end;}
+.justify-start { justify-content: flex-start; }
+
+@media screen and (min-width: 728px) {
+    .md\:justify-center { justify-content: center;}
+    .md\:justify-between { justify-content: space-between;}
+    .md\:justify-end { justify-content: flex-end;}
+    .md\:justify-start { justify-content: flex-start; }
+}
 
 .align-center { align-items: center; }
 .align-start  { align-items: start;  }
