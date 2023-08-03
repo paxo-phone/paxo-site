@@ -8,7 +8,6 @@
     xl : 1200px,
     xxl : 1400px
 */
-
 @import url('reset.css');
 
 *, ::before, ::after {
@@ -55,14 +54,23 @@ blockquote {
     position: relative;
 }
 
-blockquote:before  {
+blockquote:before {
     position: absolute;
-    top: -50%;
-    left: -0%;
+    display: none;
+
+    left: -0em;
+    top: -.3em;
     
     content:"“";
     font-size: 255px;
     color: rgba(0,0,0,0.1);
+}
+
+@media screen and (min-width: 768px)
+{
+    blockquote:before {
+        display: block;
+    }
 }
 
 cite {
@@ -194,7 +202,14 @@ cite {
     align-items: center;
     flex-direction: column;
     
-    padding: 10%;
+    padding: 7%;
+}
+
+@media screen and (min-width: 576px)
+{
+    .block {
+        padding: 10%;
+    }
 }
 
 @media screen and (min-width: 768px)
@@ -207,7 +222,14 @@ cite {
 /* container */
 
 .container {
-    padding: 5% 10%;
+    padding: 3% 7%;
+}
+
+@media screen and (min-width: 576px)
+{
+    .container {
+        padding: 5% 10%;
+    }
 }
 
 /* footer */
@@ -271,7 +293,7 @@ footer {
 
 .lead {
     font-weight: lighter;
-    font-size: 1.3rem;
+    font-size: 1.2rem;
 }
 
 /* gallery */
