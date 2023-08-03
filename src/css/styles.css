@@ -212,8 +212,9 @@ cite {
 
     background: none;
     border: none;
-    font-size: 1.2rem;
+    font-size: 1.5rem;
     color: inherit;
+    cursor: pointer;
 
     z-index: 1;
 }
@@ -231,6 +232,7 @@ cite {
 
 .header .responsive-nav
 {
+    font-size: 1.4rem;
     display: none;
 
     justify-content: center;
@@ -255,7 +257,7 @@ cite {
     justify-content: center;
     align-items: center;
     flex-direction: column;
-    gap: 1rem;
+    gap: 1.5rem;
 }
 
 .header .responsive-nav .responsive-nav-list .responsive-nav-item .responsive-nav-link
