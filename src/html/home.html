@@ -11,6 +11,10 @@
     <!-- fontawesome -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" integrity="sha512-iecdLmaskl7CVkqkXNQ/ZH/XLlvWZOJyj7Yy7tcenmpD1ypASozpmT/E0iPtmFIB46ZmdtAc9eNBvH0H/ZpiBw==" crossorigin="anonymous" referrerpolicy="no-referrer" />
     
+    <!-- splidejs -->
+    <script defer src="https://cdnjs.cloudflare.com/ajax/libs/splidejs/4.1.4/js/splide.min.js" integrity="sha512-4TcjHXQMLM7Y6eqfiasrsnRCc8D/unDeY1UGKGgfwyLUCTsHYMxF7/UHayjItKQKIoP6TTQ6AMamb9w2GMAvNg==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/splidejs/4.1.4/css/themes/splide-default.min.css" integrity="sha512-KhFXpe+VJEu5HYbJyKQs9VvwGB+jQepqb4ZnlhUF/jQGxYJcjdxOTf6cr445hOc791FFLs18DKVpfrQnONOB1g==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+
 </head>
 <body>
     
@@ -46,6 +50,39 @@
 
         <section class="block h-80" style="background-image: url(../../img/nature.jpeg); ">
             <h1 class="h1 text-center text-white">Un téléphone<br> libre, minimaliste<br> et écologique.</h1>
+        </section>
+
+        <!-- Citations -->
+        <section class="block h-40">
+
+            <!-- Splide slider -->
+            <section class="splide" style="max-width: 600px; width: 100%">
+                
+                <div class="splide__track">
+                    <ul class="splide__list">
+                        <li class="splide__slide">
+                            <figure>
+                                <blockquote>Lorem ipsum dolor, sit amet consectetur adipisicing elit. Consectetur aperiam neque reprehenderit provident perspiciatis obcaecati nam recusandae libero nihil tempora. Quo, perferendis debitis! Laboriosam, illo fugiat nobis eos atque ipsum?</blockquote>
+                                <cite>— Source</cite>
+                            </figure>
+                        </li>
+                        <li class="splide__slide">
+                             <figure>
+                                <blockquote>Lorem ipsum dolor, sit amet consectetur adipisicing elit. Consectetur aperiam neque reprehenderit provident perspiciatis obcaecati nam recusandae libero nihil tempora. Quo, perferendis debitis! Laboriosam, illo fugiat nobis eos atque ipsum?</blockquote>
+                                <cite>— Source</cite>
+                            </figure>
+                        </li>
+                        <li class="splide__slide">
+                            <figure>
+                                <blockquote>Lorem ipsum dolor, sit amet consectetur adipisicing elit. Consectetur aperiam neque reprehenderit provident perspiciatis obcaecati nam recusandae libero nihil tempora. Quo, perferendis debitis! Laboriosam, illo fugiat nobis eos atque ipsum?</blockquote>
+                                <cite>— Source</cite>
+                            </figure>                        
+                        </li>
+                    </ul>
+                </div>
+
+            </section>
+
         </section>
 
 
@@ -117,6 +154,11 @@
 
     <!-- js -->
     <script src="../js/main.js"></script>
-
+    <script>
+      document.addEventListener( 'DOMContentLoaded', function() {
+    var splide = new Splide( '.splide' );
+    splide.mount();
+  } );
+    </script>
 </body>
 </html>
