@@ -45,42 +45,6 @@ iframe {
     width: 100%;
 }
 
-/* blockquote */
-
-blockquote {
-    text-align: center;
-    font-size: 2.4rem;
-    font-weight: bold;
-    position: relative;
-}
-
-blockquote:before {
-    position: absolute;
-    display: none;
-
-    left: -0em;
-    top: -.3em;
-    
-    content:"“";
-    font-size: 255px;
-    color: rgba(0,0,0,0.1);
-}
-
-@media screen and (min-width: 768px)
-{
-    blockquote:before {
-        display: block;
-    }
-}
-
-cite {
-    display: block;
-    width: 100%;
-    text-align: right;
-    padding: 1rem 0;
-    color: gray;
-}
-
 /* button */
 
 .btn {
