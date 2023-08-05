@@ -45,10 +45,6 @@ iframe {
     width: 100%;
 }
 
-figure
-{
-    padding: 0 5rem;
-}
 
 blockquote
 {
@@ -435,6 +431,16 @@ footer {
 @media screen and (min-width: 728px) {
     .md\:w-50 {
         width: 50%;
+    }
+}
+
+.px-1 { padding-left: 1rem; 
+        padding-right: 1rem; }
+
+@media screen and (min-width: 768px) {
+    .md\:px-5 {
+        padding-left: 5rem;
+        padding-right: 5rem;
     }
 }
 
