@@ -143,6 +143,8 @@ cite
     font-weight: bold;
     text-transform: uppercase;
 
+    color: inherit;
+
     z-index: 1;
 }
 
