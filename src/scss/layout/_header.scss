@@ -37,7 +37,7 @@
 }
 
 .header .nav .nav-list .nav-item {
-    padding: 0 .8rem;
+    padding: 0 1rem;
 }
 
 .header .nav .nav-list .nav-item .nav-link {
@@ -128,4 +128,23 @@
     .header .responsive-nav {
         display: none;
     }
+}
+
+#banner {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    padding: 10px;
+    background-color: #1f1f1f;
+    color: #fff;
+    text-align: center;
+    z-index: 100;
+    box-shadow: 0 2px 3px 0 #1f1f1f;
+    font-size: 16px;
+}
+
+#banner a {
+    color: #fff;
+    text-decoration: underline;
 }
