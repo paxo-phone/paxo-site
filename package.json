@@ -1,0 +1,19 @@
+{
+  "name": "paxo-site",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "directories": {
+    "doc": "docs"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "sass-build": "sass src/scss/styles.scss src/css/styles.css",
+    "sass-watch": "sass src/scss/styles.scss src/css/styles.css --watch"
+  },
+  "author": "",
+  "license": "MIT",
+  "dependencies": {
+    "sass": "^1.64.2"
+  }
+}
