@@ -1,6 +1,9 @@
-// @Welpike
+// for more infos about this code, ping @Welpike on the discord
 
-import { getData } from './utils.js'
+async function getData(url) {
+    const response = await fetch(url);
+    return response.json();
+}
 
 function redirect(entry) {
     localStorage.removeItem("current_step")
