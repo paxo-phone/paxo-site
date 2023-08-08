@@ -1,14 +1,11 @@
 // @Welpike
 
-async function getData(url) {
-    const response = await fetch(url);
-    return response.json();
-}
+import { getData } from './utils.js'
 
 function getCurrentStep() {
     let currentStep = Number(localStorage.getItem("current_step"))
 
-    if (!currentStep || currentStep < 0 || currentStep > 8) {
+    if (!currentStep || currentStep < 0 || currentStep > 5) {
         localStorage.setItem("current_step", 0)
         currentStep = 0
     }
@@ -30,13 +27,13 @@ function displayStep(step) {
     p.insertAdjacentHTML("beforeend", `<p>${step.description}</p>`)
     iframe.setAttribute("src", step.video)
 
-    if (index == 1) {
+    if (index === 1) {
         previous.setAttribute('onclick', 'redirect("begin")')
         next.removeAttribute('onclick')
         previous.textContent = `Montage`
         next.textContent = `Étape ${index + 1}`
     }
-    else if (index == 5) {
+    else if (index === 5) {
         next.setAttribute('onclick', 'redirect("end")')
         previous.removeAttribute('onclick')
         previous.textContent = `Étape ${index - 1}`
