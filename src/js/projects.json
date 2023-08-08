@@ -1,0 +1,32 @@
+[
+  {
+    "title": "Lampe Peltier",
+    "description": "S'éclairer avec une simple diode et la chaleur de sa main ? C'est possible, avec très peu de matériel, grâce à l'effet Peltier",
+    "link": "https://github.com/paxo-rch/"
+  },
+  {
+    "title": "Testeur de piles",
+    "description": "Comment savoir si nos piles sont encore utilisables ? Protéger l'environnement c'est aussi optimiser les piles : un système permettant d'évaluer leur charge",
+    "link": "https://github.com/paxo-rch/"
+  },
+  {
+    "title": "Enceinte",
+    "description": "Fabriquer sa propre enceinte puissante filaire, basée sur un amplificateur opérationnel.",
+    "link": "https://github.com/paxo-rch/"
+  },
+  {
+    "title": "Moteur électrique",
+    "description": "Un système basique permettant de comprendre les bases d'un moteur électrique rotatif",
+    "link": "https://github.com/paxo-rch/"
+  },
+  {
+    "title": "Multi-détecteur d'environnement",
+    "description": "Un système évaluant l'environnement sonore, lumineux, thermique et d'humidité d'une pièce",
+    "link": "https://github.com/paxo-rch/"
+  },
+  {
+    "title": "Transmetteur de musique optique",
+    "description": "Transmettre du son avec de la lumière ? C'est possible. Un système simple permettant de transmettre de la musique / le son sur une distance de plusieurs mètres (10m dans le noir) via la lumière.",
+    "link": "https://github.com/paxo-rch/"
+  }
+]
