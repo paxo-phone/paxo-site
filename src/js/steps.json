@@ -1,0 +1,27 @@
+[
+    {
+        "title": "Étape 1 — Commander le PCB",
+        "description": "Sur <a href=\"https://oshwlab.com/gabriel.rochet/prototype-1\">https://oshwlab.com/gabriel.rochet/prototype-1</a>, cliquez sur \"Open in editor\" puis dans \"Fabrication\" cliquez sur \"One Click Order PCB\", puis suivez la procédure affichée. (n'oubliez pas de sélectionner la couleur blanc pour un meilleur rendu)",
+        "video": "https://www.youtube.com/embed/dQw4w9WgXcQ"
+    },
+    {
+        "title": "Étape 2 — Commander les composants",
+        "description": "Sur la même page que celle du PCB, cliquez sur \"One click order part\" puis suivez la procédure.",
+        "video": "https://www.youtube.com/embed/dQw4w9WgXcQ"
+    },
+    {
+        "title": "Étape 3 — Assembler",
+        "description": "Déposez de la <a href=\"https://www.amazon.fr/MG-Chemicals-Souder-Nettoyage-seringue/dp/B00M1RC0IU/ref=sr_1_10?keywords=pate+a+souder&amp;qid=1690373200&amp;sr=8-10\">pâte à souder</a> sur les différents pads en métal, puis en suivant le schéma sur easyEDA, déposez les composants un par un dans le bon sens et avec précaution.",
+        "video": "https://www.youtube.com/embed/dQw4w9WgXcQ"
+    },
+    {
+        "title": "Étape 4 — Souder",
+        "description": "Placez le circuit dans un four a environ 230°C jusqu'à la fonte de tous les pads en étain. Soudez ensuite l'ESP32, le haut parleur et la batterie a l'aide d'un fer a souder.",
+        "video": "https://www.youtube.com/embed/dQw4w9WgXcQ"
+    },
+    {
+        "title": "Étape 5 — Emboiter",
+        "description": "Placez le PCB dans le boitier et connectez l'écran LCD (en rajoutant du scotch pour eviter les contacts avec le PCB), collez et c'est terminé !",
+        "video": "https://www.youtube.com/embed/dQw4w9WgXcQ"
+    }
+]
