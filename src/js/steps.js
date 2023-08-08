@@ -60,7 +60,7 @@ async function changeStep(steps, it) {
 }
 
 (async function () {
-    const stepsUrl = "/src/js/steps.json"
+    const stepsUrl = "/src/js/data/steps.json"
     let steps = await getData(stepsUrl),
         previous = document.querySelector("#step_previous"),
         next = document.querySelector("#step_next")

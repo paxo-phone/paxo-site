@@ -3,7 +3,7 @@
 import { getData } from './utils.js'
 
 (async function () {
-    let projects = await getData("/src/js/projects.json"),
+    let projects = await getData("/src/js/data/projects.json"),
         projectContainer = document.querySelector("#projects_container"),
         projectTemplate = document.querySelector("#project_template")
 
