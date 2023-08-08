@@ -1,4 +1,4 @@
-// for more infos about this code, ping @Welpike on the discord
+// @Welpike
 
 async function getData(url) {
     const response = await fetch(url);
