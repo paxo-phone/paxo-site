@@ -192,17 +192,6 @@ cite
     right: 0;
 }
 
-.header.is-fixed {
-    padding-top: calc(3 * 8px)!important;
-    position: fixed;
-    transition: transform .3s;
-}
-
-.header.is-hidden {
-    transform: translateY(-100%);
-}
-
-
 /* responsive nav */
 
 .toggle-nav-btn {

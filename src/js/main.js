@@ -13,35 +13,3 @@ if (toggleNav)
 
     })
 }
-
-// ------------------------------------------
-// navbar scrolling animation - @Welpike
-// ------------------------------------------
-let header = document.querySelector('header'),
-    previousScrollPosition = 0
-
-const isScrollingDown = () => {
-    let goingDown = false;
-    
-    let scrollPosition = window.pageYOffset;
-    
-    if (scrollPosition > previousScrollPosition) {
-        goingDown = true;
-    }
-    
-    previousScrollPosition = scrollPosition;
-    
-    return goingDown;
-};
-
-const handleScroll = () => {
-    if (isScrollingDown()) {
-        if (window.scrollY >= header.offsetHeight){
-        header.classList.add("is-hidden");
-    }
-    } else {
-        header.classList.remove("is-hidden");
-    }
-};
-
-window.addEventListener("scroll", handleScroll);
