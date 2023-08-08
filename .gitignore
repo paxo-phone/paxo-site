@@ -1,4 +1,5 @@
 .DS_Store
 docs/site
 .idea
+.vscode
 node_modules
