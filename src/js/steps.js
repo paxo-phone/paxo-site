@@ -5,21 +5,10 @@ async function getData(url) {
     return response.json();
 }
 
-function redirect(entry) {
-    localStorage.removeItem("current_step")
-
-    if (entry == "begin") {
-        location.href = "/src/html/assembly.html"
-    }
-    else if (entry == "end") {
-        location.href = "/src/html/step-end.html"
-    }
-}
-
 function getCurrentStep() {
     let currentStep = Number(localStorage.getItem("current_step"))
 
-    if (!currentStep || currentStep < 0) {
+    if (!currentStep || currentStep < 0 || currentStep > 8) {
         localStorage.setItem("current_step", 0)
         currentStep = 0
     }

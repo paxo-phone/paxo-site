@@ -64,6 +64,19 @@
     <!-- js -->
     <script src="../js/steps.js"></script>
     <script src="../js/main.js"></script>
+
+    <script>
+        function redirect(entry) {
+            localStorage.removeItem("current_step")
+
+            if (entry == "begin") {
+                location.href = "/src/html/assembly.html"
+            }
+            else if (entry == "end") {
+                location.href = "/src/html/step-end.html"
+            }
+        }
+    </script>
     
 </body>
 </html>
