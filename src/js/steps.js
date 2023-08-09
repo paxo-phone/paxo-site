@@ -1,12 +1,13 @@
 // @Welpike
 
-import { getData } from './utils.js'
+import { getData, Storage } from './utils.js'
 
 function getCurrentStep() {
-    let currentStep = Number(localStorage.getItem("current_step"))
+    let currentStep = Number(Storage.get("current_step")),
+        stepsLength = Number(Storage.get("steps_length"))
 
-    if (!currentStep || currentStep < 0 || currentStep > 5) {
-        localStorage.setItem("current_step", 0)
+    if (!currentStep || currentStep < 0 || currentStep > stepsLength) {
+        Storage.set("current_step", 0)
         currentStep = 0
     }
 
@@ -19,7 +20,8 @@ function displayStep(step) {
         iframe = document.querySelector("#step_video"),
         previous = document.querySelector("#step_previous"),
         next = document.querySelector("#step_next"),
-        index = getCurrentStep() + 1
+        index = getCurrentStep() + 1,
+        stepsLength = Number(Storage.get("steps_length"))
 
     document.title = `Étape ${index} — Paxo`
     h1.textContent = `${step.title}`
@@ -33,7 +35,7 @@ function displayStep(step) {
         previous.textContent = `Montage`
         next.textContent = `Étape ${index + 1}`
     }
-    else if (index === 5) {
+    else if (index === stepsLength) {
         next.setAttribute('onclick', 'redirect("end")')
         previous.removeAttribute('onclick')
         previous.textContent = `Étape ${index - 1}`
@@ -53,7 +55,7 @@ async function changeStep(steps, it) {
         next = document.querySelector("#step_next")
 
     currentStep += it
-    localStorage.setItem("current_step", currentStep)
+    Storage.set("current_step", currentStep)
     displayStep(steps[currentStep])
 
     return currentStep
@@ -66,6 +68,7 @@ async function changeStep(steps, it) {
         next = document.querySelector("#step_next")
 
     displayStep(steps[getCurrentStep()])
+    Storage.set("steps_length", steps.length)
 
     previous.addEventListener("click", () => {
         changeStep(steps, -1)
