@@ -80,6 +80,7 @@
     <script>
         function redirect(entry) {
             localStorage.removeItem("current_step")
+            localStorage.removeItem("steps_length")
         
             if (entry === "begin") {
                 location.href = "/src/html/assembly.html"

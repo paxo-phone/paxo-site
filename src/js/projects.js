@@ -1,13 +1,14 @@
 // @Welpike
 
-import { getData } from './utils.js'
+import {getData, Storage} from './utils.js'
 
 (async function () {
     let projects = await getData("/src/js/data/projects.json"),
         projectContainer = document.querySelector("#projects_container"),
-        projectTemplate = document.querySelector("#project_template")
+        projectTemplate = document.querySelector("#project_template"),
+        lang = Storage.get("lang")
 
-    projects.forEach((project) => {
+    projects[lang]["projects"].forEach((project) => {
         let projectDiv = document.importNode(projectTemplate.content, true),
             projectTitle = projectDiv.querySelector(".card-title"),
             projectDescription = projectDiv.querySelector(".card-description"),
@@ -15,6 +16,7 @@ import { getData } from './utils.js'
 
         projectTitle.textContent = project.title
         projectDescription.textContent = project.description
+        projectLink.textContent = projects[lang]["translations"]["learn_more"]
         projectLink.setAttribute("href", project.link)
         projectContainer.appendChild(projectDiv)
     });
