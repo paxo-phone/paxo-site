@@ -1,32 +1,76 @@
-[
-  {
-    "title": "Lampe Peltier",
-    "description": "S'éclairer avec une simple diode et la chaleur de sa main ? C'est possible, avec très peu de matériel, grâce à l'effet Peltier",
-    "link": "https://github.com/paxo-rch/"
+{
+  "en": {
+    "translations": {
+      "learn_more": "Learn more..."
+    },
+    "projects": [
+      {
+        "title": "Peltier lamp",
+        "description": "Lighting up with a simple diode and the heat from your hand? It's possible, with very little equipment, thanks to the Peltier effect.",
+        "link": "https://github.com/paxo-rch/"
+      },
+      {
+        "title": "Battery tester",
+        "description": "How do we know if our batteries are still usable? Protecting the environment also means optimizing batteries: a system for assessing their charge.",
+        "link": "https://github.com/paxo-rch/"
+      },
+      {
+        "title": "Speaker",
+        "description": "Build your own powerful wired loudspeaker, based on an operational amplifier.",
+        "link": "https://github.com/paxo-rch/"
+      },
+      {
+        "title": "Electric motor",
+        "description": "A basic system for understanding the fundamentals of a rotary electric motor.",
+        "link": "https://github.com/paxo-rch/"
+      },
+      {
+        "title": "Multi-sensor environment",
+        "description": "A system that evaluates the sound, light, heat and humidity environment in a room.",
+        "link": "https://github.com/paxo-rch/"
+      },
+      {
+        "title": "Optical music transmitter",
+        "description": "Transmitting sound with light? It's possible. A simple system for transmitting music/sound over a distance of several meters (10m in the dark) via light.",
+        "link": "https://github.com/paxo-rch/"
+      }
+    ]
   },
-  {
-    "title": "Testeur de piles",
-    "description": "Comment savoir si nos piles sont encore utilisables ? Protéger l'environnement c'est aussi optimiser les piles : un système permettant d'évaluer leur charge",
-    "link": "https://github.com/paxo-rch/"
-  },
-  {
-    "title": "Enceinte",
-    "description": "Fabriquer sa propre enceinte puissante filaire, basée sur un amplificateur opérationnel.",
-    "link": "https://github.com/paxo-rch/"
-  },
-  {
-    "title": "Moteur électrique",
-    "description": "Un système basique permettant de comprendre les bases d'un moteur électrique rotatif",
-    "link": "https://github.com/paxo-rch/"
-  },
-  {
-    "title": "Multi-détecteur d'environnement",
-    "description": "Un système évaluant l'environnement sonore, lumineux, thermique et d'humidité d'une pièce",
-    "link": "https://github.com/paxo-rch/"
-  },
-  {
-    "title": "Transmetteur de musique optique",
-    "description": "Transmettre du son avec de la lumière ? C'est possible. Un système simple permettant de transmettre de la musique / le son sur une distance de plusieurs mètres (10m dans le noir) via la lumière.",
-    "link": "https://github.com/paxo-rch/"
+  "fr": {
+    "translations": {
+      "learn_more": "En savoir plus..."
+    },
+    "projects": [
+      {
+        "title": "Lampe Peltier",
+        "description": "S'éclairer avec une simple diode et la chaleur de sa main ? C'est possible, avec très peu de matériel, grâce à l'effet Peltier.",
+        "link": "https://github.com/paxo-rch/"
+      },
+      {
+        "title": "Testeur de piles",
+        "description": "Comment savoir si nos piles sont encore utilisables ? Protéger l'environnement c'est aussi optimiser les piles : un système permettant d'évaluer leur charge.",
+        "link": "https://github.com/paxo-rch/"
+      },
+      {
+        "title": "Enceinte",
+        "description": "Fabriquer sa propre enceinte puissante filaire, basée sur un amplificateur opérationnel.",
+        "link": "https://github.com/paxo-rch/"
+      },
+      {
+        "title": "Moteur électrique",
+        "description": "Un système basique permettant de comprendre les bases d'un moteur électrique rotatif.",
+        "link": "https://github.com/paxo-rch/"
+      },
+      {
+        "title": "Multi-détecteur d'environnement",
+        "description": "Un système évaluant l'environnement sonore, lumineux, thermique et d'humidité d'une pièce.",
+        "link": "https://github.com/paxo-rch/"
+      },
+      {
+        "title": "Transmetteur de musique optique",
+        "description": "Transmettre du son avec de la lumière ? C'est possible. Un système simple permettant de transmettre de la musique / le son sur une distance de plusieurs mètres (10m dans le noir) via la lumière.",
+        "link": "https://github.com/paxo-rch/"
+      }
+    ]
   }
-]
+}
