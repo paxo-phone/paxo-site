@@ -3,5 +3,3 @@ docs/site
 .idea
 .vscode
 node_modules
-src/css/styles.css
-src/css/styles.css.map
