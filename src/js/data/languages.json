@@ -1,30 +1,56 @@
 {
   "en":  {
-    "title_home": "Home",
-    "title_assembly": "Assembly",
-    "title_contribute": "Contribute",
-    "title_others": "Others",
-    "title_contact": "Contact",
-    "title_step_end": "Finish!",
+    "title_home": "Home — Paxo",
+    "title_assembly": "Assembly — Paxo",
+    "title_contribute": "Contribute — Paxo",
+    "title_others": "Others — Paxo",
+    "title_contact": "Contact — Paxo",
+    "title_step_end": "Finish! — Paxo",
     "nav_home": "Home",
     "nav_assembly": "Assembly",
     "nav_contribute": "Contribute",
     "nav_others": "Others",
     "nav_contact": "Contact",
-    "nav_gifts": "Gifts"
+    "nav_gifts": "Gifts",
+    "assembly_title": "Assembly",
+    "assembly_text": "This step-by-step tutorial shows you how to make the PaxoPhone. To build it properly, you'll need: a furnace, a soldering iron, tin, soldering paste and pliers. All set? Then get started!",
+    "assembly_btn": "Get started",
+    "contact_title": "Contact us",
+    "contact_text": "A question ? An idea ? A remark ? Don't hesitate to contact us using the form below (english version is coming).",
+
+
+
+
+    "projects_title": "Other projects",
+    "projects_text": "The Paxo project supports many of the other projects listed on this page. They are all open source, and we invite you to contribute to them!",
+    "step_end_title": "Your phone is ready!",
+    "step_end_text": "You can now enjoy of your PaxoPhone as you wish. Don't hesitate to share a picture of your installation on <a href=\"https://www.instagram.com/gabriel_rochet_paxo/\">our Instagram account</a>."
   },
   "fr": {
-    "title_home": "Accueil",
-    "title_assembly": "Montage",
-    "title_contribute": "Contribuer",
-    "title_others": "Autres",
-    "title_contact": "Contact",
-    "title_step_end": "Terminé!",
+    "title_home": "Accueil — Paxo",
+    "title_assembly": "Montage — Paxo",
+    "title_contribute": "Contribuer — Paxo",
+    "title_others": "Autres — Paxo",
+    "title_contact": "Contact — Paxo",
+    "title_step_end": "Terminé! — Paxo",
     "nav_home": "Accueil",
     "nav_assembly": "Montage",
     "nav_contribute": "Contribuer",
     "nav_others": "Autres",
     "nav_contact": "Contact",
-    "nav_gifts": "Dons"
+    "nav_gifts": "Dons",
+    "assembly_title": "Réaliser le montage",
+    "assembly_text": "Ce tutoriel présente étape par étape la fabrication du PaxoPhone. Pour pouvoir le réaliser dans de bonnes conditions, vous aurez besoin : d'un four, d'un fer à souder, d'étain, de pâte à souder et de pinces. C'est bon ? Alors commencez l'aventure !",
+    "assembly_btn": "Commencer",
+    "contact_title": "Nous contacter",
+    "contact_text": "Une question ? Une idée ? Une remarque ? N'hésitez pas à nous contacter grâce au formulaire ci-dessous.",
+
+
+
+
+    "projects_title": "Autres projets",
+    "projects_text": "Le projet Paxo porte bon nombre d'autres projets rassemblés sur cette page. Ils sont tous open source et nous vous invitons, de fait, à y contribuer !",
+    "step_end_title": "Votre montage est terminé !",
+    "step_end_text": "Vous pouvez désormais profiter de votre PaxoPhone à votre guise ! N'hésitez pas à nous envoyer une photo de votre montage sur <a href=\"https://www.instagram.com/gabriel_rochet_paxo/\">notre compte instagram</a>."
   }
 }
