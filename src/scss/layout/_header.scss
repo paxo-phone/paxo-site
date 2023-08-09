@@ -19,13 +19,28 @@
     z-index: 1;
 }
 
+.logo {
+
+transform: translateY(-300%);
+transition: all 0.5s ease;
+
+}
+
+.logo.visible {
+
+transform: translate(0);
+
+}
+
 .header .nav {
     display: none;
+    transition: all 0.5s ease;
 }
 
 @media screen and (min-width: map-get($breakpoints, lg)) {
     .header .nav {
         display: flex;
+
     }
 }
 
@@ -67,18 +82,46 @@
 
 .toggle-nav-btn {
     display: block;
-
+    transform: translateY(-300%);
     background: none;
     border: none;
     font-size: 1.5rem;
     color: inherit;
     cursor: pointer;
-
+    transition: all 0.5s ease;
     z-index: 1;
 }
 
+
 .toggle-nav-btn.active {
     color: white;
+
+}
+
+.toggle-nav-btn.visible{
+
+    transform: translate(0);
+
+}
+
+.presentation {
+
+transform: translateX(-500%);
+transition: all 0.5s ease;
+
+
+}
+
+.presentation.visible{
+
+transform: translate(0);
+
+}
+
+.presentation.invisible{
+
+opacity:0;
+
 }
 
 @media screen and (min-width: map-get($breakpoints, lg))
@@ -91,7 +134,7 @@
 .header .responsive-nav
 {
     font-size: 1.4rem;
-    display: none;
+    display: flex;
 
     justify-content: center;
     align-items: center;
@@ -106,8 +149,47 @@
     background: black;
 }
 
-.header .responsive-nav.active {
-    display: flex;
+.responsive-nav{
+
+    transform: translateX(-200%);
+    transition: all 0.5s ease;
+
+}
+
+.responsive-nav.active{
+
+transform: translateX(0);
+
+}
+
+.responsive-nav-item{
+
+opacity: 0;
+transform: translateY(-70%);
+transition: all 0.5s ease;
+
+}
+
+.responsive-nav-item.active{
+
+opacity: 1;
+transform: translate(0);
+
+}
+
+.nav-item{
+
+opacity: 0;
+transform: translateY(-200%);
+
+
+}
+
+.nav-item.visible{
+
+    opacity:1;
+    transform: translate(0);
+
 }
 
 .header .responsive-nav .responsive-nav-list {
