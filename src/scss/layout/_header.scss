@@ -2,7 +2,6 @@
 
 .header {
     position: relative; 
-
     padding: 50px 7%;
     display: flex;
     justify-content: space-between;
@@ -13,22 +12,20 @@
     font-size: 33px;
     font-weight: bold;
     text-transform: uppercase;
-
     color: inherit;
-
     z-index: 1;
 }
 
 .logo {
 
-transform: translateY(-300%);
-transition: all 0.5s ease;
+    transform: translateY(-300%);
+    transition: all 0.5s ease;
 
 }
 
 .logo.visible {
 
-transform: translate(0);
+    transform: translate(0);
 
 }
 
@@ -94,6 +91,7 @@ transform: translate(0);
 
 
 .toggle-nav-btn.active {
+
     color: white;
 
 }
@@ -106,21 +104,21 @@ transform: translate(0);
 
 .presentation {
 
-transform: translateX(-500%);
-transition: all 0.5s ease;
+    transform: translateX(-500%);
+    transition: all 0.5s ease;
 
 
 }
 
 .presentation.visible{
 
-transform: translate(0);
+    transform: translate(0);
 
 }
 
 .presentation.invisible{
 
-opacity:0;
+    opacity:0;
 
 }
 
@@ -158,29 +156,29 @@ opacity:0;
 
 .responsive-nav.active{
 
-transform: translateX(0);
+    transform: translateX(0);
 
 }
 
 .responsive-nav-item{
 
-opacity: 0;
-transform: translateY(-70%);
-transition: all 0.5s ease;
+    opacity: 0;
+    transform: translateY(-70%);
+    transition: all 0.5s ease;
 
 }
 
 .responsive-nav-item.active{
 
-opacity: 1;
-transform: translate(0);
+    opacity: 1;
+    transform: translate(0);
 
 }
 
 .nav-item{
 
-opacity: 0;
-transform: translateY(-200%);
+    opacity: 0;
+    transform: translateY(-200%);
 
 
 }
@@ -193,6 +191,7 @@ transform: translateY(-200%);
 }
 
 .header .responsive-nav .responsive-nav-list {
+
     display: flex;
     justify-content: center;
     align-items: center;

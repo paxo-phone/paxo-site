@@ -32,25 +32,27 @@ if (toggleNavBtn)
     })
 }
 
+//Animations au chargement de la page
+
 window.addEventListener('load',(e)=>{
     
- setTimeout(()=>{
+    setTimeout(()=>{
 
-    logo.classList.add('visible');
+        logo.classList.add('visible');
 
- },400)
+    },400)
 
- setTimeout(()=>{
+    setTimeout(()=>{
 
-    toggleNavBtn.classList.add('visible');
+        toggleNavBtn.classList.add('visible');
 
- },800)
+    },800)
 
- setTimeout(()=>{
+    setTimeout(()=>{
 
-    textPresentation.classList.add('visible');
+        textPresentation.classList.add('visible');
 
- },1200)
+    },1200)
   
  if(nav.style.display==="none"){
 
