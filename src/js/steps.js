@@ -14,7 +14,7 @@ function getCurrentStep() {
     return currentStep
 }
 
-function displayStep(step) {
+function displayStep(step, translations) {
     let h1 = document.querySelector("#step_title"),
         p = document.querySelector("#step_description"),
         iframe = document.querySelector("#step_video"),
@@ -23,7 +23,7 @@ function displayStep(step) {
         index = getCurrentStep() + 1,
         stepsLength = Number(Storage.get("steps_length"))
 
-    document.title = `Étape ${index} — Paxo`
+    document.title = `${translations.step} ${index} — Paxo`
     h1.textContent = `${step.title}`
     p.innerHTML = ""
     p.insertAdjacentHTML("beforeend", `<p>${step.description}</p>`)
@@ -32,31 +32,32 @@ function displayStep(step) {
     if (index === 1) {
         previous.setAttribute('onclick', 'redirect("begin")')
         next.removeAttribute('onclick')
-        previous.textContent = `Montage`
-        next.textContent = `Étape ${index + 1}`
+        previous.textContent = `${translations.assembly}`
+        next.textContent = `${translations.step} ${index + 1}`
     }
     else if (index === stepsLength) {
         next.setAttribute('onclick', 'redirect("end")')
         previous.removeAttribute('onclick')
-        previous.textContent = `Étape ${index - 1}`
-        next.textContent = `Fin`
+        previous.textContent = `${translations.step} ${index - 1}`
+        next.textContent = `${translations.end}`
     }
     else {
         next.removeAttribute('onclick')
         previous.removeAttribute('onclick')
-        previous.textContent = `Étape ${index - 1}`
-        next.textContent = `Étape ${index + 1}`
+        previous.textContent = `${translations.step} ${index - 1}`
+        next.textContent = `${translations.step} ${index + 1}`
     }
 }
 
 async function changeStep(steps, it) {
     let currentStep = getCurrentStep(),
         previous = document.querySelector("#step_previous"),
-        next = document.querySelector("#step_next")
+        next = document.querySelector("#step_next"),
+        lang = Storage.get("lang")
 
     currentStep += it
     Storage.set("current_step", currentStep)
-    displayStep(steps[currentStep])
+    displayStep(steps[lang]["steps"][currentStep], steps[lang]["translations"])
 
     return currentStep
 }
@@ -65,10 +66,11 @@ async function changeStep(steps, it) {
     const stepsUrl = "/src/js/data/steps.json"
     let steps = await getData(stepsUrl),
         previous = document.querySelector("#step_previous"),
-        next = document.querySelector("#step_next")
+        next = document.querySelector("#step_next"),
+        lang = Storage.get("lang")
 
-    displayStep(steps[getCurrentStep()])
-    Storage.set("steps_length", steps.length)
+    displayStep(steps[lang]["steps"][getCurrentStep()], steps[lang]["translations"])
+    Storage.set("steps_length", steps[lang]["steps"].length)
 
     previous.addEventListener("click", () => {
         changeStep(steps, -1)
