@@ -1,5 +1,6 @@
 {
   "en":  {
+    "learn_more": "Learn more...",
     "title_home": "Home — Paxo",
     "title_assembly": "Assembly — Paxo",
     "title_contribute": "Contribute — Paxo",
@@ -19,14 +20,19 @@
     "contact_text": "A question ? An idea ? A remark ? Don't hesitate to contact us using the form below (english version is coming).",
 
 
-
-
+    "contribute_title": "Contribute",
+    "contribute_text": "The free/open source nature of the project invites every user to contribute. On this page, you'll find documentation on how to operate the phone, as well as instructions on how to participate in this vast project.",
+    "contribute_hardware_title": "Hardware",
+    "contribute_hardware_text": "Hardware refers to the whole physical part of the phone, from the materials used to the circuitry that makes it work. The documentation linked below describes all the design details in depth.",
+    "contribute_software_title": "Software",
+    "contribute_software_text": "Software refers to the whole of the phone's software, i.e. the operating system (PaxOS) and the applications running on it. The documentation linked below describes their architecture and operation in detail.",
     "projects_title": "Other projects",
     "projects_text": "The Paxo project supports many of the other projects listed on this page. They are all open source, and we invite you to contribute to them!",
     "step_end_title": "Your phone is ready!",
     "step_end_text": "You can now enjoy of your PaxoPhone as you wish. Don't hesitate to share a picture of your installation on <a href=\"https://www.instagram.com/gabriel_rochet_paxo/\">our Instagram account</a>."
   },
   "fr": {
+    "learn_more": "En savoir plus...",
     "title_home": "Accueil — Paxo",
     "title_assembly": "Montage — Paxo",
     "title_contribute": "Contribuer — Paxo",
@@ -46,8 +52,12 @@
     "contact_text": "Une question ? Une idée ? Une remarque ? N'hésitez pas à nous contacter grâce au formulaire ci-dessous.",
 
 
-
-
+    "contribute_title": "Contribuer",
+    "contribute_text": "Le caractère libre / open source du projet invite chaque utilisateur à y contribuer. Vous trouverez sur cette page les documentations de fonctionnement du téléphone ainsi que les indications pour participer, à votre tour, à ce vaste projet.",
+    "contribute_hardware_title": "Hardware",
+    "contribute_hardware_text": "Le Hardware désigne toute la partie materielle du téléphone, aussi bien les matériaux utilisés que les circuit qui le font fonctionner. La documentation en lien ci-dessous décrit en profondeur tous les détails de la conception.",
+    "contribute_software_title": "Software",
+    "contribute_software_text": "Le software désigne toute la partie logicielle du téléphone, c'est à dire le système d'exploitation (PaxOS) et les applications qui tournent dessus. La documentation en lien ci-dessous décrit en détail leur architecture et le fonctionnement.",
     "projects_title": "Autres projets",
     "projects_text": "Le projet Paxo porte bon nombre d'autres projets rassemblés sur cette page. Ils sont tous open source et nous vous invitons, de fait, à y contribuer !",
     "step_end_title": "Votre montage est terminé !",
