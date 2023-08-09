@@ -1,0 +1,30 @@
+{
+  "en":  {
+    "title_home": "Home",
+    "title_assembly": "Assembly",
+    "title_contribute": "Contribute",
+    "title_others": "Others",
+    "title_contact": "Contact",
+    "title_step_end": "Finish!",
+    "nav_home": "Home",
+    "nav_assembly": "Assembly",
+    "nav_contribute": "Contribute",
+    "nav_others": "Others",
+    "nav_contact": "Contact",
+    "nav_gifts": "Gifts"
+  },
+  "fr": {
+    "title_home": "Accueil",
+    "title_assembly": "Montage",
+    "title_contribute": "Contribuer",
+    "title_others": "Autres",
+    "title_contact": "Contact",
+    "title_step_end": "Terminé!",
+    "nav_home": "Accueil",
+    "nav_assembly": "Montage",
+    "nav_contribute": "Contribuer",
+    "nav_others": "Autres",
+    "nav_contact": "Contact",
+    "nav_gifts": "Dons"
+  }
+}

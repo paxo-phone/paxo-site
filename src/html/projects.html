@@ -3,7 +3,7 @@
 <head>
     <meta charset="utf8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Autres — Paxo</title>
+    <title data-text="title_others">Autres — Paxo</title>
 
     <!-- css -->
     <link rel="stylesheet" href="../css/styles.css">
@@ -18,13 +18,17 @@
         <a href="home.html" class="logo">Paxo</a>
         <nav class="nav">
             <ul class="nav-list">
-                <li class="nav-item"><a class="nav-link" href="home.html">Accueil</a></li>
-                <li class="nav-item"><a class="nav-link" href="assembly.html">Montage</a></li>
-                <li class="nav-item"><a class="nav-link" href="contribute.html">Contribuer</a></li>
+                <li class="nav-item"><a class="nav-link" href="home.html" data-text="nav_home">Accueil</a></li>
+                <li class="nav-item"><a class="nav-link" href="assembly.html" data-text="nav_assembly">Montage</a></li>
+                <li class="nav-item"><a class="nav-link" href="contribute.html" data-text="nav_contribute">Contribuer</a></li>
                 <li class="nav-item"><a class="nav-link" href="https://discord.gg/84Qsp6tUSK">Discord</a></li>
-                <li class="nav-item"><a class="nav-link" href="projects.html">Autres</a></li>
-                <li class="nav-item"><a class="nav-link" href="contact.html">Contact</a></li>
-                <li class="nav-item"><a class="nav-link" href=" https://www.leetchi.com/fr/c/projet-paxo-developpement-open-source-dun-telephone-paxofr-1434151?utm_source=copylink&utm_medium=social_sharing.">Dons</a></li>
+                <li class="nav-item"><a class="nav-link" href="projects.html" data-text="nav_others">Autres</a></li>
+                <li class="nav-item"><a class="nav-link" href="contact.html" data-text="nav_contact">Contact</a></li>
+                <li class="nav-item"><a class="nav-link" href=" https://www.leetchi.com/fr/c/projet-paxo-developpement-open-source-dun-telephone-paxofr-1434151?utm_source=copylink&utm_medium=social_sharing." data-text="nav_gifts">Dons</a></li>
+                <li class="nav-item">
+                    <select id="lang">
+                    </select>
+                </li>
             </ul>
         </nav>
         
@@ -34,12 +38,17 @@
         
         <nav class="responsive-nav">
             <ul class="responsive-nav-list">
-                <li class="responsive-nav-item"><a class="responsive-nav-link" href="home.html">Accueil</a></li>
-                <li class="responsive-nav-item"><a class="responsive-nav-link" href="assembly.html">Montage</a></li>
-                <li class="responsive-nav-item"><a class="responsive-nav-link" href="contribute.html">Contribuer</a></li>
+                <li class="responsive-nav-item"><a class="responsive-nav-link" href="home.html" data-text="nav_home">Accueil</a></li>
+                <li class="responsive-nav-item"><a class="responsive-nav-link" href="assembly.html" data-text="nav_assembly">Montage</a></li>
+                <li class="responsive-nav-item"><a class="responsive-nav-link" href="contribute.html" data-text="nav_contribute">Contribuer</a></li>
                 <li class="responsive-nav-item"><a class="responsive-nav-link" href="https://discord.gg/84Qsp6tUSK">Discord</a></li>
-                <li class="responsive-nav-item"><a class="responsive-nav-link" href="projects.html">Autres</a></li>
-                <li class="responsive-nav-item"><a class="responsive-nav-link" href="contact.html">Contact</a></li>
+                <li class="responsive-nav-item"><a class="responsive-nav-link" href="projects.html" data-text="nav_others">Autres</a></li>
+                <li class="responsive-nav-item"><a class="responsive-nav-link" href="contact.html" data-text="nav_contacts">Contact</a></li>
+                <li class="responsive-nav-item"><a class="responsive-nav-link" href=" https://www.leetchi.com/fr/c/projet-paxo-developpement-open-source-dun-telephone-paxofr-1434151?utm_source=copylink&utm_medium=social_sharing." data-text="nav_gifts">Dons</a></li>
+                <li class="responsive-nav-item">
+                    <select id="lang_responsive">
+                    </select>
+                </li>
             </ul>
         </nav>
     </header>
@@ -68,6 +77,7 @@
     </template>
 
     <!-- js -->
+    <script src="/src/js/translation.js" type="module"></script>
     <script src="/src/js/projects.js" type="module"></script>
     <script src="../js/main.js"></script>
     
