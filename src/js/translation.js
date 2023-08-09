@@ -5,10 +5,18 @@ import {getData, langCode, Storage, strToEmoji} from "/src/js/utils.js"
 
 async function process(lang) {
     const TRANSLATIONS = await getData("/src/js/data/languages.json")
-    let tags = document.querySelectorAll(`[data-text]`)
+    let tags = document.querySelectorAll(`[data-text]`),
+        regex = /[a-zA-Z0-9 .,!?]+ <[a-z]/  // this regex verifies if in the text a begin of HTML tag exists
+                                                     // (e.g "<a")
 
     tags.forEach(tag => {
-        tag.innerText = TRANSLATIONS[lang][tag.getAttribute("data-text")]
+        let text = TRANSLATIONS[lang][tag.getAttribute("data-text")]
+        if (text.match(regex)) {
+            tag.innerHTML = ""
+            tag.insertAdjacentHTML("beforeend", text)
+        } else {
+            tag.innerText = text
+        }
     })
 }
 
