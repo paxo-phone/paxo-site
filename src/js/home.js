@@ -1,12 +1,12 @@
 textPresentation=document.querySelector('.presentation');
 
-window.addEventListener('load',(e)=>{
+    window.addEventListener('load',(e)=>{
 
-setTimeout(()=>{
+        setTimeout(()=>{
 
-textPresentation.classList.add('visible');
+            textPresentation.classList.add('visible');
 
-},1200)
+        },1200)
 
 
 })

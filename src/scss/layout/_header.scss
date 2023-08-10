@@ -193,14 +193,14 @@
 
 .presentation{
 
-opacity:0;
-transition: all 0.5s ease;
+    opacity:0;
+    transition: all 0.5s ease;
 
 }
 
 .presentation.visible{
 
-opacity:1;
+    opacity:1;
 
 }
 @media screen and (min-width: map-get($breakpoints, lg))
