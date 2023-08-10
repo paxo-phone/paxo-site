@@ -102,26 +102,6 @@
 
 }
 
-.presentation {
-
-    transform: translateX(-500%);
-    transition: all 0.5s ease;
-
-
-}
-
-.presentation.visible{
-
-    transform: translate(0);
-
-}
-
-.presentation.invisible{
-
-    opacity:0;
-
-}
-
 @media screen and (min-width: map-get($breakpoints, lg))
 {
     .toggle-nav-btn {
@@ -204,6 +184,25 @@
     color: white;
 }
 
+
+#lang{
+
+    text-align: center;
+
+}
+
+.presentation{
+
+opacity:0;
+transition: all 0.5s ease;
+
+}
+
+.presentation.visible{
+
+opacity:1;
+
+}
 @media screen and (min-width: map-get($breakpoints, lg))
 {
     .header .responsive-nav {
