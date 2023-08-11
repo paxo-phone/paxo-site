@@ -13,7 +13,7 @@
                 <div class="card">
                     <div class="card-title">{{ article.name }} - {{ article.newspaper }} (indexé sur ce site le {{ article.date|date:"D d M Y" }})</div>
                     <div class="card-description">{{ article.description }}</div>
-                    <a href="{{ article.link }}">En savoir plus...</a>
+                    <a href="{{ article.link }}" target="_blank">En savoir plus... (lien externe)</a>
                 </div>
             {% endfor %}
         </div>
