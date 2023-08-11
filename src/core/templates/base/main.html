@@ -1,0 +1,101 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="utf8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% block title %}{% endblock %} — Paxo</title>
+
+    <!-- css -->
+    <link rel="stylesheet" href="{% static 'css/styles.css' %}">
+
+    <!-- fontawesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" integrity="sha512-iecdLmaskl7CVkqkXNQ/ZH/XLlvWZOJyj7Yy7tcenmpD1ypASozpmT/E0iPtmFIB46ZmdtAc9eNBvH0H/ZpiBw==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+
+    <!-- Flag-icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/flag-icon-css/6.9.3/css/flag-icons.min.css" integrity="sha512-ZQKxM5Z+PmOVa/VmISvHcqlUgzPejY92+I+sur69qiB7Vd+dAaDNMwy7AnRr6HcFbYY4so1FFPBgugE5s2jm7Q==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+
+    {% block head %}{% endblock %}
+
+</head>
+<body>
+
+    <header class="header">
+        <a href="/" class="logo" style="height: 60px">
+            <img src="{% static 'img/logo.png' %}" alt="Paxo" style="height: 100%">
+        </a>
+
+        <nav class="nav">
+            <ul class="nav-list">
+                <li class="nav-item"><a class="nav-link" href="{% url 'core:index' %}">Accueil</a></li>
+                <li class="nav-item"><a class="nav-link" href="/tutorials/t/1">Montage</a></li>
+                <li class="nav-item"><a class="nav-link" href="{% url 'core:contribute' %}">Contribuer</a></li>
+                <li class="nav-item"><a class="nav-link" href="https://discord.gg/84Qsp6tUSK">Discord</a></li>
+                <li class="nav-item"><a class="nav-link" href="{% url 'tutorials:index' %}">Tutoriels</a></li>
+                <li class="nav-item"><a class="nav-link" href="{% url 'press:index' %}">Presse</a></li>
+                <li class="nav-item"><a class="nav-link" href="{% url 'projects:index' %}">Autres</a></li>
+                <li class="nav-item"><a class="nav-link" href="{% url 'core:contact' %}">Contact</a></li>
+                <li class="nav-item"><a class="nav-link" href=" https://www.leetchi.com/fr/c/projet-paxo-developpement-open-source-dun-telephone-paxofr-1434151?utm_source=copylink&utm_medium=social_sharing">Dons</a></li>
+                <li class="nav-item">
+                    <select id="lng">
+                        <option value="FR">Fr</option><!-- replace by "Français" -->
+                        <option value="EN">En</option><!-- replace by "English" -->
+                    </select>
+                </li>
+            </ul>
+        </nav>
+
+        <button class="toggle-nav-btn">
+            <i class="fa-solid fa-bars"></i>
+        </button>
+
+        <nav class="responsive-nav">
+            <ul class="responsive-nav-list">
+                <li class="responsive-nav-item"><a class="responsive-nav-link" href="{% url 'core:index' %}">Accueil</a></li>
+                <li class="responsive-nav-item"><a class="responsive-nav-link" href="/tutorials/t/1">Montage</a></li>
+                <li class="responsive-nav-item"><a class="responsive-nav-link" href="{% url 'core:contribute' %}">Contribuer</a></li>
+                <li class="responsive-nav-item"><a class="responsive-nav-link" href="https://discord.gg/84Qsp6tUSK">Discord</a></li>
+                <li class="responsive-nav-item"><a class="responsive-nav-link" href="{% url 'tutorials:index' %}">Tutorials</a></li>
+                <li class="responsive-nav-item"><a class="responsive-nav-link" href="{% url 'press:index' %}">Presse</a></li>
+                <li class="responsive-nav-item"><a class="responsive-nav-link" href="{% url 'projects:index' %}">Autres</a></li>
+                <li class="responsive-nav-item"><a class="responsive-nav-link" href="{% url 'core:contact' %}">Contact</a></li>
+                <li class="responsive-nav-item">
+                    <select id="lang_responsive">
+                        <option value="FR">Français</option>
+                        <option value="EN">English</option>
+                    </select>
+                </li>
+            </ul>
+        </nav>
+    </header>
+
+    <main>
+        {% block content %}{% endblock %}
+    </main>
+
+    <footer>
+
+        <div class="social">
+            <ul>
+                <li><a href="https://github.com/paxo-rch"><i class="fa-brands fa-square-github"></i></a></li>
+                <li><a href="https://www.instagram.com/gabriel_rochet_paxo/"><i class="fa-brands fa-square-instagram"></i></a></li>
+            </ul>
+        </div>
+
+        <ul class="footer-nav">
+            <li><a href="/tutorials/t/1">Montage</a></li>
+            <li><a href="{% url 'core:contribute' %}">Contribuer</a></li>
+            <li><a href="https://discord.gg/zRcc3RP2sF">Discord</a></li>
+            <li><a href="{% url 'tutorials:index' %}">Tutoriels</a></li>
+            <li><a href="{% url 'press:index' %}">Presse</a></li>
+            <li><a href="{% url 'projects:index' %}">Autres</a></li>
+            <li><a href="{% url 'core:contact' %}">Contact</a></li>
+            <li><a href="https://www.leetchi.com/fr/c/projet-paxo-developpement-open-source-dun-telephone-paxofr-1434151?utm_source=copylink&utm_medium=social_sharing">Dons</a></li>
+        </ul>
+
+    </footer>
+
+    <script src="{% static 'js/main.js' %}"></script>
+    {% block script %}{% endblock %}
+</body>
+</html>

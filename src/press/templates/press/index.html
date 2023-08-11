@@ -1,0 +1,22 @@
+{% extends "base/main.html" %}
+
+{% block title %}Presse{% endblock %}
+
+{% block content %}
+    <section class="container">
+
+        <p class="h1 text-center mb-2">Ce que la presse écrit sur Paxo</p>
+        <p class="lead text-center">lorem ipsum</p>
+
+        <div>
+            {% for article in articles %}
+                <div class="card">
+                    <div class="card-title">{{ article.name }} - {{ article.newspaper }} (indexé sur ce site le {{ article.date|date:"D d M Y" }})</div>
+                    <div class="card-description">{{ article.description }}</div>
+                    <a href="{{ article.link }}">En savoir plus...</a>
+                </div>
+            {% endfor %}
+        </div>
+
+    </section>
+{% endblock %}
