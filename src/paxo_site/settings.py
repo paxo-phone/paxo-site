@@ -44,6 +44,7 @@ INSTALLED_APPS = [
     'press',
     'projects',
     'tutorials',
+    'django.contrib.admindocs',
 ]
 
 MIDDLEWARE = [

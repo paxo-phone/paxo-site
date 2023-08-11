@@ -15,7 +15,12 @@ def view_tutorial(request, tutorial_id):
 
 def view_step(request, tutorial_id):
     """
-    could be an entire template or a partial for htmx
+    Welpike
+
+    Could be an entire template or a partial for htmx.
+
+    If 'HX-Request' request header is detected, this functions returns a partial (:template:`tutorials/partials/step.html`) that contains the html that will replace past step's template.
+    Otherwise, it returns the entire template (:template:`tutorials/step.html`)
     """
     tutorial = Tutorial.objects.get(id=tutorial_id)
     step = Step.objects.get(tutorial__id=tutorial_id, step_index=request.GET["index"])

@@ -6,5 +6,6 @@ urlpatterns = [
     path('press/', include('press.urls')),
     path('projects/', include('projects.urls')),
     path('tutorials/', include('tutorials.urls')),
+    path('admin/doc/', include('django.contrib.admindocs.urls')),
     path('admin/', admin.site.urls),
 ]
