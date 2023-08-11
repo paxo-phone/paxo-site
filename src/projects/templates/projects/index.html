@@ -1,0 +1,26 @@
+{% extends "base/main.html" %}
+
+{% block title %}Autres projets{% endblock %}
+
+{% block seo %}
+    <meta name="description" content="Découvrez d'autres projet signé Paxo facile à recréer.">
+{% endblock %}
+
+{% block content %}
+    <section class="container">
+
+        <p class="h1 text-center mb-2">Autres projets</p>
+        <p class="lead text-center">Le projet Paxo porte bon nombre d'autres projets rassemblés sur cette page. Ils sont tous open source et nous vous invitons, de fait, à y contribuer !</p>
+
+        <div>
+            {% for project in projects %}
+                <div class="card">
+                    <div class="card-title">{{ project.name }}</div>
+                    <div class="card-description">{{ project.description }}</div>
+                    <a href="{{ project.link }}">En savoir plus...</a>
+                </div>
+            {% endfor %}
+        </div>
+
+    </section>
+{% endblock %}
