@@ -2,6 +2,10 @@
 
 {% block title %}Tutoriel : {{ tutorial.name }}{% endblock %}
 
+{% block seo %}
+    <meta name="description" content="{{ tutorial.description }}">
+{% endblock %}
+
 {% block content %}
     <section class="container">
         <div class="card">

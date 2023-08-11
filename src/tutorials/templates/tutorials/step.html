@@ -2,6 +2,10 @@
 
 {% block title %}Tutoriel : {{ tutorial.name }}{% endblock %}
 
+{% block seo %}
+    <meta name="robots" content="noindex">
+{% endblock %}
+
 {% block head %}
     <!-- htmx -->
     <script src="https://unpkg.com/htmx.org@1.9.4"></script>
