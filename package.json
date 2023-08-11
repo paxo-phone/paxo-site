@@ -8,8 +8,8 @@
   },
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "sass-build": "sass src/scss/styles.scss src/css/styles.css",
-    "sass-watch": "sass src/scss/styles.scss src/css/styles.css --watch"
+    "sass-build": "sass src/core/static/scss/styles.scss src/core/static/css/styles.css",
+    "sass-watch": "sass src/core/static/scss/styles.scss src/core/static/css/styles.css --watch"
   },
   "author": "",
   "license": "MIT",

@@ -2,4 +2,11 @@
 docs/site
 .idea
 .vscode
+
 node_modules
+src/core/static/css/styles.css
+src/core/static/css/styles.css.map
+
+.env
+venv
+src/db.sqlite3

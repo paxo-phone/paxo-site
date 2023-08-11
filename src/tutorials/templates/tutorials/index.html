@@ -1,0 +1,26 @@
+{% extends "base/main.html" %}
+
+{% block title %}Tutoriels{% endblock %}
+
+{% block seo %}
+    <meta name="description" content="lorem ipsum">
+{% endblock %}
+
+{% block content %}
+    <section class="container">
+
+        <p class="h1 text-center mb-2">Tutoriels</p>
+        <p class="lead text-center">lorem ipsum</p>
+
+        <div>
+            {% for tutorial in tutorials %}
+                <div class="card">
+                    <div class="card-title">{{ tutorial.name }} - {{ tutorial.user.username }} ({{ tutorial.date_created|date:"D d M Y" }})</div>
+                    <div class="card-description">{{ tutorial.description }}</div>
+                    <a href="{% url 'tutorials:view_tutorial' tutorial.id %}">En savoir plus...</a>
+                </div>
+            {% endfor %}
+        </div>
+
+    </section>
+{% endblock %}

@@ -1,0 +1,62 @@
+/* base */
+
+*, ::before, ::after {
+    box-sizing: border-box;
+}
+
+html, body {
+    background: $bg-color;
+    color: $fg-color;
+    font-family: $body-font-family;
+    font-size: $body-font-size;
+}
+
+@media screen and (min-width: map-get($breakpoints, md)) {
+    html, body {
+        font-size: 1.25 * $body-font-size;
+    }
+    
+}
+
+img {
+    max-width: 100%;
+}
+
+a {
+    text-decoration: none;
+    color: blue;
+    word-wrap: break-word;
+}
+
+p {
+    line-height: 1.3em;
+}
+
+iframe {
+    width: 100%;
+}
+
+blockquote
+{
+    position: relative;
+
+    font-size: 1.2rem;
+    line-height: 1.5em;
+    margin-bottom: 1rem;
+}
+
+@media screen and (min-width: map-get($breakpoints, sm)) {
+    blockquote {
+        font-size: 1.5rem;
+    }
+}
+
+cite
+{
+    width: 100%;
+    display: flex;
+    justify-content: flex-end;
+    color: gray;
+    font-size: 1.1rem;
+    margin-bottom: 3rem;
+}

@@ -1,0 +1,12 @@
+/* container */
+
+.container {
+    padding: 3% 7%;
+}
+
+@media screen and (min-width: map-get($breakpoints, sm))
+{
+    .container {
+        padding: 5% 10%;
+    }
+}

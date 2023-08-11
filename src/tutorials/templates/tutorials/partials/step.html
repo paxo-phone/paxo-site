@@ -1,0 +1,21 @@
+<h1 class="h2 mb-2">{{ step.name }}</h1>
+<p class="lead mb-2">{{ step.content }}</p>
+
+<iframe src="{{ step.video_url }}" class="mb-2" width="727" height="409" title="" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
+
+<div class="flex justify-between align-center">
+    <button
+            id="step_previous"
+            class="btn"
+            {{ step.get_past_link }}
+            hx-target="#step_container">
+        {{ step.get_past_msg }}
+    </button>
+    <button
+            id="step_next"
+            class="btn"
+            {{ step.get_future_link }}
+            hx-target="#step_container">
+        {{ step.get_future_msg }}
+    </button>
+</div>
