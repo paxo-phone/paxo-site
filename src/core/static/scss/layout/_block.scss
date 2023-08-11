@@ -1,0 +1,18 @@
+/* block */
+
+.block {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    
+    padding: 15% 10%;
+}
+
+@media screen and (min-width: map-get($breakpoints, md))
+{
+    .block {
+        padding: 10%;
+        flex-direction: row;
+    }
+}
