@@ -1,12 +1,7 @@
-.DS_Store
-docs/site
-.idea
-.vscode
-
 node_modules
-src/core/static/css/styles.css
-src/core/static/css/styles.css.map
-
+build
+coverage
+.vscode
+.DS_STORE
 .env
-venv
-src/db.sqlite3
+tmp
