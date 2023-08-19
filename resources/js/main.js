@@ -1,3 +1,5 @@
+import "../css/styles.css"
+
 const logo=document.querySelector('.logo')
 const toggleNavBtn=document.querySelector('.toggle-nav-btn')
 const responsiveNavItems=document.querySelectorAll('.responsive-nav-item');
@@ -9,7 +11,7 @@ if (toggleNavBtn)
     toggleNavBtn.addEventListener("click", (e) =>
     {
         let responsiveNav = document.querySelector(".responsive-nav")
-        
+
         responsiveNavItems.forEach((responsiveNavItem, index)=>{
 
             setTimeout(()=>{
@@ -33,7 +35,7 @@ if (toggleNavBtn)
 //Animations au chargement de la page
 
 window.addEventListener('load',(e)=>{
-    
+
     setTimeout(()=>{
 
         logo.classList.add('visible');
@@ -46,7 +48,7 @@ window.addEventListener('load',(e)=>{
 
     },800)
 
-  
+
  if(nav.style.display==="none"){
 
 

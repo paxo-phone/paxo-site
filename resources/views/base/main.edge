@@ -7,14 +7,13 @@
 
     @!section('seo')
 
-    <!-- css -->
-    <link rel="stylesheet" href="/assets/css/styles.css">
+    @entryPointStyles('main')
 
     <!-- fontawesome -->
-    <link rel="stylesheet" href="/assets/vendor/fontawesome/all.min.css" />
+    <link rel="stylesheet" href="/vendor/fontawesome/all.min.css" />
 
     <!-- Flag-icons -->
-    <link rel="stylesheet" href="/assets/vendor/flag-icon-css/flag-icons.min.css" />
+    <link rel="stylesheet" href="/vendor/flag-icon-css/flag-icons.min.css" />
 
     @!section('head')
 
@@ -110,7 +109,8 @@
 
     </footer>
 
-    <script src="/assets/js/main.js"></script>
+    @entryPointScripts('main')
+
     @!section('script')
 </body>
 </html>
