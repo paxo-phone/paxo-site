@@ -63,11 +63,8 @@ export default class UsersController {
 
     public async dashboard({ auth, view }) {
         const user = auth.use('web').user
-
-        if(user){
-            return view.render("users/dashboard", {
-                user: user
-            })
-        }
+        return view.render("users/dashboard", {
+            user: user
+        })
     }
 }

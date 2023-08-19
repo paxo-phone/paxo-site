@@ -24,6 +24,7 @@ Route.group(() => {
   Route.get('/', 'CoreController.index')
   Route.get('/contact', 'CoreController.contact')
   Route.get('/contribute', 'CoreController.contribute')
+  Route.get('/projects', 'CoreController.projects')
 }).prefix('/')
 
 Route.group(() => {
@@ -42,3 +43,11 @@ Route.group(() => {
     .middleware('auth')
     .as('users.dashboard')
 }).prefix('/users')
+
+Route.group(() => {
+  Route.get('/', 'AdminController.index')
+    .as("adminPanel.index")
+
+})
+  .middleware('auth')
+  .prefix('/admin-panel')
