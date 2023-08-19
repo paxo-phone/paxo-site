@@ -1,0 +1,30 @@
+/* banner */
+
+.banner {
+    padding: 1rem;
+
+    background-color: black;
+    color: #fff;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 1rem;
+}
+
+.banner a {
+    color: inherit;
+    text-decoration: underline;
+}
+
+.banner-alert
+{
+    color: white;
+    background: #dc3545;
+}
+
+.banner-success
+{
+    color: #fff;
+    background: #00d97e;
+}
