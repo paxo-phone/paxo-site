@@ -1,0 +1,15 @@
+@!layout('base/main')
+
+@section('title')
+  Log in
+@endsection
+
+@section('content')
+  <form method="post" enctype="multipart/form-data">
+      <input type="email" name="email" placeholder="Email" required>
+      <input type="password" name="password" placeholder="Password" required>
+
+      <button type="submit">Log in</button>
+      <p>You don't have an account yet? <a href="{{ route('users.register') }}">Register</a></p>
+  </form>
+@endsection

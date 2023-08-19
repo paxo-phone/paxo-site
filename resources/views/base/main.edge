@@ -71,6 +71,20 @@
     </header>
 
     <main>
+        <!-- flash notifications -->
+        @if(flashMessages.has('success'))
+          <div class="banner banner-success">
+              <p>{{ flashMessages.get('success') }}</p>
+          </div>
+        @endif
+
+        @if(flashMessages.has('error'))
+          <div class="banner banner-alert">
+              <p>{{ flashMessages.get('error') }}</p>
+          </div>
+        @endif
+        <!-- / flash notifications -->
+
         @!section('content')
     </main>
 

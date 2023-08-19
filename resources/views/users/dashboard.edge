@@ -1,0 +1,16 @@
+@!layout('base/main')
+
+@section('title')
+Dashboard
+@endsection
+
+@section('content')
+<h1>Hi, {{ user.username }}</h1>
+<p>Email: {{ user.email }}</p>
+<p>Type: {{ user.type }}</p>
+
+<form action="{{ route('users.logoutProcess') }}" method="post">
+  <button>Log out</button>
+</form>
+
+@endsection

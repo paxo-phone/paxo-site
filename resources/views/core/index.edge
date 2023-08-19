@@ -61,7 +61,7 @@
 <section class="flex justify-center align-center mb-4">
     <div class="flex align-center gap-3" style="padding-inline: 68px">
         <div class="flex flex-col">
-            <p class="text-center" style="font-size: 16px;padding: 40px">Il y a trois ans j'ai commencé le projet Paxo afin de créer des appareils utiles, pouvant être réalisés par chacun (DIY - "Do It Yourself") sur un modèle open-source (Libre de Droit), en optimisant les composants de manière à préserver la planète le plus possible! A 15 ans j'avais réalisé mon premier téléphone fonctionnel (j'en ai maintenant 16). Les circuits électroniques, le code des logiciels et les modèles d'impression 3D que j'ai conçus sont tous disponibles via ce site. Avec cette approche j'espère que chacun aura l'envie de réaliser et partager ses propres inventions! Si vous voulez partager vos idées, vous pouvez me contacter <a href="{% url 'core:contact' %}">ici</a>, ou ici (<a href="https://www.instagram.com/gabriel_rochet_paxo/" target="_blank">instagram</a>)</p>
+            <p class="text-center" style="font-size: 16px;padding: 40px">Il y a trois ans j'ai commencé le projet Paxo afin de créer des appareils utiles, pouvant être réalisés par chacun (DIY - "Do It Yourself") sur un modèle open-source (Libre de Droit), en optimisant les composants de manière à préserver la planète le plus possible! A 15 ans j'avais réalisé mon premier téléphone fonctionnel (j'en ai maintenant 16). Les circuits électroniques, le code des logiciels et les modèles d'impression 3D que j'ai conçus sont tous disponibles via ce site. Avec cette approche j'espère que chacun aura l'envie de réaliser et partager ses propres inventions! Si vous voulez partager vos idées, vous pouvez me contacter <a href="/contact">ici</a>, ou ici (<a href="https://www.instagram.com/gabriel_rochet_paxo/" target="_blank">instagram</a>)</p>
 
             <h2 class="h3 text-center">
                 Gabriel Rochet
@@ -74,7 +74,7 @@
 
 
 <!-- Libre -->
-<section class="block justify-center md:justify-end h-50 md:h-80" style="background-image: url(/static/img/code.jpeg);">
+<section class="block justify-center md:justify-end h-50 md:h-80" style="background-image: url(/assets/img/code.jpeg);">
 
     <div class="md:w-50 text-white flex flex-col gap-2">
         <h2 class="h1">Libre</h2>
@@ -83,7 +83,7 @@
 
         <p>Cette dimension libre du projet accorde un place centrale à la communautée. Par ses contributions, elle aide à faire  évoluer le projet.</p>
 
-        <a class="btn btn-white btn-inverted" href="contribute.html">Contribuer</a>
+        <a class="btn btn-white btn-inverted" href="/contribute">Contribuer</a>
     </div>
 
 </section>
@@ -99,7 +99,7 @@
 </section>
 
 <!-- Pédagogique -->
-<section class="block justify-center md:justify-end h-50 md:h-80" style="background-image: url(/static/img/ecology.jpeg);">
+<section class="block justify-center md:justify-end h-50 md:h-80" style="background-image: url(/assets/img/ecology.jpeg);">
 
     <div class="md:w-50 text-white flex flex-col gap-2">
         <h2 class="h1">Pédagogique</h2>
@@ -124,7 +124,7 @@
 @endsection
 
 @section('script')
-<script src="/static/js/home.js"></script>
+<script src="/assets/js/home.js"></script>
 <script>
     // nav bg
     let header = document.querySelector(".header")
