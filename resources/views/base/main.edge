@@ -3,7 +3,10 @@
 <head>
     <meta charset="utf8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>@!section('title')</title>
+    <title>
+      @!section('title')
+      | Paxo
+    </title>
 
     @!section('seo')
 
@@ -27,14 +30,14 @@
 
         <nav class="nav">
             <ul class="nav-list">
-                <li class="nav-item"><a class="nav-link" href="">Accueil</a></li>
+                <li class="nav-item"><a class="nav-link" href="/">Accueil</a></li>
                 <li class="nav-item"><a class="nav-link" href="/tutorials/t/1">Montage</a></li>
-                <li class="nav-item"><a class="nav-link" href="">Contribuer</a></li>
+                <li class="nav-item"><a class="nav-link" href="/contribute">Contribuer</a></li>
                 <li class="nav-item"><a class="nav-link" href="https://discord.gg/84Qsp6tUSK">Discord</a></li>
                 <li class="nav-item"><a class="nav-link" href="">Tutoriels</a></li>
                 <li class="nav-item"><a class="nav-link" href="">Presse</a></li>
-                <li class="nav-item"><a class="nav-link" href="">Autres</a></li>
-                <li class="nav-item"><a class="nav-link" href="">Contact</a></li>
+                <li class="nav-item"><a class="nav-link" href="/projects">Autres</a></li>
+                <li class="nav-item"><a class="nav-link" href="/contact">Contact</a></li>
                 <li class="nav-item"><a class="nav-link" href=" https://www.leetchi.com/fr/c/projet-paxo-developpement-open-source-dun-telephone-paxofr-1434151?utm_source=copylink&utm_medium=social_sharing">Dons</a></li>
                 <li class="nav-item">
                     <select id="lng">
@@ -51,14 +54,14 @@
 
         <nav class="responsive-nav">
             <ul class="responsive-nav-list">
-                <li class="responsive-nav-item"><a class="responsive-nav-link" href="">Accueil</a></li>
+                <li class="responsive-nav-item"><a class="responsive-nav-link" href="/">Accueil</a></li>
                 <li class="responsive-nav-item"><a class="responsive-nav-link" href="/tutorials/t/1">Montage</a></li>
-                <li class="responsive-nav-item"><a class="responsive-nav-link" href="">Contribuer</a></li>
+                <li class="responsive-nav-item"><a class="responsive-nav-link" href="/contribute">Contribuer</a></li>
                 <li class="responsive-nav-item"><a class="responsive-nav-link" href="https://discord.gg/84Qsp6tUSK">Discord</a></li>
                 <li class="responsive-nav-item"><a class="responsive-nav-link" href="">Tutorials</a></li>
                 <li class="responsive-nav-item"><a class="responsive-nav-link" href="">Presse</a></li>
-                <li class="responsive-nav-item"><a class="responsive-nav-link" href="">Autres</a></li>
-                <li class="responsive-nav-item"><a class="responsive-nav-link" href="">Contact</a></li>
+                <li class="responsive-nav-item"><a class="responsive-nav-link" href="/projects">Autres</a></li>
+                <li class="responsive-nav-item"><a class="responsive-nav-link" href="/contact">Contact</a></li>
                 <li class="responsive-nav-item">
                     <select id="lang_responsive">
                         <option value="FR">Français</option>
@@ -70,19 +73,7 @@
     </header>
 
     <main>
-        <!-- flash notifications -->
-        @if(flashMessages.has('success'))
-          <div class="banner banner-success">
-              <p>{{ flashMessages.get('success') }}</p>
-          </div>
-        @endif
-
-        @if(flashMessages.has('error'))
-          <div class="banner banner-alert">
-              <p>{{ flashMessages.get('error') }}</p>
-          </div>
-        @endif
-        <!-- / flash notifications -->
+        @!include('components/flash')
 
         @!section('content')
     </main>
@@ -98,12 +89,12 @@
 
         <ul class="footer-nav">
             <li><a href="/tutorials/t/1">Montage</a></li>
-            <li><a href="">Contribuer</a></li>
+            <li><a href="/contribute">Contribuer</a></li>
             <li><a href="https://discord.gg/zRcc3RP2sF">Discord</a></li>
             <li><a href="">Tutoriels</a></li>
             <li><a href="">Presse</a></li>
-            <li><a href="">Autres</a></li>
-            <li><a href="">Contact</a></li>
+            <li><a href="/projects">Autres</a></li>
+            <li><a href="/contact">Contact</a></li>
             <li><a href="https://www.leetchi.com/fr/c/projet-paxo-developpement-open-source-dun-telephone-paxofr-1434151?utm_source=copylink&utm_medium=social_sharing">Dons</a></li>
         </ul>
 
