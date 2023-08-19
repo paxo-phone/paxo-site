@@ -7,6 +7,16 @@
       "js": [
         "http://localhost:8080/assets/main.js"
       ]
+    },
+    "home": {
+      "js": [
+        "http://localhost:8080/assets/home.js"
+      ]
+    },
+    "utils": {
+      "js": [
+        "http://localhost:8080/assets/utils.js"
+      ]
     }
   }
 }

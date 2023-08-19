@@ -16,7 +16,7 @@
 @endsection
 
 @section('content')
-<section class="block h-80" style="background-image: url(/assets/img/nature.jpeg); ">
+<section class="block h-80" style="background-image: url(/img/nature.jpeg); ">
     <h1 style="max-width: 370px" class="h1 text-center text-white presentation">Un téléphone libre, modulaire et pédagogique.</h1>
 </section>
 
@@ -68,13 +68,13 @@
                 <a href="https://www.01net.com/actualites/gabriel-16-ans-createur-du-telephone-a-30-euros-tout-le-monde-a-un-smartphone-mais-personne-ne-sait-comment-il-fonctionne.html" target="_blank" style="font-size: 16px;padding-left: 20px">En savoir plus...</a>
             </h2>
         </div>
-        <img src="/assets/img/gabriel.png" alt="Gabriel Rochet" style="width: 16.6666666667%;">
+        <img src="/img/gabriel.png" alt="Gabriel Rochet" style="width: 16.6666666667%;">
     </div>
 </section>
 
 
 <!-- Libre -->
-<section class="block justify-center md:justify-end h-50 md:h-80" style="background-image: url(/assets/img/code.jpeg);">
+<section class="block justify-center md:justify-end h-50 md:h-80" style="background-image: url(/img/code.jpeg);">
 
     <div class="md:w-50 text-white flex flex-col gap-2">
         <h2 class="h1">Libre</h2>
@@ -99,7 +99,7 @@
 </section>
 
 <!-- Pédagogique -->
-<section class="block justify-center md:justify-end h-50 md:h-80" style="background-image: url(/assets/img/ecology.jpeg);">
+<section class="block justify-center md:justify-end h-50 md:h-80" style="background-image: url(/img/ecology.jpeg);">
 
     <div class="md:w-50 text-white flex flex-col gap-2">
         <h2 class="h1">Pédagogique</h2>
@@ -115,16 +115,17 @@
 <section class="gallery">
 
     <div class="gallery-grid">
-        <img src="/assets/img/paxo-1.jpeg" alt="Image du téléphone de face posé verticalement sur une table en bois" srcset="">
-        <img src="/assets/img/paxo-2.jpeg" alt="Image du téléphone de face posé horizontalement sur une table en bois" srcset="">
-        <img src="/assets/img/paxo-3.jpeg" alt="Image du téléphone tenu dans une main" srcset="">
+        <img src="/img/paxo-1.jpeg" alt="Image du téléphone de face posé verticalement sur une table en bois" srcset="">
+        <img src="/img/paxo-2.jpeg" alt="Image du téléphone de face posé horizontalement sur une table en bois" srcset="">
+        <img src="/img/paxo-3.jpeg" alt="Image du téléphone tenu dans une main" srcset="">
     </div>
 
 </section>
 @endsection
 
 @section('script')
-<script src="/assets/js/home.js"></script>
+@entryPointScripts('home')
+
 <script>
     // nav bg
     let header = document.querySelector(".header")

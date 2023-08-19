@@ -1,13 +1,6 @@
 {
   "assets/main.css": "http://localhost:8080/assets/main.css",
   "assets/main.js": "http://localhost:8080/assets/main.js",
-  "assets/img/gabriel.png": "http://localhost:8080/assets/img/gabriel.8cba88f5.png",
-  "assets/img/paxo-1.jpeg": "http://localhost:8080/assets/img/paxo-1.40e8b5ba.jpeg",
-  "assets/img/nature.jpeg": "http://localhost:8080/assets/img/nature.cf20109f.jpeg",
-  "assets/img/code.jpeg": "http://localhost:8080/assets/img/code.958eff3d.jpeg",
-  "assets/img/paxo-2.jpeg": "http://localhost:8080/assets/img/paxo-2.367ba6d2.jpeg",
-  "assets/img/minimaliste.jpg": "http://localhost:8080/assets/img/minimaliste.949c4d06.jpg",
-  "assets/img/paxo-3.jpeg": "http://localhost:8080/assets/img/paxo-3.f7189955.jpeg",
-  "assets/img/logo.png": "http://localhost:8080/assets/img/logo.28d9b3df.png",
-  "assets/img/ecology.jpeg": "http://localhost:8080/assets/img/ecology.58cd2596.jpeg"
+  "assets/home.js": "http://localhost:8080/assets/home.js",
+  "assets/utils.js": "http://localhost:8080/assets/utils.js"
 }
