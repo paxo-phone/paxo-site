@@ -22,10 +22,10 @@ import Route from '@ioc:Adonis/Core/Route'
 
 Route.group(() => {
   Route.get('/', 'CoreController.index')
-  Route.get('/contact', 'CoreController.contact')
-  Route.get('/contribute', 'CoreController.contribute')
-  Route.get('/projects', 'CoreController.projects')
-}).prefix('/')
+  Route.get('contact', 'CoreController.contact')
+  Route.get('contribute', 'CoreController.contribute')
+  Route.get('projects', 'CoreController.projects')
+})
 
 Route.group(() => {
   Route.get('/register', 'UsersController.register')

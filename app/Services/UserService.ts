@@ -1,10 +1,12 @@
+import type { HttpContextContract } from '@ioc:Adonis/Core/HttpContext'
 import User from "App/Models/User";
 
 export class UserService {
   private fields: Array<string> = ['id', 'username', 'email', 'type', 'createdAt', 'updatedAt']
   private updateFields: Array<string> = ['username', 'email']
 
-  public async create(data: object) {
+  public async create(request: HttpContextContract['request']) {
+    const data = request.all()
     let user = await User.create(data)
     await user.save()
     return user
@@ -35,8 +37,9 @@ export class UserService {
     })
   }
 
-  public async update(id: number, data: object) {
+  public async update(id: number, request: HttpContextContract['request']) {
     let user = await User.findOrFail(id)
+    const data = request.body()
 
     Object.entries(data).forEach(([key, value]) => {
       user[key] = value

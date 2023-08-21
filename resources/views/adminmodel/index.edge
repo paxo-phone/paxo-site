@@ -8,7 +8,9 @@ Admin panel - {{ model }}
 <h1>Admin panel - {{ model }}</h1>
 
 <div>
-  <a href="{{ route('adminPanel.model.create', {model: model}) }}">Create</a>
+  @if(model !== "users")
+    <a  href="{{ route('adminPanel.model.create', {model: model}) }}">Create</a>
+  @endif
 </div>
 
 <div>

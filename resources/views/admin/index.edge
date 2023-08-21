@@ -6,4 +6,10 @@
 
 @section('content')
 <h1>Admin panel</h1>
+
+<ul>
+  @each(model in models)
+    <li><a href="{{ route('adminPanel.model.index', {model: model}) }}">{{ model }}</a></li>
+  @endeach
+</ul>
 @endsection

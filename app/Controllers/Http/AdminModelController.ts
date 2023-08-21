@@ -19,6 +19,11 @@ interface InteractInterface {
 
 @inject()
 export default class AdminModelController {
+  private MODELS: object = {
+    "projects": this.projectService,
+    "users": this.userService
+  }
+
   constructor(
     private projectService: ProjectService,
     private userService: UserService
@@ -72,7 +77,7 @@ export default class AdminModelController {
     let interactParams: InteractInterface = {
       model: params['model'],
       callback: async (params) => {
-        const item = await params["service"].create(request.body())
+        const item = await params["service"].create(request)
 
         return response.redirect().toRoute('adminPanel.model.view', {
           model: params['model'],
@@ -137,11 +142,17 @@ export default class AdminModelController {
     return await this.interact(interactParams)
   }
 
-  public async updateProcess({ params, response, request }: HttpContextContract) {
+  public async updateProcess({ bouncer, params, response, request }: HttpContextContract) {
     let interactParams: InteractInterface = {
       model: params['model'],
       callback: async (params) => {
-        await params["service"].update(Number(params['id']), request.body())
+        if (params['service']["fields"].includes('username')) {  // if user is editing a User, change the authorize rule (custom rule for user editing)
+          await params['bouncer'].authorize('editUserOnAdminPanel', params["service"].read(Number(params['id'])))
+        } else {
+          await params['bouncer'].authorize('editModelOnAdminPanel', params["service"].read(Number(params['id'])))
+        }
+
+        await params["service"].update(Number(params['id']), request)
 
         return response.redirect().toRoute('adminPanel.model.view', {
           model: params['model'],
@@ -152,7 +163,8 @@ export default class AdminModelController {
         service: undefined,
         model: params['model'],
         id: params['id'],
-        request: request
+        request: request,
+        bouncer: bouncer
       },
       response: response
     }
@@ -182,10 +194,16 @@ export default class AdminModelController {
     return await this.interact(interactParams)
   }
 
-  public async deleteProcess({ params, response }: HttpContextContract) {
+  public async deleteProcess({ bouncer, params, response }: HttpContextContract) {
     let interactParams: InteractInterface = {
       model: params['model'],
       callback: async (params) => {
+        if (params['service']["fields"].includes('username')) {  // if user is editing a User, change the authorize rule (custom rule for user editing)
+          await params['bouncer'].authorize('editUserOnAdminPanel', params["service"].read(Number(params['id'])))
+        } else {
+          await params['bouncer'].authorize('editModelOnAdminPanel', params["service"].read(Number(params['id'])))
+        }
+
         await params["service"].delete(Number(params['id']))
 
         return response.redirect().toRoute('adminPanel.model.index', {model: params['model']})
@@ -193,7 +211,8 @@ export default class AdminModelController {
       callbackParams: {
         service: undefined,
         model: params['model'],
-        id: params['id']
+        id: params['id'],
+        bouncer: bouncer
       },
       response: response
     }
@@ -209,14 +228,8 @@ export default class AdminModelController {
   private async interact(
     params: InteractInterface
   ) {
-
-    const models = {
-      "projects": this.projectService,
-      "users": this.userService
-    }
-
-    if (params.model in models) {
-      params.callbackParams['service'] = models[params.model]
+    if (params.model in this.MODELS) {
+      params.callbackParams['service'] = this.MODELS[params.model]
       return params.callback(params.callbackParams)
     } else {
       return params.response.status(404)

@@ -1,10 +1,13 @@
+import type { HttpContextContract } from '@ioc:Adonis/Core/HttpContext'
 import Project from "App/Models/Project";
 
 export class ProjectService {
   private fields: Array<string> = ['id', 'name', 'description', 'link', 'createdAt', 'updatedAt']
   private updateFields: Array<string> = ['name', 'description', 'link']
 
-  public async create(data: object) {
+  public async create(request: HttpContextContract['request']) {
+    const data = request.all()
+
     let project = await Project.create(data)
     await project.save()
     return project
@@ -35,8 +38,9 @@ export class ProjectService {
     })
   }
 
-  public async update(id: number, data: object) {
+  public async update(id: number, request: HttpContextContract['request']) {
     let project = await Project.findOrFail(id)
+    const data = request.all()
 
     Object.entries(data).forEach(([key, value]) => {
       project[key] = value
