@@ -1,0 +1,17 @@
+@!layout('base/main')
+
+@section('title')
+Admin panel - {{ model }} / create
+@endsection
+
+@section('content')
+<h1>Admin panel - {{ model }} / create</h1>
+
+<form method="post">
+  @each((field_value, field_name) in fields)
+    <label>{{ field_name }}</label>
+    <input type="{{ field_name === 'password' ? 'password' : 'text' }}" name="{{ field_name }}" value="{{ field_value }}">
+  @endeach
+  <button type="submit">Save</button>
+</form>
+@endsection

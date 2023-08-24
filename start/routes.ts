@@ -22,9 +22,10 @@ import Route from '@ioc:Adonis/Core/Route'
 
 Route.group(() => {
   Route.get('/', 'CoreController.index')
-  Route.get('/contact', 'CoreController.contact')
-  Route.get('/contribute', 'CoreController.contribute')
-}).prefix('/')
+  Route.get('contact', 'CoreController.contact')
+  Route.get('contribute', 'CoreController.contribute')
+  Route.get('projects', 'CoreController.projects')
+})
 
 Route.group(() => {
   Route.get('/register', 'UsersController.register')
@@ -42,3 +43,29 @@ Route.group(() => {
     .middleware('auth')
     .as('users.dashboard')
 }).prefix('/users')
+
+Route.group(() => {
+  Route.get('/', 'AdminController.index')
+    .as("adminPanel.index")
+
+  Route.get('/:model', 'AdminModelController.index')
+    .as("adminPanel.model.index")
+
+  Route.get('/:model/i/:id', 'AdminModelController.view')
+    .as("adminPanel.model.view")
+
+
+  Route.get('/:model/create', 'AdminModelController.create')
+    .as("adminPanel.model.create")
+  Route.post('/:model/create', 'AdminModelController.createProcess')
+
+  Route.get('/:model/i/:id/update', 'AdminModelController.update')
+    .as("adminPanel.model.update")
+  Route.post('/:model/i/:id/update', 'AdminModelController.updateProcess')
+
+  Route.get('/:model/i/:id/delete', 'AdminModelController.delete')
+    .as("adminPanel.model.delete")
+  Route.post('/:model/i/:id/delete', 'AdminModelController.deleteProcess')
+})
+  .middleware('auth')
+  .prefix('/admin-panel')

@@ -9,7 +9,7 @@ export default class User extends BaseModel {
   @column()
   public username: string
 
-  @column({ serializeAs: null })
+  @column()
   public email: string
 
   @column()
