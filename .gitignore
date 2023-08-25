@@ -6,5 +6,5 @@ coverage
 .env
 tmp
 
-./resources/css/styles.css
-./resources/css/styles.css.map
+resources/css/styles.css
+resources/css/styles.css.map

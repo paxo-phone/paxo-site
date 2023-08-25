@@ -14,7 +14,7 @@ export default class UsersController {
      * Like user type
      */
     public async store({ auth, request, response, session }: HttpContextContract) {
-      const validator = schema.create({
+      /*const validator = schema.create({
         username: schema.string({}, [
           rules.regex(/^[a-zA-Z0-9]+$/),  // all upper and lower case + all figures
           rules.unique({ table: 'users', column: 'username' })
@@ -34,7 +34,9 @@ export default class UsersController {
 
       session.flash({success: 'Account created successfully. Welcome!'})
 
-      return response.redirect().toRoute('users.dashboard')
+      return response.redirect().toRoute('users.dashboard')*/
+      session.flash({error: "501 : Not implemented"})
+      return response.redirect().toPath('/')
     }
 
     public async login({ view }: HttpContextContract) {
