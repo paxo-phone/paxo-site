@@ -28,6 +28,14 @@ Route.group(() => {
 })
 
 Route.group(() => {
+  Route.get('/', 'TutorialsController.index').as('tutorials.index')
+  Route.get('/t/:id', 'TutorialsController.viewTutorial').as('tutorials.viewTutorial')
+  Route.get('/t/:id/view', 'TutorialsController.viewStep').as('tutorials.viewStep')
+  Route.get('/t/:id/end', 'TutorialsController.stepEnd').as('tutorials.stepEnd')
+})
+  .prefix('/tutorials')
+
+Route.group(() => {
   Route.get('/register', 'UsersController.register')
     .as('users.register')
   Route.post('/register', 'UsersController.store')

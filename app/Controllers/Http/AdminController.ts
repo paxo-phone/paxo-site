@@ -3,7 +3,9 @@ import type { HttpContextContract } from '@ioc:Adonis/Core/HttpContext'
 export default class AdminController {
   private MODELS: Array<string> = [
     "users",
-    "projects"
+    "projects",
+    "tutorials",
+    "steps"
   ]
 
   public async index({ bouncer, view }: HttpContextContract) {

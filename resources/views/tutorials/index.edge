@@ -1,0 +1,29 @@
+@!layout('base/main')
+
+@section('title')
+  Tutoriels
+@endsection
+
+@section('seo')
+<meta name="description" content="Vous trouverez les tutos pour la conception du PaxoPhone ainsi que les autres projets signé Paxo.">
+<meta name="robots" content="index">
+@endsection
+
+@section('content')
+<section class="container">
+
+  <p class="h1 text-center mb-2">Tutoriels</p>
+  <p class="lead text-center">lorem ipsum</p>
+
+  <div>
+    @each(tutorial in tutorials)
+      <div class="card">
+        <div class="card-title">{{ tutorial.name }} - {{ tutorial.user.username }} ({{ tutorial.createdAt }})</div>
+        <div class="card-description">{{ tutorial.description }}</div>
+        <a href="{{ route('tutorials.viewTutorial', {id: tutorial.id}) }}">En savoir plus...</a>
+      </div>
+    @endeach
+  </div>
+
+</section>
+@endsection
