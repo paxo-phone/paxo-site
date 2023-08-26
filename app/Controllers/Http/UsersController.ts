@@ -1,4 +1,7 @@
 import type { HttpContextContract } from '@ioc:Adonis/Core/HttpContext'
+//import { schema, rules } from '@ioc:Adonis/Core/Validator'
+
+//import User from "App/Models/User"
 
 export default class UsersController {
   public async register({ view }: HttpContextContract) {
@@ -10,7 +13,7 @@ export default class UsersController {
    * This is a first implementation of the register process. /!\ Changes some things before deploy.
    * Like user type
    */
-  public async store({ response, session }: HttpContextContract) {
+  public async store({ auth: _auth, request: _request, response, session }: HttpContextContract) {
     /*const validator = schema.create({
       username: schema.string({}, [
         rules.regex(/^[a-zA-Z0-9]+$/),  // all upper and lower case + all figures
