@@ -8,8 +8,8 @@
     "start": "node server.js",
     "test": "node ace test",
     "lint": "eslint . --ext=.ts",
-    "sass-build": "sass ./public/assets/scss/styles.scss ./public/assets/css/styles.css",
-    "sass-watch": "sass ./public/assets/scss/styles.scss ./public/assets/css/styles.css --watch"
+    "sass-build": "sass ./resources/scss/styles.scss ./resources/css/styles.css",
+    "sass-watch": "sass ./resources/scss/styles.scss ./resources/css/styles.css --watch"
   },
   "eslintConfig": {
     "extends": [

@@ -1,5 +1,5 @@
 import type { HttpContextContract } from '@ioc:Adonis/Core/HttpContext'
-import Step from "App/Models/step";
+import Step from "App/Models/Step";
 
 export class StepService {
   private fields: Array<string> = ['id', 'name', 'content', 'videoUrl', 'stepIndex', 'tutorial', 'createdAt', 'updatedAt']
