@@ -1,19 +1,60 @@
 {
-  "name": "paxo-site",
+  "name": "paxo",
   "version": "1.0.0",
-  "description": "",
-  "main": "index.js",
-  "directories": {
-    "doc": "docs"
-  },
+  "private": true,
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
-    "sass-build": "sass src/core/static/scss/styles.scss src/core/static/css/styles.css",
-    "sass-watch": "sass src/core/static/scss/styles.scss src/core/static/css/styles.css --watch"
+    "dev": "node ace serve --watch",
+    "build": "node ace build --production",
+    "start": "node server.js",
+    "test": "node ace test",
+    "lint": "eslint . --ext=.ts"
   },
-  "author": "",
-  "license": "MIT",
+  "eslintConfig": {
+    "extends": [
+      "plugin:adonis/typescriptApp"
+    ]
+  },
+  "eslintIgnore": [
+    "build"
+  ],
+  "devDependencies": {
+    "@adonisjs/assembler": "^5.9.5",
+    "@babel/core": "^7.17.0",
+    "@babel/preset-env": "^7.16.0",
+    "@japa/preset-adonis": "^1.2.0",
+    "@japa/runner": "^2.5.1",
+    "@symfony/webpack-encore": "4.1.1",
+    "@types/proxy-addr": "^2.0.0",
+    "@types/source-map-support": "^0.5.6",
+    "adonis-preset-ts": "^2.1.0",
+    "eslint": "^8.47.0",
+    "eslint-plugin-adonis": "^2.1.1",
+    "file-loader": "^6.0.0",
+    "pino-pretty": "^10.2.0",
+    "sass": "^1.66.1",
+    "sass-loader": "^13.0.0",
+    "typescript": "~4.6",
+    "webpack": "^5.72",
+    "webpack-cli": "^4.9.1",
+    "youch": "^3.2.3",
+    "youch-terminal": "^2.2.2"
+  },
   "dependencies": {
-    "sass": "^1.64.2"
+    "@adonisjs/auth": "^8.2.3",
+    "@adonisjs/bouncer": "^2.3.0",
+    "@adonisjs/core": "^5.8.0",
+    "@adonisjs/fold": "^8.2.0",
+    "@adonisjs/lucid": "^18.4.0",
+    "@adonisjs/repl": "^3.1.0",
+    "@adonisjs/session": "^6.2.0",
+    "@adonisjs/shield": "^7.0.0",
+    "@adonisjs/view": "^6.1.0",
+    "luxon": "^3.4.0",
+    "mysql2": "^3.6.0",
+    "phc-argon2": "^1.1.4",
+    "proxy-addr": "^2.0.7",
+    "reflect-metadata": "^0.1.13",
+    "source-map-support": "^0.5.21",
+    "sqlite3": "^5.1.6"
   }
 }

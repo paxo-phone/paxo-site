@@ -1,0 +1,19 @@
+@!layout('base/main')
+
+@section('title')
+Admin panel - {{ model }} / {{ item.id }} / view
+@endsection
+
+@section('content')
+<h1>Admin panel - {{ model }} / {{ item.id }} / view</h1>
+
+<div>
+  <a href="{{ route('adminPanel.model.update', {model: model, id: item.id}) }}">Update</a>
+  <a href="{{ route('adminPanel.model.delete', {model: model, id: item.id}) }}">Delete</a>
+  <div>
+    @each(attr in item)
+      <p>{{ attr }}</p>
+    @endeach
+  </div>
+</div>
+@endsection

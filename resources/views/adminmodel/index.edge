@@ -1,0 +1,25 @@
+@!layout('base/main')
+
+@section('title')
+Admin panel - {{ model }}
+@endsection
+
+@section('content')
+<h1>Admin panel - {{ model }}</h1>
+
+<div>
+  @if(model !== "users")
+    <a  href="{{ route('adminPanel.model.create', {model: model}) }}">Create</a>
+  @endif
+</div>
+
+<div>
+  @each(item in items)
+    <a href="{{ route('adminPanel.model.view' , {model: model, id: item.id}) }}">
+      @each(attr in item)
+        <p>{{ attr }}</p>
+      @endeach
+    </a>
+  @endeach
+</div>
+@endsection

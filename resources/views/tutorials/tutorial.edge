@@ -1,0 +1,20 @@
+@!layout('base/main')
+
+@section('title')
+  Tutoriel : {{ tutorial.name }}
+@endsection
+
+@section('seo')
+<meta name="description" content="{{ tutorial.description }}">
+<meta name="robots" content="index">
+@endsection
+
+@section('content')
+<section class="container">
+  <div class="card">
+    <div class="card-title">{{ tutorial.name }} - {{ tutorial.user.username }} ({{ tutorial.date_created }})</div>
+    <div class="card-description">{{ tutorial.description }}</div>
+    <a href="{{ route('tutorials.viewStep', {id: tutorial.id}) }}?index=0">Commencer le tutoriel ></a>
+  </div>
+</section>
+@endsection
