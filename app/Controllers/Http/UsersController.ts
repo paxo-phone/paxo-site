@@ -1,23 +1,19 @@
 import type { HttpContextContract } from '@ioc:Adonis/Core/HttpContext'
-//import { schema, rules } from '@ioc:Adonis/Core/Validator'
 
-//import User from "App/Models/User"
+import { schema, rules } from '@ioc:Adonis/Core/Validator'
+import User from "App/Models/User"
 
 export default class UsersController {
   public async register({ view }: HttpContextContract) {
     return view.render('users/register')
   }
 
-  /**
-   * -- IMPORTANT --
-   * This is a first implementation of the register process. /!\ Changes some things before deploy.
-   * Like user type
-   */
-  public async store({ auth: _auth, request: _request, response, session }: HttpContextContract) {
-    /*const validator = schema.create({
+  public async store({ auth, request, response, session }: HttpContextContract) {
+    const validator = schema.create({
       username: schema.string({}, [
-        rules.regex(/^[a-zA-Z0-9]+$/),  // all upper and lower case + all figures
-        rules.unique({ table: 'users', column: 'username' })
+        rules.regex(/^[a-zA-Z0-9_\.]+$/),  // Letters, numbers, _ and .
+        rules.unique({ table: 'users', column: 'username' }),
+        rules.minLength(3)
       ]),
       email: schema.string({}, [
         rules.email(),
@@ -32,11 +28,9 @@ export default class UsersController {
     const user = await User.create(data)
     await auth.use('web').loginViaId(user.id)
 
-    session.flash({success: 'Account created successfully. Welcome!'})
+    session.flash({ success: 'Account created successfully. Welcome!' })
 
-    return response.redirect().toRoute('users.dashboard')*/
-    session.flash({ error: "501 : Not implemented" })
-    return response.redirect().toPath('/')
+    return response.redirect().toRoute('users.dashboard')
   }
 
   public async login({ view }: HttpContextContract) {
@@ -44,11 +38,11 @@ export default class UsersController {
   }
 
   public async loginProcess({ auth, request, response, session }: HttpContextContract) {
-    const email = request.input('email')
+    const uid = request.input('uid')
     const password = request.input('password')
 
     try {
-      await auth.use('web').attempt(email, password)
+      await auth.use('web').attempt(uid, password)
       session.flash({ success: 'Logged in successfully' })
       return response.redirect().toRoute('users.dashboard')
     } catch {
@@ -59,7 +53,7 @@ export default class UsersController {
 
   public async logoutProcess({ auth, response, session }: HttpContextContract) {
     await auth.use('web').logout()
-    session.flash({ success: 'Log out successfully' })
+    session.flash({ success: 'Logged out successfully' })
     response.redirect().toRoute('users.login')
   }
 
