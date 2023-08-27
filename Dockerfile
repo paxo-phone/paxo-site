@@ -2,8 +2,8 @@ ARG NODE_IMAGE=node:18-alpine
 
 FROM $NODE_IMAGE AS base
 RUN apk --no-cache add dumb-init
-RUN mkdir -p /home/node/app && chown node:node /home/node/app
-WORKDIR /home/node/app
+RUN mkdir -p /app && chown node:node /app
+WORKDIR /app
 USER node
 RUN mkdir tmp
 
@@ -14,6 +14,7 @@ RUN yarn install
 COPY --chown=node:node . .
 
 FROM dependencies AS build
+RUN yarn run sass-build
 RUN node ace build --production
 
 FROM base AS production
@@ -24,10 +25,14 @@ ENV HOST=0.0.0.0
 ENV DRIVE_DISK=local
 ENV SESSION_DRIVER=cookie
 ENV CACHE_VIEWS=true
+# To make it work out of the box, should be changed in production
+ENV DB_CONNECTION=sqlite
+ENV APP_KEY=2y0GyEz7jdzyZsFum6-jQ7Lu7Or1fmUE
 
 COPY --chown=node:node ./package.json ./
 COPY --chown=node:node ./yarn.lock ./
 RUN yarn install --production
-COPY --chown=node:node --from=build /home/node/app/build .
+COPY --chown=node:node --from=build /app/build .
+COPY --chown=node:node production.sh ./
 EXPOSE 80
-CMD [ "dumb-init", "node", "server.js" ]
+CMD [ "dumb-init", "sh", "production.sh" ]
