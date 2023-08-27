@@ -1,2 +1,2 @@
-node ace migration:run
+node ace migration:run --force
 node server.js
