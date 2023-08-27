@@ -14,7 +14,6 @@ RUN yarn install
 COPY --chown=node:node . .
 
 FROM dependencies AS build
-RUN yarn run sass-build
 RUN node ace build --production
 
 FROM base AS production

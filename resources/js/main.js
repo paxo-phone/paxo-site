@@ -1,29 +1,26 @@
-import "../css/styles.css"
+import "../scss/styles.scss"
 
-const logo=document.querySelector('.logo')
-const toggleNavBtn=document.querySelector('.toggle-nav-btn')
-const responsiveNavItems=document.querySelectorAll('.responsive-nav-item');
-const navLinks=document.querySelectorAll('.nav-item');
-const nav=document.querySelector('.nav');
+const logo = document.querySelector('.logo')
+const toggleNavBtn = document.querySelector('.toggle-nav-btn')
+const responsiveNavItems = document.querySelectorAll('.responsive-nav-item');
+const navLinks = document.querySelectorAll('.nav-item');
+const nav = document.querySelector('.nav');
 
-if (toggleNavBtn)
-{
-    toggleNavBtn.addEventListener("click", (e) =>
-    {
+if (toggleNavBtn) {
+    toggleNavBtn.addEventListener("click", (e) => {
         let responsiveNav = document.querySelector(".responsive-nav")
 
-        responsiveNavItems.forEach((responsiveNavItem, index)=>{
+        responsiveNavItems.forEach((responsiveNavItem, index) => {
 
-            setTimeout(()=>{
+            setTimeout(() => {
 
                 responsiveNavItem.classList.toggle('active');
 
-            },100*(index+1))
+            }, 100 * (index + 1))
 
         })
 
-        if(responsiveNav)
-        {
+        if (responsiveNav) {
             responsiveNav.classList.toggle("active")
             toggleNav.classList.toggle("active")
 
@@ -34,37 +31,37 @@ if (toggleNavBtn)
 
 //Animations au chargement de la page
 
-window.addEventListener('load',(e)=>{
+window.addEventListener('load', (e) => {
 
-    setTimeout(()=>{
+    setTimeout(() => {
 
         logo.classList.add('visible');
 
-    },400)
+    }, 400)
 
-    setTimeout(()=>{
+    setTimeout(() => {
 
         toggleNavBtn.classList.add('visible');
 
-    },800)
+    }, 800)
 
 
- if(nav.style.display==="none"){
+    if (nav.style.display === "none") {
 
 
- }else {
+    } else {
 
 
-    navLinks.forEach((navLink,index)=>{
+        navLinks.forEach((navLink, index) => {
 
-        setTimeout(()=>{
+            setTimeout(() => {
 
-            navLink.classList.add('visible');
+                navLink.classList.add('visible');
 
-        },100*(index+1))
+            }, 100 * (index + 1))
 
-    })
+        })
 
- }
+    }
 
 })
