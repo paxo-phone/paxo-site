@@ -33,7 +33,8 @@ export default class UsersController {
     return response.redirect().toRoute('users.dashboard')
   }
 
-  public async login({ view }: HttpContextContract) {
+  public async login({ view, auth, response }: HttpContextContract) {
+    if (auth.isLoggedIn) { return response.redirect().toRoute('users.dashboard') }
     return view.render('users/login')
   }
 
