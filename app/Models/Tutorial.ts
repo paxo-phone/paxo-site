@@ -1,5 +1,5 @@
 import { DateTime } from 'luxon'
-import {BaseModel, belongsTo, column, BelongsTo} from '@ioc:Adonis/Lucid/Orm'
+import { BaseModel, belongsTo, column, BelongsTo } from '@ioc:Adonis/Lucid/Orm'
 import User from "App/Models/User";
 
 export default class Tutorial extends BaseModel {
