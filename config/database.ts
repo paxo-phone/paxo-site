@@ -6,8 +6,8 @@
  */
 
 import Env from '@ioc:Adonis/Core/Env'
-import Application from '@ioc:Adonis/Core/Application'
 import type { DatabaseConfig } from '@ioc:Adonis/Lucid/Database'
+import Application from '@ioc:Adonis/Core/Application'
 
 const databaseConfig: DatabaseConfig = {
   /*
@@ -23,17 +23,6 @@ const databaseConfig: DatabaseConfig = {
   connection: Env.get('DB_CONNECTION'),
 
   connections: {
-    /*
-    |--------------------------------------------------------------------------
-    | SQLite
-    |--------------------------------------------------------------------------
-    |
-    | Configuration for the SQLite database.  Make sure to install the driver
-    | from npm when using this connection
-    |
-    | npm i sqlite3
-    |
-    */
     sqlite: {
       client: 'sqlite',
       connection: {
@@ -52,17 +41,6 @@ const databaseConfig: DatabaseConfig = {
       debug: false,
     },
 
-    /*
-    |--------------------------------------------------------------------------
-    | MySQL config
-    |--------------------------------------------------------------------------
-    |
-    | Configuration for MySQL database. Make sure to install the driver
-    | from npm when using this connection
-    |
-    | npm i mysql2
-    |
-    */
     mysql: {
       client: 'mysql2',
       connection: {
@@ -77,8 +55,7 @@ const databaseConfig: DatabaseConfig = {
       },
       healthCheck: false,
       debug: false,
-    },
-
+    }
   }
 }
 
