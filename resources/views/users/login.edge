@@ -8,6 +8,7 @@
   <form method="post" enctype="multipart/form-data">
       <input type="text" name="uid" placeholder="Username or email" required>
       <input type="password" name="password" placeholder="Password" required>
+      <input type="checkbox" name="remember_me" id="remember_me_button"><label for="remember_me_button">Remember me ?</label>
 
       <button type="submit">Log in</button>
       <p>You don't have an account yet? <a href="{{ route('users.register') }}">Register</a></p>

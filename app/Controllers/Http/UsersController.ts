@@ -3,6 +3,7 @@ import type { HttpContextContract } from '@ioc:Adonis/Core/HttpContext'
 import { schema, rules } from '@ioc:Adonis/Core/Validator'
 import User from "App/Models/User"
 import Device from 'App/Models/Device'
+import { DateTime } from 'luxon'
 
 export default class UsersController {
   public async register({ view, auth, response }: HttpContextContract) {
@@ -10,7 +11,7 @@ export default class UsersController {
     return view.render('users/register')
   }
 
-  public async store({ auth, request, response, session }: HttpContextContract) {
+  public async store({ request, response, session }: HttpContextContract) {
     const validator = schema.create({
       username: schema.string({}, [
         rules.regex(/^[a-zA-Z0-9_\.]+$/),  // Letters, numbers, _ and .
@@ -27,17 +28,22 @@ export default class UsersController {
     })
     const data = await request.validate({ schema: validator })
 
-    const user = await User.create(data)
-    await auth.use('web').loginViaId(user.id)
+    /*const user =*/ await User.create(data)
 
-    session.flash({ success: 'Account created successfully. Welcome!' })
+    // If you prefer to login after register
+    //await auth.use('web').loginViaId(user.id)
+    //session.flash({ success: 'Account created successfully. Welcome!' })
+    //return response.redirect().toRoute('users.dashboard')
 
-    return response.redirect().toRoute('users.dashboard')
+    session.flash({ success: 'Account created successfully.' })
+    return response.redirect().toRoute('users.login')
   }
 
   public async login({ view, auth, request, response }: HttpContextContract) {
-    const deviceToken: string = request.cookie('DEVICE_TOKEN')
-    if (deviceToken) { await Device.performDeviceAuth(deviceToken, auth, request.header('User-Agent')) }
+    const deviceToken: string = request.cookie(Device.COOKIE_TOKEN)
+    if (deviceToken) {
+      if (!await Device.performDeviceAuth(deviceToken, auth, request.header('User-Agent'))) { response.clearCookie(Device.COOKIE_TOKEN) }
+    }
 
     if (await auth.check()) {
       let redirection = request.input('to')
@@ -50,10 +56,14 @@ export default class UsersController {
   public async loginProcess({ auth, request, response, session }: HttpContextContract) {
     const uid = request.input('uid')
     const password = request.input('password')
+    const remember_me = request.input('remember_me')
 
     try {
       await auth.use('web').attempt(uid, password)
-      await Device.postLogin(request.cookie('DEVICE_TOKEN'), response.cookie, request.header('User-Agent'))
+      if (remember_me) {
+        let newToken = await Device.postLogin(request.cookie(Device.COOKIE_TOKEN), request.header('User-Agent'), auth.user?.id)
+        if (newToken) { response.cookie(Device.COOKIE_TOKEN, newToken, { expires: DateTime.now().plus({ days: 90 }).toBSON() }) }
+      }
       session.flash({ success: 'Logged in successfully' })
 
       let redirection = request.input('to')
@@ -64,7 +74,14 @@ export default class UsersController {
     }
   }
 
-  public async logoutProcess({ auth, response, session }: HttpContextContract) {
+  public async logoutProcess({ auth, request, response, session }: HttpContextContract) {
+    const token = request.cookie(Device.COOKIE_TOKEN)
+    try {
+      if (token) {
+        await (await Device.getDeviceFromToken(token)).delete()
+        response.clearCookie(Device.COOKIE_TOKEN)
+      }
+    } catch { }
     await auth.use('web').logout()
     session.flash({ success: 'Logged out successfully' })
     response.redirect().toRoute('users.login')
