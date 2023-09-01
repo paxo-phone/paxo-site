@@ -36,21 +36,33 @@ Route.group(() => {
   .prefix('/tutorials')
 
 Route.group(() => {
-  Route.get('/register', 'UsersController.register')
-    .as('users.register')
-  Route.post('/register', 'UsersController.store')
+  Route.group(() => {
+    Route.get('/', 'UsersController.index')
+      .as('auth')
+    Route.post('/', 'UsersController.check')
+      .as('auth.post')
 
-  Route.get('/login', 'UsersController.login')
-    .as('users.login')
-  Route.post('/login', 'UsersController.loginProcess')
+    Route.get('/register', 'UsersController.register')
+      .as('auth.register')
+    Route.post('/register', 'UsersController.store')
+      .as('auth.register.post')
+
+    Route.get('/login', 'UsersController.login')
+      .as('auth.login')
+    Route.post('/login', 'UsersController.loginProcess')
+      .as('auth.login.post')
+
+    Route.get('/complete', 'UsersController.complete')
+      .as('auth.complete')
+  }).middleware('authFlow')
 
   Route.post('/logout', 'UsersController.logoutProcess')
-    .as('users.logoutProcess')
+    .as('auth.logoutProcess')
+}).prefix('/auth')
 
-  Route.get('/dashboard', 'UsersController.dashboard')
-    .middleware('auth')
-    .as('users.dashboard')
-}).prefix('/users')
+Route.get('/dashboard', 'DashboardController.index')
+  .middleware('auth')
+  .as('dashboard')
 
 Route.group(() => {
   Route.get('/', 'AdminController.index')

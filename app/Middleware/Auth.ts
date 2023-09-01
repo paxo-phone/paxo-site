@@ -13,7 +13,7 @@ export default class AuthMiddleware {
   /**
    * The URL to redirect to when request is Unauthorized
    */
-  protected redirectTo = '/users/login'
+  protected redirectTo = '/auth'
 
   /**
    * Authenticates the current HTTP request against a custom set of defined
@@ -23,7 +23,7 @@ export default class AuthMiddleware {
    * of the mentioned guards and that guard will be used by the rest of the code
    * during the current request.
    */
-  protected async authenticate (auth: HttpContextContract['auth'], guards: (keyof GuardsList)[]) {
+  protected async authenticate(auth: HttpContextContract['auth'], guards: (keyof GuardsList)[]) {
     /**
      * Hold reference to the guard last attempted within the for loop. We pass
      * the reference of the guard to the "AuthenticationException", so that
@@ -32,7 +32,7 @@ export default class AuthMiddleware {
      */
     let guardLastAttempted: string | undefined
 
-    for (let guard of guards) {
+    for (const guard of guards) {
       guardLastAttempted = guard
 
       if (await auth.use(guard).check()) {
@@ -60,7 +60,7 @@ export default class AuthMiddleware {
   /**
    * Handle request
    */
-  public async handle (
+  public async handle(
     { auth }: HttpContextContract,
     next: () => Promise<void>,
     customGuards: (keyof GuardsList)[]
