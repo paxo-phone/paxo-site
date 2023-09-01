@@ -31,7 +31,7 @@ import Bouncer from '@ioc:Adonis/Addons/Bouncer'
 */
 export const { actions } = Bouncer
   .define('viewAdminPanel', (user) => {
-    return user.type === "admin"
+    return user.type === 'admin'
   })
   .define('editModelOnAdminPanel', (user, item) => {
     // authorize if user is admin and if the user is the author of the item or if the item doesn't have an author

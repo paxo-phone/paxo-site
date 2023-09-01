@@ -1,6 +1,6 @@
 import { DateTime } from 'luxon'
 import {BaseModel, BelongsTo, belongsTo, column} from '@ioc:Adonis/Lucid/Orm'
-import Tutorial from "App/Models/Tutorial";
+import Tutorial from 'App/Models/Tutorial'
 
 export default class Step extends BaseModel {
   @column({ isPrimary: true })
@@ -30,9 +30,9 @@ export default class Step extends BaseModel {
   @column.dateTime({ autoCreate: true, autoUpdate: true })
   public updatedAt: DateTime
 
-  public async getLink(direction: string) {
+  public async getLink (direction: string) {
     switch (direction) {
-      case "+":
+      case '+':
         const length = await Step
           .query()
           .where('tutorial_id', this.tutorialId)
@@ -44,7 +44,7 @@ export default class Step extends BaseModel {
 
         return `hx-get=/tutorials/t/${this.tutorialId}/view?index=${this.stepIndex + 1}`
 
-      case "-":
+      case '-':
         if (this.stepIndex - 1 <= -1) {
           return `onclick=location.href='/tutorials/t/${this.tutorialId}'`
         }
@@ -53,9 +53,9 @@ export default class Step extends BaseModel {
     }
   }
 
-  public async getMessage(direction: string) {
+  public async getMessage (direction: string) {
     switch (direction) {
-      case "+":
+      case '+':
         const length = await Step
           .query()
           .where('tutorial_id', this.tutorialId)
@@ -66,7 +66,7 @@ export default class Step extends BaseModel {
         }
         return `Etape ${this.stepIndex + 2}`
 
-      case "-":
+      case '-':
         if (this.stepIndex - 1 <= -1) {
           const tutorial = await Tutorial.findOrFail(this.tutorialId)
           return tutorial.name

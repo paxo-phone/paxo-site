@@ -54,25 +54,24 @@ Route.group(() => {
 
 Route.group(() => {
   Route.get('/', 'AdminController.index')
-    .as("adminPanel.index")
+    .as('adminPanel.index')
 
   Route.get('/:model', 'AdminModelController.index')
-    .as("adminPanel.model.index")
+    .as('adminPanel.model.index')
 
   Route.get('/:model/i/:id', 'AdminModelController.view')
-    .as("adminPanel.model.view")
-
+    .as('adminPanel.model.view')
 
   Route.get('/:model/create', 'AdminModelController.create')
-    .as("adminPanel.model.create")
+    .as('adminPanel.model.create')
   Route.post('/:model/create', 'AdminModelController.createProcess')
 
   Route.get('/:model/i/:id/update', 'AdminModelController.update')
-    .as("adminPanel.model.update")
+    .as('adminPanel.model.update')
   Route.post('/:model/i/:id/update', 'AdminModelController.updateProcess')
 
   Route.get('/:model/i/:id/delete', 'AdminModelController.delete')
-    .as("adminPanel.model.delete")
+    .as('adminPanel.model.delete')
   Route.post('/:model/i/:id/delete', 'AdminModelController.deleteProcess')
 })
   .middleware('auth')
