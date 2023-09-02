@@ -12,7 +12,7 @@ export default class UsersController {
 
   public async check({ request, response }: HttpContextContract) {
     const data = await request.validate(new EmailValidator())
-    const flow = AuthFlow.getCookie(request)
+    const flow = AuthFlow.getSureCookie(request)
 
     const user = await User
       .query()
@@ -29,7 +29,7 @@ export default class UsersController {
   }
 
   public async register({ request, view }: HttpContextContract) {
-    const flow = AuthFlow.getCookie(request)
+    const flow = AuthFlow.getSureCookie(request)
     return view.render('auth/register', {
       email: flow.email
     })
@@ -37,7 +37,7 @@ export default class UsersController {
 
   public async store({ request, response }: HttpContextContract) {
     const data = await request.validate(new RegisterValidator())
-    const flow = AuthFlow.getCookie(request)
+    const flow = AuthFlow.getSureCookie(request)
 
     const user = await User.create(data)
     flow.uid = user.id
@@ -51,7 +51,7 @@ export default class UsersController {
   }
 
   public async loginProcess({ auth, request, response, session }: HttpContextContract) {
-    const flow = AuthFlow.getCookie(request)
+    const flow = AuthFlow.getSureCookie(request)
     const password = request.input('password')
 
     try {
@@ -64,7 +64,7 @@ export default class UsersController {
   }
 
   public async complete({ auth, request, session, response }: HttpContextContract) {
-    const flow = AuthFlow.getCookie(request)
+    const flow = AuthFlow.getSureCookie(request)
     flow.endFlow(response)
 
     if (flow.uid) {

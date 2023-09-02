@@ -1,6 +1,8 @@
 import type { HttpContextContract } from '@ioc:Adonis/Core/HttpContext'
+import RedirectingException from 'App/Exceptions/RedirectingException'
 
-const AUTHFLOW_COOKIE = 'AUTH_FLOW'
+const COOKIE_NAME = 'AUTH_FLOW'
+const COOKIE_AGE = 600 // in seconds
 
 export enum AuthFlowStep {
   UID_ENTRY = "auth",
@@ -16,10 +18,11 @@ export class AuthFlow {
   redirect?: string
   email?: string
   uid?: number
-  invalid: boolean = false
+  expiresAt: number
 
-  constructor(redirect?: string) {
+  constructor(redirect?: string, expiresAt?: number) {
     if (redirect) { this.redirect = redirect }
+    if (expiresAt) { this.expiresAt = expiresAt }
     this.step = AuthFlowStep.UID_ENTRY
   }
 
@@ -30,17 +33,25 @@ export class AuthFlow {
   }
 
   public endFlow(response: HttpContextContract['response']) {
-    response.clearCookie(AUTHFLOW_COOKIE)
+    response.clearCookie(COOKIE_NAME)
     response.redirect().toPath(this.redirect || "/dashboard")
   }
 
-  public static getCookie(request: HttpContextContract['request']): AuthFlow {
-    const data = request.cookie(AUTHFLOW_COOKIE)
-    return Object.assign(new AuthFlow(), data || { invalid: true })
+  public static getCookie(request: HttpContextContract['request']): AuthFlow | undefined {
+
+    const data = request.cookie(COOKIE_NAME)
+    if (data) { return Object.assign(new AuthFlow(), data) }
+    return undefined
+  }
+
+  public static getSureCookie(request: HttpContextContract['request']): AuthFlow {
+    const obj = this.getCookie(request)
+    if (!obj) throw new RedirectingException("auth", "No Authflow found.", 500)
+    return obj
   }
 
   public sendCookie(response: HttpContextContract['response']) {
-    response.cookie(AUTHFLOW_COOKIE, this)
+    response.cookie(COOKIE_NAME, this, { expires: new Date(this.expiresAt) })
   }
 }
 
@@ -52,8 +63,8 @@ export default class AuthFlowMiddleware {
 
     let flow = AuthFlow.getCookie(request)
 
-    if (flow.invalid) {
-      flow = new AuthFlow(request.input('next'))
+    if (!flow || flow.expiresAt < Date.now()) {
+      flow = new AuthFlow(request.input('next'), Date.now() + COOKIE_AGE * 1000) //10 minutes
       flow.sendCookie(response)
     }
     if (await auth.check()) {
