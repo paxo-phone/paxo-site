@@ -1,0 +1,48 @@
+form
+{
+  max-width: map-get($breakpoints, sm);
+  width: 100%;
+  margin: 0 auto;
+  padding: 2rem;
+}
+
+input,
+textarea,
+select,
+label
+{
+  font-family: inherit;
+  font-size: 1rem;
+  display: block;
+  width: 100%;
+}
+
+label 
+{ 
+  margin-bottom: .5rem;
+}
+
+input,
+textarea,
+select
+{
+  padding: 1rem;
+  margin-bottom: 1.5rem;
+  border: lightgray 2px solid;
+}
+
+input[type="submit"]
+{
+  border-color: black;
+  background: black;
+  color: white;
+  cursor: pointer;
+  
+  transition-duration: .1s;
+  
+  &:hover {
+    background: white;
+    color: black;
+  }
+
+}
