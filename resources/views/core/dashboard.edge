@@ -13,6 +13,8 @@ Dashboard
   <a href="{{ route('adminPanel.index') }}">Admin panel</a>
 @endif
 
+<a href="{{ route('settings.setTOTP') }}">Set TOTP</a>
+
 <form action="{{ route('auth.logoutProcess') }}" method="post">
   <button>Log out</button>
 </form>

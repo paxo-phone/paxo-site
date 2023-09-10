@@ -21,5 +21,7 @@ export default class RegisterValidator {
     ])
   })
 
-  public messages: CustomMessages = {}
+  public messages: CustomMessages = {
+    'username.unique': "This username is alredy taken"
+  }
 }

@@ -23,6 +23,9 @@ export default class User extends BaseModel {
   @column()
   public type: UserType
 
+  @column()
+  public totp_secret: string | null
+
   @column.dateTime({ autoCreate: true })
   public createdAt: DateTime
 

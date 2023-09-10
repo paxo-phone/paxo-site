@@ -32,9 +32,9 @@ export class AuthFlow {
     response.redirect().toRoute(this.step)
   }
 
-  public endFlow(response: HttpContextContract['response']) {
+  public endFlow(response: HttpContextContract['response'], redirectOverwrite?: string) {
     response.clearCookie(COOKIE_NAME)
-    response.redirect().toPath(this.redirect || "/dashboard")
+    response.redirect().toPath(redirectOverwrite || this.redirect || "/dash")
   }
 
   public static getCookie(request: HttpContextContract['request']): AuthFlow | undefined {
@@ -57,7 +57,7 @@ export class AuthFlow {
 
 export default class AuthFlowMiddleware {
   public async handle(
-    { auth, request, response }: HttpContextContract,
+    { auth, request, response, view }: HttpContextContract,
     next: () => Promise<void>
   ) {
 
@@ -72,9 +72,11 @@ export default class AuthFlowMiddleware {
     }
 
     // Redirect to correct route
-    if (!request.matchesRoute(request.method().toUpperCase() != "POST" ? flow.step : flow.step + ".post")) {
+    if (!request.matchesRoute("auth.cancelflow") && !request.matchesRoute(request.method().toUpperCase() != "POST" ? flow.step : flow.step + ".post")) {
       response.redirect().toRoute(flow.step)
     } else {
+      view.share({ flow })
+      request.flow = flow
       await next()
     }
   }

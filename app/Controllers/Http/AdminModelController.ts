@@ -28,7 +28,7 @@ export default class AdminModelController {
     'steps': this.stepService,
   }
 
-  constructor (
+  constructor(
     private projectService: ProjectService,
     private userService: UserService,
     private tutorialService: TutorialService,
@@ -36,7 +36,7 @@ export default class AdminModelController {
   ) {
   }
 
-  public async index ({ params, response, view }: HttpContextContract) {
+  public async index({ params, response, view }: HttpContextContract) {
     let interactParams: InteractInterface = {
       model: params['model'],
       callback: async (params) => {
@@ -57,7 +57,7 @@ export default class AdminModelController {
     return await this.interact(interactParams)
   }
 
-  public async create ({ params, response, view }: HttpContextContract) {
+  public async create({ params, response, view }: HttpContextContract) {
     let interactParams: InteractInterface = {
       model: params['model'],
       callback: async (params) => {
@@ -78,7 +78,7 @@ export default class AdminModelController {
     return await this.interact(interactParams)
   }
 
-  public async createProcess ({ params, response, request }: HttpContextContract) {
+  public async createProcess({ params, response, request }: HttpContextContract) {
     let interactParams: InteractInterface = {
       model: params['model'],
       callback: async (params) => {
@@ -101,7 +101,7 @@ export default class AdminModelController {
     return await this.interact(interactParams)
   }
 
-  public async view ({ params, response, view }: HttpContextContract) {
+  public async view({ params, response, view }: HttpContextContract) {
     let interactParams: InteractInterface = {
       model: params['model'],
       callback: async (params) => {
@@ -123,7 +123,7 @@ export default class AdminModelController {
     return await this.interact(interactParams)
   }
 
-  public async update ({ params, response, view }: HttpContextContract) {
+  public async update({ params, response, view }: HttpContextContract) {
     let interactParams: InteractInterface = {
       model: params['model'],
       callback: async (params) => {
@@ -146,7 +146,7 @@ export default class AdminModelController {
     return await this.interact(interactParams)
   }
 
-  public async updateProcess ({ bouncer, params, response, request }: HttpContextContract) {
+  public async updateProcess({ bouncer, params, response, request }: HttpContextContract) {
     let interactParams: InteractInterface = {
       model: params['model'],
       callback: async (params) => {
@@ -177,7 +177,7 @@ export default class AdminModelController {
     return await this.interact(interactParams)
   }
 
-  public async delete ({ params, response, view }) {
+  public async delete({ params, response, view }) {
     let interactParams: InteractInterface = {
       model: params['model'],
       callback: async (params) => {
@@ -199,8 +199,8 @@ export default class AdminModelController {
     return await this.interact(interactParams)
   }
 
-  public async deleteProcess ({ bouncer, params, response }: HttpContextContract) {
-    let interactParams: InteractInterface = {
+  public async deleteProcess({ bouncer, params, response }: HttpContextContract) {
+    const interactParams: InteractInterface = {
       model: params['model'],
       callback: async (params) => {
         // If user is editing a User, change the authorize rule (custom rule for user editing)
@@ -231,7 +231,7 @@ export default class AdminModelController {
    * @author Welpike
    * @param params {InteractInterface}
    */
-  private async interact (
+  private async interact(
     params: InteractInterface
   ) {
     if (params.model in this.MODELS) {

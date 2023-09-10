@@ -45,9 +45,12 @@ Encore.setPublicPath('/assets')
 | entrypoints.
 |
 */
-Encore.addEntry('main', './resources/js/main.js')
-Encore.addEntry('home', './resources/js/home.js')
-Encore.addEntry('utils', './resources/js/utils.js')
+
+// eslint-disable-next-line @typescript-eslint/no-var-requires
+const jsdir = './resources/js/'
+for (const f of require('node:fs').readdirSync(jsdir)) {
+  Encore.addEntry(f.split('.')[0], jsdir + f)
+}
 
 /*
 |--------------------------------------------------------------------------

@@ -54,8 +54,10 @@
     "@adonisjs/view": "^6.1.0",
     "luxon": "^3.4.0",
     "mysql2": "^3.6.0",
+    "otplib": "^12.0.1",
     "phc-argon2": "^1.1.4",
     "proxy-addr": "^2.0.7",
+    "qrcode": "^1.5.3",
     "reflect-metadata": "^0.1.13",
     "source-map-support": "^0.5.21",
     "sqlite3": "^5.1.6"

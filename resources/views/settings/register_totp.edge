@@ -1,0 +1,22 @@
+@!layout('base/main')
+
+@section('title')
+  Log in
+@endsection
+
+@section('content')
+  Scan the following QR code :
+  <canvas id="qrcode"></canvas>
+
+  Or <a href="{{ qruri }}" id="totp-token">click here</a> if you are using a desktop app.
+
+  <form method="post" enctype="multipart/form-data">
+    <input type="text" name="code" placeholder="Confirm by typing the code" required>
+
+    <button type="submit">Setup</button>
+  </form>
+@endsection
+
+@section('script')
+  @entryPointScripts('totp')
+@endsection

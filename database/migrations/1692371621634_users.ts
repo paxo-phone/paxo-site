@@ -13,6 +13,8 @@ export default class extends BaseSchema {
       table.string('password', 180).notNullable()
       table.enum('type', Object.values(UserType)).defaultTo(UserType.DEFAULT)
 
+      table.string('totp_secret', 128).nullable()
+
       /**
        * Uses timestamptz for PostgreSQL and DATETIME2 for MSSQL
        */

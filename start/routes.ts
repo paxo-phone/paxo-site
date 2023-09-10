@@ -19,6 +19,7 @@
 */
 
 import Route from '@ioc:Adonis/Core/Route'
+import type { HttpContextContract } from '@ioc:Adonis/Core/HttpContext'
 
 Route.group(() => {
   Route.get('/', 'CoreController.index')
@@ -52,17 +53,32 @@ Route.group(() => {
     Route.post('/login', 'UsersController.loginProcess')
       .as('auth.login.post')
 
+    Route.get('/login/2FA', 'TwoFAController.login')
+      .as('auth.login.2fa')
+    Route.post('/login/2FA', 'TwoFAController.process')
+      .as('auth.login.2fa.post')
+
     Route.get('/complete', 'UsersController.complete')
       .as('auth.complete')
+
+    Route.get('/cancel', 'UsersController.cancelFlow')
+      .as('auth.cancelflow')
   }).middleware('authFlow')
 
   Route.post('/logout', 'UsersController.logoutProcess')
     .as('auth.logoutProcess')
 }).prefix('/auth')
 
-Route.get('/dashboard', 'DashboardController.index')
+Route.group(() => {
+  Route.get('/', 'DashboardController.index')
+    .as('dash')
+
+  Route.get('/settings/setTOTP', 'TwoFAController.registerTOTP')
+    .as('settings.setTOTP')
+  Route.post('/settings/setTOTP', 'TwoFAController.storeTOTP')
+})
+  .prefix('/dash')
   .middleware('auth')
-  .as('dashboard')
 
 Route.group(() => {
   Route.get('/', 'AdminController.index')
@@ -88,3 +104,13 @@ Route.group(() => {
 })
   .middleware('auth')
   .prefix('/admin-panel')
+
+
+if (process.env.NODE_ENV == "development") {
+  Route.get('/loginAsUid/:uid', async ({ params, auth, response }: HttpContextContract) => {
+    await auth.loginViaId(params.uid)
+    return response.redirect().back()
+  })
+
+  console.warn("Loaded dev env routes. This message should not appear in production !")
+}

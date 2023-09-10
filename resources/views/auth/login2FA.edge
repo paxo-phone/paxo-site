@@ -1,0 +1,45 @@
+@!layout('base/main')
+
+@section('title')
+  Confirm identity
+@endsection
+
+@section('content')
+  @!include('components/login_head')
+  <div class="twoFA-choice">
+    <h3>Select a 2FA Method:</h3>
+    @if(has_totp)
+      <button onClick="open2FA('totp')">Use One-time code</button>
+    @end
+  </div>
+
+  <div class="twoFA-totp hidden">
+    <h3>Login with a One-time code</h3>
+    <form method="post">
+      <input type="hidden" name="type" value="totp">
+
+      <input type="text" name="code" placeholder="One-time code" required>
+      <button type="submit">Submit</button>
+    </form>
+  </div>
+
+  <button class="twoFA-back hidden" onclick="close2FA()">Change verification method</button>
+
+@endsection
+
+@section('script')
+  <script>
+function open2FA(type) {
+    document.querySelector('.twoFA-choice').classList.add("hidden");
+    document.querySelector('.twoFA-back').classList.remove("hidden");
+    document.querySelector('.twoFA-' + type).classList.remove('hidden');
+    currMethod = type;
+}
+
+function close2FA() {
+    document.querySelector('.twoFA-choice').classList.remove("hidden");
+    document.querySelector('.twoFA-back').classList.add("hidden");
+    document.querySelector('.twoFA-' + currMethod).classList.add('hidden');
+}
+</script>
+@endsection
