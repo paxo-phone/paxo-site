@@ -46,9 +46,9 @@ docker exec -itd -p 80:80 paxo-site
 | `PORT` | Port where to expose the server | `3333` |
 | `HOST` | Host where to expose the server | `0.0.0.0` |
 | `APP_KEY` | String used for security keys generation. You can generate it with `node ace generate:key` | *Should be generated* |
-| `DRIVE_DISK` || `local` |
-| `SESSION_DRIVER` || `cookie` |
-| `CACHE_VIEWS` || `false` |
+| `DRIVE_DISK` | Engine where storage is based | `local` |
+| `SESSION_DRIVER` | Technology used by AdonisJS to remember sessions | `cookie` |
+| `CACHE_VIEWS` | If set to `true`, AdonisJS will cache static views | `false` |
 | `DB_CONNECTION` | Database type | `sqlite` |
 | `MYSQL_HOST` | MySQL/MariaDB Host | `localhost` |
 | `MYSQL_PORT` | MySQL/MariaDB Port | `3306` |
@@ -59,4 +59,5 @@ docker exec -itd -p 80:80 paxo-site
 | `SMTP_PORT` | SMTP mail server Port | `465` |
 | `SMTP_USERNAME` | SMTP mail server creditentials ||
 | `SMTP_PASSWORD` | SMTP mail server creditentials ||
+
 `NODE_ENV` should also be set
