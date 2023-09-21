@@ -1,0 +1,30 @@
+@!layout('base/main')
+
+@section('title')
+Presse
+@endsection
+
+@section('seo')
+<meta name="description" content="Vous trouverez ici la plupart des articles de sites web qui parlent du PaxoPhone.">
+<meta name="robots" content="index">
+@endsection
+
+@section('content')
+<section class="container">
+
+  <p class="h1 text-center mb-2">Presse</p>
+  <p class="lead text-center">Vous trouverez ici la plupart des articles de sites web qui parlent du PaxoPhone.</p>
+
+  <div>
+    @each(pressArticle in pressArticles)
+    <div class="card">
+      <img src="{{ pressArticle.imageLink ? pressArticle.imageLink : '' }}" alt="{{ pressArticle.title }}">
+      <div class="card-title">{{ pressArticle.title }} - {{ pressArticle.createdAt }}</div>
+      <div class="card-description">{{ pressArticle.description ? pressArticle.description : '' }}</div>
+      <a href="{{ pressArticle.link }}">En savoir plus...</a>
+    </div>
+    @endeach
+  </div>
+
+</section>
+@endsection

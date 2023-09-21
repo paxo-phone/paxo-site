@@ -31,14 +31,14 @@ import Bouncer from '@ioc:Adonis/Addons/Bouncer'
 */
 export const { actions } = Bouncer
   .define('viewAdminPanel', (user) => {
-    return user.type === 'admin'
+    return user.type === '1'
   })
   .define('editModelOnAdminPanel', (user, item) => {
     // authorize if user is admin and if the user is the author of the item or if the item doesn't have an author
-    return user.type === 'admin' && (item.userId ? item.userId === user.id : true)
+    return user.type === '1' && (item.userId ? item.userId === user.id : true)
   })
   .define('editUserOnAdminPanel', (user, item) => {
-    return user.type === 'admin' && user.id === item.id
+    return user.type === '1' && user.id === item.id
   })
 
 /*

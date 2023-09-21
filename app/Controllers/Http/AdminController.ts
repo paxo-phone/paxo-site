@@ -3,6 +3,7 @@ import type { HttpContextContract } from '@ioc:Adonis/Core/HttpContext'
 export default class AdminController {
   private MODELS: Array<string> = [
     'users',
+    'pressArticles',
     'projects',
     'tutorials',
     'steps',
