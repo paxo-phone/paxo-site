@@ -21,6 +21,8 @@
 import Route from '@ioc:Adonis/Core/Route'
 
 
+const DOMAIN = process.env.NODE_ENV === 'development' ? 'localhost' : 'paxo.fr'
+
 // ----------------------------------------------
 // Main routes
 // ----------------------------------------------
@@ -31,6 +33,7 @@ Route.group(() => {
   Route.get('projects', 'CoreController.projects')
   Route.get('press', 'PressController.index')
 })
+  .domain(DOMAIN)
 
 // ----------------------------------------------
 // Tutorials
@@ -42,6 +45,7 @@ Route.group(() => {
   Route.get('/t/:id/end', 'TutorialsController.stepEnd').as('tutorials.stepEnd')
 })
   .prefix('/tutorials')
+  .domain(DOMAIN)
 
 // ----------------------------------------------
 // Auth
@@ -69,7 +73,9 @@ Route.group(() => {
 
   Route.post('/logout', 'UsersController.logoutProcess')
     .as('auth.logoutProcess')
-}).prefix('/auth')
+})
+  .prefix('/auth')
+  .domain(DOMAIN)
 
 // ----------------------------------------------
 // Dashboard
@@ -77,6 +83,7 @@ Route.group(() => {
 Route.get('/dashboard', 'DashboardController.index')
   .middleware('auth')
   .as('dashboard')
+  .domain(DOMAIN)
 
 // ----------------------------------------------
 // Admin panel
@@ -105,3 +112,16 @@ Route.group(() => {
 })
   .middleware('auth')
   .prefix('/admin-panel')
+  .domain(DOMAIN)
+
+// ----------------------------------------------
+// API
+// ----------------------------------------------
+Route.group(() => {
+  Route.get('/', 'ApiController.index')
+    .as('api.index')
+
+  Route.get('/neper/wp-simplifier', 'ApiController.webpageSimplifier')
+    .as('api.webpageSimplifier.index')
+})
+  .domain(`api.${DOMAIN}`)
