@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<head>
+    <meta charset="UTF-8">
+    <meta name="generator" content="Paxo webpage-simplifier v{{ version }}">
+</head>
+<body>
+    @if(!isNeperRequest)
+      <style>
+          #banner {
+            display: flex;
+            justify-content: space-between;
+            align-content: center;
+            padding-inline: 10px;
+            font-family: Monaco, monospace;
+          }
+
+          #banner a {
+            text-decoration: none;
+          }
+      </style>
+
+      <div id="banner">
+          <p>Paxo webpage-simplifier v{{ version }} - <a href="https://github.com/paxo-phone/Neper">Neper</a> browser</p>
+          <a href="https://paxo.fr">Paxo</a>
+      </div>
+    @endif
+    {{{ html }}}
+</body>
