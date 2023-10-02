@@ -20,13 +20,21 @@
 
 import Route from '@ioc:Adonis/Core/Route'
 
+
+// ----------------------------------------------
+// Main routes
+// ----------------------------------------------
 Route.group(() => {
   Route.get('/', 'CoreController.index')
   Route.get('contact', 'CoreController.contact')
   Route.get('contribute', 'CoreController.contribute')
   Route.get('projects', 'CoreController.projects')
+  Route.get('press', 'PressController.index')
 })
 
+// ----------------------------------------------
+// Tutorials
+// ----------------------------------------------
 Route.group(() => {
   Route.get('/', 'TutorialsController.index').as('tutorials.index')
   Route.get('/t/:id', 'TutorialsController.viewTutorial').as('tutorials.viewTutorial')
@@ -35,6 +43,9 @@ Route.group(() => {
 })
   .prefix('/tutorials')
 
+// ----------------------------------------------
+// Auth
+// ----------------------------------------------
 Route.group(() => {
   Route.group(() => {
     Route.get('/', 'UsersController.index')
@@ -60,10 +71,16 @@ Route.group(() => {
     .as('auth.logoutProcess')
 }).prefix('/auth')
 
+// ----------------------------------------------
+// Dashboard
+// ----------------------------------------------
 Route.get('/dashboard', 'DashboardController.index')
   .middleware('auth')
   .as('dashboard')
 
+// ----------------------------------------------
+// Admin panel
+// ----------------------------------------------
 Route.group(() => {
   Route.get('/', 'AdminController.index')
     .as('adminPanel.index')

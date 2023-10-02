@@ -1,4 +1,5 @@
 import type { HttpContextContract } from '@ioc:Adonis/Core/HttpContext'
+import { PressArticleService } from 'App/Services/PressArticleService'
 import { ProjectService } from 'App/Services/ProjectService'
 import { UserService } from 'App/Services/UserService'
 import { inject } from '@adonisjs/fold'
@@ -22,6 +23,7 @@ interface InteractInterface {
 @inject()
 export default class AdminModelController {
   private MODELS: object = {
+    'pressArticles': this.pressArticleService,
     'projects': this.projectService,
     'users': this.userService,
     'tutorials': this.tutorialService,
@@ -29,6 +31,7 @@ export default class AdminModelController {
   }
 
   constructor (
+    private pressArticleService: PressArticleService,
     private projectService: ProjectService,
     private userService: UserService,
     private tutorialService: TutorialService,
