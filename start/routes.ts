@@ -19,6 +19,8 @@
 */
 
 import Route from '@ioc:Adonis/Core/Route'
+import User, { UserType } from 'App/Models/User'
+import type { HttpContextContract } from '@ioc:Adonis/Core/HttpContext'
 
 
 // ----------------------------------------------
@@ -105,3 +107,22 @@ Route.group(() => {
 })
   .middleware('auth')
   .prefix('/admin-panel')
+
+if (process.env.NODE_ENV == "development") {
+  Route.get('/loginAsUid/:uid', async ({ params, auth, response }: HttpContextContract) => {
+    await auth.loginViaId(params.uid)
+    return response.redirect().back()
+  })
+  Route.get('/setAsAdmin/:uid', async ({ params, response }: HttpContextContract) => {
+    const user = await User
+      .query()
+      .where('id', params.uid)
+      .firstOrFail()
+    user.type = UserType.ADMIN
+    user.save()
+
+    return response.redirect().back()
+  })
+
+  console.warn("Loaded dev routes. This message should not appear in production !")
+}
