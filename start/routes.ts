@@ -109,17 +109,20 @@ Route.group(() => {
   .prefix('/admin-panel')
 
 if (process.env.NODE_ENV == "development") {
-  Route.get('/loginAsUid/:uid', async ({ params, auth, response }: HttpContextContract) => {
+  Route.get('/loginAsUid/:uid', async ({ params, auth, response, session }: HttpContextContract) => {
     await auth.loginViaId(params.uid)
+    session.flash({ success: "Logged in as " + auth.user?.username })
     return response.redirect().back()
   })
-  Route.get('/setAsAdmin/:uid', async ({ params, response }: HttpContextContract) => {
+  Route.get('/setAsAdmin/:uid', async ({ params, response, session }: HttpContextContract) => {
     const user = await User
       .query()
       .where('id', params.uid)
       .firstOrFail()
     user.type = UserType.ADMIN
     user.save()
+
+    session.flash({ success: "Made " + user?.username + " an admin." })
 
     return response.redirect().back()
   })
