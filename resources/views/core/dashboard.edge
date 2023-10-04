@@ -9,7 +9,7 @@ Dashboard
 <p>Email: {{ user.email }}</p>
 <p>Type: {{ user.type }}</p>
 
-@if(user.type === 'admin')
+@if(admin)
   <a href="{{ route('adminPanel.index') }}">Admin panel</a>
 @endif
 
