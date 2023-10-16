@@ -18,7 +18,7 @@ You must prepare the environement first:
 ```sh
 yarn install
 node ace migration:run
-cp .env.example .env # You should edit it before launching
+cp .env.example .env # Consider editing it before launching
 ```
 
 Then you can launch the website with a watchman:
