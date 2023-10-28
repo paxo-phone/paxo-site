@@ -1,13 +1,26 @@
 @!layout('base/main')
 
 @section('title')
-  Authenticate
+  Log in
 @endsection
 
 @section('content')
+<div class="outside-connection">
+  <ul>
+    <li><button class="fa-brands fa-github btn-form-out">Se connecter</button></li>
+    <li><button class="fa-brands fa-google btn-form-out">Se connecter</button></li>
+  </ul>
+</div>
 <form method="post" enctype="multipart/form-data">
-    <input type="email" name="email" placeholder="Email" required>
+  <h2>Login</h2>
+  <input type="text" name="username" placeholder="Username" required />
 
-    <button class="btn btn-submit">Next</button>
+  <input type="password" name="password" placeholder="Password" required />
+
+  <input type="button" class="btn-submit" name="btn-signin" value="Se connecter"/>
+
+  <div><h2>Or</h2></div>
+
+  <input type="button" class="btn-submit" name="btn-signup" value="S'inscrire"/>
 </form>
 @endsection

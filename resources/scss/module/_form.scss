@@ -1,48 +1,63 @@
-form
-{
-  max-width: map-get($breakpoints, sm);
-  width: 100%;
-  margin: 0 auto;
+form {
+  max-width: max-content;
+  margin: auto;
+  margin-bottom:6%;
   padding: 2rem;
+  background-color:#39BC9B;
+  border-radius: 50px;
+  display:flex;
+  flex-direction: column;
+ }
+
+input, textarea, select, label {
+  font-family: inherit;
+  font-size: 16px;
+  margin:1rem;
+  display:flex;
+  justify-content: space-around;
+  flex-direction: column;
 }
 
-input,
-textarea,
-select,
 label
 {
-  font-family: inherit;
-  font-size: 1rem;
-  display: block;
-  width: 100%;
-}
-
-label 
-{ 
   margin-bottom: .5rem;
 }
 
-input,
-textarea,
-select
-{
+input, textarea, select {
   padding: 1rem;
   margin-bottom: 1.5rem;
-  border: lightgray 2px solid;
+  border: #89D5C0 2px solid;
+  border-radius:10px;
 }
 
-input[type="submit"]
-{
+input[type="submit"]{
   border-color: black;
   background: black;
   color: white;
   cursor: pointer;
-  
   transition-duration: .1s;
-  
   &:hover {
-    background: white;
-    color: black;
+  background: white;
+  color: black;
   }
-
 }
+
+input:onclick{
+  border-color: #89D5C0
+}
+.btn-submit{
+  font-size: 16px;
+  margin:1rem;
+  padding:5%;
+  min-height:2px;
+  display:flex;
+  justify-content: space-around;
+  flex-direction: row;
+  border-radius:10px;
+  font-family: inherit;
+  color:white;
+  background-color:#89D5C0;
+  border: #89D5C0 2px solid;
+  text-align: center;
+}
+
