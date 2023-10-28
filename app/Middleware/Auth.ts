@@ -1,7 +1,6 @@
 import { AuthenticationException } from '@adonisjs/auth/build/standalone'
 import type { GuardsList } from '@ioc:Adonis/Addons/Auth'
 import type { HttpContextContract } from '@ioc:Adonis/Core/HttpContext'
-import { UserType } from 'App/Models/User'
 
 /**
  * Auth middleware is meant to restrict un-authenticated access to a given route
@@ -62,7 +61,7 @@ export default class AuthMiddleware {
    * Handle request
    */
   public async handle(
-    { auth, view }: HttpContextContract,
+    { auth }: HttpContextContract,
     next: () => Promise<void>,
     customGuards: (keyof GuardsList)[]
   ) {
@@ -72,7 +71,6 @@ export default class AuthMiddleware {
      */
     const guards = customGuards.length ? customGuards : [auth.name]
     await this.authenticate(auth, guards)
-    view.share({ admin: auth.user?.type == UserType.ADMIN })
     await next()
   }
 }

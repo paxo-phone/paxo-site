@@ -1,13 +1,35 @@
 @!layout('base/main')
 
 @section('title')
-  Authenticate
+  Login
 @endsection
 
 @section('content')
-<form method="post" enctype="multipart/form-data">
-    <input type="email" name="email" placeholder="Email" required>
+<div>
+  <a href="{{ github_authorization }}"><button>Sign in with Github</button></a>
+  <a href="{{ google_authorization }}"><button>Sign in with Google</button></a>
 
-    <button class="btn btn-submit">Next</button>
+    {{--  <script src="https://accounts.google.com/gsi/client" async></script>
+    <div id="g_id_onload"
+        data-client_id="{{ google_client_id }}"
+        data-login_uri="{{ google_redirect }}"
+        data-auto_prompt="false">
+    </div>
+    <div class="g_id_signin"
+        data-type="standard"
+        data-size="large"
+        data-theme="outline"
+        data-text="sign_in_with"
+        data-shape="rectangular"
+        data-logo_alignment="left">
+    </div>  --}}
+
+</div>
+<form method="post">
+      <input type="text" name="uid" placeholder="Username or email" required>
+      <input type="password" name="password" placeholder="Password" required>
+
+      <button type="submit">Log in</button>
 </form>
+<a href="/auth/register">Dont have an account yet ?</a>
 @endsection

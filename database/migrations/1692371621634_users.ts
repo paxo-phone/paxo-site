@@ -9,9 +9,13 @@ export default class extends BaseSchema {
       table.increments('id')
 
       table.string('username', 128).notNullable().unique()
+      table.string('picture', 255).nullable().unique()
       table.string('email', 255).notNullable().unique()
-      table.string('password', 180).notNullable()
+      table.string('password', 180).nullable()
       table.enum('type', Object.values(UserType)).defaultTo(UserType.DEFAULT)
+
+      table.integer('github_id').unsigned().nullable().unique()
+      table.bigint('google_id').unsigned().nullable().unique()
 
       /**
        * Uses timestamptz for PostgreSQL and DATETIME2 for MSSQL

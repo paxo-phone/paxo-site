@@ -15,6 +15,9 @@ export default class User extends BaseModel {
   public username: string
 
   @column()
+  public picture: string
+
+  @column()
   public email: string
 
   @column()
@@ -22,6 +25,11 @@ export default class User extends BaseModel {
 
   @column()
   public type: UserType
+
+  @column()
+  public google_id: number
+  @column()
+  public github_id: number
 
   @column.dateTime({ autoCreate: true })
   public createdAt: DateTime

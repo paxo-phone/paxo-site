@@ -52,6 +52,8 @@
     "@adonisjs/session": "^6.2.0",
     "@adonisjs/shield": "^7.0.0",
     "@adonisjs/view": "^6.1.0",
+    "axios": "^1.5.1",
+    "jsonwebtoken": "^9.0.2",
     "luxon": "^3.4.0",
     "mysql2": "^3.6.0",
     "phc-argon2": "^1.1.4",
