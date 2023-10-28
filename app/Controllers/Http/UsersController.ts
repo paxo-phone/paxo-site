@@ -5,7 +5,7 @@ import User from "App/Models/User"
 import RegisterValidator from 'App/Validators/PasswordValidator'
 import { OauthService, OauthServiceConfig } from 'App/lib/oauth'
 import JWT from 'App/lib/jwt';
-import { AccountValidator, OauthRegisterChecker, OauthRegisterChecker, OauthRegisterValidator, OauthValidator } from 'App/Validators/AuthValidators';
+import { AccountValidator, OauthRegisterChecker, OauthRegisterValidator, OauthValidator } from 'App/Validators/AuthValidators';
 import { format } from "util";
 
 export default class UsersController {
@@ -17,7 +17,6 @@ export default class UsersController {
   }
 
   public async login({ auth, request, response, session }: HttpContextContract) {
-    // const data = await request.validate(new LoginValidator())
     try {
       await auth.attempt(request.input('uid'), request.input('password'))
       response.redirect().toRoute('dash')
@@ -90,10 +89,15 @@ export default class UsersController {
     }
   }
 
-  public async oauthStore({ request, auth, response }: HttpContextContract) {
+  public async oauthStore({ request, auth, response, session }: HttpContextContract) {
     const data = await request.validate(new OauthRegisterValidator())
-
-    const oauth_profile = JWT.verify(data.oauth_profile)
+    let oauth_profile
+    try {
+      oauth_profile = JWT.verify(data.oauth_profile)
+    } catch {
+      session.flash({ error: "Invalid token" })
+      return response.redirect().toRoute("auth")
+    }
     const user = await User.create(Object.assign(oauth_profile.data, { username: data.username }))
 
     await auth.login(user)
