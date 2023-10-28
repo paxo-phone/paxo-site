@@ -5,17 +5,41 @@
 @endsection
 
 @section('content')
+<section class="form-login">
+  <h2 id="h2-form">Sign up with</h2>
+  <div class="div-signin-plat">
+    <a href="{{ github_authorization }}"><button class="btn-signin-plat fa-brands fa-github"></button></a>
+    <a href="{{ google_authorization }}"><button class="btn-signin-plat fa-brands fa-google"></button></a>
 
-<form method="post">
-  <input type="text" name="username" placeholder="Username" value="" required />
+      {{--  <script src="https://accounts.google.com/gsi/client" async></script>
+      <div id="g_id_onload"
+          data-client_id="{{ google_client_id }}"
+          data-login_uri="{{ google_redirect }}"
+          data-auto_prompt="false">
+      </div>
+      <div class="g_id_signin"
+          data-type="standard"
+          data-size="large"
+          data-theme="outline"
+          data-text="sign_in_with"
+          data-shape="rectangular"
+          data-logo_alignment="left">
+      </div>  --}}
+  </div>
 
-  <input type="email" name="email" placeholder="Email" value="" required />
+  <div class="breakup"></div>
 
-  <input type="password" name="password" placeholder="Password" required />
+  <form method="post">
+    <input type="text" name="username" placeholder="Username" value="" required />
 
-  <input type="password" name="password_confirmation" placeholder="Repeat password" required />
+    <input type="email" name="email" placeholder="Email" value="" required />
+
+    <input type="password" name="password" placeholder="Password" required />
+
+    <input type="password" name="password_confirmation" placeholder="Repeat password" required />
 
 
-  <input type="button" class="btn-account">Sign up</input>
-</form>
+    <button class="btn-account" type="submit">Register</button>
+  </form>
+</secion>
 @endsection
