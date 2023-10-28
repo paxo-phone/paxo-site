@@ -49,36 +49,47 @@ Route.group(() => {
 // Auth
 // ----------------------------------------------
 Route.group(() => {
-  Route.group(() => {
-    Route.get('/', 'UsersController.index')
-      .as('auth')
-    Route.post('/', 'UsersController.check')
-      .as('auth.post')
+  Route.get('/', 'UsersController.index')
+    .as('auth')
+  Route.post('/', 'UsersController.login')
+    .as('auth.post')
 
-    Route.get('/register', 'UsersController.register')
-      .as('auth.register')
-    Route.post('/register', 'UsersController.store')
-      .as('auth.register.post')
+  Route.get('/register', 'UsersController.register')
+    .as('auth.register')
+  Route.post('/register', 'UsersController.store')
+    .as('auth.register.post')
 
-    Route.get('/login', 'UsersController.login')
-      .as('auth.login')
-    Route.post('/login', 'UsersController.loginProcess')
-      .as('auth.login.post')
+  // Route.get('/login', 'UsersController.login')
+  //   .as('auth.login')
+  // Route.post('/login', 'UsersController.loginProcess')
+  //   .as('auth.login.post')
 
-    Route.get('/complete', 'UsersController.complete')
-      .as('auth.complete')
-  }).middleware('authFlow')
 
-  Route.post('/logout', 'UsersController.logoutProcess')
-    .as('auth.logoutProcess')
+  Route.post('/logout', 'UsersController.logout')
+    .as('auth.logout')
+    .middleware('auth')
 }).prefix('/auth')
+
+// ----------------------------------------------
+// Oauth
+// ----------------------------------------------
+Route.group(() => {
+  Route.get('/google', 'UsersController.oauthGoogle')
+  Route.get('/github', 'UsersController.oauthGithub')
+
+  Route.get('/register', 'UsersController.oauthRegister')
+    .as('oauth.register')
+  Route.get('/register/check', 'UsersController.oauthCheck')
+  Route.post('/register', 'UsersController.oauthStore')
+}).prefix('/oauth')
+
 
 // ----------------------------------------------
 // Dashboard
 // ----------------------------------------------
-Route.get('/dashboard', 'DashboardController.index')
+Route.get('/dash', 'DashboardController.index')
   .middleware('auth')
-  .as('dashboard')
+  .as('dash')
 
 // ----------------------------------------------
 // Admin panel

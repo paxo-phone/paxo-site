@@ -5,10 +5,11 @@
 @endsection
 
 @section('content')
-<form method="post" enctype="multipart/form-data">
-  <input type="text" name="username" placeholder="Username" value="username" />
 
-  <input type="text" name="email" placeholder="Email" value="email" required/>
+<form method="post">
+  <input type="text" name="username" placeholder="Username" value="" required />
+
+  <input type="email" name="email" placeholder="Email" value="" required />
 
   <input type="password" name="password" placeholder="Password" required />
 

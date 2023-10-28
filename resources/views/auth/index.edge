@@ -1,26 +1,37 @@
 @!layout('base/main')
 
 @section('title')
+
   Log in
 @endsection
 
 @section('content')
-<div class="outside-connection">
-  <ul>
-    <li><button class="fa-brands fa-github btn-form-out">Se connecter</button></li>
-    <li><button class="fa-brands fa-google btn-form-out">Se connecter</button></li>
-  </ul>
+<div>
+  <a href="{{ github_authorization }}"><button>Sign in with Github</button></a>
+  <a href="{{ google_authorization }}"><button>Sign in with Google</button></a>
+
+    {{--  <script src="https://accounts.google.com/gsi/client" async></script>
+    <div id="g_id_onload"
+        data-client_id="{{ google_client_id }}"
+        data-login_uri="{{ google_redirect }}"
+        data-auto_prompt="false">
+    </div>
+    <div class="g_id_signin"
+        data-type="standard"
+        data-size="large"
+        data-theme="outline"
+        data-text="sign_in_with"
+        data-shape="rectangular"
+        data-logo_alignment="left">
+    </div>  --}}
+
 </div>
-<form method="post" enctype="multipart/form-data">
-  <h2>Login</h2>
-  <input type="text" name="username" placeholder="Username" required />
+<form method="post">
+      <input type="text" name="uid" placeholder="Username or email" required>
+      <input type="password" name="password" placeholder="Password" required>
 
-  <input type="password" name="password" placeholder="Password" required />
+      <button type="submit">Log in</button>
 
-  <input type="button" class="btn-submit" name="btn-signin" value="Se connecter"/>
-
-  <div><h2>Or</h2></div>
-
-  <input type="button" class="btn-submit" name="btn-signup" value="S'inscrire"/>
 </form>
+<a href="/auth/register">Dont have an account yet ?</a>
 @endsection

@@ -1,5 +1,6 @@
 const { join } = require('path')
 const Encore = require('@symfony/webpack-encore')
+const fs = require('fs')
 
 /*
 |--------------------------------------------------------------------------
@@ -45,9 +46,10 @@ Encore.setPublicPath('/assets')
 | entrypoints.
 |
 */
-Encore.addEntry('main', './resources/js/main.js')
-Encore.addEntry('home', './resources/js/home.js')
-Encore.addEntry('utils', './resources/js/utils.js')
+
+for (const p of fs.readdirSync("./resources/js/")) {
+  Encore.addEntry(p.split('.')[0], "./resources/js/" + p)
+}
 
 /*
 |--------------------------------------------------------------------------
