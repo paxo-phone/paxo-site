@@ -9,13 +9,14 @@
 @import 'module/gallery';
 @import 'module/banner';
 @import 'module/form';
-@import 'module/auth';
 
 // layout
 @import 'layout/header';
 @import 'layout/block';
 @import 'layout/container';
 @import 'layout/footer';
+@import 'layout/auth';
+@import 'layout/dashboard';
 
 // utils
 @import 'utils/utils';

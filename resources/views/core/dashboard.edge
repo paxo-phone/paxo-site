@@ -5,16 +5,38 @@ Dashboard
 @endsection
 
 @section('content')
-<h1>Hi, {{ user.username }}</h1>
-<p>Email: {{ user.email }}</p>
-<p>Type: {{ user.type }}</p>
-
 @if(admin)
   <a href="{{ route('adminPanel.index') }}">Admin panel</a>
 @endif
 
-<form action="{{ route('auth.logout') }}" method="post">
-  <button>Log out</button>
-</form>
+<section class="dash-navbar">
+  <ul>
+    <li class="dash-nav-item"></li>
+    <li class="dash-nav-item"></li>
+    <li class="dash-nav-item"><a class="dash-nav-link" href="">Mon Profil</a></li>
+    <li class="dash-nav-item">
+      <form action="{{ route('auth.logout') }}" method="post">
+        <button class="btn-logout">Log out</button>
+      </form>
+    </li>
+  </ul>
+
+</section>
+
+<section class="dash-content">
+  <div class="dash-welcome">
+    <h1>Hi, {{ user.username }}</h1>
+    <p>Email: {{ user.email }}</p>
+    <p>Type: {{ user.type }}</p>
+  </div>
+  <div class="main-box">
+    <div class="box"></div>
+    <div class="box"></div>
+    <div class="box"></div>
+    <div class="box"></div>
+  </div>
+</section>
+
+
 
 @endsection

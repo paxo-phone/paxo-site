@@ -1,0 +1,63 @@
+.dash-navbar{
+  border-top:rgba(0,0,0,0.1) 1px solid;
+  width:100%;
+  padding:10px;
+}
+
+.dash-navbar ul{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-wrap: wrap;
+}
+
+.dash-nav-item{
+  padding:1%;
+}
+
+.dash-nav-link{
+  text-decoration: none;
+  color: #39BC9B;
+  text-transform: uppercase;
+  font-size: 16px;
+  font-weight: bold;
+}
+
+.dash-nav-link:hover{
+  color: #89D5C0;
+}
+
+.btn-logout{
+  font-size: 16px;
+  border-radius:10px;
+  padding:1rem;
+  font-family: inherit;
+  background-color:white;
+  color:#39BC9B;
+  border: #39BC9B 2px solid;
+}
+
+.btn-logout:hover{
+  border-color:#89D5C0;
+}
+
+.dash-welcome{
+  display:flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.main-box{
+  display:flex;
+  flex-direction: row;
+  justify-content: space-around;
+  margin:2%;
+}
+
+.box{
+  height:70vh;
+  padding:10%;
+  border: rgba(0,0,0,0.3) 2px solid;
+  border-radius: 30px;
+}
