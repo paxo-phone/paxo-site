@@ -2,7 +2,7 @@ import type { HttpContextContract } from '@ioc:Adonis/Core/HttpContext'
 
 import User from "App/Models/User"
 // import EmailValidator from 'App/Validators/EmailValidator'
-import RegisterValidator from 'App/Validators/PasswordValidator'
+import RegisterValidator from 'App/Validators/RegisterValidator'
 import { OauthService, OauthServiceConfig } from 'App/lib/oauth'
 import JWT from 'App/lib/jwt';
 import { AccountValidator, OauthRegisterChecker, OauthRegisterValidator, OauthValidator } from 'App/Validators/AuthValidators';
@@ -67,7 +67,6 @@ export default class UsersController {
       }
 
       return response.redirect().withQs({
-        username: user_data.username,
         oauth_profile: JWT.sign({ data: user_data.profile })
       }).toRoute('oauth.register')
     }
@@ -75,7 +74,6 @@ export default class UsersController {
 
   public async oauthRegister({ request, view }: HttpContextContract) {
     return view.share({
-      username: request.input("username"),
       oauth_profile: request.input("oauth_profile")
     }).render("auth/oauth_register")
   }

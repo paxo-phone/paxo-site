@@ -29,17 +29,35 @@
 
   <div class="breakup"></div>
 
-  <form method="post">
-    <input type="text" name="username" placeholder="Username" value="" required />
+<form method="post">
+  <input
+      type="text"
+      name="username"
+      placeholder="Username"
+      oninput="usernameUpdate()"
+      required />
+    <p id="username-feedback"></p>
 
-    <input type="email" name="email" placeholder="Email" value="" required />
+  <input type="email" name="email" placeholder="Email" value="" required />
 
-    <input type="password" name="password" placeholder="Password" required />
+  <input
+    type="password"
+    name="password"
+    placeholder="Password"
+    oninput="passwordUpdate()"
+    required />
+  <p id="password-feedback"></p>
 
-    <input type="password" name="password_confirmation" placeholder="Repeat password" required />
+  <input
+    type="password"
+    name="password_confirmation"
+    placeholder="Repeat password"
+    oninput="passwordConUpdate()"
+    required />
+  <p id="password_confirmation-feedback"></p>
 
+  <input type="submit" class="btn-account btn-submit" value="Sign up"/>
+</form>
 
-    <button class="btn-account" type="submit">Register</button>
-  </form>
-</secion>
+@entryPointScripts('form_completion')
 @endsection
