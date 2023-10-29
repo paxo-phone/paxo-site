@@ -5,10 +5,6 @@ Dashboard
 @endsection
 
 @section('content')
-<h1>Hi, {{ user.username }}</h1>
-<p>Email: {{ user.email }}</p>
-<p>Type: {{ user.type }}</p>
-
 @if(user.admin)
   <a href="{{ route('adminPanel.index') }}">Admin panel</a>
 @endif
