@@ -1,5 +1,4 @@
 import BaseSchema from '@ioc:Adonis/Lucid/Schema'
-import { UserType } from 'App/Models/User'
 
 export default class extends BaseSchema {
   protected tableName = 'users'
@@ -12,7 +11,10 @@ export default class extends BaseSchema {
       table.string('picture', 255).nullable().unique()
       table.string('email', 255).notNullable().unique()
       table.string('password', 180).nullable()
-      table.enum('type', Object.values(UserType)).defaultTo(UserType.DEFAULT)
+
+      table.boolean('admin').defaultTo(false)
+      table.boolean('mod').defaultTo(false)
+      table.boolean('verified').defaultTo(false)
 
       table.integer('github_id').unsigned().nullable().unique()
       table.bigint('google_id').unsigned().nullable().unique()

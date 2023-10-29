@@ -10,15 +10,15 @@
       type="text"
       name="username"
       placeholder="Username"
-      value="{{ username }}"
+      value=""
       oninput="usernameUpdate()"
       required />
-      <p id="username-feedback"></p>
+    <p id="username-feedback"></p>
 
     <input type="hidden" name="oauth_profile" value="{{ oauth_profile }}" required />
 
     <button class="btn btn-submit" id="btn-oauth" disabled="1">Register</button>
 </form>
 
-@entryPointScripts('oauth_register')
+@entryPointScripts('form_completion')
 @endsection
