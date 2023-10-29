@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="utf8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>
+      @!section('title-dash')
+      | Paxo
+    </title>
+
+    @!section('seo-dash')
+
+    @entryPointStyles('main-dash')
+
+    <!-- fontawesome -->
+    <link rel="stylesheet" href="/vendor/fontawesome/all.min.css" />
+
+    <!-- Flag-icons -->
+    <link rel="stylesheet" href="/vendor/flag-icon-css/flag-icons.min.css" />
+
+    @!section('head-dash')
+
+</head>
+<body>
+
+    <header class="header">
+        <a href="/" class="logo" style="height: 60px">
+            <img src="/img/logo.png" alt="Paxo" style="height: 100%">
+        </a>
+
+        <nav class=class="dash-navbar">
+            <ul>
+              <li class="dash-nav-item"><a class="dash-nav-link">Explore</a></li>
+              <li class="dash-nav-item"><a class="dash-nav-link">Search</a></li>
+              <li class="dash-nav-item"><a class="dash-nav-link" href="">Mon Profil</a></li>
+              <li class="dash-nav-item">
+                <form class="form-logout" action="{{ route('auth.logout') }}" method="post">
+                  <button class="btn-logout">Log out</button>
+                </form>
+              </li>
+            </ul>
+        </nav>
+    </header>
+
+    <main>
+        @!include('components/flash')
+        <section class="dash-content">
+          <div class="dash-welcome">
+            <h1>Hi, {{ user.username }}</h1>
+            <p>Email: {{ user.email }}</p>
+            <p>Type: {{ user.type }}</p>
+          </div>
+        </section>
+        @!section('content-dash')
+    </main>
+
+    <footer>
+
+        <div class="social">
+            <ul>
+                <li><a href="https://github.com/paxo-rch"><i class="fa-brands fa-square-github"></i></a></li>
+                <li><a href="https://www.instagram.com/gabriel_rochet_paxo/"><i class="fa-brands fa-square-instagram"></i></a></li>
+            </ul>
+        </div>
+
+        <ul class="footer-nav">
+            <li><a href="/tutorials/t/1">Montage</a></li>
+            <li><a href="/contribute">Contribuer</a></li>
+            <li><a href="https://discord.gg/zRcc3RP2sF">Discord</a></li>
+            <li><a href="">Tutoriels</a></li>
+            <li><a href="">Presse</a></li>
+            <li><a href="/projects">Autres</a></li>
+            <li><a href="/contact">Contact</a></li>
+            <li><a href="https://www.leetchi.com/fr/c/projet-paxo-developpement-open-source-dun-telephone-paxofr-1434151?utm_source=copylink&utm_medium=social_sharing">Dons</a></li>
+        </ul>
+
+    </footer>
+
+    @entryPointScripts('main-dash')
+
+    @!section('script')
+</body>
+</html>
