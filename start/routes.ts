@@ -87,9 +87,15 @@ Route.group(() => {
 // ----------------------------------------------
 // Dashboard
 // ----------------------------------------------
-Route.get('/dash', 'DashboardController.index')
-  .middleware('auth')
-  .as('dash')
+Route.group(() => {
+  Route.get('/dashboard', 'DashboardController.index')
+  .as('dashboard')
+  Route.get('/settings', 'DashboardController.index')
+  .as ('dashboard.settings')
+})
+.middleware('auth')
+
+
 
 // ----------------------------------------------
 // Admin panel

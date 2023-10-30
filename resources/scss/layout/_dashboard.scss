@@ -1,17 +1,18 @@
 .dashboard{
   display:flex;
-  flex-direction: row;
+}
+
+.header-dash{
+  display:flex;
 }
 
 .dash-navbar{
   border-right:rgba(0,0,0,0.1) 1px solid;
-  width:15%;
-  padding:10px;
 }
 
 .dash-content{
-  width:100%;
-  padding:200px;
+  display: flex;
+
 }
 
 .dash-navbar ul{

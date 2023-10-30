@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="utf8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>
+      @!section('title')
+      | Paxo
+    </title>
+
+    @!section('seo')
+
+    @entryPointStyles('main')
+
+    <!-- fontawesome -->
+    <link rel="stylesheet" href="/vendor/fontawesome/all.min.css" />
+
+    <!-- Flag-icons -->
+    <link rel="stylesheet" href="/vendor/flag-icon-css/flag-icons.min.css" />
+
+    @!section('head')
+
+</head>
+<body>
+  <section class="dashboard">
+    <header class="header-dash">
+        <nav class="dash-navbar">
+          <a href="/" class="logo" style="height: 50px">
+              <img src="/img/logo.png" alt="Paxo" style="height: 10%">
+          </a>
+          <ul>
+            <li class="dash-nav-item"><a class="dash-nav-link">Mes apps</a></li>
+            <li class="dash-nav-item"><a class="dash-nav-link" href="/dashboard/settings">Mon Profil</a></li>
+            <li class="dash-nav-item">
+              <form class="form-logout" action="{{ route('auth.logout') }}" method="post">
+                <button class="btn-logout">Log out</button>
+              </form>
+            </li>
+          </ul>
+        </nav>
+    </header>
+
+    <main class="dash-content">
+        @!include('components/flash')
+
+        @!section('content')
+    </main>
+  </section>
+  <footer>
+    <div class="social">
+      <ul>
+        <li><a href="https://github.com/paxo-rch"><i class="fa-brands fa-square-github"></i></a></li>
+        <li><a href="https://www.instagram.com/gabriel_rochet_paxo/"><i class="fa-brands fa-square-instagram"></i></a></li>
+      </ul>
+    </div>
+
+    </footer>
+
+
+
+    @!section('script')
+</body>
+</html>
