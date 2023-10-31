@@ -1,0 +1,17 @@
+@!layout('base/main')
+
+@section('title')
+  Marketplace
+@endsection
+
+@section('seo')
+<meta name="description" content="">
+<meta name="robots" content="index">
+@endsection
+
+@section('content')
+{{--  Cette page affiche des applications dans des scrollers, chacun titré. Voir inspi https://play.google.com/store/apps --}}
+{{-- L'objet partagé "trending_apps" contient une liste des scrollers à afficher, contenant une liste --}}
+{{-- des applications dans le scroller à afficher dans l'ordre. Chaque app sera un objet, défini par le --}}
+{{--  modèle app/Models/App.ts --}}
+@endsection
