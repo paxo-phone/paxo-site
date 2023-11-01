@@ -19,9 +19,6 @@
 */
 
 import Route from '@ioc:Adonis/Core/Route'
-import User, { UserType } from 'App/Models/User'
-import type { HttpContextContract } from '@ioc:Adonis/Core/HttpContext'
-
 
 // ----------------------------------------------
 // Main routes
@@ -45,57 +42,45 @@ Route.group(() => {
 })
   .prefix('/tutorials')
 
-// ----------------------------------------------
-// Auth
-// ----------------------------------------------
-Route.group(() => {
-  Route.get('/', 'UsersController.index')
-    .as('auth')
-  Route.post('/', 'UsersController.login')
-    .as('auth.post')
+  Route.get('/', 'AppsController.index')
 
-  Route.get('/register', 'UsersController.register')
-    .as('auth.register')
-  Route.post('/register', 'UsersController.store')
-    .as('auth.register.post')
+  Route.get('/app/:id', 'AppsController.product')
+}).prefix('/apps')
 
-  // Route.get('/login', 'UsersController.login')
-  //   .as('auth.login')
-  // Route.post('/login', 'UsersController.loginProcess')
-  //   .as('auth.login.post')
+// // ----------------------------------------------
+// // Auth
+// // ----------------------------------------------
+// Route.group(() => {
+//   Route.group(() => {
+//     Route.get('/', 'UsersController.index')
+//       .as('auth')
+//     Route.post('/', 'UsersController.check')
+//       .as('auth.post')
 
+//     Route.get('/register', 'UsersController.register')
+//       .as('auth.register')
+//     Route.post('/register', 'UsersController.store')
+//       .as('auth.register.post')
 
-  Route.post('/logout', 'UsersController.logout')
-    .as('auth.logout')
-    .middleware('auth')
-}).prefix('/auth')
+//     Route.get('/login', 'UsersController.login')
+//       .as('auth.login')
+//     Route.post('/login', 'UsersController.loginProcess')
+//       .as('auth.login.post')
 
-// ----------------------------------------------
-// Oauth
-// ----------------------------------------------
-Route.group(() => {
-  Route.get('/google', 'UsersController.oauthGoogle')
-  Route.get('/github', 'UsersController.oauthGithub')
+//     Route.get('/complete', 'UsersController.complete')
+//       .as('auth.complete')
+//   }).middleware('authFlow')
 
-  Route.get('/register', 'UsersController.oauthRegister')
-    .as('oauth.register')
-  Route.get('/register/check', 'UsersController.oauthCheck')
-  Route.post('/register', 'UsersController.oauthStore')
-}).prefix('/oauth')
+//   Route.post('/logout', 'UsersController.logoutProcess')
+//     .as('auth.logoutProcess')
+// }).prefix('/auth')
 
-
-// ----------------------------------------------
-// Dashboard
-// ----------------------------------------------
-Route.group(() => {
-  Route.get('/dashboard', 'DashboardController.index')
-  .as('dashboard')
-  Route.get('/settings', 'DashboardController.index')
-  .as ('dashboard.settings')
-})
-.middleware('auth')
-
-
+// // ----------------------------------------------
+// // Dashboard
+// // ----------------------------------------------
+// Route.get('/dashboard', 'DashboardController.index')
+//   .middleware('auth')
+//   .as('dashboard')
 
 // ----------------------------------------------
 // Admin panel
@@ -124,25 +109,3 @@ Route.group(() => {
 })
   .middleware('auth')
   .prefix('/admin-panel')
-
-if (process.env.NODE_ENV == "development") {
-  Route.get('/loginAsUid/:uid', async ({ params, auth, response, session }: HttpContextContract) => {
-    await auth.loginViaId(params.uid)
-    session.flash({ success: "Logged in as " + auth.user?.username })
-    return response.redirect().back()
-  })
-  Route.get('/setAsAdmin/:uid', async ({ params, response, session }: HttpContextContract) => {
-    const user = await User
-      .query()
-      .where('id', params.uid)
-      .firstOrFail()
-    user.type = UserType.ADMIN
-    user.save()
-
-    session.flash({ success: "Made " + user?.username + " an admin." })
-
-    return response.redirect().back()
-  })
-
-  console.warn("Loaded dev routes. This message should not appear in production !")
-}
