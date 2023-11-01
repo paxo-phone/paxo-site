@@ -20,7 +20,7 @@ export default class App extends BaseModel {
   public userId: number
 
   @column()
-  public repo_id: number
+  public repoId: number
 
   @column()
   public name: string
@@ -29,7 +29,7 @@ export default class App extends BaseModel {
   public desc: string
 
   @column()
-  public repo_stars: number
+  public repoStars: number
 
   @column()
   public category: AppCategory

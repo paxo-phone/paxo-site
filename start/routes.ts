@@ -44,36 +44,18 @@ Route.group(() => {
 
   Route.get('/', 'AppsController.index')
 
-  Route.get('/app/:id', 'AppsController.product')
+  Route.get('/app/:id', 'AppsController.show')
 }).prefix('/apps')
 
-// // ----------------------------------------------
-// // Auth
-// // ----------------------------------------------
-// Route.group(() => {
-//   Route.group(() => {
-//     Route.get('/', 'UsersController.index')
-//       .as('auth')
-//     Route.post('/', 'UsersController.check')
-//       .as('auth.post')
+// ----------------------------------------------
+// Auth
+// ----------------------------------------------
+Route.group(() => {
+  Route.get('/callback', 'UsersController.callback')
 
-//     Route.get('/register', 'UsersController.register')
-//       .as('auth.register')
-//     Route.post('/register', 'UsersController.store')
-//       .as('auth.register.post')
-
-//     Route.get('/login', 'UsersController.login')
-//       .as('auth.login')
-//     Route.post('/login', 'UsersController.loginProcess')
-//       .as('auth.login.post')
-
-//     Route.get('/complete', 'UsersController.complete')
-//       .as('auth.complete')
-//   }).middleware('authFlow')
-
-//   Route.post('/logout', 'UsersController.logoutProcess')
-//     .as('auth.logoutProcess')
-// }).prefix('/auth')
+  Route.get('/logout', 'UsersController.logout')
+    .as('auth.logout')
+}).prefix('/auth')
 
 // // ----------------------------------------------
 // // Dashboard

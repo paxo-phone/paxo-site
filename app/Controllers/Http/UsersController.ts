@@ -1,110 +1,55 @@
 import type { HttpContextContract } from '@ioc:Adonis/Core/HttpContext'
+import { schema, rules } from '@ioc:Adonis/Core/Validator'
+import { createOAuthAppAuth, createOAuthUserAuth } from '@octokit/auth-oauth-app';
+import { Octokit } from '@octokit/core';
+import User from 'App/Models/User';
+import env from 'env';
 
-import User from "App/Models/User"
-// import EmailValidator from 'App/Validators/EmailValidator'
-import RegisterValidator from 'App/Validators/RegisterValidator'
-import { OauthService, OauthServiceConfig } from 'App/lib/oauth'
-import JWT from 'App/lib/jwt';
-import { AccountValidator, OauthRegisterChecker, OauthRegisterValidator, OauthValidator } from 'App/Validators/AuthValidators';
-import { format } from "util";
+export const authorization_url = "https://github.com/login/oauth/authorize?"
+  + "redirect_uri=" + encodeURIComponent(process.env.ACCESS_ADDRESS + "/auth/callback") + "&"
+  + "client_id=" + process.env.GITHUB_CLIENT_ID
+
+const githubAuth = createOAuthAppAuth({
+  clientType: "oauth-app",
+  clientId: env.GITHUB_CLIENT_ID,
+  clientSecret: env.GITHUB_CLIENT_SECRET,
+});
 
 export default class UsersController {
-  public async index({ view }: HttpContextContract) {
-    return view.share({
-      google_authorization: OauthServiceConfig[OauthService.GOOGLE].authorization_uri,
-      github_authorization: OauthServiceConfig[OauthService.GITHUB].authorization_uri
-    }).render('auth/index')
-  }
-
-  public async login({ auth, request, response, session }: HttpContextContract) {
-    try {
-      await auth.attempt(request.input('uid'), request.input('password'))
-      response.redirect().toRoute('dash')
-    } catch {
-      session.flash({ error: "Invalid credentials" })
-      response.redirect().back()
-    }
-  }
-
-  public async register({ view }: HttpContextContract) {
-    return view.render('auth/register')
-  }
-
-  public async store({ request, auth, response }: HttpContextContract) {
-    const data = await request.validate(new RegisterValidator())
-    const user = await User.create(data)
-
-    auth.login(user)
-    response.redirect().toRoute('dash')
-  }
-
-  public async oauthGoogle(ctx: HttpContextContract) { return await UsersController.oauth(OauthService.GOOGLE, ctx) }
-  public async oauthGithub(ctx: HttpContextContract) { return await UsersController.oauth(OauthService.GITHUB, ctx) }
-
-  public static async oauth(service: OauthService, { request, auth, response, session }: HttpContextContract) {
-    const config = OauthServiceConfig[service]
-    const input_data = await request.validate(new OauthValidator())
-
-    const user_data = await config.getMinimalData(input_data.code)
-
-    // Get user from database
-    const user = await User
-      .query()
-      .where(config.column, user_data.id)
-      .first()
-
-    if (user) {
-      await auth.login(user)
-      return response.redirect().toRoute('dash')
-    } else {
-      if (config.completeProfile) await config.completeProfile(user_data)
-
-      try {
-        await request.validate(new AccountValidator({ email: user_data.profile["email"] }))
-      } catch (err) {
-        session.flash({ error: format(err.messages.email[0], config.name) })
-        return response.redirect().toRoute('auth')
+  public async callback({ request }: HttpContextContract) {
+    const data = await request.validate({
+      schema: schema.create({
+        code: schema.string({}, [
+          rules.regex(/^[a-zA-Z0-9_/-]+$/)
+        ])
+      }),
+      messages: {
+        '*': "The authentication service returned an error"
       }
+    })
 
-      return response.redirect().withQs({
-        oauth_profile: JWT.sign({ data: user_data.profile })
-      }).toRoute('oauth.register')
-    }
-  }
+    const octokit = await githubAuth({
+      type: 'oauth-user',
+      code: data.code,
+      factory: (options) => {
+        return new Octokit({
+          authStrategy: createOAuthUserAuth,
+          auth: options,
+        });
+      },
+    })
+    const { data: userdata } = await octokit.request("GET /user")
 
-  public async oauthRegister({ request, view }: HttpContextContract) {
-    return view.share({
-      oauth_profile: request.input("oauth_profile")
-    }).render("auth/oauth_register")
-  }
+    const user = await User.create({
+      id: userdata.id,
+      name: userdata.name
+    })
 
-  public async oauthCheck({ request }: HttpContextContract) {
-    try {
-      await request.validate(new OauthRegisterChecker())
-      return { available: true }
-    } catch {
-      return { available: false }
-    }
-  }
-
-  public async oauthStore({ request, auth, response, session }: HttpContextContract) {
-    const data = await request.validate(new OauthRegisterValidator())
-    let oauth_profile
-    try {
-      oauth_profile = JWT.verify(data.oauth_profile)
-    } catch {
-      session.flash({ error: "Invalid token" })
-      return response.redirect().toRoute("auth")
-    }
-    const user = await User.create(Object.assign(oauth_profile.data, { username: data.username }))
-
-    await auth.login(user)
-    return response.redirect().toRoute('dash')
   }
 
   public async logout({ auth, response, session }: HttpContextContract) {
     await auth.use('web').logout()
-    session.flash({ success: 'Logged out successfully' })
-    response.redirect('/')
+    session.flash({ success: 'Log out successfully' })
+    response.redirect().toRoute('apps')
   }
 }

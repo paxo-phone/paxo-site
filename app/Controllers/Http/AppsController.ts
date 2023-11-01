@@ -7,7 +7,7 @@ export default class AppsController {
     return view.share({ trending_apps }).render('apps/index')
   }
 
-  public async product({ view, params, response }: HttpContextContract) {
+  public async show({ view, params, response }: HttpContextContract) {
     const app = await App.query()
       .where('id', params.id)
       .preload('user')
@@ -45,7 +45,7 @@ updateTrendingApps()
 const octokit = new Octokit()
 export async function updateAppDetails(app: App) {
   const res = await octokit.request('GET /repositories/{repository_id}', {
-    repository_id: app.repo_id
+    repository_id: app.repoId
   })
 
   if (res.status == 404) {
@@ -55,6 +55,6 @@ export async function updateAppDetails(app: App) {
 
   app.name = res.data.name
   app.desc = res.data.description
-  app.repo_stars = res.data.stargazers_count
+  app.repoStars = res.data.stargazers_count
   return await app.save()
 }
