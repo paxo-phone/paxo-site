@@ -1,211 +1,208 @@
 /* header */
 
 .header {
-    position: relative; 
-    padding: 50px 7%;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
+  position: relative;
+  padding: 50px 7%;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
 }
 
 .header .logo {
-    font-size: 33px;
-    font-weight: bold;
-    text-transform: uppercase;
-    color: inherit;
-    z-index: 1;
+  font-size: 33px;
+  font-weight: bold;
+  text-transform: uppercase;
+  color: inherit;
+  z-index: 1;
 }
 
-.logo {
+// .logo {
 
-    transform: translateY(-300%);
-    transition: all 0.5s ease;
+//   transform: translateY(-300%);
+//   transition: all 0.5s ease;
 
-}
+// }
 
-.logo.visible {
+// .logo.visible {
 
-    transform: translate(0);
+//   transform: translate(0);
 
-}
+// }
 
 .header .nav {
-    display: none;
-    transition: all 0.5s ease;
+  display: none;
+  transition: all 0.5s ease;
 }
 
 @media screen and (min-width: map-get($breakpoints, lg)) {
-    .header .nav {
-        display: flex;
+  .header .nav {
+    display: flex;
 
-    }
+  }
 }
 
 .header .nav .nav-list {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    flex-wrap: wrap;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-wrap: wrap;
 }
 
 .header .nav .nav-list .nav-item {
-    padding: 0 .8rem;
+  padding: 0 .8rem;
 }
 
 .header .nav .nav-list .nav-item .nav-link {
-    text-decoration: none;
-    color: inherit;
-    text-transform: uppercase;
-    font-size: 16px;
-    font-weight: bold;
+  text-decoration: none;
+  color: inherit;
+  text-transform: uppercase;
+  font-size: 16px;
+  font-weight: bold;
 }
 
 .header .nav .nav-list .nav-item .nav-link:hover {
-    color: gray;
+  color: gray;
 }
 
 .header.header-white {
-    color: white !important;
+  color: white !important;
 }
 
 .header.header-floating {
-    position: absolute;
-    top: 0;
-    left: 0;
-    right: 0;
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
 }
 
 /* responsive nav */
 
 .toggle-nav-btn {
-    display: block;
-    transform: translateY(-300%);
-    background: none;
-    border: none;
-    font-size: 1.5rem;
-    color: inherit;
-    cursor: pointer;
-    transition: all 0.5s ease;
-    z-index: 1;
+  display: block;
+  // transform: translateY(-300%);
+  background: none;
+  border: none;
+  font-size: 1.5rem;
+  color: inherit;
+  cursor: pointer;
+  transition: all 0.5s ease;
+  z-index: 1;
 }
 
 
 .toggle-nav-btn.active {
 
-    color: white;
+  color: white;
 
 }
 
-.toggle-nav-btn.visible{
+// .toggle-nav-btn.visible {
 
-    transform: translate(0);
+//   transform: translate(0);
+
+// }
+
+@media screen and (min-width: map-get($breakpoints, lg)) {
+  .toggle-nav-btn {
+    display: none;
+  }
+}
+
+.header .responsive-nav {
+  font-size: 1.4rem;
+  display: flex;
+
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 100vh;
+
+  background: black;
+}
+
+.responsive-nav {
+
+  transform: translateX(-200%);
+  transition: all 0.5s ease;
 
 }
 
-@media screen and (min-width: map-get($breakpoints, lg))
-{
-    .toggle-nav-btn {
-        display: none;
-    }
-}
+.responsive-nav.active {
 
-.header .responsive-nav
-{
-    font-size: 1.4rem;
-    display: flex;
-
-    justify-content: center;
-    align-items: center;
-    flex-direction: column;
-
-    position: absolute;
-    top: 0;
-    left: 0;
-    right:  0;
-    height: 100vh;
-
-    background: black;
-}
-
-.responsive-nav{
-
-    transform: translateX(-200%);
-    transition: all 0.5s ease;
+  transform: translateX(0);
 
 }
 
-.responsive-nav.active{
+// Cancelled animations due to incompatibility for Neper and being to heavy, refactor needed
+// .responsive-nav-item {
 
-    transform: translateX(0);
+//   opacity: 0;
+//   transform: translateY(-70%);
+//   transition: all 0.5s ease;
 
-}
+// }
 
-.responsive-nav-item{
+// .responsive-nav-item.active {
 
-    opacity: 0;
-    transform: translateY(-70%);
-    transition: all 0.5s ease;
+//   opacity: 1;
+//   transform: translate(0);
 
-}
+// }
 
-.responsive-nav-item.active{
+// .nav-item {
 
-    opacity: 1;
-    transform: translate(0);
-
-}
-
-.nav-item{
-
-    opacity: 0;
-    transform: translateY(-200%);
+//   opacity: 0;
+//   transform: translateY(-200%);
 
 
-}
+// }
 
-.nav-item.visible{
+// .nav-item.visible {
 
-    opacity:1;
-    transform: translate(0);
+//   opacity: 1;
+//   transform: translate(0);
 
-}
+// }
 
 .header .responsive-nav .responsive-nav-list {
 
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    flex-direction: column;
-    gap: 1.5rem;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  gap: 1.5rem;
 }
 
-.header .responsive-nav .responsive-nav-list .responsive-nav-item .responsive-nav-link
-{
-    color: white;
+.header .responsive-nav .responsive-nav-list .responsive-nav-item .responsive-nav-link {
+  color: white;
 }
 
-#lang{
+#lang {
 
-    text-align: center;
-
-}
-
-.presentation{
-
-    opacity:0;
-    transition: all 0.5s ease;
+  text-align: center;
 
 }
 
-.presentation.visible{
+.presentation {
 
-    opacity:1;
+  opacity: 0;
+  transition: all 0.5s ease;
 
 }
 
-@media screen and (min-width: map-get($breakpoints, lg))
-{
-    .header .responsive-nav {
-        display: none;
-    }
+.presentation.visible {
+
+  opacity: 1;
+
+}
+
+@media screen and (min-width: map-get($breakpoints, lg)) {
+  .header .responsive-nav {
+    display: none;
+  }
 }

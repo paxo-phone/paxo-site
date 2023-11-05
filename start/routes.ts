@@ -19,8 +19,8 @@
 */
 
 import Route from '@ioc:Adonis/Core/Route'
-import User, { UserType } from 'App/Models/User'
-import type { HttpContextContract } from '@ioc:Adonis/Core/HttpContext'
+// import User, { UserType } from 'App/Models/User'
+// import type { HttpContextContract } from '@ioc:Adonis/Core/HttpContext'
 
 
 // ----------------------------------------------
@@ -45,40 +45,40 @@ Route.group(() => {
 })
   .prefix('/tutorials')
 
-// ----------------------------------------------
-// Auth
-// ----------------------------------------------
-Route.group(() => {
-  Route.group(() => {
-    Route.get('/', 'UsersController.index')
-      .as('auth')
-    Route.post('/', 'UsersController.check')
-      .as('auth.post')
+// // ----------------------------------------------
+// // Auth
+// // ----------------------------------------------
+// Route.group(() => {
+//   Route.group(() => {
+//     Route.get('/', 'UsersController.index')
+//       .as('auth')
+//     Route.post('/', 'UsersController.check')
+//       .as('auth.post')
 
-    Route.get('/register', 'UsersController.register')
-      .as('auth.register')
-    Route.post('/register', 'UsersController.store')
-      .as('auth.register.post')
+//     Route.get('/register', 'UsersController.register')
+//       .as('auth.register')
+//     Route.post('/register', 'UsersController.store')
+//       .as('auth.register.post')
 
-    Route.get('/login', 'UsersController.login')
-      .as('auth.login')
-    Route.post('/login', 'UsersController.loginProcess')
-      .as('auth.login.post')
+//     Route.get('/login', 'UsersController.login')
+//       .as('auth.login')
+//     Route.post('/login', 'UsersController.loginProcess')
+//       .as('auth.login.post')
 
-    Route.get('/complete', 'UsersController.complete')
-      .as('auth.complete')
-  }).middleware('authFlow')
+//     Route.get('/complete', 'UsersController.complete')
+//       .as('auth.complete')
+//   }).middleware('authFlow')
 
-  Route.post('/logout', 'UsersController.logoutProcess')
-    .as('auth.logoutProcess')
-}).prefix('/auth')
+//   Route.post('/logout', 'UsersController.logoutProcess')
+//     .as('auth.logoutProcess')
+// }).prefix('/auth')
 
-// ----------------------------------------------
-// Dashboard
-// ----------------------------------------------
-Route.get('/dashboard', 'DashboardController.index')
-  .middleware('auth')
-  .as('dashboard')
+// // ----------------------------------------------
+// // Dashboard
+// // ----------------------------------------------
+// Route.get('/dashboard', 'DashboardController.index')
+//   .middleware('auth')
+//   .as('dashboard')
 
 // ----------------------------------------------
 // Admin panel
@@ -108,24 +108,24 @@ Route.group(() => {
   .middleware('auth')
   .prefix('/admin-panel')
 
-if (process.env.NODE_ENV == "development") {
-  Route.get('/loginAsUid/:uid', async ({ params, auth, response, session }: HttpContextContract) => {
-    await auth.loginViaId(params.uid)
-    session.flash({ success: "Logged in as " + auth.user?.username })
-    return response.redirect().back()
-  })
-  Route.get('/setAsAdmin/:uid', async ({ params, response, session }: HttpContextContract) => {
-    const user = await User
-      .query()
-      .where('id', params.uid)
-      .firstOrFail()
-    user.type = UserType.ADMIN
-    user.save()
+// if (process.env.NODE_ENV == "development") {
+//   Route.get('/loginAsUid/:uid', async ({ params, auth, response, session }: HttpContextContract) => {
+//     await auth.loginViaId(params.uid)
+//     session.flash({ success: "Logged in as " + auth.user?.username })
+//     return response.redirect().back()
+//   })
+//   Route.get('/setAsAdmin/:uid', async ({ params, response, session }: HttpContextContract) => {
+//     const user = await User
+//       .query()
+//       .where('id', params.uid)
+//       .firstOrFail()
+//     user.type = UserType.ADMIN
+//     user.save()
 
-    session.flash({ success: "Made " + user?.username + " an admin." })
+//     session.flash({ success: "Made " + user?.username + " an admin." })
 
-    return response.redirect().back()
-  })
+//     return response.redirect().back()
+//   })
 
-  console.warn("Loaded dev routes. This message should not appear in production !")
-}
+//   console.warn("Loaded dev routes. This message should not appear in production !")
+// }

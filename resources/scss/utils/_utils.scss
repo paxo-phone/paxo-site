@@ -52,7 +52,7 @@
     }
 }
 
-.px-1 { padding-left: 1rem; 
+.px-1 { padding-left: 1rem;
         padding-right: 1rem; }
 
 @media screen and (min-width: map-get($breakpoints, md)) {
@@ -66,8 +66,8 @@
     width: 100%;
 }
 
-.flex { 
-    display: flex; 
+.flex {
+    display: flex;
 }
 
 .flex-1 {
@@ -92,8 +92,13 @@
     .md\:justify-between { justify-content: space-between;}
     .md\:justify-end { justify-content: flex-end;}
     .md\:justify-start { justify-content: flex-start; }
+    .md\:gap-3 { gap: 3rem; }
 }
 
 .align-center { align-items: center; }
 .align-start  { align-items: start;  }
 .align-end    { align-items: end;    }
+
+@media screen and (max-width: map-get($breakpoints, md)) {
+    .hide-on-mobile { display: none; }
+}
