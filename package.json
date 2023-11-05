@@ -52,7 +52,6 @@
     "@adonisjs/session": "^6.2.0",
     "@adonisjs/shield": "^7.0.0",
     "@adonisjs/view": "^6.1.0",
-    "bootstrap": "^5.3.2",
     "highlight.js": "^11.9.0",
     "luxon": "^3.4.0",
     "markdown-it": "^13.0.2",

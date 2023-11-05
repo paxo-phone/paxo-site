@@ -4,7 +4,6 @@ import { ProjectService } from 'App/Services/ProjectService'
 import { UserService } from 'App/Services/UserService'
 import { inject } from '@adonisjs/fold'
 import { TutorialService } from 'App/Services/TutorialService'
-import { StepService } from 'App/Services/StepService'
 
 /**
  * @author Welpike
@@ -27,7 +26,6 @@ export default class AdminModelController {
     'projects': this.projectService,
     'users': this.userService,
     'tutorials': this.tutorialService,
-    'steps': this.stepService,
   }
 
   constructor(
@@ -35,7 +33,6 @@ export default class AdminModelController {
     private projectService: ProjectService,
     private userService: UserService,
     private tutorialService: TutorialService,
-    private stepService: StepService
   ) {
   }
 
