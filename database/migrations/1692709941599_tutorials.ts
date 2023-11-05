@@ -9,13 +9,7 @@ export default class extends BaseSchema {
 
       table.string('name')
       table.string('description')
-      table.string('end_title')
-      table.string('end_text')
-      table.string('end_gif').defaultTo('https://media2.giphy.com/media/cQNRp4QA8z7B6/giphy.gif?cid=ecf05e47ohjkohlyjituly1p8eksruightei9lq4e60ghwoz&ep=v1_gifs_search&rid=giphy.gif&ct=g')
-      table.integer('user_id')
-        .unsigned()
-        .references('users.id')
-        .onDelete('CASCADE')
+      table.text('content')
 
       table.timestamp('created_at', { useTz: true })
       table.timestamp('updated_at', { useTz: true })

@@ -13,19 +13,7 @@ export default class Tutorial extends BaseModel {
   public description: string
 
   @column()
-  public endTitle: string
-
-  @column()
-  public endText: string
-
-  @column()
-  public endGif: string
-
-  @belongsTo(() => User)
-  public user: BelongsTo<typeof User>
-
-  @column()
-  public userId: number
+  public content: string
 
   @column.dateTime({ autoCreate: true })
   public createdAt: DateTime

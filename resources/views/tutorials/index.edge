@@ -18,8 +18,8 @@
   <div>
     @each(tutorial in tutorials)
       <div class="card">
-        <div class="card-title">{{ tutorial.name }} - {{ tutorial.user.username }} ({{ tutorial.createdAt }})</div>
-        <div class="card-description">{{ tutorial.description }}</div>
+        <div class="card-title">{{ tutorial.name }}</div>
+        <div class="card-description">{{ tutorial.description }} (Last updated: {{ tutorial.updatedAt }})</div>
         <a href="{{ route('tutorials.viewTutorial', {id: tutorial.id}) }}">En savoir plus...</a>
       </div>
     @endeach

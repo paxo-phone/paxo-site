@@ -11,10 +11,53 @@
 
 @section('content')
 <section class="container">
-  <div class="card">
-    <div class="card-title">{{ tutorial.name }} - {{ tutorial.user.username }} ({{ tutorial.date_created }})</div>
-    <div class="card-description">{{ tutorial.description }}</div>
-    <a href="{{ route('tutorials.viewStep', {id: tutorial.id}) }}?index=0">Commencer le tutoriel ></a>
-  </div>
+
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/bootstrap/3.2.0/css/bootstrap.css">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/highlight.js/9.1.0/styles/github.min.css">
+  @entryPointStyles('tutorial')
+  <div id="doc">{{ tutorial.content }}</div>
 </section>
+
+<!--
+Pour fabriquer ce modèle, il vous faudra un certain nombre d'outils tels que:
+
+Un fer a souder
+Un pistolet a air chaud / four a refusion (ou four normal)
+Des pinces précises
+De la pâte a souder et de l'étain
+Une imprimante 3D (ou commander en ligne pour l'impression)
+
+
+Le circuit a été conçu sur easyEDA, et les composants séléctionnés sur LCLC:
+lien du schema et des composants : https://oshwlab.com/gabriel.rochet/prototype-1
+
+Fabrication:
+  Commandez le pcb sur jlcpcb:
+    Sur https://oshwlab.com/gabriel.rochet/prototype-1, cliquez sur "open in editor"
+    Puis dans "fabrication" cliquez sur "One Click Order PCB", puis suivez la procédure affichée.
+    (n'oubliez pas de sélectionner la couleur blanc pour un meilleur rendu!)
+  Commandez les composants:
+    Sur la même page  du pcb, cliquez sur "One click Order part" puis suivez la procédure.
+    Commandez l'écran ici : https://fr.aliexpress.com/item/4000369673792.html?pdp_npi=2%40dis%21EUR%216%2C68%E2%82%AC%216%2C34%E2%82%AC%21%21%21%21%21%40211b81a316863880649261368e1edc%2110000001511103388%21btf&_t=pvid%3A578c2163-cc67-4511-8c3c-1b932c6fd9ef&afTraceInfo=4000369673792__pc__pcBridgePPC__xxxxxx__1686388065&spm=a2g0o.ppclist.product.mainProduct&gatewayAdapt=glo2fra
+  Assemblez:
+    En utilisant de la pate a souder, déposez en sur les différents "pads" en métal, puis en suivant le schéma sur easyEDA,
+    déposez les composants un par un dans le bon sens et avec précaution!
+  Soudez:
+    Placez le circuit dans un four a environ 230°C jusqu’à la fonte de tous les pads en étain.
+    Soudez ensuite l'ESP32, le haut parleur et la batterie a l'aide d'un fer a souder.
+  Emboitez:
+    Placez le PCB dans le boitier et connectez l'écran LCD (en rajoutant du scotch pour eviter les contacts avec le PCB), collez et c'est tout.
+
+Lien de l'impression 3D:
+  https://drive.google.com/file/d/12QMoWA61kY4myk_HJIx_PqwNlcT_oy6B/view?usp=sharing
+  (bientôt hébergé sur un serveur dédié)
+
+  Tout sera montré dans une future vidéo YouTube pour mieux visualiser!
+
+-->
+
+@endsection
+
+@section('script')
+  @entryPointScripts('tutorial')
 @endsection
