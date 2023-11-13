@@ -31,23 +31,6 @@ footer {
     cursor: pointer;
 }
 
-.footer-nav {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    flex-direction: column;
-
-    gap: 1rem;
-}
-
-.footer-nav a {
-    color: white;
-}
-
-.footer-nav a:hover { 
-    text-decoration: underline;
-}
-
 @media screen and (min-width: map-get($breakpoints, sm))
 {
     .footer-nav {

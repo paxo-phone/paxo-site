@@ -1,0 +1,29 @@
+/* gallery */
+.gallery-grid2 {
+	width: 100%;
+	max-width: 1500px;
+	margin: 0 auto;
+
+	display: grid;
+	grid-template-columns: 1fr 1fr;
+	row-gap: 5rem;
+	column-gap: 5rem;
+}
+
+@media only screen and (max-width: 1151px) {
+	.gallery-grid2
+	{ grid-template-columns: 1fr; }
+}
+/*
+@media screen and (min-width: map-get($breakpoints, lg))  {
+	.gallery-grid
+	{ grid-template-columns: 1fr 1fr 1fr; }
+}*/
+.container img{
+  border: 5px solid #39BC9B;
+  min-width:100%;
+}
+
+figcaption{
+  margin-top:20px ;
+}
