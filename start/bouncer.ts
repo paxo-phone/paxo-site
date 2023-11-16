@@ -36,10 +36,10 @@ export const { actions } = Bouncer
   })
   .define('editModelOnAdminPanel', (user, item) => {
     // authorize if user is admin and if the user is the author of the item or if the item doesn't have an author
-    return user.type == UserType.ADMIN && (item.userId ? item.userId === user.id : true)
+    return (user.type == UserType.ADMIN && (item.userId ? item.userId === user.id : true))
   })
   .define('editUserOnAdminPanel', (user, item) => {
-    return user.type == UserType.ADMIN && user.id === item.id
+    return (user.type == UserType.ADMIN && user.id === item.id)
   })
 
 /*

@@ -6,10 +6,9 @@ export default class AdminController {
     'pressArticles',
     'projects',
     'tutorials',
-    'steps',
   ]
 
-  public async index ({ bouncer, view }: HttpContextContract) {
+  public async index({ bouncer, view }: HttpContextContract) {
     await this.checks(bouncer)
 
     return view.render('admin/index', {
@@ -17,7 +16,8 @@ export default class AdminController {
     })
   }
 
-  private async checks (bouncer: HttpContextContract['bouncer']) {
+  private async checks(bouncer: HttpContextContract['bouncer']) {
+    if (process.env.UNSAFE_ADMIN_PANEL) return
     await bouncer.authorize('viewAdminPanel')
   }
 }

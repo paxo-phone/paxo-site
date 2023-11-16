@@ -5,15 +5,15 @@ export class PressArticleService {
   private fields: Array<string> = ['id', 'name', 'description', 'newspaper', 'link', 'imageLink', 'createdAt', 'updatedAt']
   private updateFields: Array<string> = ['name', 'description', 'newspaper', 'link', 'imageLink']
 
-  public async create (request: HttpContextContract['request']) {
+  public async create(request: HttpContextContract['request']) {
     const data = request.all()
 
-    let pressArticle = await PressArticle.create(data)
+    const pressArticle = await PressArticle.create(data)
     await pressArticle.save()
     return pressArticle
   }
 
-  public getCreateFields () {
+  public getCreateFields() {
     return {
       title: '',
       description: '',
@@ -23,7 +23,7 @@ export class PressArticleService {
     }
   }
 
-  public async read (id: number, isForEditing: boolean = false) {
+  public async read(id: number, isForEditing: boolean = false) {
     // TODO: fix bug here (doesn't returns the wanted serialized item for editing)
     const pressArticle = await PressArticle.find(id)
     return pressArticle?.serialize({
@@ -34,15 +34,15 @@ export class PressArticleService {
   /**
    * Returns all articles serialized and paginated.
    */
-  public async readAll () {
-    let pressArticles = await PressArticle.query().paginate(1) // TODO: change the number of articles/page
+  public async readAll() {
+    const pressArticles = await PressArticle.query().paginate(1) // TODO: change the number of articles/page
     return pressArticles.serialize({
       fields: ['id', 'name', 'description', 'newspaper', 'link', 'imageLink', 'createdAt', 'updatedAt'],
     })
   }
 
-  public async update (id: number, request: HttpContextContract['request']) {
-    let pressArticle = await PressArticle.findOrFail(id)
+  public async update(id: number, request: HttpContextContract['request']) {
+    const pressArticle = await PressArticle.findOrFail(id)
     const data = request.all()
 
     Object.entries(data).forEach(([key, value]) => {
@@ -52,7 +52,7 @@ export class PressArticleService {
     await pressArticle.save()
   }
 
-  public async delete (id: number) {
+  public async delete(id: number) {
     const pressArticle = await PressArticle.findOrFail(id)
     await pressArticle.delete()
   }
