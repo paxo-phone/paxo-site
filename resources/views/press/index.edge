@@ -17,12 +17,15 @@ Presse
 
   <div>
     @each(pressArticle in pressArticles)
-    <div class="card">
-      <img src="{{ pressArticle.imageLink ? pressArticle.imageLink : '' }}" alt="{{ pressArticle.title }}">
-      <div class="card-title">{{ pressArticle.title }} - {{ pressArticle.createdAt }}</div>
-      <div class="card-description">{{ pressArticle.description ? pressArticle.description : '' }}</div>
-      <a href="{{ pressArticle.link }}">En savoir plus...</a>
-    </div>
+    <a style="color: black;" href="{{ pressArticle.link }}">
+      <div class="card">
+        @if(pressArticle.imageLink)
+        <img src="{{ pressArticle.imageLink ?? '' }}" alt="{{ pressArticle.title }}">
+        @end
+        <div class="card-title">{{ pressArticle.title }}</div>
+        <div class="card-description">{{ pressArticle.description ? pressArticle.description : '' }}</div>
+      </div>
+    </a>
     @endeach
   </div>
 
