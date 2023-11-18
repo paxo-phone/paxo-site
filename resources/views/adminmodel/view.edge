@@ -9,10 +9,11 @@ Admin panel - {{ model }} / {{ item.id }} / view
 
 <div>
   <a href="{{ route('adminPanel.model.update', {model: model, id: item.id}) }}">Update</a>
-  <a href="{{ route('adminPanel.model.delete', {model: model, id: item.id}) }}">Delete</a>
+  <a
+    onclick="if(confirm('Are you sure you want to delete this {{ model }}?')) {window.location = '{{ route('adminPanel.model.delete', {model: model, id: item.id}) }}'}">Delete</a>
   <div>
     @each(attr in item)
-      <p>{{ attr }}</p>
+    <p>{{ attr }}</p>
     @endeach
   </div>
 </div>

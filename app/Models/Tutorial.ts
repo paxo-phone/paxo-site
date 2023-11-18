@@ -1,5 +1,5 @@
 import { DateTime } from 'luxon'
-import {BaseModel, column} from '@ioc:Adonis/Lucid/Orm'
+import { BaseModel, column } from '@ioc:Adonis/Lucid/Orm'
 
 export default class Tutorial extends BaseModel {
   @column({ isPrimary: true })
