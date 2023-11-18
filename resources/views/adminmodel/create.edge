@@ -8,9 +8,9 @@ Admin panel - {{ model }} / create
 <h1>Admin panel - {{ model }} / create</h1>
 
 <form method="post">
-  @each((field_value, field_name) in fields)
-    <label>{{ field_name }}</label>
-    <input type="{{ field_name === 'password' ? 'password' : 'text' }}" name="{{ field_name }}" value="{{ field_value }}">
+  @each(field in fields)
+  <label>{{ field }}</label>
+  <input type="text" name="{{ field }}">
   @endeach
   <button type="submit">Save</button>
 </form>

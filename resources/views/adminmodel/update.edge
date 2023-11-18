@@ -8,10 +8,10 @@ Admin panel - {{ model }} / {{ id }} / update
 <h1>Admin panel - {{ model }} / {{ id }} / update</h1>
 
 <form method="post">
-    @each((attr_value, attr_name) in item)
-      <label>{{ attr_name }}</label>
-      <input type="text" name="{{ attr_name }}" value="{{ attr_value }}">
-    @endeach
-    <button type="submit">Save</button>
+  @each((attr_value, attr_name) in item)
+  <label>{{ attr_name }}</label>
+  <input type="text" name="{{ attr_name }}" value="{{ attr_value }}">
+  @endeach
+  <button type="submit">Save</button>
 </form>
 @endsection

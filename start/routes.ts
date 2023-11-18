@@ -99,13 +99,14 @@ if (process.env.UNSAFE_ADMIN_PANEL) {
       .as('adminPanel.model.create')
     Route.post('/:model/create', 'AdminModelController.createProcess')
 
+    Route.post('/:model/inject', 'AdminModelController.injectProcess')
+
     Route.get('/:model/i/:id/update', 'AdminModelController.update')
       .as('adminPanel.model.update')
     Route.post('/:model/i/:id/update', 'AdminModelController.updateProcess')
 
-    Route.get('/:model/i/:id/delete', 'AdminModelController.delete')
+    Route.get('/:model/i/:id/delete', 'AdminModelController.deleteProcess')
       .as('adminPanel.model.delete')
-    Route.post('/:model/i/:id/delete', 'AdminModelController.deleteProcess')
   })
     // .middleware('auth')
     .prefix('/admin-panel')
