@@ -1,5 +1,13 @@
-#doc {
-  li, ol, ul {
+.markdown-body {
+
+  li,
+  ol,
+  ul {
     all: revert
   }
+
+  blockquote {
+    font-size: inherit !important;
+  }
+
 }

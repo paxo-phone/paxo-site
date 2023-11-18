@@ -9,8 +9,13 @@ Admin panel - {{ model }} / create
 
 <form method="post">
   @each(field in fields)
-  <label>{{ field }}</label>
-  <input type="text" name="{{ field }}">
+    <label>{{ field }}</label>
+
+    @if(field == "content")
+      <textarea name="{{ field }}"></textarea>
+    @else
+      <input type="text" name="{{ field }}">
+    @end
   @endeach
   <button type="submit">Save</button>
 </form>

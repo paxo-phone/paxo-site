@@ -3,7 +3,7 @@ import "../scss/module/markdown.scss"
 import markdownIt from "markdown-it"
 import hljs from "highlight.js"
 
-const doc = document.querySelector("#doc")
+const doc = document.querySelector(".markdown-body")
 
 const md = markdownIt({
   html: true,
@@ -21,5 +21,5 @@ const md = markdownIt({
   }
 })
 doc.innerHTML = md.render(doc.textContent)
-
 document.querySelectorAll("table").forEach((el) => el.classList.add('table'))
+doc.removeAttribute('style')
