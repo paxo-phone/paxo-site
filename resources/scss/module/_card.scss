@@ -12,7 +12,10 @@
 }
 
 .card-img {
-  width: 20%;
+  min-width: 30%;
+  min-height: 100%;
+  object-fit: cover;
+  object-position: center;
 }
 
 .card-top-title {

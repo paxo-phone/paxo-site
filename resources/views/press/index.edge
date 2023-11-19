@@ -22,7 +22,7 @@ Presse
         @if(pressArticle.imageLink)
         <img class="card-img" src="{{ pressArticle.imageLink ?? '' }}" alt="{{ pressArticle.title }}">
         @end
-        <div class="card-meta">
+        <div>
           <div class="card-top-title">{{ pressArticle.newspaper }}</div>
           <div class="card-title">{{ pressArticle.title }}</div>
           <div class="card-description">{{ pressArticle.description ? pressArticle.description : '' }}</div>
