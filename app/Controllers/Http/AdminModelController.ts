@@ -1,6 +1,8 @@
 import type { HttpContextContract } from '@ioc:Adonis/Core/HttpContext'
 import { LucidModel } from '@ioc:Adonis/Lucid/Orm'
 import { randomBytes } from 'node:crypto'
+import Drive from '@ioc:Adonis/Core/Drive'
+import axios from "axios"
 
 import Tutorial from 'App/Models/Tutorial'
 import PressArticle from 'App/Models/PressArticle'
@@ -113,6 +115,10 @@ export default class AdminModelController {
       await file.moveToDisk('/', {
         name: item.$getAttribute('file'),
       })
+
+      //Invalidate cloudflare cache
+      if (process.env.CLOUDFLARE_TOKEN) cf_invalidate(await Drive.getUrl(item.$getAttribute('file')))
+
     }
 
     await Object.assign(item, body).save()
@@ -142,4 +148,26 @@ export default class AdminModelController {
       model: params.model
     })
   }
+}
+
+async function cf_invalidate(path: string) {
+  axios.post('https://api.cloudflare.com/client/v4/zones/' + process.env.CLOUDFLARE_ZONE + '/purge_cache', {
+    files: [
+      process.env.ACCESS_ADDRESS + path
+    ]
+  }, {
+    headers: {
+      Authorization: 'Bearer ' + process.env.CLOUDFLARE_TOKEN,
+      "Content-Type": "application/json"
+    }
+  })
+    .then((data) => {
+      if (!data.data.success) {
+        console.error("Error while wiping the cloudflare cache")
+        console.error(data.data.errors)
+      }
+    }, (reason) => {
+      console.error("Error while wiping the cloudflare cache")
+      console.error(reason)
+  })
 }
