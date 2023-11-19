@@ -1,14 +1,17 @@
 import type { HttpContextContract } from '@ioc:Adonis/Core/HttpContext'
 import { LucidModel } from '@ioc:Adonis/Lucid/Orm'
+import { randomBytes } from 'node:crypto'
 
 import Tutorial from 'App/Models/Tutorial'
 import PressArticle from 'App/Models/PressArticle'
 import Project from 'App/Models/Project'
+import File from 'App/Models/File'
 
 export const models: { [key: string]: LucidModel } = { // Models available in the admin panel
   Tutorial,
   PressArticle,
-  Project
+  Project,
+  File
 }
 
 export default class AdminModelController {
@@ -36,7 +39,18 @@ export default class AdminModelController {
   }
 
   public async createProcess({ params, response, request }: HttpContextContract) {
-    const item = await models[params.model].create(request.body())
+    const data = request.body()
+
+    const file = request.file('file')
+    if (file) {
+      const filename = randomBytes(8).toString('hex') + (file.extname ? "." + file.extname : "")
+      await file.moveToDisk('/', {
+        name: filename
+      })
+      data.file = filename
+    }
+
+    const item = await models[params.model].create(data)
 
     return response.redirect().toRoute('adminPanel.model.view', {
       model: params.model,
@@ -79,6 +93,7 @@ export default class AdminModelController {
   }
 
   public async updateProcess({ bouncer, params, response, request }: HttpContextContract) {
+    const body = request.body()
     const item = await models[params.model].query()
       .where('id', params.id)
       .firstOrFail()
@@ -92,7 +107,15 @@ export default class AdminModelController {
       }
     }
 
-    await Object.assign(item, request.body()).save()
+    const file = request.file('file')
+    if (file) {
+      if (body.file) delete body.file // In case filename is included in main body
+      await file.moveToDisk('/', {
+        name: item.$getAttribute('file'),
+      })
+    }
+
+    await Object.assign(item, body).save()
 
     return response.redirect().toRoute('adminPanel.model.view', {
       model: params.model,

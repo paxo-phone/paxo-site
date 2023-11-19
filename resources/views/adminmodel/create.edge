@@ -7,15 +7,17 @@ Admin panel - {{ model }} / create
 @section('content')
 <h1>Admin panel - {{ model }} / create</h1>
 
-<form method="post">
+<form method="post" enctype="multipart/form-data">
   @each(field in fields)
-    <label>{{ field }}</label>
+  <label>{{ field }}</label>
 
-    @if(field == "content")
-      <textarea name="{{ field }}"></textarea>
-    @else
-      <input type="text" name="{{ field }}">
-    @end
+  @if(field == "content")
+  <textarea name="{{ field }}"></textarea>
+  @elseif(field == "file")
+  <input type="file" name="{{ field }}">
+  @else
+  <input type="text" name="{{ field }}">
+  @end
   @endeach
   <button type="submit">Save</button>
 </form>
