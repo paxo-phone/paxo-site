@@ -16,6 +16,11 @@
   z-index: 1;
 }
 
+.header-white .logo
+{
+  filter: brightness(0) invert(1); // logo blanc sur fond foncé
+}
+
 // .logo {
 
 //   transform: translateY(-300%);

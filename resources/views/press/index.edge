@@ -19,10 +19,9 @@ Presse
     @each(pressArticle in pressArticles)
     <a style="color: black;" href="{{ pressArticle.link }}">
       <div class="card">
-        {{-
-        @if(pressArticle.imageLink)
+        {{-- @if(pressArticle.imageLink)
         <img src="{{ pressArticle.imageLink ?? '' }}" alt="{{ pressArticle.title }}">
-        @end-}}
+        @end --}}
         <div class="card-title">{{ pressArticle.title }}</div>
         <div class="card-description">{{ pressArticle.description ? pressArticle.description : '' }}</div>
       </div>

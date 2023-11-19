@@ -1,29 +1,38 @@
 /* gallery */
-.gallery-grid2 {
+.projects {
 	width: 100%;
-	max-width: 1500px;
-	margin: 0 auto;
-
-	display: grid;
-	grid-template-columns: 1fr 1fr;
-	row-gap: 5rem;
-	column-gap: 5rem;
+	padding: 1rem 0;
 }
 
-@media only screen and (max-width: 1151px) {
-	.gallery-grid2
-	{ grid-template-columns: 1fr; }
-}
-/*
-@media screen and (min-width: map-get($breakpoints, lg))  {
-	.gallery-grid
-	{ grid-template-columns: 1fr 1fr 1fr; }
-}*/
-.container img{
-  border: 5px solid #39BC9B;
-  min-width:100%;
+.project
+{
+	display: flex;
+	gap: 2rem;
+	margin: 2rem 0;
 }
 
-figcaption{
-  margin-top:20px ;
+.project > * 
+{
+	// flex: 1 1 0;
+	// width: 0;
+}
+
+.project .project-img
+{
+	max-width: 400px;
+	width: 100%;
+	flex-shrink: 1;
+}
+
+.project-title
+{
+	font-weight: bold;
+}
+
+.project-body
+{
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+	gap: 1rem;
 }
