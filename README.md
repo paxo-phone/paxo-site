@@ -1,4 +1,10 @@
+![logo](https://github.com/paxo-phone/paxo-site/assets/45568523/4f1ece58-91e2-4954-9844-d275ed7b54ae)
+
 # Paxo site
+
+- [Build the docker image](#build-the-docker-image)
+- [Running in a dev environment](#running-in-a-dev-environment)
+- [Environment variables](#environment-variables)
 
 ## Build the docker image
 Build everything with this command:
