@@ -20,11 +20,13 @@ Presse
     <a style="color: black;" href="{{ pressArticle.link }}">
       <div class="card">
         @if(pressArticle.imageLink)
-        <img src="{{ pressArticle.imageLink ?? '' }}" alt="{{ pressArticle.title }}">
+        <img class="card-img" src="{{ pressArticle.imageLink ?? '' }}" alt="{{ pressArticle.title }}">
         @end
-        <div class="card-top-title">{{ pressArticle.newspaper }}</div>
-        <div class="card-title">{{ pressArticle.title }}</div>
-        <div class="card-description">{{ pressArticle.description ? pressArticle.description : '' }}</div>
+        <div class="card-meta">
+          <div class="card-top-title">{{ pressArticle.newspaper }}</div>
+          <div class="card-title">{{ pressArticle.title }}</div>
+          <div class="card-description">{{ pressArticle.description ? pressArticle.description : '' }}</div>
+        </div>
       </div>
     </a>
     @endeach
