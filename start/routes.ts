@@ -42,9 +42,10 @@ Route.group(() => {
 })
   .prefix('/tutorials')
 
-Route.get('/', 'AppsController.index')
+Route.group(() => {
+  Route.get('/', 'AppsController.index')
 
-Route.get('/app/:id', 'AppsController.show')
+  Route.get('/app/:id', 'AppsController.show')
 }).prefix('/apps')
 
 // ----------------------------------------------
@@ -95,24 +96,24 @@ if (process.env.UNSAFE_ADMIN_PANEL) {
     .prefix('/admin-panel')
 }
 
-if (process.env.NODE_ENV == "development") {
-  Route.get('/loginAsUid/:uid', async ({ params, auth, response, session }: HttpContextContract) => {
-    await auth.loginViaId(params.uid)
-    session.flash({ success: "Logged in as " + auth.user?.username })
-    return response.redirect().back()
-  })
-  Route.get('/setAsAdmin/:uid', async ({ params, response, session }: HttpContextContract) => {
-    const user = await User
-      .query()
-      .where('id', params.uid)
-      .firstOrFail()
-    user.type = UserType.ADMIN
-    user.save()
+// if (process.env.NODE_ENV == "development") {
+//   Route.get('/loginAsUid/:uid', async ({ params, auth, response, session }: HttpContextContract) => {
+//     await auth.loginViaId(params.uid)
+//     session.flash({ success: "Logged in as " + auth.user?.username })
+//     return response.redirect().back()
+//   })
+//   Route.get('/setAsAdmin/:uid', async ({ params, response, session }: HttpContextContract) => {
+//     const user = await User
+//       .query()
+//       .where('id', params.uid)
+//       .firstOrFail()
+//     user.type = UserType.ADMIN
+//     user.save()
 
-    session.flash({ success: "Made " + user?.username + " an admin." })
+//     session.flash({ success: "Made " + user?.username + " an admin." })
 
-    return response.redirect().back()
-  })
+//     return response.redirect().back()
+//   })
 
-  console.warn("Loaded dev routes. This message should not appear in production !")
-}
+//   console.warn("Loaded dev routes. This message should not appear in production !")
+// }

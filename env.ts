@@ -26,5 +26,5 @@ export default Env.rules({
 
   GITHUB_CLIENT_ID: Env.schema.string(),
   GITHUB_CLIENT_SECRET: Env.schema.string(),
-  ACCESS_ADDRESS: Env.schema.string({ format: 'url' })
+  ACCESS_ADDRESS: Env.schema.string()
 })
