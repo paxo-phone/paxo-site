@@ -3,15 +3,15 @@ import BaseSchema from '@ioc:Adonis/Lucid/Schema'
 export default class extends BaseSchema {
   protected tableName = 'press_articles'
 
-  public async up () {
+  public async up() {
     this.schema.createTable(this.tableName, (table) => {
       table.increments('id')
 
       table.string('title')
       table.string('newspaper')
-      table.string('link')
-      table.string('image_link')
-      table.string('description')
+      table.string('link', 511)
+      table.string('image_link', 511)
+      table.string('description', 1023)
         .nullable()
 
       table.timestamp('created_at', { useTz: true })
@@ -19,7 +19,7 @@ export default class extends BaseSchema {
     })
   }
 
-  public async down () {
+  public async down() {
     this.schema.dropTable(this.tableName)
   }
 }

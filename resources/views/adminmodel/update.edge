@@ -7,11 +7,18 @@ Admin panel - {{ model }} / {{ id }} / update
 @section('content')
 <h1>Admin panel - {{ model }} / {{ id }} / update</h1>
 
-<form method="post">
-    @each((attr_value, attr_name) in item)
-      <label>{{ attr_name }}</label>
-      <input type="text" name="{{ attr_name }}" value="{{ attr_value }}">
-    @endeach
-    <button type="submit">Save</button>
+<form method="post" enctype="multipart/form-data">
+  @each((attr_value, attr_name) in item)
+  <label>{{ attr_name }}</label>
+
+  @if(attr_name == "content")
+  <textarea name="{{ attr_name }}">{{ attr_value }}</textarea>
+  @elseif(attr_name == "file")
+  <input type="file" name="{{ attr_name }}">
+  @else
+  <input type="text" name="{{ attr_name }}" value="{{ attr_value }}">
+  @end
+  @endeach
+  <button type="submit">Save</button>
 </form>
 @endsection

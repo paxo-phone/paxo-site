@@ -15,7 +15,7 @@ export default class PressArticle extends BaseModel {
   public link: string
 
   @column()
-  public imageLink: string
+  public imageLink: string | null
 
   @column()
   public description: string | null

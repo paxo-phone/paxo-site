@@ -1,6 +1,16 @@
+![logo](https://github.com/paxo-phone/paxo-site/assets/45568523/4f1ece58-91e2-4954-9844-d275ed7b54ae)
+
 # Paxo site
 
+- [Build the docker image](#build-the-docker-image)
+- [Running in a dev environment](#running-in-a-dev-environment)
+- [Environment variables](#environment-variables)
+- [Contact](#contact)
+- [See More](#see-more)
+- [Contributors](#contributors)
+
 ## Build the docker image
+
 Build everything with this command:
 ```sh
 docker build -t ghcr.io/paxo-phone/paxo-site .
@@ -31,3 +41,18 @@ yarn run dev
 |-------------|--------------------------------------------|
 |`NODE_ENV`|Set to `developement` or `production`.|
 Please complete
+
+# Contact
+
+You can contact us via our [Website](https://www.paxo.fr) or our [Discord](https://discord.com/invite/MpqbWr3pUG) server
+
+# See more
+
+See more on [paxo.fr](https://www.paxo.fr)
+
+# Contributors 
+
+<a href="https://github.com/paxo-phone/PaxOS-8/graphs/contributors">
+  <img src="https://contrib.rocks/image?repo=paxo-phone/paxo-site" />
+</a>
+

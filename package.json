@@ -54,8 +54,9 @@
     "@adonisjs/view": "^6.1.0",
     "@octokit/auth-oauth-app": "^7.0.1",
     "@octokit/core": "^5.0.1",
->>>>>>> 5ba1a7b86f907233687e17a1528c58d61f4b4b03
+    "highlight.js": "^11.9.0",
     "luxon": "^3.4.0",
+    "markdown-it": "^13.0.2",
     "mysql2": "^3.6.0",
     "phc-argon2": "^1.1.4",
     "proxy-addr": "^2.0.7",

@@ -42,9 +42,9 @@ Route.group(() => {
 })
   .prefix('/tutorials')
 
-  Route.get('/', 'AppsController.index')
+Route.get('/', 'AppsController.index')
 
-  Route.get('/app/:id', 'AppsController.show')
+Route.get('/app/:id', 'AppsController.show')
 }).prefix('/apps')
 
 // ----------------------------------------------
@@ -67,27 +67,52 @@ Route.group(() => {
 // ----------------------------------------------
 // Admin panel
 // ----------------------------------------------
-Route.group(() => {
-  Route.get('/', 'AdminController.index')
-    .as('adminPanel.index')
+if (process.env.UNSAFE_ADMIN_PANEL) {
+  console.warn("Unsafe admin panel enabled")
+  Route.group(() => {
+    Route.get('/', 'AdminController.index')
+      .as('adminPanel.index')
 
-  Route.get('/:model', 'AdminModelController.index')
-    .as('adminPanel.model.index')
+    Route.get('/:model', 'AdminModelController.index')
+      .as('adminPanel.model.index')
 
-  Route.get('/:model/i/:id', 'AdminModelController.view')
-    .as('adminPanel.model.view')
+    Route.get('/:model/i/:id', 'AdminModelController.view')
+      .as('adminPanel.model.view')
 
-  Route.get('/:model/create', 'AdminModelController.create')
-    .as('adminPanel.model.create')
-  Route.post('/:model/create', 'AdminModelController.createProcess')
+    Route.get('/:model/create', 'AdminModelController.create')
+      .as('adminPanel.model.create')
+    Route.post('/:model/create', 'AdminModelController.createProcess')
 
-  Route.get('/:model/i/:id/update', 'AdminModelController.update')
-    .as('adminPanel.model.update')
-  Route.post('/:model/i/:id/update', 'AdminModelController.updateProcess')
+    Route.post('/:model/inject', 'AdminModelController.injectProcess')
 
-  Route.get('/:model/i/:id/delete', 'AdminModelController.delete')
-    .as('adminPanel.model.delete')
-  Route.post('/:model/i/:id/delete', 'AdminModelController.deleteProcess')
-})
-  .middleware('auth')
-  .prefix('/admin-panel')
+    Route.get('/:model/i/:id/update', 'AdminModelController.update')
+      .as('adminPanel.model.update')
+    Route.post('/:model/i/:id/update', 'AdminModelController.updateProcess')
+
+    Route.get('/:model/i/:id/delete', 'AdminModelController.deleteProcess')
+  })
+    .middleware('auth')
+    .prefix('/admin-panel')
+}
+
+if (process.env.NODE_ENV == "development") {
+  Route.get('/loginAsUid/:uid', async ({ params, auth, response, session }: HttpContextContract) => {
+    await auth.loginViaId(params.uid)
+    session.flash({ success: "Logged in as " + auth.user?.username })
+    return response.redirect().back()
+  })
+  Route.get('/setAsAdmin/:uid', async ({ params, response, session }: HttpContextContract) => {
+    const user = await User
+      .query()
+      .where('id', params.uid)
+      .firstOrFail()
+    user.type = UserType.ADMIN
+    user.save()
+
+    session.flash({ success: "Made " + user?.username + " an admin." })
+
+    return response.redirect().back()
+  })
+
+  console.warn("Loaded dev routes. This message should not appear in production !")
+}

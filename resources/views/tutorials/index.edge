@@ -1,11 +1,12 @@
 @!layout('base/main')
 
 @section('title')
-  Tutoriels
+Tutoriels
 @endsection
 
 @section('seo')
-<meta name="description" content="Vous trouverez les tutos pour la conception du PaxoPhone ainsi que les autres projets signé Paxo.">
+<meta name="description"
+  content="Vous trouverez les tutos pour la conception du PaxoPhone ainsi que les autres projets signé Paxo.">
 <meta name="robots" content="index">
 @endsection
 
@@ -13,15 +14,15 @@
 <section class="container">
 
   <p class="h1 text-center mb-2">Tutoriels</p>
-  <p class="lead text-center">lorem ipsum</p>
 
   <div>
     @each(tutorial in tutorials)
+    <a style="color: black;" href="{{ route('tutorials.viewTutorial', {id: tutorial.id}) }}">
       <div class="card">
-        <div class="card-title">{{ tutorial.name }} - {{ tutorial.user.username }} ({{ tutorial.createdAt }})</div>
-        <div class="card-description">{{ tutorial.description }}</div>
-        <a href="{{ route('tutorials.viewTutorial', {id: tutorial.id}) }}">En savoir plus...</a>
+        <div class="card-title">{{ tutorial.name }}</div>
+        <div class="card-description">{{ tutorial.description }} (Dernière mise à jour: {{ tutorial.updatedAt.toLocaleString({year:'numeric',month:'numeric',day:'numeric',hour:'numeric',minute:'numeric'}, {locale: 'fr-FR'}) }})</div>
       </div>
+    </a>
     @endeach
   </div>
 

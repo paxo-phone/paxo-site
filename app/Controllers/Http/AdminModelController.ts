@@ -1,247 +1,145 @@
 import type { HttpContextContract } from '@ioc:Adonis/Core/HttpContext'
-import { PressArticleService } from 'App/Services/PressArticleService'
-import { ProjectService } from 'App/Services/ProjectService'
-import { UserService } from 'App/Services/UserService'
-import { inject } from '@adonisjs/fold'
-import { TutorialService } from 'App/Services/TutorialService'
-import { StepService } from 'App/Services/StepService'
+import { LucidModel } from '@ioc:Adonis/Lucid/Orm'
+import { randomBytes } from 'node:crypto'
 
-/**
- * @author Welpike
- * @param model {string}
- * @param callback {(params: array) => any} The callback function
- * @param callbackParams {array} Callback function params (model service added in this function)
- * @param response {HttpContextContract['response']}
- */
-interface InteractInterface {
-  model: string,
-  callback: (params: object) => void,
-  callbackParams: object,
-  response: HttpContextContract['response']
+import Tutorial from 'App/Models/Tutorial'
+import PressArticle from 'App/Models/PressArticle'
+import Project from 'App/Models/Project'
+import File from 'App/Models/File'
+
+export const models: { [key: string]: LucidModel } = { // Models available in the admin panel
+  Tutorial,
+  PressArticle,
+  Project,
+  File
 }
 
-@inject()
 export default class AdminModelController {
-  private MODELS = {
-    'pressArticles': this.pressArticleService,
-    'projects': this.projectService,
-    'users': this.userService,
-    'tutorials': this.tutorialService,
-    'steps': this.stepService,
+  public async index({ params, request, view }: HttpContextContract) {
+    const items = await models[params.model].query()
+      .paginate(request.input('page', 1), 5)
+
+    return view.render('adminmodel/index', {
+      model: params.model,
+      items: items.map((val) => val.toJSON())
+    })
   }
 
-  constructor(
-    private pressArticleService: PressArticleService,
-    private projectService: ProjectService,
-    private userService: UserService,
-    private tutorialService: TutorialService,
-    private stepService: StepService
-  ) {
-  }
+  public async create({ params, view }: HttpContextContract) {
+    const fields: string[] = []
+    models[params.model].$columnsDefinitions.forEach((val) => {
+      if (val.isPrimary) return
+      fields.push(val.columnName)
+    })
 
-  public async index({ params, response, view }: HttpContextContract) {
-    const interactParams: InteractInterface = {
-      model: params['model'],
-      callback: async (params) => {
-        const items = await params['service'].readAll()
-
-        return view.render('adminmodel/index', {
-          model: params['model'],
-          items: items.data,
-        })
-      },
-      callbackParams: {
-        service: undefined,
-        model: params['model'],
-      },
-      response: response,
-    }
-
-    return await this.interact(interactParams)
-  }
-
-  public async create({ params, response, view }: HttpContextContract) {
-    const interactParams: InteractInterface = {
-      model: params['model'],
-      callback: async (params) => {
-        const fields = params['service'].getCreateFields()
-
-        return view.render('adminmodel/create', {
-          model: params['model'],
-          fields: fields,
-        })
-      },
-      callbackParams: {
-        service: undefined,
-        model: params['model'],
-      },
-      response: response,
-    }
-
-    return await this.interact(interactParams)
+    return view.render('adminmodel/create', {
+      model: params.model,
+      fields
+    })
   }
 
   public async createProcess({ params, response, request }: HttpContextContract) {
-    const interactParams: InteractInterface = {
-      model: params['model'],
-      callback: async (params) => {
-        const item = await params['service'].create(request)
+    const data = request.body()
 
-        return response.redirect().toRoute('adminPanel.model.view', {
-          model: params['model'],
-          id: item.id,
-        })
-      },
-      callbackParams: {
-        service: undefined,
-        model: params['model'],
-        id: params['id'],
-        request: request,
-      },
-      response: response,
+    const file = request.file('file')
+    if (file) {
+      const filename = randomBytes(8).toString('hex') + (file.extname ? "." + file.extname : "")
+      await file.moveToDisk('/', {
+        name: filename
+      })
+      data.file = filename
     }
 
-    return await this.interact(interactParams)
+    const item = await models[params.model].create(data)
+
+    return response.redirect().toRoute('adminPanel.model.view', {
+      model: params.model,
+      id: item.$getAttribute("id"),
+    })
   }
 
-  public async view({ params, response, view }: HttpContextContract) {
-    const interactParams: InteractInterface = {
-      model: params['model'],
-      callback: async (params) => {
-        const item = await params['service'].read(Number(params['id']))
-
-        return view.render('adminmodel/view', {
-          model: params['model'],
-          item: item,
-        })
-      },
-      callbackParams: {
-        service: undefined,
-        model: params['model'],
-        id: params['id'],
-      },
-      response: response,
+  public async injectProcess({ params, response, request }: HttpContextContract) {
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    const data: any[] = request.input("data")
+    for (const entry of data) {
+      if (entry.id) await models[params.model].updateOrCreate({ id: entry.id }, entry)
+      else await models[params.model].create(entry)
     }
 
-    return await this.interact(interactParams)
+    return response.status(201)
   }
 
-  public async update({ params, response, view }: HttpContextContract) {
-    const interactParams: InteractInterface = {
-      model: params['model'],
-      callback: async (params) => {
-        const item = await params['service'].read(Number(params['id']), true)
+  public async view({ params, view }: HttpContextContract) {
+    const item = await models[params.model].query()
+      .where('id', params.id)
+      .firstOrFail()
 
-        return view.render('adminmodel/update', {
-          model: params['model'],
-          item: item,
-          id: params['id'],
-        })
-      },
-      callbackParams: {
-        service: undefined,
-        model: params['model'],
-        id: params['id'],
-      },
-      response: response,
-    }
+    return view.render('adminmodel/view', {
+      model: params.model,
+      item: item.toJSON()
+    })
+  }
 
-    return await this.interact(interactParams)
+  public async update({ params, view }: HttpContextContract) {
+    const item = await models[params.model].query()
+      .where('id', params.id)
+      .firstOrFail()
+
+    return view.render('adminmodel/update', {
+      model: params.model,
+      item: item.toJSON(),
+      id: params.id,
+    })
   }
 
   public async updateProcess({ bouncer, params, response, request }: HttpContextContract) {
-    const interactParams: InteractInterface = {
-      model: params['model'],
-      callback: async (params) => {
-        // If user is editing a User, change the authorize rule (custom rule for user editing)
-        if (params['service']['fields'].includes('username')) {
-          await params['bouncer'].authorize('editUserOnAdminPanel', params['service'].read(Number(params['id'])))
-        } else {
-          await params['bouncer'].authorize('editModelOnAdminPanel', params['service'].read(Number(params['id'])))
-        }
+    const body = request.body()
+    const item = await models[params.model].query()
+      .where('id', params.id)
+      .firstOrFail()
 
-        await params['service'].update(Number(params['id']), request)
-
-        return response.redirect().toRoute('adminPanel.model.view', {
-          model: params['model'],
-          id: params['id'],
-        })
-      },
-      callbackParams: {
-        service: undefined,
-        model: params['model'],
-        id: params['id'],
-        request: request,
-        bouncer: bouncer,
-      },
-      response: response,
+    // If user is editing a User, change the authorize rule (custom rule for user editing)
+    if (!process.env.UNSAFE_ADMIN_PANEL) {
+      if (params.model == "User") {
+        await bouncer.authorize('editUserOnAdminPanel', item)
+      } else {
+        await bouncer.authorize('editModelOnAdminPanel', item)
+      }
     }
 
-    return await this.interact(interactParams)
-  }
-
-  public async delete({ params, response, view }) {
-    const interactParams: InteractInterface = {
-      model: params['model'],
-      callback: async (params) => {
-        const item = await params['service'].read(Number(params['id']))
-
-        return view.render('adminmodel/delete', {
-          model: params['model'],
-          item: item,
-        })
-      },
-      callbackParams: {
-        service: undefined,
-        model: params['model'],
-        id: params['id'],
-      },
-      response: response,
+    const file = request.file('file')
+    if (file) {
+      if (body.file) delete body.file // In case filename is included in main body
+      await file.moveToDisk('/', {
+        name: item.$getAttribute('file'),
+      })
     }
 
-    return await this.interact(interactParams)
+    await Object.assign(item, body).save()
+
+    return response.redirect().toRoute('adminPanel.model.view', {
+      model: params.model,
+      id: params.id,
+    })
   }
 
   public async deleteProcess({ bouncer, params, response }: HttpContextContract) {
-    const interactParams: InteractInterface = {
-      model: params['model'],
-      callback: async (params) => {
-        // If user is editing a User, change the authorize rule (custom rule for user editing)
-        if (params['service']['fields'].includes('username')) {
-          await params['bouncer'].authorize('editUserOnAdminPanel', params['service'].read(Number(params['id'])))
-        } else {
-          await params['bouncer'].authorize('editModelOnAdminPanel', params['service'].read(Number(params['id'])))
-        }
+    const item = await models[params.model].query()
+      .where('id', params.id)
+      .firstOrFail()
 
-        await params['service'].delete(Number(params['id']))
-
-        return response.redirect().toRoute('adminPanel.model.index', { model: params['model'] })
-      },
-      callbackParams: {
-        service: undefined,
-        model: params['model'],
-        id: params['id'],
-        bouncer: bouncer,
-      },
-      response: response,
+    // If user is editing a User, change the authorize rule (custom rule for user editing)
+    if (!process.env.UNSAFE_ADMIN_PANEL) {
+      if (params.model == "User") {
+        await bouncer.authorize('editUserOnAdminPanel', item)
+      } else {
+        await bouncer.authorize('editModelOnAdminPanel', item)
+      }
     }
 
-    return await this.interact(interactParams)
-  }
-
-  /**
-   * Selects the model's service and interacts (callback function passed in params) with it.
-   * @author Welpike
-   * @param params {InteractInterface}
-   */
-  private async interact(
-    params: InteractInterface
-  ) {
-    if (params.model in this.MODELS) {
-      params.callbackParams['service'] = this.MODELS[params.model]
-      return params.callback(params.callbackParams)
-    } else {
-      return params.response.status(404)
-    }
+    await item.delete()
+    return response.redirect().toRoute('adminPanel.model.index', {
+      model: params.model
+    })
   }
 }

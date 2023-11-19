@@ -1,3 +1,4 @@
+const fs = require('fs')
 const { join } = require('path')
 const Encore = require('@symfony/webpack-encore')
 const fs = require('fs')

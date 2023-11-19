@@ -6,7 +6,6 @@
  */
 
 import Bouncer from '@ioc:Adonis/Addons/Bouncer'
-import { UserType } from 'App/Models/User'
 
 /*
 |--------------------------------------------------------------------------

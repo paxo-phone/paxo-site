@@ -1,7 +1,7 @@
 @!layout('base/main')
 
 @section('title')
-  Tutoriel : {{ tutorial.name }}
+Tutoriel : {{ tutorial.name }}
 @endsection
 
 @section('seo')
@@ -10,11 +10,19 @@
 @endsection
 
 @section('content')
+<link rel="stylesheet"
+  href="https://cdnjs.cloudflare.com/ajax/libs/github-markdown-css/5.4.0/github-markdown-light.min.css"
+  integrity="sha512-kDjsFiusauOzRWlNNk7R5nFRVUPFlZjIqI3F0/DYUO9Uz93R0V4zNfrWGSKFtZvHnTIsoM3GwDaqQBJt8ZVt6w=="
+  crossorigin="anonymous" referrerpolicy="no-referrer" />
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/highlight.js/9.1.0/styles/github.min.css">
+@entryPointStyles('tutorial')
+
 <section class="container">
-  <div class="card">
-    <div class="card-title">{{ tutorial.name }} - {{ tutorial.user.username }} ({{ tutorial.date_created }})</div>
-    <div class="card-description">{{ tutorial.description }}</div>
-    <a href="{{ route('tutorials.viewStep', {id: tutorial.id}) }}?index=0">Commencer le tutoriel ></a>
-  </div>
+  <div class="markdown-body" style="display: none;">{{ tutorial.content }}</div>
 </section>
+
+@endsection
+
+@section('script')
+@entryPointScripts('tutorial')
 @endsection

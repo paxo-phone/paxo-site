@@ -1,53 +1,31 @@
 /* footer */
 
 footer {
-    background: #0A0A0A;
-    padding: 5% 0;
+  background: #0A0A0A;
+  padding: 5% 0;
 }
 
 .social {}
 
 .social ul {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    flex-direction: row;
-    gap: 1.4rem;
-    max-height:10vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: row;
+  gap: 1.4rem;
+  max-height: 10vh;
 }
 
 
 .social ul li a {
-    text-decoration: none;
-    color: white;
-    font-size: 40px;
-    cursor: pointer;
+  text-decoration: none;
+  color: white;
+  font-size: 40px;
+  cursor: pointer;
 }
 
-i{
-  max-height:10vh;
-}
-
-.footer-nav {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    flex-direction: column;
-
-    gap: 1rem;
-}
-
-.footer-nav a {
-    color: white;
-}
-
-.footer-nav a:hover {
-    text-decoration: underline;
-}
-
-@media screen and (min-width: map-get($breakpoints, sm))
-{
-    .footer-nav {
-        flex-direction: row;
-    }
+@media screen and (min-width: map-get($breakpoints, sm)) {
+  .footer-nav {
+    flex-direction: row;
+  }
 }
