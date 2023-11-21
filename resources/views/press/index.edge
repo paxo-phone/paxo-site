@@ -5,7 +5,7 @@ Presse
 @endsection
 
 @section('seo')
-<meta name="description" content="Vous trouverez ici la plupart des articles de sites web qui parlent du PaxoPhone.">
+<meta name="description" content="Vous trouverez sur cette page la plupart des articles au sujet du projet Paxo.">
 <meta name="robots" content="index">
 @endsection
 
@@ -13,15 +13,12 @@ Presse
 <section class="container">
 
   <p class="h1 text-center mb-2">Presse</p>
-  <p class="lead text-center">Vous trouverez ici la plupart des articles de sites web qui parlent du PaxoPhone.</p>
+  <p class="lead text-center">Vous trouverez sur cette page la plupart des articles au sujet du projet Paxo.</p>
 
   <div>
     @each(pressArticle in pressArticles)
     <a style="color: black;" href="{{ pressArticle.link }}">
       <div class="card">
-        @if(pressArticle.imageLink)
-        <img class="card-img" src="{{ pressArticle.imageLink ?? '' }}" alt="{{ pressArticle.title }}">
-        @end
         <div>
           <div class="card-top-title">{{ pressArticle.newspaper }}</div>
           <div class="card-title">{{ pressArticle.title }}</div>
