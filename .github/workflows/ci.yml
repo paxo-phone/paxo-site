@@ -1,4 +1,4 @@
-name: Create and publish a Docker image
+name: Build & deploy
 
 on:
   workflow_dispatch:
@@ -33,3 +33,11 @@ jobs:
           context: .
           push: true
           tags: ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}:${{ inputs.tags }}
+  deploy:
+    name: Deploy to server
+    uses: appleboy/ssh-action@v1.0.0
+    with:
+      host: ${{ secrets.DEPLOY_HOST }}
+      username: ${{ secrets.DEPLOY_USER }}
+      password: ${{ secrets.DEPLOY_PASSWORD }}
+      script: ${{ secrets.DEPLOY_SCRIPT }}
