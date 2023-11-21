@@ -36,3 +36,14 @@
 	justify-content: center;
 	gap: 1rem;
 }
+
+.project img
+{
+	display: none;
+}
+
+@media screen and (min-width: map-get($breakpoints, sm)) {
+	.project img {
+		display: block;
+	}
+}
