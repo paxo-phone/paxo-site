@@ -15,6 +15,7 @@
 
 import Logger from '@ioc:Adonis/Core/Logger'
 import HttpExceptionHandler from '@ioc:Adonis/Core/HttpExceptionHandler'
+import { HttpContextContract } from '@ioc:Adonis/Core/HttpContext'
 
 export default class ExceptionHandler extends HttpExceptionHandler {
   protected statusPages = {
@@ -23,7 +24,12 @@ export default class ExceptionHandler extends HttpExceptionHandler {
     '500..599': 'errors/server-error',
   }
 
-  constructor () {
+  constructor() {
     super(Logger)
+  }
+
+  async handle(_, ctx: HttpContextContract) {
+    ctx.session.flash({ error: ctx.response.getStatus() })
+    return ctx.response.redirect().back()
   }
 }
