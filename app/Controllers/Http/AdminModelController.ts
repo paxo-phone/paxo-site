@@ -121,6 +121,19 @@ export default class AdminModelController {
 
     }
 
+    // Convert keys case (dirty)
+    for (const key of Object.keys(body)) {
+      if (key.indexOf("_") != -1) {
+        let index = 0
+        let newkey = key
+        while ((index = newkey.indexOf("_", index)) != -1) {
+          console.log(index)
+          newkey = newkey.replace("_" + key[index + 1], key[index + 1].toUpperCase())
+        }
+        body[newkey] = body[key]
+      }
+    }
+
     await Object.assign(item, body).save()
 
     return response.redirect().toRoute('adminPanel.model.view', {
@@ -169,5 +182,5 @@ async function cf_invalidate(path: string) {
     }, (reason) => {
       console.error("Error while wiping the cloudflare cache")
       console.error(reason)
-  })
+    })
 }
