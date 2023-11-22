@@ -49,3 +49,31 @@ index:
       des logiciels et les modèles d'impression 3D que j'ai conçus sont tous disponibles via ce site. Avec cette
       approche j'espère que chacun aura l'envie de réaliser et partager ses propres inventions !
   contact: Me contacter
+
+contact:
+  title: Nous contacter
+  content:
+    - |
+      Une question ? Une idée ? Une remarque ?
+      N'hésitez pas à nous contacter via
+    - ou via notre
+    - serveur Discord
+
+contribute:
+  seo_description: Vous souhaitez participer à la conception du PaxoPhone ? N'hésitez pas et rejoignez-nous !
+  title: Contribuer
+  subtitle: |
+    Le caractère libre / open source du projet invite chaque utilisateur à y contribuer. Vous
+    trouverez sur cette page les documentations de fonctionnement du téléphone ainsi que les indications pour
+    participer, à votre tour, à ce vaste projet.
+  cards:
+    - title: Hardware
+      description: |
+        Le Hardware désigne toute la partie materielle du téléphone, aussi bien les matériaux
+        utilisés que les circuit qui le font fonctionner. La documentation en lien ci-dessous décrit en profondeur tous
+        les détails de la conception.
+    - title: Software
+      description: |
+        Le software désigne toute la partie logicielle du téléphone, c'est à dire le système
+        d'exploitation (PaxOS) et les applications qui tournent dessus. La documentation en lien ci-dessous décrit en
+        détail leur architecture et le fonctionnement.

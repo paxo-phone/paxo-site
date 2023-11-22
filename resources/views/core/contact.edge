@@ -1,7 +1,7 @@
 @!layout('base/main')
 
 @section('title')
-Contact
+{{ t("ui.header.contact") }}
 @endsection
 
 @section('seo')
@@ -12,8 +12,9 @@ Contact
 @section('content')
 <section class="container">
 
-  <h1 class="h1 text-center mb-2">Nous contacter</h1>
-  <p class="lead text-center mb-4">Une question ? Une idée ? Une remarque ? N'hésitez pas à nous contacter via <a href="mailto:contact@paxo.fr">contact@paxo.fr</a> ou via notre <a href="https://discord.gg/aHGR4zvxuz">serveur Discord</a>.</p>
+  <h1 class="h1 text-center mb-2">{{ t("ui.contact.title") }}</h1>
+  <p class="lead text-center mb-4">{{ t("ui.contact.content.0") }} <a href="mailto:contact@paxo.fr">contact@paxo.fr</a>
+    {{ t("ui.contact.content.1") }} <a href="https://discord.gg/aHGR4zvxuz">{{ t("ui.contact.content.2") }}</a>.</p>
 
 </section>
 @endsection
