@@ -1,5 +1,14 @@
+brand: Paxo
+
 header:
+  index: Accueil
   contribute: Contribuer
+  discord: Discord
+  tutorials: Tutoriels
+  press: Presse
+  projects: Autres
+  contact: Contact
+  donations: Dons
 
 index:
   title: Un téléphone libre, modulaire et pédagogique.
