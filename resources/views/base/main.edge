@@ -42,22 +42,17 @@
             t("ui.header.discord") }}</a></li>
         <li class="nav-item"><a class="nav-link" href="/tutorials">{{ t("ui.header.tutorials") }}</a></li>
         <li class="nav-item"><a class="nav-link" href="/press">{{ t("ui.header.press") }}</a></li>
+        <li class="nav-item"><a class="nav-link" href="/projects">{{ t("ui.header.projects") }}</a></li>
         <li class="nav-item"><a class="nav-link" href="/contact">{{ t("ui.header.contact") }}</a></li>
         <li class="nav-item"><a class="nav-link"
             href="https://tribee.fr/cagnotte/01H7DFJGAQHNWSH4SC77A9X2ZV/participation" target="_blank">{{
             t("ui.header.donations") }}</a></li>
-
-        <li class="nav-item lang-select-wrapper">
-          <a id="lang-current" href="#"><span class="fi fi-{{ flags[i18n.locale] }}"
-              aria-label="{{ t(`ui.languages.${i18n.locale}`) }}"></span></a>
-          <div id="lang-select">
-            @each(locale in locales)
-            @if(locale != i18n.locale)
-            <a href="?lang={{ locale }}"><span class="fi fi-{{ flags[locale] }}"
-                aria-label="{{ t(`ui.languages.${locale}`) }}"></span></a>
-            @end
-            @end
-          </div>
+        <li class="nav-item">
+          <select id="lng">
+            <option value="FR">Français</option>
+            <option value="EN">English</option>
+          </select>
+          >>>>>>> 45c40e2 (Made layout i18n standard)
         </li>
       </ul>
     </nav>
