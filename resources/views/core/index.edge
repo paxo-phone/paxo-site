@@ -18,8 +18,9 @@ Accueil
 
 @section('content')
 <section class="block h-80" style="background-image: url(/img/nature.jpeg); ">
-  <h1 style="max-width: 370px" class="h1 text-center text-white presentation">Un téléphone libre, modulaire et
-    pédagogique.</h1>
+  <h1 style="max-width: 370px" class="h1 text-center text-white presentation">{{ t("ui.index.title")
+    }}
+  </h1>
 </section>
 
 <!-- Citations -->
@@ -67,16 +68,12 @@ Accueil
 <section class="block justify-center md:justify-end h-50 md:h-80" style="background-image: url(/img/code.jpeg);">
 
   <div class="md:w-50 text-white flex flex-col gap-2">
-    <h2 class="h1">Libre</h2>
+    <h2 class="h1">{{ t("ui.index.block1.title") }}</h2>
 
-    <p>Le projet Paxo adhère aux principes du logiciel libre, aussi bien au niveau du matériel que du logiciel. Cela
-      signifie qu’il confère à chacun la liberté d'utliliser, d'étudier, d'adapter et de redistribuer les plans et le
-      code du téléphone (dans un cadre non-commercial).</p>
+    <p>{{ t("ui.index.block1.p1") }}</p>
+    <p>{{ t("ui.index.block1.p2") }}</p>
 
-    <p>Cette dimension libre du projet accorde un place centrale à la communautée. Par ses contributions, elle aide à
-      faire évoluer le projet.</p>
-
-    <a class="btn btn-white btn-inverted" href="/contribute">Contribuer</a>
+    <a class="btn btn-white btn-inverted" href="/contribute">{{ t("ui.header.contribute") }}</a>
   </div>
 
 </section>
@@ -85,10 +82,8 @@ Accueil
 <section class="block justify-center md:justify-start h-50 md:h-80">
 
   <div class="md:w-50 flex flex-col gap-2">
-    <h2 class="h1">Modulaire</h2>
-    <p>La dimension libre du projet favorise également la modularité. Chacun peut - en modifiant le logiciel et le
-      matériel mis à disposition - adapter le fonctionnement du téléphone à ses besoins, quels qu’ils soient. Le
-      téléphone permet alors à chacun de concevoir une large diversité d’objets sur une base solide et stable.</p>
+    <h2 class="h1">{{ t("ui.index.block2.title") }}</h2>
+    <p>{{ t("ui.index.block2.p") }}</p>
   </div>
 
 </section>
@@ -97,34 +92,23 @@ Accueil
 <section class="block justify-center md:justify-end h-50 md:h-80" style="background-image: url(/img/ecology.jpeg);">
 
   <div class="md:w-50 text-white flex flex-col gap-2">
-    <h2 class="h1">Pédagogique</h2>
-    <p>La dimension libre et modulaire du projet en font un objet pédagogique idéal. Les plans et le code mis à
-      disposition permettent à chacun d’étudier le fonctionnement d’un smart-phone moderne et la modularité permet de
-      pratiquer l’électronique et l’informatique sur un cas concret et dans une large diversité de situation. Le projet
-      couvre également d’autres aspects fondamentaux dans la conception d’un tel objet, que ce soit le design, la
-      modélisation ou l’impression 3D.</p>
-    <p>La dimension libre du projet a aussi pour ambition de sensibiliser aux questions qui entourent la liberté dans le
-      monde monde numérique. De la même manière, la dimension modulaire souhaite sensibiliser à la problématique de la
-      réparabilité des appareils électronique.</p>
+    <h2 class="h1">{{ t("ui.index.block3.title") }}</h2>
+    <p>{{ t("ui.index.block3.p1") }}</p>
+    <p>{{ t("ui.index.block3.p2") }}</p>
   </div>
 
 </section>
 
-{{--  Histoire  --}}
+{{-- Histoire --}}
 
 <section class="block justify-center md:justify-start h-50 md:h-80">
 
   <div class="md:w-50 flex flex-col gap-2">
-    <h2 class="h1">Histoire</h2>
+    <h2 class="h1">{{ t("ui.index.block4.title") }}</h2>
 
-    <p>Il y a trois ans j'ai commencé le projet Paxo afin de
-      créer des appareils utiles, pouvant être réalisés par chacun (DIY - "Do It Yourself") sur un modèle open-source
-      (Libre de Droit), en optimisant les composants de manière à préserver la planète le plus possible! A 15 ans
-      j'avais réalisé mon premier téléphone fonctionnel (j'en ai maintenant 16). Les circuits électroniques, le code
-      des logiciels et les modèles d'impression 3D que j'ai conçus sont tous disponibles via ce site. Avec cette
-      approche j'espère que chacun aura l'envie de réaliser et partager ses propres inventions !</p>
+    <p>{{ t("ui.index.block4.p") }}</p>
 
-    <a class="btn" href="/contact">Me contacter</a>
+    <a class="btn" href="/contact">{{ t("ui.index.contact") }}</a>
   </div>
 
 </section>

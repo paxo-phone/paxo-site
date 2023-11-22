@@ -1,0 +1,42 @@
+header:
+  contribute: Contribuer
+
+index:
+  title: Un téléphone libre, modulaire et pédagogique.
+  block1:
+    title: Libre
+    p1: |
+      Le projet Paxo adhère aux principes du logiciel libre, aussi bien au niveau du matériel que du logiciel. Cela
+      signifie qu’il confère à chacun la liberté d'utliliser, d'étudier, d'adapter et de redistribuer les plans et le
+      code du téléphone (dans un cadre non-commercial).
+    p2: |
+      Cette dimension libre du projet accorde un place centrale à la communautée. Par ses contributions, elle aide à
+      faire évoluer le projet.
+  block2:
+    title: Modulaire
+    p: |
+      La dimension libre du projet favorise également la modularité. Chacun peut - en modifiant le logiciel et le
+      matériel mis à disposition - adapter le fonctionnement du téléphone à ses besoins, quels qu’ils soient. Le
+      téléphone permet alors à chacun de concevoir une large diversité d’objets sur une base solide et stable.
+  block3:
+    title: Pédagogique
+    p1: |
+      La dimension libre et modulaire du projet en font un objet pédagogique idéal. Les plans et le code mis à
+      disposition permettent à chacun d’étudier le fonctionnement d’un smart-phone moderne et la modularité permet de
+      pratiquer l’électronique et l’informatique sur un cas concret et dans une large diversité de situation. Le projet
+      couvre également d’autres aspects fondamentaux dans la conception d’un tel objet, que ce soit le design, la
+      modélisation ou l’impression 3D.
+    p2: |
+      La dimension libre du projet a aussi pour ambition de sensibiliser aux questions qui entourent la liberté dans le
+      monde monde numérique. De la même manière, la dimension modulaire souhaite sensibiliser à la problématique de la
+      réparabilité des appareils électronique.
+  block4:
+    title: Histoire
+    p: |
+      Il y a trois ans j'ai commencé le projet Paxo afin de
+      créer des appareils utiles, pouvant être réalisés par chacun (DIY - "Do It Yourself") sur un modèle open-source
+      (Libre de Droit), en optimisant les composants de manière à préserver la planète le plus possible! A 15 ans
+      j'avais réalisé mon premier téléphone fonctionnel (j'en ai maintenant 16). Les circuits électroniques, le code
+      des logiciels et les modèles d'impression 3D que j'ai conçus sont tous disponibles via ce site. Avec cette
+      approche j'espère que chacun aura l'envie de réaliser et partager ses propres inventions !
+  contact: Me contacter
