@@ -31,6 +31,11 @@
   font-weight: bold;
   margin-bottom: 1rem;
 }
+@media screen and (max-width: map-get($breakpoints, sm)) {
+.card-title {
+    font-size: 18px;
+}
+}
 
 .card-description {
   line-height: 1.3em;
