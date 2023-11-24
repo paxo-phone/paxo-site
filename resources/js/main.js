@@ -45,3 +45,22 @@ if (toggleNavBtn) {
 //     })
 //   }
 // })
+
+// Language board
+const lang_select = document.querySelector("#lang-select")
+const lang_toggle = document.querySelector("#lang-current")
+
+function modalCloseListener(ev) {
+  if (!ev.target.closest('.lang-select-wrapper')) {
+    lang_select.classList.remove("open")
+    document.removeEventListener('click', modalCloseListener)
+  }
+}
+
+lang_toggle.onclick = () => {
+  if (!lang_select.classList.contains("open")) {
+    lang_select.classList.add("open")
+
+    document.addEventListener('click', modalCloseListener)
+  }
+}

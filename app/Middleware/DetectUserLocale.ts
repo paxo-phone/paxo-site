@@ -22,7 +22,14 @@ export default class DetectUserLocale {
    */
   protected getUserLanguage(ctx: HttpContextContract) {
     const availableLocales = I18n.supportedLocales()
-    return ctx.request.language(availableLocales) || ctx.request.input('lang')
+
+    const userInput = ctx.request.input('lang')
+    if (userInput) { // To make language settings remain
+      ctx.session.put('lang', userInput)
+    }
+
+    // From user input || Fallback on session value || Fallback on browser indications
+    return userInput || ctx.session.get('lang') || ctx.request.language(availableLocales)
   }
 
   /**
@@ -44,7 +51,14 @@ export default class DetectUserLocale {
      * Share i18n with view
      */
     if ('view' in ctx) {
-      ctx.view.share({ i18n: ctx.i18n })
+      ctx.view.share({
+        i18n: ctx.i18n,
+        flags: {
+          fr: 'fr',
+          en: 'gb',
+          es: 'es'
+        }
+      })
     }
 
     await next()
