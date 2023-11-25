@@ -50,7 +50,8 @@ const i18nConfig: I18nConfig = {
   |
   */
   supportedLocales: [
-    "fr"
+    "fr",
+    "en"
   ],
 
   /*
