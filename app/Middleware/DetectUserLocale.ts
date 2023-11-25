@@ -53,6 +53,7 @@ export default class DetectUserLocale {
     if ('view' in ctx) {
       ctx.view.share({
         i18n: ctx.i18n,
+        locales: I18n.supportedLocales(),
         flags: {
           fr: 'fr',
           en: 'gb',

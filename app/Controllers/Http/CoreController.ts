@@ -4,9 +4,7 @@ import I18n from '@ioc:Adonis/Addons/I18n'
 
 export default class CoreController {
   public async index({ view }: HttpContextContract) {
-    return view.render('core/index', {
-      locales: I18n.supportedLocales()
-    })
+    return view.render('core/index')
   }
 
   public async contact({ view }: HttpContextContract) {
