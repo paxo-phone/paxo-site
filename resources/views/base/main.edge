@@ -86,8 +86,10 @@
             t("ui.header.donations") }}</a></li>
         <li class="responsive-nav-item">
           <select id="lang_responsive">
-            <option value="FR">Français</option>
-            <option value="EN">English</option>
+            @each(locale in locales)
+            <option value="{{ locale }}" selected="{{ locale == i18n.locale }}">{{ t(`ui.languages.${locale}`) }}
+            </option>
+            @end
           </select>
         </li>
       </ul>
