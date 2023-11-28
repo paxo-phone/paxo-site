@@ -19,8 +19,10 @@ Tutoriels
     @each(tutorial in tutorials)
     <a style="color: black;" href="{{ route('tutorials.viewTutorial', {id: tutorial.id}) }}">
       <div class="card">
-        <div class="card-title">{{ tutorial.name }}</div>
-        <div class="card-description">{{ tutorial.description }} (Dernière mise à jour: {{ tutorial.updatedAt.toLocaleString({year:'numeric',month:'numeric',day:'numeric',hour:'numeric',minute:'numeric'}, {locale: 'fr-FR'}) }})</div>
+        <div>
+          <div class="card-title">{{ tutorial.name }}</div>
+          <div class="card-description">{{ tutorial.description }} (Dernière mise à jour: {{ tutorial.updatedAt.toLocaleString({year:'numeric',month:'numeric',day:'numeric',hour:'numeric',minute:'numeric'}, {locale: 'fr-FR'}) }})</div>
+        </div>
       </div>
     </a>
     @endeach
