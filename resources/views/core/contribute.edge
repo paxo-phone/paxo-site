@@ -1,37 +1,32 @@
 @!layout('base/main')
 
 @section('title')
-  Contribuer
+{{ t("ui.header.contribute") }}
 @endsection
 
 @section('seo')
-<meta name="description" content="Vous souhaitez participer à la conception du PaxoPhone ? N'hésitez pas et rejoignez-nous !">
+<meta name="description" content="{{ t(" ui.contribute.seo_description") }}">
 <meta name="robots" content="index">
 @endsection
 
 @section('content')
 <section class="container">
 
-  <h1 class="h1 text-center mb-2">Contribuer</h1>
-  <p class="lead text-center">Le caractère libre / open source du projet invite chaque utilisateur à y contribuer. Vous trouverez sur cette page les documentations de fonctionnement du téléphone ainsi que les indications pour participer, à votre tour, à ce vaste projet.</p>
+  <h1 class="h1 text-center mb-2">{{ t("ui.contribute.title") }}</h1>
+  <p class="lead text-center">{{ t("ui.contribute.subtitle") }}</p>
 
   <a style="color: black;" href="https://github.com/paxo-phone/paxo-electronic">
-  <div class="card">
-    <div>
-      <div class="card-title">Hardware</div>
-      <div class="card-description">Le Hardware désigne toute la partie materielle du téléphone, aussi bien les matériaux utilisés que les circuit qui le font fonctionner. La documentation en lien ci-dessous décrit en profondeur tous les détails de la conception.</div>
+    <div class="card">
+      <div class="card-title">{{ t("ui.contribute.cards.0.title") }}</div>
+      <div class="card-description">{{ t("ui.contribute.cards.0.description") }}</div>
     </div>
-  </div>
   </a>
 
   <a style="color: black;" href="https://github.com/paxo-phone">
-  <div class="card">
-    <div>
-      <div class="card-title">Software</div>
-      <div class="card-description">Le software désigne toute la partie logicielle du téléphone, c'est à dire le système d'exploitation (PaxOS) et les applications qui tournent dessus. La documentation en lien ci-dessous décrit en détail leur architecture et le fonctionnement.</div>
+    <div class="card">
+      <div class="card-title">{{ t("ui.contribute.cards.1.title") }}</div>
+      <div class="card-description">{{ t("ui.contribute.cards.1.description") }}</div>
     </div>
-  </div>
   </a>
-
 </section>
 @endsection

@@ -16,8 +16,7 @@
   z-index: 1;
 }
 
-.header-white .logo
-{
+.header-white .logo {
   filter: brightness(0) invert(1); // logo blanc sur fond foncé
 }
 
@@ -193,11 +192,10 @@
 
 }
 
-#lang_responsive
-{
-    background: none;
-    color: white;
-    font-size: inherit;
+#lang_responsive {
+  background: none;
+  color: white;
+  font-size: inherit;
 }
 
 .presentation {
@@ -217,4 +215,26 @@
   .header .responsive-nav {
     display: none;
   }
+}
+
+.lang-select-wrapper {
+  position: relative;
+  display: flex;
+  align-items: center;
+}
+
+#lang-select {
+  position: absolute;
+  display: none;
+  border-radius: 0.2rem;
+  padding: 10%;
+  background: rgba(255, 255, 255, 0.7);
+  transition: all 0.5s;
+  z-index: 2;
+  margin: -10%;
+  margin-top: 100%;
+}
+
+#lang-select.open {
+  display: block;
 }
