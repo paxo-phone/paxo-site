@@ -35,10 +35,10 @@
     "@poppinss/utils" "^5.0.0"
     semver "^7.3.8"
 
-"@adonisjs/assembler@^5.9.5":
-  version "5.9.5"
-  resolved "https://registry.yarnpkg.com/@adonisjs/assembler/-/assembler-5.9.5.tgz#e7af88edf85ab09f117821364f7db1eb8e5a0460"
-  integrity sha512-wCtQRZ4KoIZkzi+ux5NrDUDNASRomytRZ7AZBdw8Hi3LlEOeac4T8+47y7gXwJFKH2nnGoiIwnXGIgJyolXEfQ==
+"@adonisjs/assembler@^5.9.6":
+  version "5.9.6"
+  resolved "https://registry.yarnpkg.com/@adonisjs/assembler/-/assembler-5.9.6.tgz#db09d6d3e01d525b5e1aaf87ff1eebc330f19df3"
+  integrity sha512-8CLAX8vlsfsYmtoBxI8YfyZyNZwtUB0FiplEbd8hmo5iv1/52SU2LEU1R6gPk4hkJbqHx22aS8UeZoogPqnmwg==
   dependencies:
     "@adonisjs/application" "^5.2.5"
     "@adonisjs/env" "^3.0.9"
