@@ -1,5 +1,4 @@
 import BaseSchema from '@ioc:Adonis/Lucid/Schema'
-import { UserElevation } from 'App/Models/User'
 
 export default class extends BaseSchema {
   protected tableName = 'users'
@@ -7,10 +6,13 @@ export default class extends BaseSchema {
   public async up() {
     this.schema.createTable(this.tableName, (table) => {
       table.integer('id').unsigned().notNullable()
-
+      table.string('name', 255).notNullable()
 
       table.boolean('verified').defaultTo(false)
-      table.enum('elevation', Object.values(UserElevation)).defaultTo(UserElevation.DEFAULT)
+      table.boolean('mod').defaultTo(false)
+      table.boolean('dev').defaultTo(false)
+      table.boolean('admin').defaultTo(false)
+
       table.timestamp('created_at', { useTz: true })
     })
   }

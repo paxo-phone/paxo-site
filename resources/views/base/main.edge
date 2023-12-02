@@ -1,99 +1,57 @@
 <!DOCTYPE html>
 <html lang="fr">
+
 <head>
-    <meta charset="utf8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>
-      @!section('title')
-      | Paxo
-    </title>
+  <meta charset="utf8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>
+    @!section('title')
+    | Paxo
+  </title>
 
-    @!section('seo')
+  @!section('seo')
 
-    @entryPointStyles('main')
+  @entryPointStyles('main')
 
-    <!-- fontawesome -->
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css"
-      integrity="sha512-z3gLpd7yknf1YoNbCzqRKc4qyor8gaKU1qmn+CShxbuBusANI9QpRohGBreCFkKxLhei6S9CQXFEbbKuqLg0DA=="
-      crossorigin="anonymous" referrerpolicy="no-referrer" />
+  <!-- fontawesome -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css"
+    integrity="sha512-z3gLpd7yknf1YoNbCzqRKc4qyor8gaKU1qmn+CShxbuBusANI9QpRohGBreCFkKxLhei6S9CQXFEbbKuqLg0DA=="
+    crossorigin="anonymous" referrerpolicy="no-referrer" />
 
-    <!-- Flag-icons -->
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/lipis/flag-icons@6.14.0/css/flag-icons.min.css" />
+  <!-- Flag-icons -->
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/lipis/flag-icons@6.14.0/css/flag-icons.min.css" />
 
-    @!section('head')
+  @!section('head')
 
 </head>
+
 <body>
 
-    <header class="header">
-        <a href="/" class="logo" style="height: 60px">
-            <img src="/img/logo.png" alt="Paxo" style="height: 100%">
-        </a>
+  @!component('base/header')
 
-        <nav class="nav">
-            <ul class="nav-list">
-                <li class="nav-item"><a class="nav-link" href="/">Accueil</a></li>
-                <li class="nav-item"><a class="nav-link" href="https://github.com/paxo-phone">Contribuer</a></li>
-                <li class="nav-item"><a class="nav-link" href="https://discord.gg/84Qsp6tUSK">Discord</a></li>
-                <li class="nav-item"><a class="nav-link" href="/tutorials">Tutoriels</a></li>
-                <li class="nav-item"><a class="nav-link" href="/press">Presse</a></li>
-                <li class="nav-item"><a class="nav-link" href="/projects">Autres</a></li>
-                <li class="nav-item"><a class="nav-link" href="/contact">Contact</a></li>
-                <li class="nav-item"><a class="nav-link" href="https://tribee.fr/cagnotte/01H7DFJGAQHNWSH4SC77A9X2ZV/participation">Dons</a></li>
-                {{--  <li class="nav-item">
-                    <select id="lng">
-                        <option value="FR">Fr</option><!-- replace by "Français" -->
-                        <option value="EN">En</option><!-- replace by "English" -->
-                    </select>
-                </li>  --}}
-            </ul>
-        </nav>
+  <main>
+    @!include('components/flash')
 
-        <button class="toggle-nav-btn">
-            <i class="fa-solid fa-bars"></i>
-        </button>
+    @!section('content')
+  </main>
 
-        <nav class="responsive-nav">
-            <ul class="responsive-nav-list">
-                <li class="responsive-nav-item"><a class="responsive-nav-link" href="/">Accueil</a></li>
-                <li class="responsive-nav-item"><a class="responsive-nav-link" href="/tutorials/t/1">Montage</a></li>
-                <li class="responsive-nav-item"><a class="responsive-nav-link" href="/contribute">Contribuer</a></li>
-                <li class="responsive-nav-item"><a class="responsive-nav-link" href="https://discord.gg/84Qsp6tUSK">Discord</a></li>
-                <li class="responsive-nav-item"><a class="responsive-nav-link" href="/tutorials">Tutorials</a></li>
-                <li class="responsive-nav-item"><a class="responsive-nav-link" href="">Presse</a></li>
-                <li class="responsive-nav-item"><a class="responsive-nav-link" href="/projects">Autres</a></li>
-                <li class="responsive-nav-item"><a class="responsive-nav-link" href="/contact">Contact</a></li>
-                <li class="responsive-nav-item">
-                    <select id="lang_responsive">
-                        <option value="FR">Français</option>
-                        <option value="EN">English</option>
-                    </select>
-                </li>
-            </ul>
-        </nav>
-    </header>
+  <footer>
 
-    <main>
-        @!include('components/flash')
-
-        @!section('content')
-    </main>
-
-    <footer>
-
-        <div class="social">
-            <ul>
-                <li><a href="https://github.com/paxo-phone"><i class="fa-brands fa-square-github"></i></a></li>
-                <li><a href="https://www.instagram.com/gabriel_rochet_paxo/"><i class="fa-brands fa-square-instagram"></i></a></li>
-            </ul>
-        </div>
+    <div class="social">
+      <ul>
+        <li><a href="https://github.com/paxo-phone"><i class="fa-brands fa-square-github"></i></a></li>
+        <li><a href="https://www.instagram.com/gabriel_rochet_paxo/"><i class="fa-brands fa-square-instagram"></i></a>
+        </li>
+      </ul>
+    </div>
 
 
 
-    </footer>
+  </footer>
 
-    @entryPointScripts('main')
+  @entryPointScripts('main')
 
-    @!section('script')
+  @!section('script')
 </body>
+
 </html>

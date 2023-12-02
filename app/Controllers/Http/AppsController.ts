@@ -1,6 +1,6 @@
 import type { HttpContextContract } from '@ioc:Adonis/Core/HttpContext'
 import { Octokit } from '@octokit/core'
-import App, { AppCategory } from 'App/Models/App'
+import App from 'App/Models/App'
 
 export default class AppsController {
   public async index({ view }: HttpContextContract) {
@@ -24,23 +24,6 @@ export default class AppsController {
   }
 }
 
-// Trending apps
-export const trending_apps: App[][] = []
-async function updateTrendingApps() {
-  console.log("Updating trending apps")
-  for (const cat of Object.values(AppCategory)) {
-    trending_apps[cat] = await App.query()
-      .orderBy("downloads", "desc")
-      .where("category", cat)
-      .limit(15)
-      .preload('user')
-      .exec()
-  }
-}
-
-setInterval(updateTrendingApps, 1000 * 60 * 15).unref() // Every 15 minutes
-updateTrendingApps()
-
 // App details refreshing
 const octokit = new Octokit()
 export async function updateAppDetails(app: App) {
@@ -58,3 +41,6 @@ export async function updateAppDetails(app: App) {
   app.repoStars = res.data.stargazers_count
   return await app.save()
 }
+
+// Clocks variables
+export const trending_apps: App[][] = []

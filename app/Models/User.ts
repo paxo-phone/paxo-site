@@ -1,26 +1,24 @@
 import { DateTime } from 'luxon'
 import { BaseModel, column } from '@ioc:Adonis/Lucid/Orm'
 
-export enum UserElevation {
-  DEFAULT,
-  MOD,
-  ADMIN
-}
-
 export default class User extends BaseModel {
   @column({ isPrimary: true })
   public id: number
 
   @column()
+  public name: string
+
+  @column()
   public verified: boolean
 
   @column()
+  public mod: boolean
 
-  public elevation: UserElevation
   @column()
-  public google_id: number
+  public dev: boolean
+
   @column()
-  public github_id: number
+  public admin: boolean
 
   @column.dateTime({ autoCreate: true })
   public createdAt: DateTime

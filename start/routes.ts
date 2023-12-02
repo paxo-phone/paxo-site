@@ -44,6 +44,7 @@ Route.group(() => {
 
 Route.group(() => {
   Route.get('/', 'AppsController.index')
+    .as('apps')
 
   Route.get('/app/:id', 'AppsController.show')
 }).prefix('/apps')
@@ -52,18 +53,20 @@ Route.group(() => {
 // Auth
 // ----------------------------------------------
 Route.group(() => {
+  Route.get('/', 'UsersController.login')
+    .as('auth.login')
   Route.get('/callback', 'UsersController.callback')
 
   Route.get('/logout', 'UsersController.logout')
     .as('auth.logout')
 }).prefix('/auth')
 
-// // ----------------------------------------------
-// // Dashboard
-// // ----------------------------------------------
-// Route.get('/dashboard', 'DashboardController.index')
-//   .middleware('auth')
-//   .as('dashboard')
+// ----------------------------------------------
+// Dashboard
+// ----------------------------------------------
+Route.get('/dash', 'DashboardController.index')
+  .middleware('auth')
+  .as('dash')
 
 // ----------------------------------------------
 // Admin panel

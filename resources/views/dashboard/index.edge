@@ -7,20 +7,11 @@ Dashboard
 @section('content')
 
 @if(user.admin)
-  <a href="{{ route('adminPanel.index') }}">Admin panel</a>
+<a href="{{ route('adminPanel.index') }}">Admin panel</a>
 @endif
 
 <div class="dash-welcome">
-  <h1>Hi, {{ user.username }}</h1>
-  <p>Email: {{ user.email }}</p>
-  <p>Type: {{ user.type }}</p>
-</div>
-<div class="main-box">
-  <div class="box"></div>
-    <div class="box"></div>
-    <div class="box"></div>
-    <div class="box"></div>
-  </div>
+  <h1>Hi, {{ user.name }}</h1>
 </div>
 
 @endsection
