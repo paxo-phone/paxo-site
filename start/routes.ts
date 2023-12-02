@@ -133,3 +133,12 @@ if (process.env.UNSAFE_ADMIN_PANEL) {
 
 //   console.warn("Loaded dev routes. This message should not appear in production !")
 // }
+
+// ----------------------------------------------
+// Tutorials
+// ----------------------------------------------
+Route.group(() => {
+  Route.get('/', 'LegalController.index').as('legal.index')
+  Route.get('/:slug', 'LegalController.view').as('legal.viewLegalDoc')
+})
+  .prefix('/legal')

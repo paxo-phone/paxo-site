@@ -1,3 +1,7 @@
+/**
+ * Nota: this script is used for legal part too. - Welpike
+ */
+
 import "../scss/module/markdown.scss"
 
 import markdownIt from "markdown-it"
