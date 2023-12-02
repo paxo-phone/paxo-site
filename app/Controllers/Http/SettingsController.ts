@@ -1,24 +1,19 @@
 import type { HttpContextContract } from '@ioc:Adonis/Core/HttpContext'
-import { PasswordChangeValidator } from 'App/Validators/SettingsValidators'
+import RedirectingException from 'App/Exceptions/RedirectingException'
+import { NotificationsValidator } from 'App/Validators/SettingsValidators'
 
 export default class SettingsController {
-  public async password({ request, auth, session, response }: HttpContextContract) {
-    const data = await request.validate(new PasswordChangeValidator())
-    const user = await auth.authenticate()
+  public async notifications({ request, auth, response }: HttpContextContract) {
+    const data = await request.validate(new NotificationsValidator())
 
-    if (user.password) {
-      try {
-        await auth.verifyCredentials(user.username, request.input("old_password"))
-      } catch {
-        session.flash({ error: "The old password is incorrect." })
-        return response.redirect().back()
-      }
+    const user = auth.use('web').user
+    if (!user) throw new RedirectingException('/', 'Unauthorized', 403)
+
+    if (data.email && data.email != user.email) {
+      user.email = data.email
+      user.save()
     }
 
-    user.password = data.password
-    await user.save()
-
-    session.flash({ success: "Password changed successfully." })
     return response.redirect().back()
   }
 }

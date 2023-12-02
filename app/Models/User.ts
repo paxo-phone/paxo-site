@@ -9,6 +9,9 @@ export default class User extends BaseModel {
   public name: string
 
   @column()
+  public email: string
+
+  @column()
   public verified: boolean
 
   @column()

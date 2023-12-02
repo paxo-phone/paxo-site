@@ -1,45 +1,23 @@
-
-form {
-  max-width: max-content;
-  margin:auto;
-  margin-top:3%;
-  border-radius: 50px;
-  display:flex;
-  flex-direction: column;
- }
-
-input, textarea, select, label {
-  font-family: inherit;
-  font-size: 16px;
-  margin-top:5px;
-  display:flex;
-  justify-content: space-around;
-  flex-direction: column;
+input,
+textarea,
+select {
+  padding: 0.25rem;
+  border: 1px solid darkgray;
+  border-radius: 0.3rem;
 }
 
-label
-{
-  margin-bottom: .5rem;
+input:not([type="submit"]) {
+  min-width: 15rem;
 }
 
-input, textarea, select {
-  padding: 1rem;
-  border: #89D5C0 2px solid;
-  border-radius:10px;
-}
-
-input[type="submit"]{
-  border-color: black;
-  background: black;
-  color: white;
+input[type="submit"] {
+  border-color: #39ba99;
+  background: #39ba99;
+  color: black;
   cursor: pointer;
   transition-duration: .1s;
-  &:hover {
-  background: white;
-  color: black;
-  }
-}
 
-input:hover{
-  border-color: #89D5C0
+  &:hover {
+    background: #2a977c;
+  }
 }
