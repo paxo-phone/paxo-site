@@ -12,8 +12,12 @@
 }
 
 .dash-content {
-  display: flex;
+  h1 {
+    font-size: 150%;
+    margin-bottom: revert;
+  }
 
+  padding: 0 2rem;
 }
 
 .dash-navbar ul {

@@ -64,9 +64,13 @@ Route.group(() => {
 // ----------------------------------------------
 // Dashboard
 // ----------------------------------------------
-Route.get('/dash', 'DashboardController.index')
+Route.group(() => {
+  Route.get('/', 'DashboardController.index')
+    .as('dash')
+  Route.get('/settings', 'DashboardController.settings')
+})
   .middleware('auth')
-  .as('dash')
+  .prefix('/dash')
 
 // ----------------------------------------------
 // Admin panel
