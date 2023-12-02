@@ -24,6 +24,7 @@ import App, { AppCategory } from 'App/Models/App'
 */
 Server.middleware.register([
   () => import('@ioc:Adonis/Core/BodyParser'),
+  () => import('App/Middleware/DetectUserLocale')
 ])
 
 /*

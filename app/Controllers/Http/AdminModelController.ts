@@ -143,3 +143,25 @@ export default class AdminModelController {
     })
   }
 }
+
+async function cf_invalidate(path: string) {
+  axios.post('https://api.cloudflare.com/client/v4/zones/' + process.env.CLOUDFLARE_ZONE + '/purge_cache', {
+    files: [
+      process.env.ACCESS_ADDRESS + path
+    ]
+  }, {
+    headers: {
+      Authorization: 'Bearer ' + process.env.CLOUDFLARE_TOKEN,
+      "Content-Type": "application/json"
+    }
+  })
+    .then((data) => {
+      if (!data.data.success) {
+        console.error("Error while wiping the cloudflare cache")
+        console.error(data.data.errors)
+      }
+    }, (reason) => {
+      console.error("Error while wiping the cloudflare cache")
+      console.error(reason)
+    })
+}

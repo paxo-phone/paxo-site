@@ -1,20 +1,43 @@
 /* card */
 
 .card {
-    background: #f2f2f2;
-    width: 100%;
-    padding: 2rem;
-    margin: 3rem 0;
+  background: #f2f2f2;
+  width: 100%;
+  padding: 2rem;
+  margin: 3rem 0;
+
+  display: flex;
+  flex-direction: row;
+  gap: 1.5rem;
+}
+
+.card-img {
+  min-width: 30%;
+  min-height: 100%;
+  object-fit: cover;
+  object-position: center;
+}
+
+.card-top-title {
+  font-size: 15px;
+  text-transform: uppercase;
+  font-weight: bold;
+  color: gray;
+  margin-bottom: 1rem;
 }
 
 .card-title {
-    font-size: 30px;
-    font-weight: bold;
-    margin-bottom: 1rem;
+  font-size: 30px;
+  font-weight: bold;
+  margin-bottom: 1rem;
+}
+@media screen and (max-width: map-get($breakpoints, sm)) {
+.card-title {
+    font-size: 18px;
+}
 }
 
 .card-description {
-    line-height: 1.3em;
-    font-weight: lighter;
-    margin-bottom: 1rem;
+  line-height: 1.3em;
+  font-weight: lighter;
 }

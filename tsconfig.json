@@ -35,7 +35,8 @@
       "@adonisjs/lucid",
       "@adonisjs/auth",
       "@adonisjs/bouncer",
-      "@adonisjs/mail"
+      "@adonisjs/mail",
+      "@adonisjs/i18n"
     ]
   }
 }

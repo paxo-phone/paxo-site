@@ -52,7 +52,7 @@ See more on [paxo.fr](https://www.paxo.fr)
 
 # Contributors 
 
-<a href="https://github.com/paxo-phone/PaxOS-8/graphs/contributors">
+<a href="https://github.com/paxo-phone/paxo-site/graphs/contributors">
   <img src="https://contrib.rocks/image?repo=paxo-phone/paxo-site" />
 </a>
 
