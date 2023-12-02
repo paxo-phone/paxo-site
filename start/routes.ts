@@ -135,7 +135,7 @@ if (process.env.UNSAFE_ADMIN_PANEL) {
 // }
 
 // ----------------------------------------------
-// Tutorials
+// legal
 // ----------------------------------------------
 Route.group(() => {
   Route.get('/', 'LegalController.index').as('legal.index')
