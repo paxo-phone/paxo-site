@@ -10,6 +10,10 @@ export default class CoreController {
     return view.render('core/contact')
   }
 
+  public async contributors({ view }: HttpContextContract) {
+    return view.render('core/contributors')
+  }
+  
   public async contribute({ view }: HttpContextContract) {
     return view.render('core/contribute')
   }

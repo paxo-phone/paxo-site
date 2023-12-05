@@ -12,8 +12,14 @@ header:
   press: Presse
   projects: Autres
   contact: Contact
-  donations: Dons
+  donations: Faire un don
   language: Language
+
+footer: 
+  contributions: |
+    Nous sommes reconnaissants envers toutes les personnes qui ont contribué à ce projet. Consulter
+  link_text: |
+    la liste complète des contributeurs
 
 index:
   title: Un téléphone libre, modulaire et pédagogique.
@@ -64,6 +70,13 @@ contact:
     - ou via notre
     - serveur Discord
 
+press:
+  seo_description: |
+    Vous trouverez sur cette page la plupart des articles au sujet du projet Paxo.
+  title: Presse
+  subtitle: |
+    Vous trouverez sur cette page la plupart des articles au sujet du projet Paxo.
+
 contribute:
   seo_description: Vous souhaitez participer à la conception du PaxoPhone ? N'hésitez pas et rejoignez-nous !
   title: Contribuer
@@ -82,3 +95,16 @@ contribute:
         Le software désigne toute la partie logicielle du téléphone, c'est à dire le système
         d'exploitation (PaxOS) et les applications qui tournent dessus. La documentation en lien ci-dessous décrit en
         détail leur architecture et le fonctionnement.
+
+tutorials:
+  seo_description: Vous trouverez les tutos pour la conception du PaxoPhone ainsi que les autres projets signés Paxo.
+  title: Tutoriels
+  description: Vous trouverez les tutos pour la conception du PaxoPhone ainsi que les autres projets signés Paxo.
+  last_udpate: Dernière mise à jour
+  date_format: fr-FR
+
+contributors:
+  seo_description: Liste des contributeurs au projet Paxo.
+  title: Contributeurs
+  subtitle: |
+    Cette page recense les principaux contributeurs au projet Paxo.

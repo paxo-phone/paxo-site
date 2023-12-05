@@ -60,3 +60,14 @@ cite
     font-size: 1.1rem;
     margin-bottom: 3rem;
 }
+
+.list
+{
+    padding: 2rem 1rem;
+    list-style: inside;
+}
+
+.list .list-item
+{
+    padding: .3rem 0;
+}
