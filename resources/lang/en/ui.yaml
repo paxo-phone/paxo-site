@@ -15,7 +15,7 @@ header:
   donations: Donate
   language: Language
 
-footer: 
+footer:
   contributions: |
     We are grateful to everyone who contributed to this project. Visit
   link_text: |
@@ -84,18 +84,18 @@ contribute:
   cards:
     - title: Hardware
       description: |
-        Hardware refers to the whole material part of the phone, from the materials used as the circuits that make it work. 
+        Hardware refers to the whole material part of the phone, from the materials used as the circuits that make it work.
         The documentation linked below describes in depth all the details.
     - title: Software
       description: |
-        Software refers to the whole of the phone's software, i.e. the operating system (PaxOS) and the applications running on it. 
+        Software refers to the whole of the phone's software, i.e. the operating system (PaxOS) and the applications running on it.
         The documentation linked below describes their architecture in detail.
 
 tutorials:
   seo_description: You'll find tutorials on how to build the PaxoPhone and other Paxo projects.
   title: Tutorials
   description: You'll find tutorials on how to build the PaxoPhone and other Paxo projects.
-  last_udpate: Last update
+  last_update: Last update
   date_format: en-US
 
 contributors:

@@ -15,7 +15,7 @@ header:
   donations: Faire un don
   language: Language
 
-footer: 
+footer:
   contributions: |
     Nous sommes reconnaissants envers toutes les personnes qui ont contribué à ce projet. Consulter
   link_text: |
@@ -100,7 +100,7 @@ tutorials:
   seo_description: Vous trouverez les tutos pour la conception du PaxoPhone ainsi que les autres projets signés Paxo.
   title: Tutoriels
   description: Vous trouverez les tutos pour la conception du PaxoPhone ainsi que les autres projets signés Paxo.
-  last_udpate: Dernière mise à jour
+  last_update: Dernière mise à jour
   date_format: fr-FR
 
 contributors:
