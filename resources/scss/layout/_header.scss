@@ -142,6 +142,11 @@
 
 }
 
+// Disable scroll on responsive-nav opened
+body:has(.responsive-nav.active) {
+  overflow: hidden;
+}
+
 // Cancelled animations due to incompatibility for Neper and being to heavy, refactor needed
 // .responsive-nav-item {
 

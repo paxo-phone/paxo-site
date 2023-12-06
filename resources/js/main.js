@@ -21,14 +21,6 @@ if (toggleNavBtn) {
     if (responsiveNav) {
       responsiveNav.classList.toggle("active")
       toggleNavBtn.classList.toggle("active")
-
-      if(document.body.style.overflow == "hidden"){
-        document.body.style.overflow == "scroll"
-      }
-      else {
-        document.body.style.overflow == "hidden"
-      }
-      
     }
   })
 }
