@@ -101,7 +101,6 @@ tutorials:
   title: Tutoriels
   description: Vous trouverez les tutos pour la conception du PaxoPhone ainsi que les autres projets signés Paxo.
   last_update: Dernière mise à jour
-  date_format: fr-FR
 
 contributors:
   seo_description: Liste des contributeurs au projet Paxo.

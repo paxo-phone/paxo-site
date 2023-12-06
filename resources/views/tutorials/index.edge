@@ -1,12 +1,11 @@
 @!layout('base/main')
 
 @section('title')
- {{ t("ui.tutorials.title") }}
+{{ t("ui.tutorials.title") }}
 @endsection
 
 @section('seo')
-<meta name="description"
-  content="{{ t("ui.tutorials.seo_description") }}">
+<meta name="description" content="{{ t(" ui.tutorials.seo_description") }}">
 <meta name="robots" content="index">
 @endsection
 
@@ -23,7 +22,9 @@
       <div class="card">
         <div>
           <div class="card-title">{{ tutorial.name }}</div>
-          <div class="card-description">{{ tutorial.description }} ({{ t("ui.tutorials.last_update") }} : {{ tutorial.updatedAt.toLocaleString({year:'numeric',month:'numeric',day:'numeric',hour:'numeric',minute:'numeric'}, {locale: '{{ ui.tutorials.date_format }}'}) }})</div>
+          <div class="card-description">{{ tutorial.description }} ({{ t("ui.tutorials.last_update") }} : {{
+            tutorial.updatedAt.toLocaleString({year:'numeric',month:'numeric',day:'numeric',hour:'numeric',minute:'numeric'},
+            { locale: t('meta.extended_locale') }) }})</div>
         </div>
       </div>
     </a>
