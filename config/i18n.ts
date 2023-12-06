@@ -77,9 +77,9 @@ const i18nConfig: I18nConfig = {
   |
   |
   */
-  // fallback(identifier, locale) => {
-  //   return identifier
-  // },
+  fallback() {
+    return ""
+  },
 
   /*
   |--------------------------------------------------------------------------
