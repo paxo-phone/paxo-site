@@ -1,21 +1,20 @@
 @!layout('base/main')
 
 @section('title')
-Tutoriels
+{{ t("ui.tutorials.title") }}
 @endsection
 
 @section('seo')
-<meta name="description"
-  content="Vous trouverez les tutos pour la conception du PaxoPhone ainsi que les autres projets signés Paxo.">
+<meta name="description" content="{{ t(" ui.tutorials.seo_description") }}">
 <meta name="robots" content="index">
 @endsection
 
 @section('content')
 <section class="container">
 
-  <h1 class="h1 text-center mb-2">Tutoriels</h1>
+  <h1 class="h1 text-center mb-2">{{ t("ui.tutorials.title") }}</h1>
 
-  <p class="lead text-center mb-2">Vous trouverez les tutos pour la conception du PaxoPhone ainsi que les autres projets signés Paxo.</p>
+  <p class="lead text-center mb-2">{{ t("ui.tutorials.description") }}</p>
 
   <div>
     @each(tutorial in tutorials)
@@ -23,7 +22,9 @@ Tutoriels
       <div class="card">
         <div>
           <div class="card-title">{{ tutorial.name }}</div>
-          <div class="card-description">{{ tutorial.description }} (Dernière mise à jour: {{ tutorial.updatedAt.toLocaleString({year:'numeric',month:'numeric',day:'numeric',hour:'numeric',minute:'numeric'}, {locale: 'fr-FR'}) }})</div>
+          <div class="card-description">{{ tutorial.description }} ({{ t("ui.tutorials.last_update") }} : {{
+            tutorial.updatedAt.toLocaleString({year:'numeric',month:'numeric',day:'numeric',hour:'numeric',minute:'numeric'},
+            { locale: t('meta.extended_locale') }) }})</div>
         </div>
       </div>
     </a>

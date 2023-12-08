@@ -1,6 +1,5 @@
 import type { HttpContextContract } from '@ioc:Adonis/Core/HttpContext'
 import Project from 'App/Models/Project'
-import I18n from '@ioc:Adonis/Addons/I18n'
 
 export default class CoreController {
   public async index({ view }: HttpContextContract) {
@@ -11,6 +10,10 @@ export default class CoreController {
     return view.render('core/contact')
   }
 
+  public async contributors({ view }: HttpContextContract) {
+    return view.render('core/contributors')
+  }
+  
   public async contribute({ view }: HttpContextContract) {
     return view.render('core/contribute')
   }

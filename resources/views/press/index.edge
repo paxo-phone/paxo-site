@@ -1,19 +1,19 @@
 @!layout('base/main')
 
 @section('title')
-Presse
+ {{ t("ui.press.title") }}
 @endsection
 
 @section('seo')
-<meta name="description" content="Vous trouverez sur cette page la plupart des articles au sujet du projet Paxo.">
+<meta name="description" content="{{ t("ui.press.seo_description") }}">
 <meta name="robots" content="index">
 @endsection
 
 @section('content')
 <section class="container">
 
-  <p class="h1 text-center mb-2">Presse</p>
-  <p class="lead text-center">Vous trouverez sur cette page la plupart des articles au sujet du projet Paxo.</p>
+  <p class="h1 text-center mb-2">{{ t("ui.press.title") }}</p>
+  <p class="lead text-center">{{ t("ui.press.subtitle") }}</p>
 
   <div>
     @each(pressArticle in pressArticles)

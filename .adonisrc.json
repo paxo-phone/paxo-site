@@ -18,7 +18,14 @@
   "preloads": [
     "./start/routes",
     "./start/kernel",
-    "./start/bouncer"
+    "./start/bouncer",
+    {
+      "file": "./start/i18n",
+      "environment": [
+        "repl",
+        "web"
+      ]
+    }
   ],
   "providers": [
     "./providers/AppProvider",
@@ -45,19 +52,5 @@
   ],
   "aceProviders": [
     "@adonisjs/repl"
-  ],
-  "tests": {
-    "suites": [
-      {
-        "name": "functional",
-        "files": [
-          "tests/functional/**/*.spec(.ts|.js)"
-        ],
-        "timeout": 60000
-      }
-    ]
-  },
-  "testProviders": [
-    "@japa/preset-adonis/TestsProvider"
   ]
 }

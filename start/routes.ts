@@ -30,6 +30,7 @@ Route.group(() => {
   Route.get('/', 'CoreController.index')
   Route.get('contact', 'CoreController.contact')
   Route.get('contribute', 'CoreController.contribute')
+  Route.get('contributors', 'CoreController.contributors')
   Route.get('projects', 'CoreController.projects')
   Route.get('press', 'PressController.index')
 })
