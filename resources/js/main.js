@@ -1,5 +1,6 @@
 import "../scss/styles.scss"
 
+const HEADER = document.querySelector('header.header');
 const logo = document.querySelector('.logo')
 const toggleNavBtn = document.querySelector('.toggle-nav-btn')
 const responsiveNavItems = document.querySelectorAll('.responsive-nav-item');
@@ -10,7 +11,7 @@ const nav = document.querySelector('.nav');
 // Navbar button
 if (toggleNavBtn) {
   toggleNavBtn.addEventListener("click", () => {
-    let responsiveNav = document.querySelector(".responsive-nav")
+    let responsiveNav = document.querySelector(".responsive-nav");
 
     responsiveNavItems.forEach((responsiveNavItem, index) => {
       setTimeout(() => {
@@ -19,8 +20,9 @@ if (toggleNavBtn) {
     })
 
     if (responsiveNav) {
-      responsiveNav.classList.toggle("active")
-      toggleNavBtn.classList.toggle("active")
+      responsiveNav.classList.toggle("active");
+      toggleNavBtn.classList.toggle("active");
+      HEADER.classList.toggle('mobile_menu_active');
     }
   })
 }
@@ -64,3 +66,31 @@ lang_toggle.onclick = () => {
     document.addEventListener('click', modalCloseListener)
   }
 }
+
+
+//#region Header scroll transformation
+
+/**
+ * We watch the position of the vertical scroll of the page.
+ * If it exceeds a certain point, we activate/deactivate the scroll mode of the header.
+ */
+window.addEventListener("scroll", () => {
+  checkHeaderOnScroll();
+});
+
+function checkHeaderOnScroll(){
+  const CLASS = "top";
+  if(window.scrollY > 100){
+    if(HEADER.classList.contains(CLASS)){
+      HEADER.classList.remove(CLASS);
+    }
+  }
+  else{
+    if(!HEADER.classList.contains(CLASS)){
+      HEADER.classList.add(CLASS);
+    }
+  }
+}
+checkHeaderOnScroll();
+
+//#endregion
