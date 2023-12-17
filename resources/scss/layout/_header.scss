@@ -6,7 +6,7 @@
   display: flex;
   justify-content: space-between;
   align-items: center;
-  transition: color $transition-duration ease-in-out, background-color $transition-duration ease-in-out;
+  transition: all $transition-duration ease-in-out;
   color: white;
   background-color: transparent;
   z-index: 2;
@@ -38,6 +38,8 @@
     text-transform: uppercase;
     color: inherit;
     z-index: 1;
+    height: 60px;
+    transition: height $transition-duration ease;
     filter: brightness(0) invert(1); // logo blanc sur fond foncé
     /*
     transform: translateY(-300%);
@@ -108,6 +110,15 @@
     color: black;
 
     &:not(.mobile_menu_active){
+      padding-top: 12px;
+      padding-bottom: 12px;
+  
+      > .logo {
+        height: 40px;
+      }
+    }
+
+    &:not(.mobile_menu_active){
       > .logo{
         filter: brightness(0);
       }
@@ -123,13 +134,19 @@
       height: 1px;
     }
 
-    > .nav {
-      > .nav-list {
-        > .nav-item {
-          > #lang-select {
-            background: rgba(0, 0, 0, 0.7);
+    > nav{
+      &.nav {
+        > .nav-list {
+          > .nav-item {
+            > #lang-select {
+              background: rgba(0, 0, 0, 0.3);
+            }
           }
         }
+      }
+
+      option{
+        color: black;
       }
     }
   }
