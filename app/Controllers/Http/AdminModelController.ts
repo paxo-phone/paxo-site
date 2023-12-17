@@ -1,17 +1,22 @@
 import type { HttpContextContract } from '@ioc:Adonis/Core/HttpContext'
 import { LucidModel } from '@ioc:Adonis/Lucid/Orm'
 import { randomBytes } from 'node:crypto'
+import axios from 'axios'
 
 import Tutorial from 'App/Models/Tutorial'
 import PressArticle from 'App/Models/PressArticle'
 import Project from 'App/Models/Project'
 import File from 'App/Models/File'
+import App from 'App/Models/App'
+import User from 'App/Models/User'
 
 export const models: { [key: string]: LucidModel } = { // Models available in the admin panel
   Tutorial,
   PressArticle,
   Project,
-  File
+  File,
+  App,
+  User
 }
 
 export default class AdminModelController {
@@ -38,7 +43,7 @@ export default class AdminModelController {
     })
   }
 
-  public async createProcess({ params, response, request }: HttpContextContract) {
+  public async createProcess({ params, response, request, session }: HttpContextContract) {
     const data = request.body()
 
     const file = request.file('file')
@@ -50,7 +55,14 @@ export default class AdminModelController {
       data.file = filename
     }
 
-    const item = await models[params.model].create(data)
+    let item
+    try {
+      item = await models[params.model].create(data)
+    } catch (e) {
+      console.log(e)
+      session.flash({ error: e })
+      return response.redirect().back()
+    }
 
     return response.redirect().toRoute('adminPanel.model.view', {
       model: params.model,

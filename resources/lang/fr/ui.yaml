@@ -82,3 +82,11 @@ contribute:
         Le software désigne toute la partie logicielle du téléphone, c'est à dire le système
         d'exploitation (PaxOS) et les applications qui tournent dessus. La documentation en lien ci-dessous décrit en
         détail leur architecture et le fonctionnement.
+
+marketplace:
+  title: Applications
+  category:
+    - Utilitaire
+    - Communication
+    - Jeux
+    - Divers

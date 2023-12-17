@@ -52,19 +52,23 @@ Server.middleware.registerNamed({
 // ======================
 
 // Trending apps
-async function updateTrendingApps() {
-  console.log("Updating trending apps")
-  for (const cat of Object.values(AppCategory)) {
-    trending_apps[cat] = await App.query()
-      .orderBy("downloads", "desc")
-      .where("category", cat)
-      .limit(15)
-      .preload('user')
-      .exec()
+export const clocks = [
+  async function updateTrendingApps() {
+    console.log("Updating trending apps")
+    for (const cat of Object.values(AppCategory)) {
+      trending_apps[cat] = await App.query()
+        .orderBy("downloads", "desc")
+        .where("category", cat)
+        .limit(15)
+        .preload('user')
+        .exec()
+    }
   }
-}
+]
 
 if (process.argv[2] == "serve") {
-  setInterval(updateTrendingApps, 1000 * 60 * 15).unref() // Every 15 minutes
-  updateTrendingApps()
+  clocks.forEach((clk) => {
+    setInterval(clk, 1000 * 60 * 15).unref() // Every 15 minutes
+    clk()
+  })
 }

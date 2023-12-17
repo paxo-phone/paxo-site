@@ -1,8 +1,9 @@
 import { DateTime } from 'luxon'
-import { BaseModel, BelongsTo, belongsTo, column } from '@ioc:Adonis/Lucid/Orm'
+import { BaseModel, BelongsTo, beforeCreate, belongsTo, column } from '@ioc:Adonis/Lucid/Orm'
 import User from './User'
+import { updateAppDetails } from 'App/Controllers/Http/AppsController'
 
-export enum AppCategory {
+export enum AppCategory { // If you want to add an app category, append to the bottom and add translation in language files
   UTILITIES,
   COMMUNICATION,
   GAMES,
@@ -42,4 +43,9 @@ export default class App extends BaseModel {
 
   @column.dateTime({ autoCreate: true, autoUpdate: true })
   public updatedAt: DateTime
+
+  @beforeCreate()
+  public static async fetchGithub(target) {
+    await updateAppDetails(target)
+  }
 }

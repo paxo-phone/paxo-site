@@ -1,6 +1,8 @@
 import type { HttpContextContract } from '@ioc:Adonis/Core/HttpContext'
 import { Octokit } from '@octokit/core'
 import App from 'App/Models/App'
+import { createAppAuth } from "@octokit/auth-app"
+import { readFileSync } from "node:fs"
 
 export default class AppsController {
   public async index({ view }: HttpContextContract) {
@@ -25,14 +27,40 @@ export default class AppsController {
 }
 
 // App details refreshing
-const octokit = new Octokit()
+let octokit: Octokit
+
+async function createOctokit() {
+  if (process.env.GITHUB_APP_ID && process.env.GITHUB_APP_PRIVATE_KEY_PATH) {
+    const auth = createAppAuth({
+      appId: process.env.GITHUB_APP_ID,
+      privateKey: readFileSync(process.env.GITHUB_APP_PRIVATE_KEY_PATH).toString(),
+      clientId: process.env.GITHUB_CLIENT_ID,
+      clientSecret: process.env.GITHUB_CLIENT_SECRET
+    })
+
+    // Retrieve JSON Web Token (JWT) to authenticate as app
+    const appAuthentication = await auth({ type: "app" })
+    console.log(appAuthentication)
+
+    octokit = new Octokit({
+      auth: appAuthentication.token
+    })
+  } else {
+    octokit = new Octokit()
+  }
+}
+
 export async function updateAppDetails(app: App) {
+  if (!octokit) await createOctokit()
+
   const res = await octokit.request('GET /repositories/{repository_id}', {
     repository_id: app.repoId
   })
 
   if (res.status == 404) {
     await app.delete()
+    return null
+  } else if (res.status != 200) {
     return null
   }
 

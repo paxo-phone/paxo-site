@@ -14,12 +14,12 @@ export default class extends BaseSchema {
         .onDelete('CASCADE')
 
       table.integer('repo_id').notNullable()
-      table.string('name', 100).notNullable()
-      table.string('desc', 350).nullable()
+      table.string('name', 100).notNullable().defaultTo("")
+      table.string('desc', 350).nullable().defaultTo("")
       table.integer('repo_stars').defaultTo(0)
 
       table.enum('category', Object.values(AppCategory)).notNullable()
-      table.bigint("downloads").unsigned().notNullable()
+      table.bigint("downloads").unsigned().notNullable().defaultTo(0)
 
       table.timestamp('created_at', { useTz: true })
     })
