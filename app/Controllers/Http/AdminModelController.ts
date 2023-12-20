@@ -9,6 +9,7 @@ import Project from 'App/Models/Project'
 import File from 'App/Models/File'
 import App from 'App/Models/App'
 import User from 'App/Models/User'
+import AdminController from './AdminController'
 
 export const models: { [key: string]: LucidModel } = { // Models available in the admin panel
   Tutorial,
@@ -81,7 +82,9 @@ export default class AdminModelController {
     return response.status(201)
   }
 
-  public async view({ params, view }: HttpContextContract) {
+  public async view({ params, view, bouncer }: HttpContextContract) {
+    await AdminController.checks(bouncer)
+
     const item = await models[params.model].query()
       .where('id', params.id)
       .firstOrFail()
@@ -105,19 +108,12 @@ export default class AdminModelController {
   }
 
   public async updateProcess({ bouncer, params, response, request }: HttpContextContract) {
+    await AdminController.checks(bouncer)
+
     const body = request.body()
     const item = await models[params.model].query()
       .where('id', params.id)
       .firstOrFail()
-
-    // If user is editing a User, change the authorize rule (custom rule for user editing)
-    if (!process.env.UNSAFE_ADMIN_PANEL) {
-      if (params.model == "User") {
-        await bouncer.authorize('editUserOnAdminPanel', item)
-      } else {
-        await bouncer.authorize('editModelOnAdminPanel', item)
-      }
-    }
 
     const file = request.file('file')
     if (file) {
@@ -136,18 +132,10 @@ export default class AdminModelController {
   }
 
   public async deleteProcess({ bouncer, params, response }: HttpContextContract) {
+    await AdminController.checks(bouncer)
     const item = await models[params.model].query()
       .where('id', params.id)
       .firstOrFail()
-
-    // If user is editing a User, change the authorize rule (custom rule for user editing)
-    if (!process.env.UNSAFE_ADMIN_PANEL) {
-      if (params.model == "User") {
-        await bouncer.authorize('editUserOnAdminPanel', item)
-      } else {
-        await bouncer.authorize('editModelOnAdminPanel', item)
-      }
-    }
 
     await item.delete()
     return response.redirect().toRoute('adminPanel.model.index', {

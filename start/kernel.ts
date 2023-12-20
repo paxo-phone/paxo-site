@@ -60,7 +60,7 @@ export const clocks = [
         .orderBy("downloads", "desc")
         .where("category", cat)
         .limit(15)
-        .preload('user')
+        .preload('author')
         .exec()
     }
   }

@@ -10,12 +10,10 @@ export default class extends BaseSchema {
     this.schema.createTable(this.tableName, (table) => {
       table.integer('id').unsigned().notNullable().index().unique() // Github ID
       table.string('name', 255).notNullable()
-      table.string('email', 255)
-        .nullable() // If not set, mails will be sent to the primary GitHub email.
+      table.string('email', 255).nullable()
 
       table.boolean('verified').defaultTo(false)
       table.boolean('mod').defaultTo(false)
-      table.boolean('dev').defaultTo(false)
       table.boolean('admin').defaultTo(false)
 
       table.timestamp('created_at', { useTz: true })

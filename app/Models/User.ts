@@ -18,9 +18,6 @@ export default class User extends BaseModel {
   public mod: boolean
 
   @column()
-  public dev: boolean
-
-  @column()
   public admin: boolean
 
   @column.dateTime({ autoCreate: true })

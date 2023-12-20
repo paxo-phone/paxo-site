@@ -15,13 +15,10 @@ export default class App extends BaseModel {
   public id: number
 
   @belongsTo(() => User)
-  public user: BelongsTo<typeof User>
+  public author: BelongsTo<typeof User>
 
   @column()
-  public userId: number
-
-  @column()
-  public repoId: number
+  public authorId: number
 
   @column()
   public name: string
@@ -30,7 +27,13 @@ export default class App extends BaseModel {
   public desc: string
 
   @column()
-  public repoStars: number
+  public source_url: string
+
+  @column()
+  public image: string
+
+  @column()
+  public releases: string
 
   @column()
   public category: AppCategory

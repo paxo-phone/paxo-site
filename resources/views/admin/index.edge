@@ -1,7 +1,7 @@
 @!layout('base/main')
 
 @section('title')
-  Admin panel
+Admin panel
 @endsection
 
 @section('content')
@@ -9,7 +9,12 @@
 
 <ul>
   @each(model in models)
-    <li><a href="{{ route('adminPanel.model.index', {model: model}) }}">{{ model }}</a></li>
+  <li><a href="{{ route('adminPanel.model.index', {model: model}) }}">{{ model }}</a></li>
   @endeach
 </ul>
+
+<form action="{{ route('adminPanel.confirmRegister') }}" method="get">
+  <input type="text" name="user_object">
+  <input type="submit" value="Send">
+</form>
 @endsection

@@ -13,7 +13,7 @@ Marketplace
 @each(category in trending_apps)
 <h1>{{ t('ui.marketplace.category.' + category) }}</h1>
 <div class="app_scroller">
-  @each(app of trending_apps)
+  @each(app in trending_apps)
   <div class="app">
     <h3>{{ app.name }}</h3>
     <div>{{ app.desc }}</div>

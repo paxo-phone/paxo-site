@@ -84,6 +84,11 @@ const admin_panel = Route.group(() => {
   Route.get('/', 'AdminController.index')
     .as('adminPanel.index')
 
+  Route.get('/confirm_register', 'AdminController.confirmRegister')
+    .as('adminPanel.confirmRegister')
+
+  Route.post('/confirm_register', 'AdminController.confirmRegisterProcess')
+
   Route.get('/:model', 'AdminModelController.index')
     .as('adminPanel.model.index')
 
@@ -101,6 +106,7 @@ const admin_panel = Route.group(() => {
   Route.post('/:model/i/:id/update', 'AdminModelController.updateProcess')
 
   Route.get('/:model/i/:id/delete', 'AdminModelController.deleteProcess')
+    .as('adminPanel.model.delete')
 })
   .prefix('/admin-panel')
 
@@ -109,25 +115,3 @@ if (process.env.UNSAFE_ADMIN_PANEL) {
 } else {
   admin_panel.middleware('auth')
 }
-
-// if (process.env.NODE_ENV == "development") {
-//   Route.get('/loginAsUid/:uid', async ({ params, auth, response, session }: HttpContextContract) => {
-//     await auth.loginViaId(params.uid)
-//     session.flash({ success: "Logged in as " + auth.user?.username })
-//     return response.redirect().back()
-//   })
-//   Route.get('/setAsAdmin/:uid', async ({ params, response, session }: HttpContextContract) => {
-//     const user = await User
-//       .query()
-//       .where('id', params.uid)
-//       .firstOrFail()
-//     user.type = UserType.ADMIN
-//     user.save()
-
-//     session.flash({ success: "Made " + user?.username + " an admin." })
-
-//     return response.redirect().back()
-//   })
-
-//   console.warn("Loaded dev routes. This message should not appear in production !")
-// }

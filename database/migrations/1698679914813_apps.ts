@@ -8,15 +8,17 @@ export default class extends BaseSchema {
     this.schema.createTable(this.tableName, (table) => {
       table.increments('id')
 
-      table.integer('owner_id')
+      table.integer('author_id')
+        .index()
         .unsigned()
-        .references('users.github_id')
+        .references('users.id')
         .onDelete('CASCADE')
 
-      table.integer('repo_id').notNullable()
       table.string('name', 100).notNullable().defaultTo("")
       table.string('desc', 350).nullable().defaultTo("")
-      table.integer('repo_stars').defaultTo(0)
+      table.string('source_url', 300).nullable()
+      table.string('image', 300).nullable()
+      table.string('releases', 300).nullable()
 
       table.enum('category', Object.values(AppCategory)).notNullable()
       table.bigint("downloads").unsigned().notNullable().defaultTo(0)
