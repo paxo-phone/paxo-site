@@ -1,11 +1,11 @@
 import "../scss/styles.scss"
 
 const HEADER = document.querySelector('header.header');
-const logo = document.querySelector('.logo')
+//const logo = document.querySelector('.logo')
 const toggleNavBtn = document.querySelector('.toggle-nav-btn')
 const responsiveNavItems = document.querySelectorAll('.responsive-nav-item');
-const navLinks = document.querySelectorAll('.nav-item');
-const nav = document.querySelector('.nav');
+//const navLinks = document.querySelectorAll('.nav-item');
+//const nav = document.querySelector('.nav');
 
 /// Header-related stuff
 // Navbar button
@@ -67,6 +67,11 @@ lang_toggle.onclick = () => {
   }
 }
 
+/**
+ * We add a "path" attribute to the body of the page.
+ * It can be used in CSS to apply styling to a page only.
+ */
+document.body.setAttribute("path", window.location.pathname)
 
 //#region Header scroll transformation
 
@@ -79,8 +84,9 @@ window.addEventListener("scroll", () => {
 });
 
 function checkHeaderOnScroll(){
+  const BREAK_POINT = 60;
   const CLASS = "top";
-  if(window.scrollY > 100){
+  if(window.scrollY > BREAK_POINT){
     if(HEADER.classList.contains(CLASS)){
       HEADER.classList.remove(CLASS);
     }
