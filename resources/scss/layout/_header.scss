@@ -111,7 +111,7 @@ body{
           font-weight: bold;
 
           &:hover {
-            color: gray;
+            color: #3ABA99;
           }
         }
       }
@@ -119,25 +119,27 @@ body{
   }
 
   &:not(.top){
-    background-color: #3ABA99;
-    color: white;
+    background-color: white;
 
     &:not(.mobile_menu_active){
       padding-top: 12px;
       padding-bottom: 12px;
+      color: black;
   
       > .logo {
         height: 40px;
+        filter: none; // logo vert
+      }
+
+      > .nav{
+         ul{
+          > li{
+            color: black;
+          }
+         }
       }
     }
 
-    &:not(.mobile_menu_active){
-      > .logo{
-        filter: brightness(0) invert(1); // logo blanc
-      }
-    }
-
-    /*
     &:after{
       content: "";
       position: absolute;
@@ -147,7 +149,6 @@ body{
       width: 100%;
       height: 1px;
     }
-    */
 
     > nav{
       &.nav {
@@ -193,6 +194,12 @@ body{
   right: 0;
   height: 100vh;
   background: black;
+
+  select{
+    > option{
+      color: black;
+    }
+  }
 }
 
 .responsive-nav {
