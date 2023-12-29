@@ -9,3 +9,4 @@ tmp
 resources/css/styles.css
 resources/css/styles.css.map
 public/assets
+package-lock.json
