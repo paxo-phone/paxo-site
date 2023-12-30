@@ -1,15 +1,23 @@
 /* container */
 
+$padding-top: calc((50px + 30px) * 2);
+
 .container {
-  padding: 3% 7%;
+  padding: $padding-top 7% 3% 7%;
 }
 
 @media screen and (min-width: map-get($breakpoints, sm)) {
   .container {
-    padding: 5% 10%;
+    padding: $padding-top 10% 5% 10%;
   }
 }
 
-main {
-  min-height: 100vh;
+body{
+  display: flex;
+  flex-direction: column;
+  height: 100vh;
+
+  main {
+    flex: 1;
+  }
 }
