@@ -102,3 +102,29 @@ contributors:
   title: Contributors
   subtitle: |
     This page lists the main contributors to the Paxo project.
+
+ide:
+  seo_description: Paxo IDE is the official code editor for developping Paxo apps.
+  title: Paxo IDE
+  cta:
+    title: Get Paxo IDE now!
+    p: Available on Windows, macOS, and linux computers.
+    btn: Download
+  hero:
+    title: Paxo IDE, the IDE for Paxo apps
+    p: Get the official Integrated Development Environment (IDE) for Paxo app development.
+  block1:
+    title: Autocompletion
+    p: |
+      This software provides an autocompletion for Lua and for the Paxolib (the Lua API for creating apps). Some upgrades
+      are coming.
+  block2:
+    title: Project manager
+    p: |
+      The IDE enables you to organize your projects with its project manager, which allow you to create and delete 
+      projects quickly and efficiently. It creates the app config file for you!
+  block3:
+    title: Publish app on Paxo Store (SOON)
+    p: |
+      The editor will offer a system for publish the app the official appstore of Paxo. Only a button (or nearly) 
+      for send your application to the marketplace.
