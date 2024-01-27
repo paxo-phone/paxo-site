@@ -73,7 +73,7 @@ export default class UsersController {
     }
 
     await auth.use('web').loginViaId(userdata.id)
-    return response.redirect().toRoute("dash")
+    return response.redirect().toRoute("apps")
   }
 
   public async logout({ auth, response, session }: HttpContextContract) {
