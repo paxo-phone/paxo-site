@@ -1,7 +1,6 @@
 import { DateTime } from 'luxon'
-import { BaseModel, BelongsTo, beforeCreate, belongsTo, column } from '@ioc:Adonis/Lucid/Orm'
+import { BaseModel, BelongsTo, belongsTo, column } from '@ioc:Adonis/Lucid/Orm'
 import User from './User'
-import { updateAppDetails } from 'App/Controllers/Http/AppsController'
 
 export enum AppCategory { // If you want to add an app category, append to the bottom and add translation in language files
   UTILITIES,
@@ -9,7 +8,6 @@ export enum AppCategory { // If you want to add an app category, append to the b
   GAMES,
   OTHER
 }
-
 export default class App extends BaseModel {
   @column({ isPrimary: true })
   public id: number
@@ -46,9 +44,4 @@ export default class App extends BaseModel {
 
   @column.dateTime({ autoCreate: true, autoUpdate: true })
   public updatedAt: DateTime
-
-  @beforeCreate()
-  public static async fetchGithub(target) {
-    await updateAppDetails(target)
-  }
 }

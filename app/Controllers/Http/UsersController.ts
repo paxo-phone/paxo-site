@@ -3,7 +3,7 @@ import { schema } from '@ioc:Adonis/Core/Validator'
 import User from 'App/Models/User';
 import { App, Octokit } from 'octokit';
 import { readFileSync } from 'node:fs';
-import JWT from 'App/lib/jwt';
+import JWT from '../../lib/jwt';
 
 export const authorization_url = "https://github.com/login/oauth/authorize"
   + "?redirect_uri=" + encodeURIComponent(process.env.ACCESS_ADDRESS + "/auth/callback/")
@@ -42,8 +42,7 @@ export default class UsersController {
 
     const { data: userdata } = await octokit.rest.users.getAuthenticated()
 
-    // eslint-disable-next-line prefer-const
-    let user = await User.query()
+    const user = await User.query()
       .where('id', userdata.id)
       .first()
 

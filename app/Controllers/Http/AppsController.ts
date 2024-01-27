@@ -1,9 +1,13 @@
 import type { HttpContextContract } from '@ioc:Adonis/Core/HttpContext'
-import App from 'App/Models/App'
+import App, { AppCategory } from '../../Models/App'
 
 export default class AppsController {
   public async index({ view }: HttpContextContract) {
-    return view.share({ trending_apps }).render('apps/index')
+    return view.share({
+      appCategories: [
+        AppCategory.COMMUNICATION, AppCategory.GAMES, AppCategory.OTHER, AppCategory.UTILITIES
+      ]
+    }).render('apps/index')
   }
 
   public async show({ view, params }: HttpContextContract) {
@@ -15,6 +19,3 @@ export default class AppsController {
     return view.share({ app }).render('apps/product')
   }
 }
-
-// Clocks variables
-export const trending_apps: App[][] = []

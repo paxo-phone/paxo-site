@@ -28,16 +28,17 @@
 @!component('base/header')
 
 <body>
-  <section class="dashboard">
-    <nav class="dash-navbar">
+  <section class="apps-subheader">
+    <nav class="sidebar">
       <ul>
-        <li class="dash-nav-item"><a class="dash-nav-link" href="#">Mes apps</a></li>
-        <li class="dash-nav-item"><a class="dash-nav-link" href="/dash/settings">Paramètres</a></li>
-        <li class="dash-nav-item"><a class="dash-nav-link" href="/auth/logout/">Se déconnecter</a></li>
+        @each(category in appCategories)
+        <li class="sidebar-item"><a class="sidebar-link" href="/category/{{ category }}">{{ t('ui.marketplace.category.'
+            + category) }}</a></li>
+        @end
       </ul>
     </nav>
 
-    <main class="dash-content">
+    <main class="apps-content">
       @!include('components/flash')
 
       @!section('content')
@@ -54,7 +55,7 @@
 
   </footer>
 
-
+  @entryPointScripts('main')
 
   @!section('script')
 </body>

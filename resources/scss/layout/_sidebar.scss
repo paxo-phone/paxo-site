@@ -1,12 +1,8 @@
-.dashboard {
+.apps-subheader {
   display: flex;
 }
 
-.header-dash {
-  display: flex;
-}
-
-.dash-navbar {
+.sidebar {
   border-right: rgba(0, 0, 0, 0.1) 1px solid;
   min-width: 13rem;
 }
@@ -20,7 +16,7 @@
   padding: 0 2rem;
 }
 
-.dash-navbar ul {
+.sidebar ul {
   display: flex;
   justify-content: center;
   flex-direction: column;
@@ -28,12 +24,12 @@
   flex-wrap: wrap;
 }
 
-.dash-nav-item {
+.sidebar-item {
   padding: 1%;
   margin: 0.2rem;
 }
 
-.dash-nav-link {
+.sidebar-link {
   text-decoration: none;
   color: #39BC9B;
   text-transform: uppercase;
@@ -41,7 +37,7 @@
   font-weight: bold;
 }
 
-.dash-nav-link:hover {
+.sidebar-link:hover {
   color: #89D5C0;
 }
 
