@@ -12,8 +12,14 @@ header:
   press: Presse
   projects: Autres
   contact: Contact
-  donations: Dons
+  donations: Faire un don
   language: Language
+
+footer:
+  contributions: |
+    Nous sommes reconnaissants envers toutes les personnes qui ont contribué à ce projet. Consulter
+  link_text: |
+    la liste complète des contributeurs
 
 index:
   title: Un téléphone libre, modulaire et pédagogique.
@@ -64,6 +70,13 @@ contact:
     - ou via notre
     - serveur Discord
 
+press:
+  seo_description: |
+    Vous trouverez sur cette page la plupart des articles au sujet du projet Paxo.
+  title: Presse
+  subtitle: |
+    Vous trouverez sur cette page la plupart des articles au sujet du projet Paxo.
+
 contribute:
   seo_description: Vous souhaitez participer à la conception du PaxoPhone ? N'hésitez pas et rejoignez-nous !
   title: Contribuer
@@ -82,6 +95,45 @@ contribute:
         Le software désigne toute la partie logicielle du téléphone, c'est à dire le système
         d'exploitation (PaxOS) et les applications qui tournent dessus. La documentation en lien ci-dessous décrit en
         détail leur architecture et le fonctionnement.
+
+tutorials:
+  seo_description: Vous trouverez les tutos pour la conception du PaxoPhone ainsi que les autres projets signés Paxo.
+  title: Tutoriels
+  description: Vous trouverez les tutos pour la conception du PaxoPhone ainsi que les autres projets signés Paxo.
+  last_update: Dernière mise à jour
+
+contributors:
+  seo_description: Liste des contributeurs au projet Paxo.
+  title: Contributeurs
+  subtitle: |
+    Cette page recense les principaux contributeurs au projet Paxo.
+
+ide:
+  seo_description: Paxo IDE est l'éditeur de code officiel pour développer des apps Paxo.
+  title: Paxo IDE
+  cta:
+    title: Téléchargez Paxo IDE maintenant!
+    p: Disponible sur les machines sous Windows, macOS et linux.
+    btn: Télécharger
+  hero:
+    title: Paxo IDE, l'IDE pour les apps Paxo
+    p: Téléchargez l'Environnement de Développement Intégré (IDE) officiel pour le développement d'apps Paxo.
+  block1:
+    title: Autocomplétion
+    p: |
+      Ce logiciel fournit une autocomplétion pour Lua et pour la Paxolib (l'API Lua pour créer les apps). Des améliorations
+      sont néanmoins à venir.
+  block2:
+    title: Manageur de projets
+    p: |
+      L'IDE vous permet d'organiser vos projets d'apps avec son manageur de projet, qui vous permet de créer et supprimer
+      des projets rapidement et facilement. Il crée même le fichier de configuration de l'application pour vous!
+  block3:
+    title: Publication d'apps sur le Paxo Store intégrée (BIENTOT)
+    p: |
+      L'éditeur proposera un système pour publier l'application sur l'appstore officiel de Paxo. Un bouton (ou presque)
+      pour envoyer votre application sur le marketplace.
+
 
 marketplace:
   title: Applications

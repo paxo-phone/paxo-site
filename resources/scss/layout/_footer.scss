@@ -1,8 +1,21 @@
 /* footer */
 
 footer {
+  min-height: 10vh;
   background: #0A0A0A;
-  padding: 5% 0;
+  color: #fff;
+  padding: 5%;
+
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+
+  gap: 2rem;
+}
+
+footer>* {
+  flex: 1 1 0;
 }
 
 .social {}
@@ -25,7 +38,7 @@ footer {
 }
 
 @media screen and (min-width: map-get($breakpoints, sm)) {
-  .footer-nav {
+  footer {
     flex-direction: row;
   }
 }

@@ -27,8 +27,12 @@ Route.group(() => {
   Route.get('/', 'CoreController.index')
   Route.get('contact', 'CoreController.contact')
   Route.get('contribute', 'CoreController.contribute')
+  Route.get('contributors', 'CoreController.contributors')
   Route.get('projects', 'CoreController.projects')
+  Route.get('paxo-ide', 'CoreController.paxoIde')
   Route.get('press', 'PressController.index')
+
+  Route.get('tedx', 'RedirectionsController.tedx')
 })
 
 // ----------------------------------------------
@@ -115,3 +119,34 @@ if (process.env.UNSAFE_ADMIN_PANEL) {
 } else {
   admin_panel.middleware('auth')
 }
+
+// if (process.env.NODE_ENV == "development") {
+//   Route.get('/loginAsUid/:uid', async ({ params, auth, response, session }: HttpContextContract) => {
+//     await auth.loginViaId(params.uid)
+//     session.flash({ success: "Logged in as " + auth.user?.username })
+//     return response.redirect().back()
+//   })
+//   Route.get('/setAsAdmin/:uid', async ({ params, response, session }: HttpContextContract) => {
+//     const user = await User
+//       .query()
+//       .where('id', params.uid)
+//       .firstOrFail()
+//     user.type = UserType.ADMIN
+//     user.save()
+
+//     session.flash({ success: "Made " + user?.username + " an admin." })
+
+//     return response.redirect().back()
+//   })
+
+//   console.warn("Loaded dev routes. This message should not appear in production !")
+// }
+
+// ----------------------------------------------
+// legal
+// ----------------------------------------------
+Route.group(() => {
+  Route.get('/', 'LegalController.index').as('legal.index')
+  Route.get('/:slug', 'LegalController.view').as('legal.viewLegalDoc')
+})
+  .prefix('/legal')

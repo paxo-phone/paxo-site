@@ -1,0 +1,33 @@
+@!layout('base/main')
+
+@section('title')
+  {{ t("ui.contributors.title ") }}
+@endsection
+
+@section('seo')
+<meta name="description" content="{{ t("ui.contributors.seo_description") }} ">
+<meta name="robots" content="index">
+@endsection
+
+@section('content')
+<section class="container">
+
+  <h1 class="h1 mb-2">{{ t("ui.contributors.title") }}</h1>
+  <p class="lead">{{ t("ui.contributors.subtitle") }}</p>
+
+  <ul class="list">
+    <li class="list-item">Gabriel Rochet</li>
+    <li class="list-item">Raphaël Goutmann</li>
+    <li class="list-item">Charles</li>
+    <li class="list-item">Max</li>
+    <li class="list-item">DarkBrines</li>
+    <li class="list-item">Socapix</li>
+    <li class="list-item">Ulyu</li>
+    <li class="list-item">Anto</li>
+    <li class="list-item">Welpike</li>
+    <li class="list-item">Antoine Bollengier</li>
+  </ul>
+
+
+</section>
+@endsection
