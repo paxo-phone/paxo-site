@@ -12,12 +12,15 @@ $padding-top: calc((50px + 30px) * 2);
   }
 }
 
-.apps-subheader {
+.apps-subheader,
+.dash-subheader {
   padding: $padding-top 0 3% 0;
 }
 
 @media screen and (min-width: map-get($breakpoints, sm)) {
-  .apps-subheader {
+
+  .apps-subheader,
+  .dash-subheader {
     padding: $padding-top 0 5% 0;
   }
 }

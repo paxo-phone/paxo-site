@@ -6,10 +6,12 @@ Settings
 
 @section('content')
 <p>
-<h1>Profil</h1>
-Votre nom d'affichage et photo de profil sont issus de votre compte GitHub. Pour les mettre à jour,
-modifiez les sur <a href="https://github.com/settings/profile">le site de GitHub</a> puis reconnectez-vous
-sur Paxo.fr.
+  <h1>Profil</h1>
+  <form method="post" action="/dash/edit/profile">
+    <label for="name">Nom d'utilisateur:</label> <input type="text" name="name" value="{{ user.name }}">
+    <label for="picture">Photo de profil: <img src="" alt="" /></label> <input type="file" name="picture" value="{{ user.name }}">
+    <input type="submit" value="Envoyer">
+  </form>
 </p>
 
 <p>

@@ -5,7 +5,7 @@ export default class DashboardController {
     return view.render('dashboard/index')
   }
 
-  public async settings({ view }: HttpContextContract) {
-    return view.render('dashboard/settings')
+  public async profile({ view }: HttpContextContract) {
+    return view.render('dashboard/profile')
   }
 }

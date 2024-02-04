@@ -72,11 +72,8 @@ Route.group(() => {
   Route.get('/', 'DashboardController.index')
     .as('dash')
 
-  Route.group(() => {
-    Route.get('/', 'DashboardController.settings')
-
-    Route.post('/notifications', 'SettingsController.notifications')
-  }).prefix('/settings')
+  Route.get('/profile', 'DashboardController.profile')
+    .as('dash.profile')
 })
   .middleware('auth')
   .prefix('/dash')

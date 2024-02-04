@@ -1,4 +1,5 @@
-.apps-subheader {
+.apps-subheader,
+.dash-subheader {
   display: flex;
 }
 
@@ -32,7 +33,7 @@
 .sidebar-link {
   text-decoration: none;
   color: #39BC9B;
-  text-transform: uppercase;
+  //text-transform: uppercase;
   font-size: 16px;
   font-weight: bold;
 }

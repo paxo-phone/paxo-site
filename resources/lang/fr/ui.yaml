@@ -142,3 +142,10 @@ marketplace:
     - Communications
     - Jeux
     - Divers
+
+dashboard:
+  pages:
+    yourapps: Apps publiés
+    profile: Profil
+    security: Sécurité
+    contact: Contact
