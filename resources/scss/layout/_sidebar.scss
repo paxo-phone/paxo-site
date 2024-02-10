@@ -7,16 +7,18 @@
   border-right: rgba(0, 0, 0, 0.1) 1px solid;
   min-width: 13rem;
 }
-.overlap li{
-  margin:10px;
-}
-.dash-content {
-  h1 {
-    font-size: 150%;
-    margin-bottom: revert;
-  }
 
+.overlap li {
+  margin: 10px;
+}
+
+.dash-content {
   padding: 0 2rem;
+}
+
+.apps-content {
+  padding-left: 5rem;
+  padding-right: 10px;
 }
 
 .sidebar ul {
@@ -38,7 +40,7 @@
   font-family: "Helvetica-Bold", Helvetica;
   font-weight: 700;
   color: black;
-  font-size: 20px;
+  font-size: 18px;
   letter-spacing: 0;
   line-height: normal;
   white-space: nowrap;
@@ -47,9 +49,10 @@
 .sidebar-link:hover {
   color: #89D5C0;
 }
+
 .sidebar-title {
   width: fit-content;
-  margin-top: -1px;
+  margin-top: 20px;
   font-family: "Helvetica-Bold", Helvetica;
   font-weight: 700;
   color: #818181;
@@ -58,6 +61,7 @@
   line-height: normal;
   white-space: nowrap;
 }
+
 .form-logout {
   align-items: left;
   display: flex;
@@ -97,6 +101,7 @@
   border: rgba(0, 0, 0, 0.3) 2px solid;
   border-radius: 30px;
 }
+
 /*:root {
   --small-font-family: "Helvetica-Regular", Helvetica;
   --small-font-weight: 400;
@@ -107,6 +112,9 @@
   --variable-collection-dark: rgba(0, 0, 0, 1);
   --variable-collection-gray: rgba(130, 130, 130, 1);
 }*/
+
+// Mess from here
+// must delete
 .element {
   background-color: #ffffff;
   display: flex;

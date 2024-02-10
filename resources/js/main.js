@@ -1,6 +1,6 @@
 import "../scss/styles.scss"
 
-const HEADER = document.querySelector('header.header');
+const header = document.querySelector('header.header');
 //const logo = document.querySelector('.logo')
 const toggleNavBtn = document.querySelector('.toggle-nav-btn')
 const responsiveNavItems = document.querySelectorAll('.responsive-nav-item');
@@ -22,7 +22,7 @@ if (toggleNavBtn) {
     if (responsiveNav) {
       responsiveNav.classList.toggle("active");
       toggleNavBtn.classList.toggle("active");
-      HEADER.classList.toggle('mobile_menu_active');
+      header.classList.toggle('mobile_menu_active');
     }
   })
 }
@@ -66,37 +66,3 @@ lang_toggle.onclick = () => {
     document.addEventListener('click', modalCloseListener)
   }
 }
-
-/**
- * We add a "path" attribute to the body of the page.
- * It can be used in CSS to apply styling to a page only.
- */
-document.body.setAttribute("path", window.location.pathname)
-
-//#region Header scroll transformation
-
-/**
- * We watch the position of the vertical scroll of the page.
- * If it exceeds a certain point, we activate/deactivate the scroll mode of the header.
- */
-window.addEventListener("scroll", () => {
-  checkHeaderOnScroll();
-});
-
-function checkHeaderOnScroll(){
-  const BREAK_POINT = 60;
-  const CLASS = "top";
-  if(window.scrollY > BREAK_POINT){
-    if(HEADER.classList.contains(CLASS)){
-      HEADER.classList.remove(CLASS);
-    }
-  }
-  else{
-    if(!HEADER.classList.contains(CLASS)){
-      HEADER.classList.add(CLASS);
-    }
-  }
-}
-checkHeaderOnScroll();
-
-//#endregion
