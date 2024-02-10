@@ -24,20 +24,32 @@
   @!section('head')
 
 </head>
-
+<!--<ul>
+    @each(category in appCategories)
+    <li class="sidebar-item"><a class="sidebar-link" href="/category/{{ category }}">{{ t('ui.marketplace.category.'
+        + category) }}</a></li>
+    @end
+  </ul>-->
 @!component('base/header')
 
 <body>
   <section class="apps-subheader">
     <nav class="sidebar">
-      <ul>
-        @each(category in appCategories)
-        <li class="sidebar-item"><a class="sidebar-link" href="/category/{{ category }}">{{ t('ui.marketplace.category.'
-            + category) }}</a></li>
-        @end
+      <ul class="overlap">
+          <li class="sidebar-title">Catégories</li>
+          <li class="sidebar-item"><a class="sidebar-link" href="">Jeux</a></li>
+          <li class="sidebar-item"><a class="sidebar-link" href="">Actualités</a></li>
+          <li class="sidebar-item"><a class="sidebar-link" href="">Divertissement</a></li>
+          <li class="sidebar-item"><a class="sidebar-link" href="">Éducation</a></li>
+          <li class="sidebar-item"><a class="sidebar-link" href="">Musique</a></li>
+          <li class="sidebar-item"><a class="sidebar-link" href="">Productivité</a></li>
+          <li class="sidebar-item"><a class="sidebar-link" href="">Utilitaires</a></li>
+
+          <li class="sidebar-title">Mon compte</li>
+          <li class="sidebar-item"><a class="sidebar-link" href="">Mon appareil</a></li>
+          <li class="sidebar-item"><a class="sidebar-link" href="">Mes applications</a></li>
       </ul>
     </nav>
-
     <main class="apps-content">
       @!include('components/flash')
 
