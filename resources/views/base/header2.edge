@@ -1,56 +1,56 @@
 <header class="header">
   <a href="/" class="logo" style="height: 60px">
-	<img src="/img/logo.png" alt="Paxo" style="height: 100%">
+  <img src="/img/logo.png" alt="Paxo" style="height: 100%">
   </a>
 
   <nav class="nav">
-	<ul class="nav-list">
-	  <li class="nav-item"><a class="nav-link" href="/">{{ t("ui.header.index") }}</a></li>
-	  <div class="frame">
-	  <li class="nav-item"><a class="nav-link" href="">S’incrire</a></li> class="text-wrapper-2"
-	  <li class="nav-item"><a class="nav-link" href="">Se connecter</a></li>
-	  <li class="nav-item lang-select-wrapper">
-		<a id="lang-current" href="#"><span class="fi fi-{{ flags[i18n.locale] }}"
-			aria-label="{{ t(`ui.languages.${i18n.locale}`) }}"></span></a>
-		<div id="lang-select">
-		  @each(locale in locales)
-		  @if(locale != i18n.locale)
-		  <a href="?lang={{ locale }}"><span class="fi fi-{{ flags[locale] }}"
-			  aria-label="{{ t(`ui.languages.${locale}`) }}"></span></a>
-		  @end
-		  @end
-		</div>
-	  </li>
-	</ul>
+  <ul class="nav-list">
+    <li class="nav-item"><a class="nav-link" href="/">{{ t("ui.header.index") }}</a></li>
+    <div class="frame">
+    <li class="nav-item"><a class="nav-link" href="">S’incrire</a></li> class="text-wrapper-2"
+    <li class="nav-item"><a class="nav-link" href="">Se connecter</a></li>
+    <li class="nav-item lang-select-wrapper">
+    <a id="lang-current" href="#"><span class="fi fi-{{ flags[i18n.locale] }}"
+      aria-label="{{ t(`ui.languages.${i18n.locale}`) }}"></span></a>
+    <div id="lang-select">
+      @each(locale in locales)
+      @if(locale != i18n.locale)
+      <a href="?lang={{ locale }}"><span class="fi fi-{{ flags[locale] }}"
+        aria-label="{{ t(`ui.languages.${locale}`) }}"></span></a>
+      @end
+      @end
+    </div>
+    </li>
+  </ul>
   </nav>
 
   <button class="toggle-nav-btn">
-	<i class="fa-solid fa-bars"></i>
+  <i class="fa-solid fa-bars"></i>
   </button>
 
   <nav class="responsive-nav">
-	<ul class="responsive-nav-list">
-	  <li class="responsive-nav-item"><a class="responsive-nav-link" href="/">{{ t("ui.header.index") }}</a></li>
-	  <li class="responsive-nav-item"><a class="responsive-nav-link" href="/contribute">{{ t("ui.header.contribute")
-		  }}</a></li>
-	  <li class="responsive-nav-item"><a class="responsive-nav-link" href="https://discord.gg/84Qsp6tUSK"
-		  target="_blank">{{ t("ui.header.discord") }}</a></li>
-	  <li class="responsive-nav-item"><a class="responsive-nav-link" href="/tutorials">{{ t("ui.header.tutorials")
-		  }}</a></li>
-	  <li class="responsive-nav-item"><a class="responsive-nav-link" href="/press">{{ t("ui.header.press") }}</a></li>
-	  <li class="responsive-nav-item"><a class="responsive-nav-link" href="/contact">{{ t("ui.header.contact") }}</a>
-	  </li>
-	  <li class="responsive-nav-item"><a class="responsive-nav-link"
-		  href="https://tribee.fr/cagnotte/01H7DFJGAQHNWSH4SC77A9X2ZV/participation" target="_blank">{{
-		  t("ui.header.donations") }}</a></li>
-	  <li class="responsive-nav-item">
-		<select id="lang_responsive">
-		  @each(locale in locales)
-		  <option value="{{ locale }}" selected="{{ locale == i18n.locale }}">{{ t(`ui.languages.${locale}`) }}
-		  </option>
-		  @end
-		</select>
-	  </li>
-	</ul>
+  <ul class="responsive-nav-list">
+    <li class="responsive-nav-item"><a class="responsive-nav-link" href="/">{{ t("ui.header.index") }}</a></li>
+    <li class="responsive-nav-item"><a class="responsive-nav-link" href="/contribute">{{ t("ui.header.contribute")
+      }}</a></li>
+    <li class="responsive-nav-item"><a class="responsive-nav-link" href="https://discord.gg/84Qsp6tUSK"
+      target="_blank">{{ t("ui.header.discord") }}</a></li>
+    <li class="responsive-nav-item"><a class="responsive-nav-link" href="/tutorials">{{ t("ui.header.tutorials")
+      }}</a></li>
+    <li class="responsive-nav-item"><a class="responsive-nav-link" href="/press">{{ t("ui.header.press") }}</a></li>
+    <li class="responsive-nav-item"><a class="responsive-nav-link" href="/contact">{{ t("ui.header.contact") }}</a>
+    </li>
+    <li class="responsive-nav-item"><a class="responsive-nav-link"
+      href="https://tribee.fr/cagnotte/01H7DFJGAQHNWSH4SC77A9X2ZV/participation" target="_blank">{{
+      t("ui.header.donations") }}</a></li>
+    <li class="responsive-nav-item">
+    <select id="lang_responsive">
+      @each(locale in locales)
+      <option value="{{ locale }}" selected="{{ locale == i18n.locale }}">{{ t(`ui.languages.${locale}`) }}
+      </option>
+      @end
+    </select>
+    </li>
+  </ul>
   </nav>
 </header>
