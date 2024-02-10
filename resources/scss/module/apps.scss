@@ -23,6 +23,8 @@ h1 {
   margin-bottom: 3%;
   margin-right: 3%;
 
+  overflow: hidden;
+
   >.app-img {
     width: 75px;
     height: 75px;
@@ -40,10 +42,11 @@ h1 {
       color: black;
       font-size: 24px;
       letter-spacing: 0;
-      line-height: normal;
+      line-height: 30px;
       white-space: nowrap;
 
-      padding-bottom: 2%;
+      overflow: hidden;
+      text-overflow: clip;
     }
 
     >.app-desc {
