@@ -6,20 +6,12 @@ Settings
 
 @section('content')
 <p>
-  <h1>Profil</h1>
-  <form method="post" action="/dash/edit/profile">
-    <label for="name">Nom d'utilisateur:</label> <input type="text" name="name" value="{{ user.name }}">
-    <label for="picture">Photo de profil: <img src="" alt="" /></label> <input type="file" name="picture" value="{{ user.name }}">
-    <input type="submit" value="Envoyer">
-  </form>
-</p>
-
-<p>
-<h1>Notifications</h1>
-<form method="post" action="/dash/settings/notifications">
-  <label for="email">Addresse email:</label> <input type="email" name="email" value="{{ user.email ?? "" }}">
-  <input type="submit" value="{{ user.email ? " Modifier" : "Ajouter" }}">
-  Si vous ne renseignez pas d'adresse email, nous vous contacterons avec votre adresse GitHub principale.
+<h1>Profil</h1>
+<form method="post" action="/dash/edit/profile">
+  <label for="name">Nom d'utilisateur:</label> <input type="text" name="name" value="{{ user.name }}">
+  <br><label for="picture">Photo de profil: <img src="" alt="" /></label> <input type="file" name="picture"
+    value="{{ user.name }}">
+  <input type="submit" value="Envoyer">
 </form>
 </p>
 @endsection

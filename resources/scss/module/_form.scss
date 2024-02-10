@@ -1,4 +1,4 @@
-input,
+input:not([type="file"]),
 textarea,
 select {
   padding: 0.25rem;
@@ -6,7 +6,7 @@ select {
   border-radius: 0.3rem;
 }
 
-input:not([type="submit"]) {
+input:not([type="submit"]):not([type="file"]) {
   min-width: 15rem;
 }
 

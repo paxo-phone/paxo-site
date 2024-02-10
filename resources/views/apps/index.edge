@@ -10,20 +10,8 @@ Marketplace
 @endsection
 
 @section('content')
-@each(category in trending_apps)
-<h1>{{ t('ui.marketplace.category.' + category) }}</h1>
-<div class="app_scroller">
-  @each(app in trending_apps)
-  <div class="app">
-    <h3>{{ app.name }}</h3>
-    <div>{{ app.desc }}</div>
-    <div>{{ app.downloads }} downloads</div>
-  </div>
-  @end
-</div>
-@end
+<h1>{{ category ? t('ui.marketplace.category.' + category) : t('ui.marketplace.indexCategory') }}</h1>
 
-<h1>Accueil</h1>
 <div class="apps-container">
   <div class="app-block">
     <div class="app-img"></div>

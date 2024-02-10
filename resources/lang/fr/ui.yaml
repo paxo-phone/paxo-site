@@ -137,10 +137,13 @@ ide:
 
 marketplace:
   title: Applications
+  indexCategory: Populaire
   category:
+    - Productivité
     - Utilitaire
-    - Communications
+    - Communication
     - Jeux
+    - Multimedia
     - Divers
 
 dashboard:

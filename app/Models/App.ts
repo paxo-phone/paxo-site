@@ -3,9 +3,11 @@ import { BaseModel, BelongsTo, belongsTo, column } from '@ioc:Adonis/Lucid/Orm'
 import User from './User'
 
 export enum AppCategory { // If you want to add an app category, append to the bottom and add translation in language files
+  PRODUCTIVITY,
   UTILITIES,
   COMMUNICATION,
   GAMES,
+  MULTIMEDIA,
   OTHER
 }
 export default class App extends BaseModel {

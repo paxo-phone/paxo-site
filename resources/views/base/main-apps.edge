@@ -38,17 +38,15 @@
     <nav class="sidebar">
       <ul>
         <li class="sidebar-title">Catégories</li>
-        <li class="sidebar-item"><a class="sidebar-link" href="">Jeux</a></li>
-        <li class="sidebar-item"><a class="sidebar-link" href="">Actualités</a></li>
-        <li class="sidebar-item"><a class="sidebar-link" href="">Divertissement</a></li>
-        <li class="sidebar-item"><a class="sidebar-link" href="">Éducation</a></li>
-        <li class="sidebar-item"><a class="sidebar-link" href="">Musique</a></li>
-        <li class="sidebar-item"><a class="sidebar-link" href="">Productivité</a></li>
-        <li class="sidebar-item"><a class="sidebar-link" href="">Utilitaires</a></li>
+        @each(c in appCategories)
+        <li class="sidebar-item"><a class="sidebar-link"
+            href="/apps/{{ c }}">{{ t('ui.marketplace.category.' + c) }}</a></li>
+        @end
 
         <li class="sidebar-title">Mon compte</li>
-        <li class="sidebar-item"><a class="sidebar-link" href="">Mon appareil</a></li>
-        <li class="sidebar-item"><a class="sidebar-link" href="">Mes applications</a></li>
+        <li class="sidebar-item"><a class="sidebar-link" href="#">Se connecter</a></li>
+        <li class="sidebar-item"><a class="sidebar-link" href="#">Mon appareil</a></li>
+        <li class="sidebar-item"><a class="sidebar-link" href="#">Mes applications</a></li>
       </ul>
     </nav>
     <main class="apps-content">

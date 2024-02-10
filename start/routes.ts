@@ -49,6 +49,8 @@ Route.group(() => {
 Route.group(() => {
   Route.get('/', 'AppsController.index')
     .as('apps')
+  Route.get('/:category', 'AppsController.index')
+
 
   Route.get('/app/:id', 'AppsController.show')
 }).prefix('/apps')
