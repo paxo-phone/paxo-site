@@ -45,6 +45,7 @@ Server.middleware.register([
 */
 Server.middleware.registerNamed({
   auth: () => import('App/Middleware/Auth'),
+  silentAuth: () => import('App/Middleware/SilentAuth')
 })
 
 // ======================
@@ -60,7 +61,6 @@ export const clocks = [
         .orderBy("downloads", "desc")
         .where("category", cat)
         .limit(15)
-        .preload('author')
         .exec()
     }
   }

@@ -54,6 +54,7 @@ Route.group(() => {
 
   Route.get('/app/:id', 'AppsController.show')
 }).prefix('/apps')
+  .middleware('silentAuth')
 
 // ----------------------------------------------
 // Auth
