@@ -5,15 +5,24 @@ export default class AppsController {
   public async index({ view, params, request }: HttpContextContract) {
     const query = request.qs()["query"]
     const cat: number = params['category']
-    // const apps = new Array<App>()
+    let apps: App[]
 
     if (query) {
-      await App.query()
+      apps = await App.query()
         .orderBy("downloads", "desc")
-        .where("category", cat)
-        .andWhereLike("name", query)
+        .orWhereLike("name", `%${query}%`)
+        .orWhereLike("desc", `%${query}%`)
         .limit(15)
-        .exec()
+    } else {
+      const q = App.query()
+        .orderBy("downloads", "desc")
+        .limit(15)
+
+      if (cat) {
+        q.where('category', cat)
+      }
+
+      apps = await q
     }
 
     return view.share({
@@ -25,7 +34,9 @@ export default class AppsController {
         AppCategory.MULTIMEDIA,
         AppCategory.OTHER
       ],
-      category: params['category']
+      category: cat,
+      apps,
+      query
     }).render('apps/index')
   }
 

@@ -25,12 +25,6 @@
   @!section('head')
 
 </head>
-<!--<ul>
-    @each(category in appCategories)
-    <li class="sidebar-item"><a class="sidebar-link" href="/category/{{ category }}">{{ t('ui.marketplace.category.'
-        + category) }}</a></li>
-    @end
-  </ul>-->
 @!component('base/header')
 
 <body>
@@ -38,8 +32,8 @@
     <nav class="sidebar">
       <ul>
         <li>
-          <form method="get" class="searchform">
-            <input class="search" type="text" name="query" placeholder="Rechercher...">
+          <form method="get" action="/apps" class="searchform">
+            <input class="search" type="text" name="query" placeholder="Rechercher..." value="{{ query ?? "" }}">
             <input id="searchsubmit" type="submit">
 
             <label for="searchsubmit"><i class="fa-solid fa-magnifying-glass"></i></label>

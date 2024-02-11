@@ -10,50 +10,25 @@ Marketplace
 @endsection
 
 @section('content')
-<h1>{{ category ? t('ui.marketplace.category.' + category) : t('ui.marketplace.indexCategory') }}</h1>
+@if(category)
+<h1>{{ t('ui.marketplace.category.' + category) }}</h1>
+@elseif(query)
+<h1>{{ t('ui.marketplace.resultsFor', {query}) }}</h1>
+@else
+<h1>{{ t('ui.marketplace.indexCategory') }}</h1>
+@end
 
 <div class="apps-container">
+  @each(app in apps)
   <div class="app-block">
-    <div class="app-img"></div>
+    <img class="app-img"
+      src="https://vignette.wikia.nocookie.net/subwaysurf/images/9/9c/Mzl_kpngqckt.png/revision/latest?cb=20130110173206&path-prefix=no">
     <div class="app-details">
-      <div class="app-title">MyApp</div>
-      <p class="app-desc">Lorem ipsum dolor sit amet consecutor...</p>
+      <div class="app-title">{{ app.name }}</div>
+      <p class="app-desc">{{ app.desc }}</p>
     </div>
   </div>
-
-  <div class="app-block">
-    <div class="app-img"></div>
-    <div class="app-details">
-      <div class="app-title">MyApp</div>
-      <p class="app-desc">Lorem ipsum dolor sit amet consecutor Lorem ipsum dolor sit amet consecutor Lorem ipsum dolor
-        sit amet consecutor Lorem ipsum dolor sit amet consecutor Lorem ipsum dolor sit amet consecutor
-      </p>
-    </div>
-  </div>
-
-  <div class="app-block">
-    <div class="app-img"></div>
-    <div class="app-details">
-      <div class="app-title">MyApp</div>
-      <p class="app-desc">Lorem ipsum dolor sit amet consecutor...</p>
-    </div>
-  </div>
-
-  <div class="app-block">
-    <div class="app-img"></div>
-    <div class="app-details">
-      <div class="app-title">MyApp</div>
-      <p class="app-desc">Lorem ipsum dolor sit amet consecutor...</p>
-    </div>
-  </div>
-
-  <div class="app-block">
-    <div class="app-img"></div>
-    <div class="app-details">
-      <div class="app-title">MyApp</div>
-      <p class="app-desc">Lorem ipsum dolor sit amet consecutor...</p>
-    </div>
-  </div>
+  @end
 </div>
 
 <!-- <div class="element">

@@ -145,6 +145,7 @@ marketplace:
     - Jeux
     - Multimedia
     - Divers
+  resultsFor: 'Resultats pour «{ query }»'
 
 dashboard:
   pages:
