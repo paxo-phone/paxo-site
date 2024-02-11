@@ -10,8 +10,6 @@
 */
 
 import Server from '@ioc:Adonis/Core/Server'
-import { trending_apps } from 'App/Controllers/Http/AppsController'
-import App, { AppCategory } from 'App/Models/App'
 
 /*
 |--------------------------------------------------------------------------
@@ -45,30 +43,5 @@ Server.middleware.register([
 */
 Server.middleware.registerNamed({
   auth: () => import('App/Middleware/Auth'),
+  silentAuth: () => import('App/Middleware/SilentAuth')
 })
-
-// ======================
-// Clocks
-// ======================
-
-// Trending apps
-export const clocks = [
-  async function updateTrendingApps() {
-    console.log("Updating trending apps")
-    for (const cat of Object.values(AppCategory)) {
-      trending_apps[cat] = await App.query()
-        .orderBy("downloads", "desc")
-        .where("category", cat)
-        .limit(15)
-        .preload('author')
-        .exec()
-    }
-  }
-]
-
-if (process.argv[2] == "serve") {
-  clocks.forEach((clk) => {
-    setInterval(clk, 1000 * 60 * 15).unref() // Every 15 minutes
-    clk()
-  })
-}

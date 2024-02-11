@@ -25,28 +25,32 @@
   @!section('head')
 
 </head>
-<!--<ul>
-    @each(category in appCategories)
-    <li class="sidebar-item"><a class="sidebar-link" href="/category/{{ category }}">{{ t('ui.marketplace.category.'
-        + category) }}</a></li>
-    @end
-  </ul>-->
 @!component('base/header')
 
 <body>
   <section class="apps-subheader">
     <nav class="sidebar">
       <ul>
-        <li class="sidebar-title">Catégories</li>
+        <li>
+          <form method="get" action="/apps" class="searchform">
+            <input class="search" type="text" name="query" placeholder="Rechercher..." value="{{ query ?? "" }}">
+            <input id="searchsubmit" type="submit">
+
+            <label for="searchsubmit"><i class="fa-solid fa-magnifying-glass"></i></label>
+            <div class="post-search"></div>
+          </form>
+        </li>
         @each(c in appCategories)
         <li class="sidebar-item"><a class="sidebar-link"
             href="/apps/{{ c }}">{{ t('ui.marketplace.category.' + c) }}</a></li>
         @end
-
-        <li class="sidebar-title">Mon compte</li>
-        <li class="sidebar-item"><a class="sidebar-link" href="#">Se connecter</a></li>
-        <li class="sidebar-item"><a class="sidebar-link" href="#">Mon appareil</a></li>
-        <li class="sidebar-item"><a class="sidebar-link" href="#">Mes applications</a></li>
+        @if(user)
+        <li class="sidebar-title">Bonjour, {{ user.name }}</li>
+        <li class="sidebar-item"><a class="sidebar-link" href="/dash">Tableau de bord</a></li>
+        <li class="sidebar-item"><a class="sidebar-link" href="/auth/logout">Deconnexion</a></li>
+        @else
+        <li class="sidebar-title"><a class="sidebar-link" href="/auth">Se connecter</a></li>
+        @end
       </ul>
     </nav>
     <main class="apps-content">

@@ -20,7 +20,7 @@ export default class extends BaseSchema {
       table.string('image', 300).nullable()
       table.string('releases', 300).nullable()
 
-      table.enum('category', Object.values(AppCategory)).notNullable()
+      table.smallint('category').notNullable()
       table.bigint("downloads").unsigned().notNullable().defaultTo(0)
 
       table.timestamp('created_at', { useTz: true })
