@@ -32,7 +32,6 @@ Route.group(() => {
   Route.get('contribute', 'CoreController.contribute')
   Route.get('contributors', 'CoreController.contributors')
   Route.get('projects', 'CoreController.projects')
-  Route.get('paxo-ide', 'CoreController.paxoIde')
   Route.get('press', 'PressController.index')
 
   Route.get('tedx', 'RedirectionsController.tedx')
