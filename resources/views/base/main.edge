@@ -50,8 +50,11 @@
             <div id="lang-select">
               @each(locale in locales)
               @if(locale != i18n.locale)
-              <a href="?lang={{ locale }}"><span class="fi fi-{{ flags[locale] }}"
-                  aria-label="{{ t(`ui.languages.${locale}`) }}"></span></a>
+              <a href="?lang={{ locale }}">
+                <span class="fi fi-{{ flags[locale] }}"
+                  aria-label="{{ t(`ui.languages.${locale}`) }}">
+                </span>
+              </a>
               @end
               @end
             </div>
@@ -78,14 +81,6 @@
           <li class="responsive-nav-item"><a class="responsive-nav-link"
               href="https://tribee.fr/cagnotte/01H7DFJGAQHNWSH4SC77A9X2ZV/participation" target="_blank">{{
               t("ui.header.donations") }}</a></li>
-          <li class="responsive-nav-item">
-            <select id="lang_responsive">
-              @each(locale in locales)
-              <option value="{{ locale }}" selected="{{ locale == i18n.locale }}">{{ t(`ui.languages.${locale}`) }}
-              </option>
-              @end
-            </select>
-          </li>
         </ul>
       </nav>
     </header>
