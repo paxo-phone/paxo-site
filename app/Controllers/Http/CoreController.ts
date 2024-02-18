@@ -25,7 +25,4 @@ export default class CoreController {
     })
   }
 
-  public async paxoIde({ view }: HttpContextContract) {
-    return view.render('core/paxoide')
-  }
 }
