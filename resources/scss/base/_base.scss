@@ -29,6 +29,10 @@ h2 {
   justify-content: center;
 }
 
+h2.blk {
+  color: black;
+}
+
 img {
   max-width: 100%;
 }
@@ -70,13 +74,11 @@ cite {
   margin-bottom: 3rem;
 }
 
-.list
-{
-    padding: 2rem 1rem;
-    list-style: inside;
+.list {
+  padding: 2rem 1rem;
+  list-style: inside;
 }
 
-.list .list-item
-{
-    padding: .3rem 0;
+.list .list-item {
+  padding: .3rem 0;
 }
