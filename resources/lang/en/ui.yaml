@@ -102,3 +102,22 @@ contributors:
   title: Contributors
   subtitle: |
     This page lists the main contributors to the Paxo project.
+
+marketplace:
+  title: Applications
+  indexCategory: Populaire
+  category:
+    - Productivité
+    - Utilitaire
+    - Communication
+    - Jeux
+    - Multimedia
+    - Divers
+  resultsFor: 'Resultats pour «{ query }»'
+
+dashboard:
+  pages:
+    yourapps: Apps publiés
+    profile: Profil
+    security: Sécurité
+    contact: Contact
