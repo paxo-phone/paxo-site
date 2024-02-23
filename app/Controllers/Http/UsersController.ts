@@ -62,7 +62,7 @@ export default class UsersController {
         email
       }
 
-      // For confirmed registration
+      // For controlled registration
       return view.render('auth/post_register', {
         confirm_jwt: JWT.sign(user_object)
       })

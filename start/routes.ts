@@ -76,6 +76,11 @@ Route.group(() => {
 
   Route.get('/profile', 'DashboardController.profile')
     .as('dash.profile')
+
+  Route.group(() => {
+    Route.post('/profile', 'DashboardController.editProfile')
+      .as('dash.profile.edit')
+  }).prefix('/edit')
 })
   .middleware('auth')
   .prefix('/dash')

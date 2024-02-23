@@ -12,6 +12,7 @@
   @!section('seo')
 
   @entryPointStyles('main')
+  @entryPointStyles('dashboard')
 
   <!-- fontawesome -->
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css"
@@ -31,8 +32,10 @@
   <section class="dash-subheader">
     <nav class="sidebar">
       <ul>
-        <li class="sidebar-item"><a class="sidebar-link" href="{{ route('dash') }}">{{ t('ui.dashboard.pages.yourapps') }}</a></li>
-        <li class="sidebar-item"><a class="sidebar-link" href="{{ route('dash.profile') }}">{{ t('ui.dashboard.pages.profile') }}</a></li>
+        <li class="sidebar-item"><a class="sidebar-link"
+            href="{{ route('dash') }}">{{ t('ui.dashboard.pages.yourapps') }}</a></li>
+        <li class="sidebar-item"><a class="sidebar-link"
+            href="{{ route('dash.profile') }}">{{ t('ui.dashboard.pages.profile') }}</a></li>
         <li class="sidebar-item"><a class="sidebar-link" href="#">{{ t('ui.dashboard.pages.security') }}</a></li>
         <li class="sidebar-item"><a class="sidebar-link" href="#">{{ t('ui.dashboard.pages.contact') }}</a></li>
       </ul>

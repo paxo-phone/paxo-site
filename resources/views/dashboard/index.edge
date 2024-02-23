@@ -5,13 +5,28 @@ Dashboard
 @endsection
 
 @section('content')
+@entryPointStyles('apps')
 
 @if(user.admin)
 <a href="{{ route('adminPanel.index') }}">Admin panel</a>
 @endif
 
-<div class="dash-welcome">
-  <h1>Hi, {{ user.name }}</h1>
+<h1 class="search-title">Vos applications</h1>
+
+<div class="apps-container">
+  @each(app in myapps)
+  <div class="app-block">
+    <img class="app-img" src="{{ app.image }}">
+    <div class="app-details">
+      <div class="app-title">{{ app.name }}</div>
+      <p class="app-desc">{{ app.desc }}</p>
+    </div>
+  </div>
+  @end
 </div>
+
+@if(myapps.length == 0)
+You don't have any apps published on the marketplace.
+@end
 
 @endsection

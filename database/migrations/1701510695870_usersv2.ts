@@ -11,6 +11,7 @@ export default class extends BaseSchema {
       table.integer('id').unsigned().notNullable().index().unique() // Github ID
       table.string('name', 255).notNullable()
       table.string('email', 255).nullable()
+      table.string('picture', 400).defaultTo("/img/defaultUser.png")
 
       table.boolean('verified').defaultTo(false)
       table.boolean('mod').defaultTo(false)
