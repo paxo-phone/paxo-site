@@ -33,6 +33,8 @@ Route.group(() => {
   Route.get('contributors', 'CoreController.contributors')
   Route.get('projects', 'CoreController.projects')
   Route.get('press', 'PressController.index')
+
+  Route.get('tedx', 'RedirectionsController.tedx')
 })
 
 // ----------------------------------------------
