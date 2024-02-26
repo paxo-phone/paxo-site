@@ -13,7 +13,7 @@ export default class CoreController {
   public async contributors({ view }: HttpContextContract) {
     return view.render('core/contributors')
   }
-  
+
   public async contribute({ view }: HttpContextContract) {
     return view.render('core/contribute')
   }
@@ -25,4 +25,11 @@ export default class CoreController {
     })
   }
 
+  public async paxoIde({ view }: HttpContextContract) {
+    return view.render('core/paxoide')
+  }
+
+  public async about({ view }: HttpContextContract) {
+      return view.render('core/about')
+    }
 }
