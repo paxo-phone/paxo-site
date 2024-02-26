@@ -20,13 +20,13 @@ Marketplace
 
 <div class="apps-container">
   @each(app in apps)
-  <div class="app-block">
+  <a class="app-block" href="/apps/app/{{ app.id }}">
     <img class="app-img" src="{{ app.image }}">
     <div class="app-details">
       <div class="app-title">{{ app.name }}</div>
       <p class="app-desc">{{ app.desc }}</p>
     </div>
-  </div>
+  </a>
   @end
 </div>
 

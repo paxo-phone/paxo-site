@@ -7,7 +7,7 @@ export default class DashboardController {
     if (!auth.user) return response.redirect().toRoute('/')
 
     const myapps = await App.query()
-      .where('author_id', auth.user.id)
+      .where('user_id', auth.user.id)
 
     return view.render('dashboard/index', {
       myapps

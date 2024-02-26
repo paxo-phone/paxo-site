@@ -18,7 +18,7 @@ export default class App extends BaseModel {
   public author: BelongsTo<typeof User>
 
   @column()
-  public authorId: number
+  public userId: number
 
   @column()
   public name: string

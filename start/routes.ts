@@ -45,6 +45,10 @@ Route.group(() => {
 })
   .prefix('/tutorials')
 
+// ----------------------------------------------
+// Marketplace
+// ----------------------------------------------
+
 Route.group(() => {
   Route.get('/', 'AppsController.index')
     .as('apps')
