@@ -1,0 +1,18 @@
+@!layout('base/main')
+
+@section('title')
+{{ t("ui.about.title") }}
+@endsection
+
+@section('seo')
+<meta name="description" content="{{t("ui.about.seo_description")}}">
+<meta name="robots" content="index">
+@endsection
+
+@section('content')
+<section class="container">
+	<h2 class="h2	 mb-3">{{t("ui.about.block1.title")}}</h2>
+	<p class="lead">{{ t("ui.about.block1.p")}}</p>
+	<p class="lead">{{ t("ui.about.block2.p")}}</p
+</section>
+@endsection
