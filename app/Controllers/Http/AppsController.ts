@@ -1,5 +1,6 @@
 import type { HttpContextContract } from '@ioc:Adonis/Core/HttpContext'
 import App, { AppCategory } from '../../Models/App'
+import { string } from '@ioc:Adonis/Core/Helpers'
 
 export default class AppsController {
   public async index({ view, params, request }: HttpContextContract) {
@@ -48,4 +49,33 @@ export default class AppsController {
 
     return view.share({ app }).render('apps/product')
   }
+
+  public async create({view}: HttpContext) {
+    return view.render('apps/create')
+  }
+
+  public async createProcess() {
+    const data = request.body()
+    const imgUrl = ""
+    const img = request.file('img')
+
+    if (img) {
+      const filename = img.filename + string.generateRandom(8) + (img.extname ? "." + img.extname : "")
+      await img.moveToDisk('/appicons', {
+        name: filename
+      })
+      imgUrl = process.env.ACCESS_ADDRESS + "/uploads/appicons/" + filename
+    }
+
+    let newApp = App.create({
+      userId: 1, // auth.user.id
+      name: data.name,
+      desc: data.desc,
+      image: data.image,
+      source_url: data.source_url,
+      release : data.release,
+      category: data.categories
+    })
+  }
 }
+

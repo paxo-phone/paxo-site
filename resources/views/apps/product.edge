@@ -1,15 +1,129 @@
 @!layout('base/main')
 
 @section('title')
-Marketplace
+Product View
 @endsection
 
 @section('seo')
-<meta name="description" content="">
+<meta name="description" content="Product View">
 <meta name="robots" content="index">
 @endsection
 
 @section('content')
-{{-- Cette page affiche une application en détail, qui sera rendu via l'objet partagé "app", défini par le --}}
-{{-- modèle app/Models/App.ts --}}
+      <section class="template">
+        <section class="exit">
+          <a href="back" class="page-backward-link">
+            <div class="arrow-backward"></div>
+          </a>
+        </section>
+        <section class='element'>
+          <section class="t1">
+            <div class="t1-1">
+              <div id="square"></div>
+              <div class="t1-1bis">
+                <p class="p-app" style="font-size: 32px;  font-weight: 700">Produit</p>
+                <button style="width: 95px; height: 30px; background: #38B99B; border-radius: 10px; border: none;"><a style="color: white; font-size: 16px;   font-weight: 700">Download</a></button>
+              </div>
+            </div>
+            <div class="t1-2">
+              <div class="t1-2bis">
+                <p class="p-app" style="font-weight: 300">Langue</p>
+                <p class="p-app" style="font-weight: 700">Fr</p>
+              </div>
+              <div class="t1-2bis">
+                <p class="p-app" style=" font-weight: 300 ">Taille</p>
+                <p class="p-app" style=" font-weight: 700 ">100 Mo</p>
+              </div>
+              <div class="t1-2bis">
+                <p class="p-app" style=" font-weight: 300">Notes</p>
+                <p class="p-app" style=" font-weight: 700 ">5,0</p>
+              </div>
+              <div class="t1-2bis">
+                <p class="p-app" style=" font-weight: 300">Catégorie</p>
+                <p class="p-app" style=" font-weight: 700">Utilitaire</p>
+              </div>
+             </div>
+          </section>
+          <section class="t2">
+            <img style="width: 60px; height: 60px; border-radius: 20px" src="defaultUser.png" />
+            <p class="p-app" id="div-username"style="color: #828282;font-weight: 700">Paxo’s User</p>
+          </section>
+          <section class="t3">
+            <h2 class="h2-app">Description</h2>
+            <p class="p-app">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Mollis aliquam ut porttitor leo a diam. At tellus at urna condimentum mattis. Pellentesque habitant morbi tristique senectus et netus.</p>
+          </section>
+          <section class="t4">
+            <h2 class="h2-app">Précédentes versions </h2>
+            <div class="version-container">
+              <input type="checkbox" class="inputD" id="v1"/>
+              <div class="version-link">
+                <label for="v1"><p class="p-app">Version 2.00 - Beta - Released on Decembre 2023</p></label>
+                <a class="Upload-link" href="">Download</a>
+              </div>
+              <div class="version-description vd" id="desc1">
+                <p class="p-app">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Cum sociis natoque penatibus et magnis dis parturient montes nascetur. Egestas maecenas pharetra convallis posuere morbi. Nascetur ridiculus mus mauris vitae ultricies leo integer malesuada. Tincidunt arcu non sodales neque sodales ut etiam sit. Habitant morbi tristique senectus et netus et malesuada. Eget lorem dolor sed viverra ipsum. Orci porta non pulvinar neque laoreet suspendisse interdum consectetur libero. Aliquet sagittis id consectetur purus ut faucibus pulvinar. Nullam eget felis eget nunc. Mauris commodo quis imperdiet massa tincidunt nunc pulvinar sapien et. Elit pellentesque habitant morbi tristique senectus et netus. Congue quisque egestas diam in arcu cursus euismod quis. Pellentesque habitant morbi tristique senectus et netus.
+                  Vulputate odio ut enim blandit. Ac tortor vitae purus faucibus ornare. Venenatis tellus in metus vulputate eu scelerisque felis. Feugiat vivamus at augue eget arcu dictum varius duis at. Odio euismod lacinia at quis risus sed vulputate odio ut. At urna condimentum mattis pellentesque id. Amet consectetur adipiscing elit duis. Risus nec feugiat in fermentum posuere urna nec. Netus et malesuada fames ac. Duis at tellus at urna condimentum mattis pellentesque. Dis parturient montes nascetur ridiculus. Vel fringilla est ullamcorper eget. Placerat orci nulla pellentesque dignissim enim. </p>
+              </div>
+            </div>
+            <div class="version-container">
+              <input type="checkbox" class="inputD" id="v2"/>
+              <div class="version-link">
+                <label for="v2"><p class="p-app">Version 1.90 - Released on April 2023</p></label>
+                <a class="Upload-link" href="">Download</a>
+              </div>
+              <div class="version-description" id="desc2">
+                <p class="p-app">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Cum sociis natoque penatibus et magnis dis parturient montes nascetur. Egestas maecenas pharetra convallis posuere morbi. Nascetur ridiculus mus mauris vitae ultricies leo integer malesuada. Tincidunt arcu non sodales neque sodales ut etiam sit. Habitant morbi tristique senectus et netus et malesuada. Eget lorem dolor sed viverra ipsum. Orci porta non pulvinar neque laoreet suspendisse interdum consectetur libero. Aliquet sagittis id consectetur purus ut faucibus pulvinar. Nullam eget felis eget nunc. Mauris commodo quis imperdiet massa tincidunt nunc pulvinar sapien et. Elit pellentesque habitant morbi tristique senectus et netus. Congue quisque egestas diam in arcu cursus euismod quis. Pellentesque habitant morbi tristique senectus et netus.
+                  Vulputate odio ut enim blandit. Ac tortor vitae purus faucibus ornare. Venenatis tellus in metus vulputate eu scelerisque felis. Feugiat vivamus at augue eget arcu dictum varius duis at. Odio euismod lacinia at quis risus sed vulputate odio ut. At urna condimentum mattis pellentesque id. Amet consectetur adipiscing elit duis. Risus nec feugiat in fermentum posuere urna nec. Netus et malesuada fames ac. Duis at tellus at urna condimentum mattis pellentesque. Dis parturient montes nascetur ridiculus. Vel fringilla est ullamcorper eget. Placerat orci nulla pellentesque dignissim enim. </p>
+              </div>
+            </div>
+            <div class="version-container">
+              <input type="checkbox" class="inputD" id="v3"/>
+              <div class="version-link">
+                <label for="v3"><p class="p-app">Version 1.70 - Released on January 2023</p></label>
+                <a class="Upload-link" href="">Download</a>
+              </div>
+              <div class="version-description" id="desc3">
+                <p> class="p-app"Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Cum sociis natoque penatibus et magnis dis parturient montes nascetur. Egestas maecenas pharetra convallis posuere morbi. Nascetur ridiculus mus mauris vitae ultricies leo integer malesuada. Tincidunt arcu non sodales neque sodales ut etiam sit. Habitant morbi tristique senectus et netus et malesuada. Eget lorem dolor sed viverra ipsum. Orci porta non pulvinar neque laoreet suspendisse interdum consectetur libero. Aliquet sagittis id consectetur purus ut faucibus pulvinar. Nullam eget felis eget nunc. Mauris commodo quis imperdiet massa tincidunt nunc pulvinar sapien et. Elit pellentesque habitant morbi tristique senectus et netus. Congue quisque egestas diam in arcu cursus euismod quis. Pellentesque habitant morbi tristique senectus et netus.
+                  Vulputate odio ut enim blandit. Ac tortor vitae purus faucibus ornare. Venenatis tellus in metus vulputate eu scelerisque felis. Feugiat vivamus at augue eget arcu dictum varius duis at. Odio euismod lacinia at quis risus sed vulputate odio ut. At urna condimentum mattis pellentesque id. Amet consectetur adipiscing elit duis. Risus nec feugiat in fermentum posuere urna nec. Netus et malesuada fames ac. Duis at tellus at urna condimentum mattis pellentesque. Dis parturient montes nascetur ridiculus. Vel fringilla est ullamcorper eget. Placerat orci nulla pellentesque dignissim enim. </p>
+              </div>
+            </div>
+            <div class="version-container">
+              <input type="checkbox" class="inputD" id="v4"/>
+              <div class="version-link">
+                <label for="v4"><p class="p-app">Version 1.20 - Released on September 2022</p></label>
+                <a class="Upload-link" href="">Download</a>
+              </div>
+              <div class="version-description" id="desc4">
+                <p class="p-app">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Cum sociis natoque penatibus et magnis dis parturient montes nascetur. Egestas maecenas pharetra convallis posuere morbi. Nascetur ridiculus mus mauris vitae ultricies leo integer malesuada. Tincidunt arcu non sodales neque sodales ut etiam sit. Habitant morbi tristique senectus et netus et malesuada. Eget lorem dolor sed viverra ipsum. Orci porta non pulvinar neque laoreet suspendisse interdum consectetur libero. Aliquet sagittis id consectetur purus ut faucibus pulvinar. Nullam eget felis eget nunc. Mauris commodo quis imperdiet massa tincidunt nunc pulvinar sapien et. Elit pellentesque habitant morbi tristique senectus et netus. Congue quisque egestas diam in arcu cursus euismod quis. Pellentesque habitant morbi tristique senectus et netus.
+                  Vulputate odio ut enim blandit. Ac tortor vitae purus faucibus ornare. Venenatis tellus in metus vulputate eu scelerisque felis. Feugiat vivamus at augue eget arcu dictum varius duis at. Odio euismod lacinia at quis risus sed vulputate odio ut. At urna condimentum mattis pellentesque id. Amet consectetur adipiscing elit duis. Risus nec feugiat in fermentum posuere urna nec. Netus et malesuada fames ac. Duis at tellus at urna condimentum mattis pellentesque. Dis parturient montes nascetur ridiculus. Vel fringilla est ullamcorper eget. Placerat orci nulla pellentesque dignissim enim. </p>
+              </div>
+
+            </div>
+            <div class="version-container">
+              <input type="checkbox" class="inputD" id="v5"/>
+              <div class="version-link">
+                <label for="v5"><p class="p-app">Version 1.10 - Released on July 2022</p></label>
+                <a class="Upload-link" href="">Download</a>
+              </div>
+              <div class="version-description" id="desc5">
+                <p class="p-app">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Cum sociis natoque penatibus et magnis dis parturient montes nascetur. Egestas maecenas pharetra convallis posuere morbi. Nascetur ridiculus mus mauris vitae ultricies leo integer malesuada. Tincidunt arcu non sodales neque sodales ut etiam sit. Habitant morbi tristique senectus et netus et malesuada. Eget lorem dolor sed viverra ipsum. Orci porta non pulvinar neque laoreet suspendisse interdum consectetur libero. Aliquet sagittis id consectetur purus ut faucibus pulvinar. Nullam eget felis eget nunc. Mauris commodo quis imperdiet massa tincidunt nunc pulvinar sapien et. Elit pellentesque habitant morbi tristique senectus et netus. Congue quisque egestas diam in arcu cursus euismod quis. Pellentesque habitant morbi tristique senectus et netus.
+                  Vulputate odio ut enim blandit. Ac tortor vitae purus faucibus ornare. Venenatis tellus in metus vulputate eu scelerisque felis. Feugiat vivamus at augue eget arcu dictum varius duis at. Odio euismod lacinia at quis risus sed vulputate odio ut. At urna condimentum mattis pellentesque id. Amet consectetur adipiscing elit duis. Risus nec feugiat in fermentum posuere urna nec. Netus et malesuada fames ac. Duis at tellus at urna condimentum mattis pellentesque. Dis parturient montes nascetur ridiculus. Vel fringilla est ullamcorper eget. Placerat orci nulla pellentesque dignissim enim. </p>
+              </div>
+
+            </div>
+            <div class="version-container">
+              <input type="checkbox" class="inputD" id="v6"/>
+              <div class="version-link">
+                <label for="v6"><p class="p-app">Version 1.00 - Beta - Released on March 2022</p></label>
+                <a class="Upload-link" href="">Download</a>
+              </div>
+              <div class="version-description" id="desc6">
+                <p class="p-app">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Cum sociis natoque penatibus et magnis dis parturient montes nascetur. Egestas maecenas pharetra convallis posuere morbi. Nascetur ridiculus mus mauris vitae ultricies leo integer malesuada. Tincidunt arcu non sodales neque sodales ut etiam sit. Habitant morbi tristique senectus et netus et malesuada. Eget lorem dolor sed viverra ipsum. Orci porta non pulvinar neque laoreet suspendisse interdum consectetur libero. Aliquet sagittis id consectetur purus ut faucibus pulvinar. Nullam eget felis eget nunc. Mauris commodo quis imperdiet massa tincidunt nunc pulvinar sapien et. Elit pellentesque habitant morbi tristique senectus et netus. Congue quisque egestas diam in arcu cursus euismod quis. Pellentesque habitant morbi tristique senectus et netus.
+                  Vulputate odio ut enim blandit. Ac tortor vitae purus faucibus ornare. Venenatis tellus in metus vulputate eu scelerisque felis. Feugiat vivamus at augue eget arcu dictum varius duis at. Odio euismod lacinia at quis risus sed vulputate odio ut. At urna condimentum mattis pellentesque id. Amet consectetur adipiscing elit duis. Risus nec feugiat in fermentum posuere urna nec. Netus et malesuada fames ac. Duis at tellus at urna condimentum mattis pellentesque. Dis parturient montes nascetur ridiculus. Vel fringilla est ullamcorper eget. Placerat orci nulla pellentesque dignissim enim. </p>
+              </div>
+            </div>
+
+          </section>
+        </section>
+      </section>
 @endsection
