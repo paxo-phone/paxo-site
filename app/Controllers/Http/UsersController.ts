@@ -63,13 +63,13 @@ export default class UsersController {
       }
 
       // For controlled registration
-      return view.render('auth/post_register', {
-        confirm_jwt: JWT.sign(user_object)
-      })
+      // return view.render('auth/post_register', {
+      //   confirm_jwt: JWT.sign(user_object)
+      // })
 
       // For free registration
-      // user = await User.create(user_object)
-      // await user.save()
+      const user = await User.create(user_object)
+      await user.save()
     }
 
     await auth.use('web').loginViaId(userdata.id)
