@@ -27,14 +27,12 @@
 
 <body>
 
-  @!component('base/header')
+  @!include('base/header')
 
   <main>
     @!include('components/flash')
-
     @!section('content')
   </main>
-
   <footer>
     <p class="text-center">
       {{ t("ui.footer.contributions") }} <a style="color: white; text-decoration: underline;"
@@ -47,13 +45,8 @@
         </li>
       </ul>
     </div>
-
-
-
   </footer>
-
   @entryPointScripts('main')
-
   @!section('script')
 </body>
 

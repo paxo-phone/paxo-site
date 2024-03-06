@@ -44,13 +44,13 @@
         <li class="sidebar-item"><a class="sidebar-link"
             href="/apps/{{ c }}">{{ t('ui.marketplace.category.' + c) }}</a></li>
         @end
+        <li class="sidebar-spacing"></li>
         @if(user)
-        <li class="sidebar-title">Bonjour, {{ user.name }}</li>
         <li class="sidebar-item"><a class="sidebar-link" href="/dash">Tableau de bord</a></li>
         <li class="sidebar-item"><a class="sidebar-link" href="/auth/logout">Deconnexion</a></li>
         @else
-        <li class="sidebar-title"><a class="sidebar-link" href="/auth">Se connecter</a></li>
-        <li class="sidebar-title"><a class="sidebar-link" href="/apps/product">Produit</a></li>
+        <li class="sidebar-item"><a class="sidebar-link" href="/auth">Se connecter</a></li>
+
         @end
       </ul>
     </nav>

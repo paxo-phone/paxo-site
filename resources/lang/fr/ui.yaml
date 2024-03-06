@@ -6,6 +6,7 @@ brand: Paxo
 
 header:
   index: Accueil
+  about: À propos
   contribute: Contribuer
   discord: Discord
   tutorials: Tutoriels
@@ -83,3 +84,47 @@ contributors:
   title: Contributeurs
   subtitle: |
     Cette page recense les principaux contributeurs au projet Paxo.
+
+
+ide:
+  seo_description: Paxo IDE est l'éditeur de code officiel pour développer des apps Paxo.
+  title: Paxo IDE
+  cta:
+    title: Téléchargez Paxo IDE maintenant!
+    p: Disponible sur les machines sous Windows, macOS et linux.
+    btn: Télécharger
+  hero:
+    title: Paxo IDE, l'IDE pour les apps Paxo
+    p: Téléchargez l'Environnement de Développement Intégré (IDE) officiel pour le développement d'apps Paxo.
+  block1:
+    title: Autocomplétion
+    p: |
+      Ce logiciel fournit une autocomplétion pour Lua et pour la Paxolib (l'API Lua pour créer les apps). Des améliorations
+      sont néanmoins à venir.
+  block2:
+    title: Manageur de projets
+    p: |
+      L'IDE vous permet d'organiser vos projets d'apps avec son manageur de projet, qui vous permet de créer et supprimer
+      des projets rapidement et facilement. Il crée même le fichier de configuration de l'application pour vous!
+  block3:
+    title: Publication d'apps sur le Paxo Store intégrée (BIENTOT)
+    p: |
+      L'éditeur proposera un système pour publier l'application sur l'appstore officiel de Paxo. Un bouton (ou presque)
+      pour envoyer votre application sur le marketplace.
+
+about:
+  seo_description: Page de l'histoire de Paxo
+  title: À propos de Paxo
+  block1:
+    title: À propos de Paxo
+    p: Il y a trois ans Gabriel a commencé le projet Paxo afin de
+        créer des appareils utiles, pouvant être réalisé par chacun (DIY - "Do It Yourself") sur un modèle open source
+        (Libre de Droits), en optimisant les composants de manière à préserver la planète le plus possible! À 15 ans
+        il avait réalisé son premier téléphone fonctionnel. L'ensemble des circuits électroniques, du code
+        des logiciels et des modèles d'impression 3D qui ont été conçus sont tous disponibles via ce site. Avec cette
+        approche l'équipe Paxo espère que chacun aura l'envie de réaliser et partager ses propres inventions !
+  block2:
+    title: Aujourd'hui
+    p: Aujourd'hui, grâce à la médiatisation du projet, une communauté participe activement au projet. Paxo se divise en plusieurs équipes
+      pour répartir le travail de l'hardware, du software, du design et de la communication.
+
