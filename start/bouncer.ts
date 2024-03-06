@@ -32,7 +32,8 @@ import User from 'App/Models/User'
 */
 export const { actions } = Bouncer
   .define('adminPanel', (user: User) => {
-    return user.admin
+    // ¯\_(ツ)_/¯ JS is weird
+    return (user.admin != false)
   })
 
 /*
