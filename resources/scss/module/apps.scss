@@ -28,7 +28,7 @@ h1.search-title {
 
   overflow: hidden;
 
-  transition: background-color .2s;
+  transition: color .2s;
 
   >.app-img {
     width: 75px;
@@ -65,6 +65,6 @@ h1.search-title {
   }
 }
 
-.app-block:hover {
-  background-color: rgba($color: #818181, $alpha: 0.13);
+.app-block:hover>.app-details>.app-title {
+  color: #89D5C0;
 }
