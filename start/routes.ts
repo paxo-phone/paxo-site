@@ -25,6 +25,7 @@ import Route from '@ioc:Adonis/Core/Route'
 // ----------------------------------------------
 Route.group(() => {
   Route.get('/', 'CoreController.index')
+  Route.get('about', 'CoreController.about')
   Route.get('contact', 'CoreController.contact')
   Route.get('contribute', 'CoreController.contribute')
   Route.get('contributors', 'CoreController.contributors')
