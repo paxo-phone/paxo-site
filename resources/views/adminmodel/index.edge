@@ -5,21 +5,24 @@ Admin panel - {{ model }}
 @endsection
 
 @section('content')
-<h1>Admin panel - {{ model }}</h1>
+<section class="container">
 
-<div>
-  @if(model !== "users")
-    <a  href="{{ route('adminPanel.model.create', {model: model}) }}">Create</a>
-  @endif
-</div>
+  <h1>Admin panel - {{ model }}</h1>
 
-<div>
-  @each(item in items)
+  <div>
+    @if(model !== "users")
+    <a href="{{ route('adminPanel.model.create', {model: model}) }}">Create</a>
+    @endif
+  </div>
+
+  <div>
+    @each(item in items)
     <a href="{{ route('adminPanel.model.view' , {model: model, id: item.id}) }}">
       @each(attr in item)
-        <p>{{ attr }}</p>
+      <p>{{ attr }}</p>
       @endeach
     </a>
-  @endeach
-</div>
+    @endeach
+  </div>
+</section>
 @endsection

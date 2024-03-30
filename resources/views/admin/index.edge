@@ -1,15 +1,17 @@
 @!layout('base/main')
 
 @section('title')
-  Admin panel
+Admin panel
 @endsection
 
 @section('content')
-<h1>Admin panel</h1>
+<section class="container">
+  <h1>Admin panel</h1>
 
-<ul>
-  @each(model in models)
+  <ul>
+    @each(model in models)
     <li><a href="{{ route('adminPanel.model.index', {model: model}) }}">{{ model }}</a></li>
-  @endeach
-</ul>
+    @endeach
+  </ul>
+</section>
 @endsection

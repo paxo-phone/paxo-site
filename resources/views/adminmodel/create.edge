@@ -5,20 +5,23 @@ Admin panel - {{ model }} / create
 @endsection
 
 @section('content')
-<h1>Admin panel - {{ model }} / create</h1>
+<section class="container">
 
-<form method="post" enctype="multipart/form-data">
-  @each(field in fields)
-  <label>{{ field }}</label>
+  <h1>Admin panel - {{ model }} / create</h1>
 
-  @if(field == "content")
-  <textarea name="{{ field }}"></textarea>
-  @elseif(field == "file")
-  <input type="file" name="{{ field }}">
-  @else
-  <input type="text" name="{{ field }}">
-  @end
-  @endeach
-  <button type="submit">Save</button>
-</form>
+  <form method="post" enctype="multipart/form-data">
+    @each(field in fields)
+    <label>{{ field }}</label>
+
+    @if(field == "content")
+    <textarea name="{{ field }}"></textarea>
+    @elseif(field == "file")
+    <input type="file" name="{{ field }}">
+    @else
+    <input type="text" name="{{ field }}">
+    @end
+    @endeach
+    <button type="submit">Save</button>
+  </form>
+</section>
 @endsection
