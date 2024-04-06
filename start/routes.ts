@@ -56,7 +56,7 @@ Route.group(() => {
   Route.get('/:category', 'AppsController.index')
   Route.get('/product', 'AppsController.product')
   Route.get('/create', 'AppsController.create')
-  Route.post('/createProcess','AppsController.createProcess')
+  Route.post('/createProcess', 'AppsController.createProcess')
 
   Route.get('/app/:id', 'AppsController.show')
 }).prefix('/apps')
@@ -89,7 +89,7 @@ Route.group(() => {
       .as('dash.profile.edit')
   }).prefix('/edit')
 })
- // .middleware('auth')
+  .middleware('auth')
   .prefix('/dash')
 
 // ----------------------------------------------
