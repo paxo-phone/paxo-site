@@ -4,7 +4,7 @@ import App, {AppCategory} from 'App/Models/App'
 export default class extends BaseSeeder {
   public async run () {
     const app = await App.create({
-      userId: 1, 
+      userId: 1,
       name: "test app",
       desc: "test app descr",
       releases: "0.1.0",

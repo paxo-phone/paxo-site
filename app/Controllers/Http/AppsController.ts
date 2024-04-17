@@ -79,5 +79,10 @@ export default class AppsController {
       category: data.categories
     })
   }
+
+  public async getAppJson({params,response}: HttpContextContract) {
+    const app = await App.findOrFail(params["id"])
+    return response.send(app.toJSON())
+  }
 }
 
