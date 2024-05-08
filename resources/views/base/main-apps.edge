@@ -41,8 +41,8 @@
           </form>
         </li>
         @each(c in appCategories)
-        <li class="sidebar-item"><a class="sidebar-link"
-            href="/apps/{{ c }}">{{ t('ui.marketplace.category.' + c) }}</a></li>
+        <li class="sidebar-item"><a class="sidebar-link" href="/apps/cat/{{ c }}">{{ t('ui.marketplace.category.' + c)
+            }}</a></li>
         @end
         <li class="sidebar-spacing"></li>
         @if(user)

@@ -53,12 +53,17 @@ Route.group(() => {
 Route.group(() => {
   Route.get('/', 'AppsController.index')
     .as('apps')
-  Route.get('/:category', 'AppsController.index')
+  Route.get('/cat/:category', 'AppsController.index')
   Route.get('/product', 'AppsController.product')
   Route.get('/create', 'AppsController.create')
   Route.post('/createProcess', 'AppsController.createProcess')
 
   Route.get('/app/:id', 'AppsController.show')
+
+  if (process.env.NODE_ENV == "development") {
+    console.warn("Development route /apps/appinstalledemo was loaded");
+    Route.get('/appinstalldemo', 'AppsController.appinstalldemo')
+  }
 }).prefix('/apps')
   .middleware('silentAuth')
 

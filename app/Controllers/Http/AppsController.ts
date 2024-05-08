@@ -50,16 +50,16 @@ export default class AppsController {
     return view.share({ app }).render('apps/product')
   }
 
-  public async create({view}: HttpContextContract) {
+  public async create({ view }: HttpContextContract) {
     return view.render('apps/create')
   }
 
-  public async createProcess({auth, request, response}: HttpContextContract) {
+  public async createProcess({ auth, request, response }: HttpContextContract) {
     const data = request.body()
     let imgUrl = ""
     const img = request.file('img')
 
-    if(!auth.user) return response.status(403)
+    if (!auth.user) return response.status(403)
 
     if (img) {
       const filename = img.fileName + string.generateRandom(8) + (img.extname ? "." + img.extname : "")
@@ -75,9 +75,13 @@ export default class AppsController {
       desc: data.desc,
       image: data.image,
       source_url: data.source_url,
-      releases : data.releases,
+      releases: data.releases,
       category: data.categories
     })
+  }
+
+  public async appinstalldemo({ view }: HttpContextContract) {
+    return view.render('apps/appinstalldemo');
   }
 }
 
