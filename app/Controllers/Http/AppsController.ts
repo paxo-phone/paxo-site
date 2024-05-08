@@ -80,6 +80,11 @@ export default class AppsController {
     })
   }
 
+  public async getAppJson({ params, response }: HttpContextContract) {
+    const app = await App.findOrFail(params["id"])
+    return response.send(app.toJSON())
+  }
+
   public async appinstalldemo({ view }: HttpContextContract) {
     return view.render('apps/appinstalldemo');
   }

@@ -59,6 +59,7 @@ Route.group(() => {
   Route.post('/createProcess', 'AppsController.createProcess')
 
   Route.get('/app/:id', 'AppsController.show')
+  Route.get('/app/:id/asJson', 'AppsController.getAppJson')
 
   if (process.env.NODE_ENV == "development") {
     console.warn("Development route /apps/appinstalledemo was loaded");
