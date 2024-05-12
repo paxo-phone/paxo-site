@@ -88,5 +88,9 @@ export default class AppsController {
   public async appinstalldemo({ view }: HttpContextContract) {
     return view.render('apps/appinstalldemo');
   }
+
+  public async product({ view }: HttpContextContract) {
+    return view.render('apps/product');
+  }
 }
 
