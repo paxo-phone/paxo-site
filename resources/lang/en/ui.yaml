@@ -23,7 +23,12 @@ footer:
     the complete list of contributors
 
 index:
-  title: A free, modular and educational cellphone.
+  header:
+    over_title: Introducing Paxo
+    title: A free, modular and educational cellphone.
+    description: |
+      Paxo, is a free, modular and educational cellphone. It is designed to be made by everyone, open to all and fully customizable.
+    more_info: Get to know Paxo
   block1:
     title: Open
     p1: |

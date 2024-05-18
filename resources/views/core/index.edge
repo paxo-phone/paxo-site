@@ -17,10 +17,26 @@
 @endsection
 
 @section('content')
-<section class="block h-80" style="background-image: url(/img/nature.jpeg); ">
-  <h1 style="max-width: 370px" class="h1 text-center text-white presentation">{{ t("ui.index.title")
-    }}
-  </h1>
+<section class="block title-container justify-center md:justify-start" style="background-image: url(/img/nature.jpeg); ">
+  <div class="cta-title">
+    <h1 class="over_title">
+      {{ t("ui.index.header.over_title")}}
+    </h1>
+
+    <h1 class="title presentation">
+      {{ t("ui.index.header.title")}}
+    </h1>
+
+    <p class="description">
+      {{ t("ui.index.header.description")}}
+    </p>
+
+    <a href="#section-open" class="button">
+      <i class="fas fa-chevron-down"></i>
+
+      <p>{{ t("ui.index.header.more_info")}}</p>
+    </a>
+  </div>
 </section>
 
 <!-- Citations -->
@@ -65,7 +81,7 @@
 </section>
 
 <!-- Libre -->
-<section class="block justify-center md:justify-end h-50 md:h-80" style="background-image: url(/img/code.jpeg);">
+<section id="section-open" class="block justify-center md:justify-end h-50 md:h-80" style="background-image: url(/img/code.jpeg);">
 
   <div class="md:w-50 text-white flex flex-col gap-2">
     <h2 class="h1">{{ t("ui.index.block1.title") }}</h2>
@@ -79,7 +95,7 @@
 </section>
 
 <!-- Modulaire -->
-<section class="block justify-center md:justify-start h-50 md:h-80">
+<section id="section-modular" class="block justify-center md:justify-start h-50 md:h-80">
 
   <div class="md:w-50 flex flex-col gap-2">
     <h2 class="h1">{{ t("ui.index.block2.title") }}</h2>
@@ -89,7 +105,7 @@
 </section>
 
 <!-- Pédagogique -->
-<section class="block justify-center md:justify-end h-50 md:h-80" style="background-image: url(/img/ecology.jpeg);">
+<section id="section-pedagogique" class="block justify-center md:justify-end h-50 md:h-80" style="background-image: url(/img/ecology.jpeg);">
 
   <div class="md:w-50 text-white flex flex-col gap-2">
     <h2 class="h1">{{ t("ui.index.block3.title") }}</h2>
@@ -101,7 +117,7 @@
 
 <!-- Gallerie -->
 
-<section class="gallery">
+<section id="section-gallery" class="gallery">
 
   <div class="gallery-grid">
     <img src="/img/paxo-1.jpeg" alt="Image du téléphone de face posé verticalement sur une table en bois." srcset="">
