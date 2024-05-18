@@ -1,15 +1,15 @@
 /* footer */
 
 footer {
-    min-height: 5vh;
     background: #153029;
     color: #fff;
-    padding: 20px 8%;
+    padding: 0px 8%;
 
     display: flex;
-    flex-direction: column;
     justify-content: space-between;
     align-items: center;
+
+    flex-direction: row;
 
     gap: 2rem;
 }
@@ -19,6 +19,7 @@ footer {
     width: 100%;
     flex: 1;
     max-width: 500px;
+    margin: 20px 0px;
 }
 
 .social {}
@@ -44,12 +45,5 @@ footer {
 
     &:hover {
         opacity: 1;
-    }
-}
-
-@media screen and (min-width: map-get($breakpoints, sm))
-{
-    footer {
-        flex-direction: row;
     }
 }
