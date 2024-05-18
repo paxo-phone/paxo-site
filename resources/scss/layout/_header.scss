@@ -18,7 +18,7 @@ body{
   justify-content: space-between;
   align-items: center;
   transition: all $transition-duration cubic-bezier(.5,0,0,1);
-  background: linear-gradient(180deg, rgba(0, 0, 0, 0.5) 0%, rgba(0, 0, 0, 0) 100%);
+  background: transparent;
   z-index: 2;
   position: fixed;
   top: 0;
