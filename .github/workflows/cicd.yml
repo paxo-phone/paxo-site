@@ -30,12 +30,12 @@ jobs:
           docker build . --tag ghcr.io/paxo-phone/paxo-site:latest
           docker push ghcr.io/paxo-phone/paxo-site:latest
       
-      - name: Execute update script on remote server
-        env:
-          SSH_USERNAME: ${{ secrets.SSH_USERNAME }}
-          SSH_PASSWORD: ${{ secrets.SSH_PASSWORD }}
-          SSH_HOST: ${{ secrets.SSH_HOST }}
-        run: |
-          sudo apt-get update -y
-          sudo apt-get install -y sshpass
-          sshpass -p $SSH_PASSWORD ssh -o StrictHostKeyChecking=no $SSH_USERNAME@$SSH_HOST 'sh /home/debian/updatepaxosite.sh'
+#      - name: Execute update script on remote server
+#        env:
+#          SSH_USERNAME: ${{ secrets.SSH_USERNAME }}
+#          SSH_PASSWORD: ${{ secrets.SSH_PASSWORD }}
+#          SSH_HOST: ${{ secrets.SSH_HOST }}
+#        run: |
+#          sudo apt-get update -y
+#          sudo apt-get install -y sshpass
+#          sshpass -p $SSH_PASSWORD ssh -o StrictHostKeyChecking=no $SSH_USERNAME@$SSH_HOST 'sh /home/debian/updatepaxosite.sh'
