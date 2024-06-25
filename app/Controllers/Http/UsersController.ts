@@ -26,7 +26,8 @@ export default class UsersController {
     const password = request.input('password')
 
     try {
-      await auth.verifyCredentials(login, password)
+      const user = await auth.verifyCredentials(login, password)
+      await auth.login(user)
       response.redirect().toRoute("dash")
     } catch {
       session.flash({ error: 'Invalid credentials' })

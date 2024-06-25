@@ -135,7 +135,7 @@ if (process.env.NODE_ENV == "development") {
     session.flash({ success: "Made " + user?.username + " an admin." })
 
     return response.redirect().back()
-  }).middleware(['auth', 'authAdmin'])
+  })
 
 }
 
