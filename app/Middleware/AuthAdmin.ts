@@ -15,6 +15,6 @@ export default class AuthAdmin {
     }
 
     // If everything is okay, proceed to the next middleware or route
-    await next()
+    next()
   }
 }

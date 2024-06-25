@@ -14,7 +14,7 @@ export default class AuthMiddleware {
   /**
    * The URL to redirect to when request is Unauthorized
    */
-  protected redirectTo = '/auth'
+  protected redirectTo = '/'
 
   /**
    * Authenticates the current HTTP request against a custom set of defined
@@ -72,7 +72,7 @@ export default class AuthMiddleware {
      */
     const guards = customGuards.length ? customGuards : [auth.name]
     await this.authenticate(auth, guards)
-    view.share({ admin: auth.user?.type == UserType.ADMIN })
+    view.share({ admin: auth.user?.type == UserType.ADMIN, user: auth.user })
     await next()
   }
 }

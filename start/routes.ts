@@ -58,38 +58,29 @@ Route.group(() => {
  * ----------------------------------------------
  */
 Route.group(() => {
-   Route.group(() => {
-     Route.get('/', 'UsersController.index')
-       .as('auth')
-     Route.post('/', 'UsersController.check')
-       .as('auth.post')
+  Route.get('/register', 'UsersController.register')
+    .as('auth.register')
+  Route.post('/register', 'UsersController.store')
+    .as('auth.register.post')
 
-     Route.get('/register', 'UsersController.register')
-       .as('auth.register')
-     Route.post('/register', 'UsersController.store')
-       .as('auth.register.post')
+  Route.get('/login', 'UsersController.login')
+    .as('auth.login')
+  Route.post('/login', 'UsersController.loginProcess')
+    .as('auth.login.post')
 
-     Route.get('/login', 'UsersController.login')
-       .as('auth.login')
-     Route.post('/login', 'UsersController.loginProcess')
-       .as('auth.login.post')
-
-     Route.get('/complete', 'UsersController.complete')
-       .as('auth.complete')
-   }).middleware('authFlow')
-
-   Route.post('/logout', 'UsersController.logoutProcess')
-     .as('auth.logoutProcess')
- }).prefix('/auth')
+  Route.post('/logout', 'UsersController.logoutProcess')
+    .as('auth.logoutProcess')
+    .middleware("auth")
+}).prefix('/auth')
 
 /**
  * ----------------------------------------------
  * Dashboard
  * ----------------------------------------------
  */
-Route.get('/dashboard', 'DashboardController.index')
-   .middleware('auth')
-   .as('dashboard')
+Route.get('/dash', 'DashboardController.index')
+  .middleware('auth')
+  .as('dash')
 
 /**
  * ----------------------------------------------
@@ -134,17 +125,17 @@ if (process.env.NODE_ENV == "development") {
      return response.redirect().back()
    })*/
   Route.get('/setAsAdmin/:uid', async ({ params, response, session }: HttpContextContract) => {
-     const user = await User
-       .query()
-       .where('id', params.uid)
+    const user = await User
+      .query()
+      .where('id', params.uid)
       .firstOrFail()
-     user.type = UserType.ADMIN
-     user.save()
+    user.type = UserType.ADMIN
+    user.save()
 
-     session.flash({ success: "Made " + user?.username + " an admin." })
+    session.flash({ success: "Made " + user?.username + " an admin." })
 
     return response.redirect().back()
-   }).middleware(['auth', 'authAdmin'])
+  }).middleware(['auth', 'authAdmin'])
 
 }
 
