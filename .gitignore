@@ -5,8 +5,11 @@ coverage
 .DS_STORE
 .env
 tmp
+.yarn
 
+.yarnrc.yml
 resources/css/styles.css
 resources/css/styles.css.map
 public/assets
 package-lock.json
+yarn.lock

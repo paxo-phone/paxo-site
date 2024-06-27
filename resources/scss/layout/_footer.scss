@@ -1,45 +1,49 @@
 /* footer */
 
 footer {
-    min-height: 10vh;
-    background: #0A0A0A;
+    background: #153029;
     color: #fff;
-    padding: 5%;
+    padding: 0px 8%;
 
     display: flex;
-    flex-direction: column;
-    justify-content: center;
+    justify-content: space-between;
     align-items: center;
+
+    flex-direction: row;
 
     gap: 2rem;
 }
 
-footer > *
-{
-    flex: 1 1 0;
+.footer-text {
+    font-size: 14px;
+    width: 100%;
+    flex: 1;
+    max-width: 500px;
+    margin: 20px 0px;
 }
 
 .social {}
 
 .social ul {
     display: flex;
-    justify-content: center;
+    justify-content: flex-end;
     align-items: center;
     flex-direction: row;
-    gap: 1.4rem;
+    gap: 1.5rem;
+    width: fit-content;
 }
 
 
 .social ul li a {
     text-decoration: none;
     color: white;
-    font-size: 40px;
+    font-size: 26px;
     cursor: pointer;
-}
+    opacity: 0.5;
 
-@media screen and (min-width: map-get($breakpoints, sm))
-{
-    footer {
-        flex-direction: row;
+    transition: all 0.3s ease;
+
+    &:hover {
+        opacity: 1;
     }
 }

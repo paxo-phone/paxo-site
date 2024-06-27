@@ -9,6 +9,7 @@ html, body {
     color: $fg-color;
     font-family: $body-font-family;
     font-size: $body-font-size;
+    scroll-behavior: smooth;
 }
 
 @media screen and (min-width: map-get($breakpoints, md)) {

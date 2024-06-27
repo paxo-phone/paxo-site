@@ -1,0 +1,33 @@
+/* sections */
+
+.section-title {
+  font-weight: 600;
+  font-size: 1.7rem;
+}
+
+.section-text {
+  font-size: 0.9rem;
+  line-height: 1.3rem;
+  font-weight: 400;
+  opacity: 0.8;
+}
+
+.section-btn {
+  display: flex;
+  gap: 16px;
+  align-items: center;
+  justify-content: center;
+  color: #fff;
+  border: 2px solid #fff;
+  border-radius: 0px;
+  padding: 10px 18px;
+  font-size: 0.9rem;
+  transition: all 0.3s ease;
+  animation: button-pulse 1.5s infinite;
+  width: fit-content;
+
+  &:hover {
+    background-color: #fff;
+    color: #000;
+  }
+}

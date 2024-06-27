@@ -14,13 +14,30 @@
 <!-- splidejs -->
 <script src=" https://cdn.jsdelivr.net/npm/@splidejs/splide@4.1/dist/js/splide.min.js "></script>
 <link href=" https://cdn.jsdelivr.net/npm/@splidejs/splide@4.1/dist/css/splide.min.css " rel="stylesheet">
+<script src="https://unpkg.com/scrollreveal"></script>
 @endsection
 
 @section('content')
-<section class="block h-80" style="background-image: url(/img/nature.jpeg); ">
-  <h1 style="max-width: 370px" class="h1 text-center text-white presentation">{{ t("ui.index.title")
-    }}
-  </h1>
+<section class="block title-container justify-center md:justify-start" style="background-image: url(/img/nature.jpeg); ">
+  <div class="cta-title">
+    <h1 class="over_title reveal-over_title">
+      {{ t("ui.index.header.over_title")}}
+    </h1>
+
+    <h1 class="title reveal-title">
+      {{ t("ui.index.header.title")}}
+    </h1>
+
+    <p class="description reveal-description">
+      {{ t("ui.index.header.description")}}
+    </p>
+
+    <a href="#section-open" class="button reveal-button">
+      <i class="fas fa-chevron-down"></i>
+
+      <p>{{ t("ui.index.header.more_info")}}</p>
+    </a>
+  </div>
 </section>
 
 <!-- Citations -->
@@ -32,7 +49,7 @@
     <div class="splide__track">
       <ul class="splide__list">
         <li class="splide__slide">
-          <figure class="px-1 md:px-5">
+          <figure class="testimonial reveal-testimonial px-1 md:px-5">
             <blockquote>Certes, le Paxo Phone ne peut pas être fabriqué sans quelques connaissances techniques ! Mais
               après tout, personne n’a dit que concevoir un smartphone était une tâche élémentaire. Ce projet est,
               indéniablement, un nouveau chemin dans le monde des smartphones. Laissons-nous alors rêver quelques
@@ -41,7 +58,7 @@
           </figure>
         </li>
         <li class="splide__slide">
-          <figure class="px-1 md:px-5">
+          <figure class="testimonial reveal-testimonial px-1 md:px-5">
             <blockquote>Un jeune passionné, quelques dizaines d’euros, un code source, des plans partagés librement…
               voilà la recette efficace, rapide et simple mise en place par Gabriel Rochet pour son Paxo Phone. Ce
               téléphone DIY (Do It Yourself) veut aider à faire prendre conscience de notre approche des smartphones et
@@ -50,7 +67,7 @@
           </figure>
         </li>
         <li class="splide__slide">
-          <figure class="px-1 md:px-5">
+          <figure class="testimonial reveal-testimonial px-1 md:px-5">
             <blockquote>À seulement 15 ans, Gabriel Rochet a réussi l’exploit de créer son propre téléphone mobile à un
               prix dérisoire : 30 euros. Avec seulement un fer à souder, un four et quelques pièces commandées sur
               Internet, il est possible d’assembler son propre Paxo Phone chez soi.</blockquote>
@@ -65,43 +82,46 @@
 </section>
 
 <!-- Libre -->
-<section class="block justify-center md:justify-end h-50 md:h-80" style="background-image: url(/img/code.jpeg);">
+<section id="section-open" class="block justify-center md:justify-end h-50 md:h-80" style="background-image: url(/img/code.jpeg);">
 
   <div class="md:w-50 text-white flex flex-col gap-2">
-    <h2 class="h1">{{ t("ui.index.block1.title") }}</h2>
+    <h2 class="h1 section-title reveal-section-title">{{ t("ui.index.block1.title") }}</h2>
 
-    <p>{{ t("ui.index.block1.p1") }}</p>
-    <p>{{ t("ui.index.block1.p2") }}</p>
+    <p class="section-text reveal-section-text">{{ t("ui.index.block1.p1") }}</p>
+    <p class="section-text reveal-section-text">{{ t("ui.index.block1.p2") }}</p>
 
-    <a class="btn btn-white btn-inverted" href="/contribute">{{ t("ui.header.contribute") }}</a>
+    <a class="section-btn" href="/contribute">
+      <i class="fas fa-hands-helping"></i>
+      {{ t("ui.header.contribute") }}
+    </a>
   </div>
 
 </section>
 
 <!-- Modulaire -->
-<section class="block justify-center md:justify-start h-50 md:h-80">
+<section id="section-modular" class="block justify-center md:justify-start h-50 md:h-80">
 
   <div class="md:w-50 flex flex-col gap-2">
-    <h2 class="h1">{{ t("ui.index.block2.title") }}</h2>
-    <p>{{ t("ui.index.block2.p") }}</p>
+    <h2 class="h1 section-title reveal-section-title">{{ t("ui.index.block2.title") }}</h2>
+    <p class="section-text reveal-section-text">{{ t("ui.index.block2.p") }}</p>
   </div>
 
 </section>
 
 <!-- Pédagogique -->
-<section class="block justify-center md:justify-end h-50 md:h-80" style="background-image: url(/img/ecology.jpeg);">
+<section id="section-pedagogique" class="block justify-center md:justify-end h-50 md:h-80" style="background-image: url(/img/ecology.jpeg);">
 
   <div class="md:w-50 text-white flex flex-col gap-2">
-    <h2 class="h1">{{ t("ui.index.block3.title") }}</h2>
-    <p>{{ t("ui.index.block3.p1") }}</p>
-    <p>{{ t("ui.index.block3.p2") }}</p>
+    <h2 class="h1 section-title reveal-section-title">{{ t("ui.index.block3.title") }}</h2>
+    <p class="section-text reveal-section-text">{{ t("ui.index.block3.p1") }}</p>
+    <p class="section-text reveal-section-text">{{ t("ui.index.block3.p2") }}</p>
   </div>
 
 </section>
 
 <!-- Gallerie -->
 
-<section class="gallery">
+<section id="section-gallery" class="gallery">
 
   <div class="gallery-grid">
     <img src="/img/paxo-1.jpeg" alt="Image du téléphone de face posé verticalement sur une table en bois." srcset="">
