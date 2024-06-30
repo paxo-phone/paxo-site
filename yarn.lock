@@ -6211,9 +6211,9 @@ node-repl-await@^0.1.2:
     acorn-walk "^8.0.2"
 
 nodemailer@^6.9.1:
-  version "6.9.4"
-  resolved "https://registry.npmjs.org/nodemailer/-/nodemailer-6.9.4.tgz"
-  integrity sha512-CXjQvrQZV4+6X5wP6ZIgdehJamI63MFoYFGGPtHudWym9qaEHDNdPzaj5bfMCvxG1vhAileSWW90q7nL0N36mA==
+  version "6.9.14"
+  resolved "https://registry.yarnpkg.com/nodemailer/-/nodemailer-6.9.14.tgz#845fda981f9fd5ac264f4446af908a7c78027f75"
+  integrity sha512-Dobp/ebDKBvz91sbtRKhcznLThrKxKt97GI2FAlAyy+fk19j73Uz3sBXolVtmcXjaorivqsbbbjDY+Jkt4/bQA==
 
 nopt@^5.0.0:
   version "5.0.0"
