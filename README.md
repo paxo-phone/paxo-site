@@ -27,6 +27,7 @@ Don't forget to add all your environment variables !
 You must prepare the environement first:
 ```sh
 yarn install
+mkdir tmp
 node ace migration:run
 cp .env.example .env # Consider editing it before launching
 ```
