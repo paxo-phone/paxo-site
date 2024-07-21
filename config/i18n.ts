@@ -77,8 +77,8 @@ const i18nConfig: I18nConfig = {
   |
   |
   */
-  fallback() {
-    return ""
+  fallback(id) {
+    return id
   },
 
   /*

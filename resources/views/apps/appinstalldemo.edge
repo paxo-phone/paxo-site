@@ -1,0 +1,18 @@
+@!layout('base/main')
+
+@section('title')
+App install demo
+@endsection
+
+@section('content')
+<section class="container">
+  <input type="number" placeholder="App ID" id="appinstaller-appid">
+  <br>
+  <button id="appinstaller-launchbtn">Launch</button>
+  <p><span id="appinstaller-report"></span></p>
+</section>
+@endsection
+
+@section('script')
+@entryPointScripts('appinstaller')
+@endsection
