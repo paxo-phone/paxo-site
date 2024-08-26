@@ -1,0 +1,23 @@
+@!layout('base/main-dash')
+
+@section('title')
+Settings
+@endsection
+
+@section('content')
+<p>
+<h1>Profil</h1>
+<form method="post" action="/dash/edit/profile" enctype="multipart/form-data">
+  <div>
+    <label for="name">Nom d'utilisateur:</label> <input type="text" name="name" value="{{ user.name }}">
+  </div>
+  <div>
+    <label for="picture">Photo de profil: <img src="{{ user.picture }}" /></label> <input type="file" name="picture"
+      value="{{ user.name }}">
+  </div>
+  <div>
+    <input type="submit" value="Envoyer">
+  </div>
+</form>
+</p>
+@endsection

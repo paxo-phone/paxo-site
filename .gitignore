@@ -9,4 +9,6 @@ tmp
 resources/css/styles.css
 resources/css/styles.css.map
 public/assets
+
+*apps.googleusercontent.com.json
 package-lock.json

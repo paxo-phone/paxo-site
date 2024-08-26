@@ -43,6 +43,5 @@ Server.middleware.register([
 */
 Server.middleware.registerNamed({
   auth: () => import('App/Middleware/Auth'),
-  silentAuth: () => import('App/Middleware/SilentAuth'),
-  authAdmin: () => import('App/Middleware/AuthAdmin'),
+  silentAuth: () => import('App/Middleware/SilentAuth')
 })

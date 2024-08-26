@@ -1,19 +1,23 @@
 import type { HttpContextContract } from '@ioc:Adonis/Core/HttpContext'
 import { LucidModel } from '@ioc:Adonis/Lucid/Orm'
 import { randomBytes } from 'node:crypto'
-import Drive from '@ioc:Adonis/Core/Drive'
-import axios from "axios"
+import axios from 'axios'
 
 import Tutorial from 'App/Models/Tutorial'
 import PressArticle from 'App/Models/PressArticle'
 import Project from 'App/Models/Project'
 import File from 'App/Models/File'
+import App from 'App/Models/App'
+import User from 'App/Models/User'
+import AdminController from './AdminController'
 
 export const models: { [key: string]: LucidModel } = { // Models available in the admin panel
   Tutorial,
   PressArticle,
   Project,
-  File
+  File,
+  App,
+  User
 }
 
 export default class AdminModelController {
@@ -40,7 +44,7 @@ export default class AdminModelController {
     })
   }
 
-  public async createProcess({ params, response, request }: HttpContextContract) {
+  public async createProcess({ params, response, request, session }: HttpContextContract) {
     const data = request.body()
 
     const file = request.file('file')
@@ -52,7 +56,14 @@ export default class AdminModelController {
       data.file = filename
     }
 
-    const item = await models[params.model].create(data)
+    let item
+    try {
+      item = await models[params.model].create(data)
+    } catch (e) {
+      console.log(e)
+      session.flash({ error: e })
+      return response.redirect().back()
+    }
 
     return response.redirect().toRoute('adminPanel.model.view', {
       model: params.model,
@@ -71,7 +82,9 @@ export default class AdminModelController {
     return response.status(201)
   }
 
-  public async view({ params, view }: HttpContextContract) {
+  public async view({ params, view, bouncer }: HttpContextContract) {
+    await AdminController.checks(bouncer)
+
     const item = await models[params.model].query()
       .where('id', params.id)
       .firstOrFail()
@@ -95,19 +108,12 @@ export default class AdminModelController {
   }
 
   public async updateProcess({ bouncer, params, response, request }: HttpContextContract) {
+    await AdminController.checks(bouncer)
+
     const body = request.body()
     const item = await models[params.model].query()
       .where('id', params.id)
       .firstOrFail()
-
-    // If user is editing a User, change the authorize rule (custom rule for user editing)
-    if (!process.env.UNSAFE_ADMIN_PANEL) {
-      if (params.model == "User") {
-        await bouncer.authorize('editUserOnAdminPanel', item)
-      } else {
-        await bouncer.authorize('editModelOnAdminPanel', item)
-      }
-    }
 
     const file = request.file('file')
     if (file) {
@@ -115,23 +121,6 @@ export default class AdminModelController {
       await file.moveToDisk('/', {
         name: item.$getAttribute('file'),
       })
-
-      //Invalidate cloudflare cache
-      if (process.env.CLOUDFLARE_TOKEN) cf_invalidate(await Drive.getUrl(item.$getAttribute('file')))
-
-    }
-
-    // Convert keys case (dirty)
-    for (const key of Object.keys(body)) {
-      if (key.indexOf("_") != -1) {
-        let index = 0
-        let newkey = key
-        while ((index = newkey.indexOf("_", index)) != -1) {
-          console.log(index)
-          newkey = newkey.replace("_" + key[index + 1], key[index + 1].toUpperCase())
-        }
-        body[newkey] = body[key]
-      }
     }
 
     await Object.assign(item, body).save()
@@ -143,18 +132,10 @@ export default class AdminModelController {
   }
 
   public async deleteProcess({ bouncer, params, response }: HttpContextContract) {
+    await AdminController.checks(bouncer)
     const item = await models[params.model].query()
       .where('id', params.id)
       .firstOrFail()
-
-    // If user is editing a User, change the authorize rule (custom rule for user editing)
-    if (!process.env.UNSAFE_ADMIN_PANEL) {
-      if (params.model == "User") {
-        await bouncer.authorize('editUserOnAdminPanel', item)
-      } else {
-        await bouncer.authorize('editModelOnAdminPanel', item)
-      }
-    }
 
     await item.delete()
     return response.redirect().toRoute('adminPanel.model.index', {

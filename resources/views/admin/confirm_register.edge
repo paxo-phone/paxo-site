@@ -1,0 +1,23 @@
+@!layout('base/main')
+
+@section('title')
+Admin panel
+@endsection
+
+@section('content')
+<section class="container">
+<h1>Admin panel</h1>
+
+<ul>
+  <form method="post">
+    @each((value, key) in user_object)
+    <label for="{{ key }}-input">{{key}}: </label><input name="{{ key }}" id="{{ key }}-input" value="{{value}}">
+    @end
+    <label for="admin-chk">Is admin: </label><input type="checkbox" name="admin" id="admin-chk">
+    <label for="mod-chk">Is mod: </label><input type="checkbox" name="mod" id="mod-chk">
+    <label for="verified-chk">Is verified: </label><input type="checkbox" name="verified" id="verified-chk">
+    <input type="submit" value="Confirm">
+  </form>
+</ul>
+</section>
+@endsection

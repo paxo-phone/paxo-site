@@ -1,0 +1,14 @@
+@!layout('base/main')
+
+@section('title')
+Complete registration
+@endsection
+
+@section('content')
+<section class="container">
+@if(confirm_jwt)
+Pour l'instant, la création de compte est restrainte à des utilisateurs approuvés.
+Token de confirmation: {{ confirm_jwt }}
+@end
+</section>
+@endsection

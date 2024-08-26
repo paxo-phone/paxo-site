@@ -31,22 +31,22 @@ index:
       means that it gives everyone the freedom to use, study, adapt and redistribute the plans and the
       telephone source code (in a non-commercial context).
     p2: |
-      This free dimension of the project gives a central place to the community, which mainly helps to
+      This free dimension of the project gives a central place in the community, which mainly helps to
       develop the project.
   block2:
     title: Modular
     p: |
-      The free dimension of the project also favors modularity. Anyone can - by modifying the software and
+      The free dimension of the project also favours modularity. Anyone can - by modifying the software and
       equipment made available - adapt the operation of the telephone to your needs, whatever they may be.
       The phone then allows everyone to design a wide variety of objects on a solid and stable base.
   block3:
     title: Educational
     p1: |
       The free and modular dimension of the project makes it an ideal educational object. The plans and code made
-      available allow everyone to study the operation of a modern smartphone and the modularity allows
-      them to practice electronics and computing on a concrete case and in a wide variety of situations. The project
-      also covers other fundamental aspects in the design of such an object, whether it is the design, the
-      3D modeling or printing.
+      available to allow everyone to study the operation of a modern smartphone and the modularity allows
+      them to practise electronics and computing on a concrete case and in a wide variety of situations. The project
+      also covers other fundamental aspects of the design of such an object, whether it is the design, the
+      3D modelling or printing.
     p2: |
       The free dimension of the project also aims to raise awareness of the issues surrounding freedom in the digital world.
       In the same way, the modular dimension wishes to raise awareness of the problem of the repairability of electronic devices.
@@ -54,7 +54,7 @@ index:
     title: History
     p: |
       Three years ago I started the Paxo project in order to create useful devices, which can be made by everyone (DIY - "Do It Yourself")
-      on an open-source model (Free of Rights), by optimizing the components of way to preserve the planet as much as possible! At 15 I made
+      on an open-source model (Free of Rights), by optimizing the components of ways to preserve the planet as much as possible! At 15 I made
       my first working phone (I am now 16). The electronic circuits, software code and 3D printing models I designed are all available through
       this site. With this approach I hope that everyone will want to create and share their own inventions!
     contact: Contact us
@@ -80,8 +80,8 @@ contribute:
   title: Contribute
   subtitle: |
     The free / open source nature of the project invite each user to contribute to it.
-    On this page you will find the operationg documentation for the telephone as well as instructions
-    for you to participate on this vast project.
+    On this page you will find the operating documentation for the telephone as well as instructions
+    for you to participate in this vast project.
   cards:
     - title: Hardware
       description: |
@@ -141,3 +141,23 @@ about:
     p: Today, thanks to the media coverage of the project, a community is actively involved in the project. Paxo is divided into several teams
       to distribute the work of hardware, software, design and communication.
 
+
+
+marketplace:
+  title: Applications
+  indexCategory: Populaire
+  category:
+    - Productivité
+    - Utilitaire
+    - Communication
+    - Jeux
+    - Multimedia
+    - Divers
+  resultsFor: 'Resultats pour «{ query }»'
+
+dashboard:
+  pages:
+    yourapps: Apps publiés
+    profile: Profil
+    security: Sécurité
+    contact: Contact

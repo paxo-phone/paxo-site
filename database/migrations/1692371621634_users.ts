@@ -1,5 +1,4 @@
 import BaseSchema from '@ioc:Adonis/Lucid/Schema'
-import { UserType } from 'App/Models/User'
 
 export default class extends BaseSchema {
   protected tableName = 'users'
@@ -11,7 +10,7 @@ export default class extends BaseSchema {
       table.string('username', 128).notNullable().unique()
       table.string('email', 255).notNullable().unique()
       table.string('password', 180).notNullable()
-      table.enum('type', Object.values(UserType)).defaultTo(UserType.DEFAULT)
+      table.enum('type', [0, 1]).defaultTo(0)
 
       /**
        * Uses timestamptz for PostgreSQL and DATETIME2 for MSSQL

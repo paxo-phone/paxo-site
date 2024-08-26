@@ -1,0 +1,96 @@
+.form-login {
+  margin-bottom: 40vh;
+}
+
+#h2-form {
+  font-size: 25px;
+  color: #39BC9B;
+  margin: auto;
+  text-align: center;
+}
+
+.breakup {
+  width: 11%;
+  padding: 1px;
+  margin: auto;
+  margin-top: 2%;
+  margin-bottom: 2%;
+  background-color: rgba(0, 0, 0, 0.1)
+}
+
+// TOFIX: triggers header display bug. Must be precised
+// i{
+//   height:100vh;
+// }
+.btn-submit,
+.btn-account {
+  font-size: 16px;
+  margin-top: 1rem;
+  border-radius: 10px;
+  padding: 1rem;
+  font-family: inherit;
+  color: white;
+  background-color: #39BC9B;
+  border: white 2px solid;
+  text-align: center;
+}
+
+.div-signin-plat {
+  display: flex;
+  justify-content: center;
+}
+
+.btn-signin-plat {
+  font-size: 16px;
+  margin: 1rem;
+  border-radius: 10px;
+  padding: 1.5vh 1.5vh 1.5vh 1.5vh;
+  font-family: inherit;
+  color: white;
+  background-color: #39BC9B;
+  border: #39BC9B 2px solid;
+  display: flex;
+  justify-content: space-around;
+}
+
+
+
+.btn-submit:hover,
+.btn-signin-plat:hover,
+.btn-account:hover {
+  background-color: #89D5C0;
+  border-color: #89D5C0;
+}
+
+#a-register {
+  margin: 2%;
+  color: #89D5C0;
+  display: flex;
+  justify-content: center;
+
+}
+
+#a-register:hover {
+  color: #88E3CB;
+}
+
+#btn-oauth {
+  margin-left: 0;
+}
+
+#username-feedback {
+  margin: 10px;
+}
+
+.arrow {
+  border: solid black;
+  border-width: 0 3px 3px 0;
+  display: inline-block;
+  padding: 3px;
+  height: 100px;
+  align-items: center;
+}
+  .left {
+  transform: rotate(135deg);
+  -webkit-transform: rotate(135deg);
+}

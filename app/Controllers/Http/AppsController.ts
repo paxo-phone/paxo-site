@@ -1,5 +1,5 @@
 import type { HttpContextContract } from '@ioc:Adonis/Core/HttpContext'
-import App from '../../Models/App'
+import App, { AppCategory } from '../../Models/App'
 import { string } from '@ioc:Adonis/Core/Helpers'
 
 export default class AppsController {
@@ -27,6 +27,14 @@ export default class AppsController {
     }
 
     return view.share({
+      appCategories: [
+        AppCategory.PRODUCTIVITY,
+        AppCategory.UTILITIES,
+        AppCategory.COMMUNICATION,
+        AppCategory.GAMES,
+        AppCategory.MULTIMEDIA,
+        AppCategory.OTHER
+      ],
       category: cat,
       apps,
       query
@@ -61,11 +69,11 @@ export default class AppsController {
       imgUrl = process.env.ACCESS_ADDRESS + "/uploads/appicons/" + filename
     }
 
-    await App.create({
+    let newApp = App.create({
       userId: auth.user.id,
       name: data.name,
       desc: data.desc,
-      image: imgUrl,
+      image: data.image,
       source_url: data.source_url,
       releases: data.releases,
       category: data.categories

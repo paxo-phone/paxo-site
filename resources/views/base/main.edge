@@ -27,7 +27,7 @@
 
 <body>
 
-  @!component('base/header')
+  @!include('base/header')
 
   <main>
     @!include('components/flash')
@@ -35,8 +35,8 @@
   </main>
   <footer>
     <p class="text-center">
-      {{ t("ui.footer.contributions") }} <a style="color: white; text-decoration: underline;" href="/contributors">{{
-        t("ui.footer.link_text")}}</a>
+      {{ t("ui.footer.contributions") }} <a style="color: white; text-decoration: underline;"
+        href="/contributors">{{ t("ui.footer.link_text")}}</a>
     </p>
     <div class="social">
       <ul>

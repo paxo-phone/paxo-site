@@ -82,7 +82,7 @@
 <section class="block justify-center md:justify-start h-50 md:h-80">
 
   <div class="md:w-50 flex flex-col gap-2">
-    <h2 class="h1">{{ t("ui.index.block2.title") }}</h2>
+    <h2 class="h1 blk">{{ t("ui.index.block2.title") }}</h2>
     <p>{{ t("ui.index.block2.p") }}</p>
   </div>
 
@@ -117,24 +117,23 @@
 
 <script>
   // nav bg
-    let header = document.querySelector(".header")
-    header.classList.add("header-white")
-    header.classList.add("header-floating")
+  let header = document.querySelector(".header")
+  header.classList.add("header-white")
+  header.classList.add("header-floating")
 
-    // slider
-    document.addEventListener( 'DOMContentLoaded', () =>
-    {
-        var splide = new Splide( '.splide', {
-            mediaQuery: 'min',
-            arrows: false,
-            breakpoints: {
-                768: {
-                    arrows: true,
-                },
-            }
-        });
+  // slider
+  document.addEventListener('DOMContentLoaded', () => {
+    var splide = new Splide('.splide', {
+      mediaQuery: 'min',
+      arrows: false,
+      breakpoints: {
+        768: {
+          arrows: true,
+        },
+      }
+    });
 
-        splide.mount();
-    } );
+    splide.mount();
+  });
 </script>
 @endsection
