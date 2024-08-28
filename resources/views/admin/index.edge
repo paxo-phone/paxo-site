@@ -5,19 +5,17 @@ Admin panel
 @endsection
 
 @section('content')
-<section class="container">
-<h1>Admin panel</h1>
-
-<ul>
-  @each(model in models)
-  <li><a href="{{ route('adminPanel.model.index', {model: model}) }}">{{ model }}</a></li>
-  @endeach
-</ul>
-
-<form action="{{ route('adminPanel.confirmRegister') }}" method="get">
-  <input type="text" name="user_object">
-  <input type="submit" value="Send">
-</form>
+<section style="background-color: #fff; padding: 20px; border-radius: 8px; box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); width: 80%; max-width: 600px; text-align: center; margin-top: 150px; margin-left: auto; margin-right: auto;">
+  <h1 style="color: #333; font-size: 24px; margin-bottom: 20px;">Admin panel</h1>
+  <ul style="list-style-type: none; padding: 0;">
+      <!-- Assuming @each is handled server-side and generates proper HTML -->
+      @each(model in models)
+      <li style="margin: 10px 0;">
+          <a href="{{ route('adminPanel.model.index', {model: model}) }}" style="color: #007BFF; text-decoration: none; font-size: 18px;">
+              {{ model }}
+          </a>
+      </li>
+      @endeach
+  </ul>
 </section>
 @endsection
-

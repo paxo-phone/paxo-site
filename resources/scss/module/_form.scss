@@ -1,48 +1,48 @@
-input:not([type="file"]),
+form
+{
+  max-width: map-get($breakpoints, sm);
+  width: 100%;
+  margin: 0 auto;
+  padding: 2rem;
+}
+
+input,
 textarea,
-select {
-  padding: 0.25rem;
-  border: 1px solid darkgray;
-  border-radius: 0.3rem;
+select,
+label
+{
+  font-family: inherit;
+  font-size: 1rem;
+  display: block;
+  width: 100%;
 }
 
-input:not([type="submit"]):not([type="file"]):not(.search) {
-  min-width: 15rem;
+label 
+{ 
+  margin-bottom: .5rem;
 }
 
-input.search {
-  min-width: none;
-  width: 10rem;
-  border: none;
+input,
+textarea,
+select
+{
+  padding: 1rem;
+  margin-bottom: 1.5rem;
+  border: lightgray 2px solid;
 }
 
-input.search:focus {
-  outline: none;
-}
-
-.post-search {
-  height: 2px;
-  background-color: black;
-
-  margin-bottom: 5%;
-}
-
-input[type="submit"] {
-  border-color: #39ba99;
-  background: #39ba99;
-  color: black;
+input[type="submit"]
+{
+  border-color: black;
+  background: black;
+  color: white;
   cursor: pointer;
+  
   transition-duration: .1s;
-
+  
   &:hover {
-    background: #2a977c;
+    background: white;
+    color: black;
   }
-}
 
-.searchform>input[type="submit"] {
-  display: none;
-}
-
-form>div {
-  margin: 2px;
 }

@@ -6,12 +6,9 @@ Admin panel - {{ model }} / {{ item.id }} / view
 
 @section('content')
 <section class="container">
-<h1>Admin panel - {{ model }} / {{ item.id }} / view</h1>
 
-<div>
-  <a href="{{ route('adminPanel.model.update', {model: model, id: item.id}) }}">Update</a>
-  <a
-    onclick="if(confirm('Are you sure you want to delete this {{ model }}?')) {window.location = `{{ route('adminPanel.model.delete', {model: model, id: item.id}) }}`}">Delete</a>
+  <h1>Admin panel - {{ model }} / {{ item.id }} / view</h1>
+
   <div>
     <a href="{{ route('adminPanel.model.update', {model: model, id: item.id}) }}">Update</a>
     <a
@@ -22,6 +19,5 @@ Admin panel - {{ model }} / {{ item.id }} / view
       @endeach
     </div>
   </div>
-</div>
 </section>
 @endsection

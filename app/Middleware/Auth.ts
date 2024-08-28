@@ -1,6 +1,7 @@
 import { AuthenticationException } from '@adonisjs/auth/build/standalone'
 import type { GuardsList } from '@ioc:Adonis/Addons/Auth'
 import type { HttpContextContract } from '@ioc:Adonis/Core/HttpContext'
+import { UserType } from 'App/Models/User'
 
 /**
  * Auth middleware is meant to restrict un-authenticated access to a given route
@@ -13,8 +14,7 @@ export default class AuthMiddleware {
   /**
    * The URL to redirect to when request is Unauthorized
    */
-  protected redirectTo = '/apps'
-
+  protected redirectTo = '/'
 
   /**
    * Authenticates the current HTTP request against a custom set of defined
@@ -72,9 +72,7 @@ export default class AuthMiddleware {
      */
     const guards = customGuards.length ? customGuards : [auth.name]
     await this.authenticate(auth, guards)
-    view.share({
-      user: auth.user
-    })
+    view.share({ admin: auth.user?.type == UserType.ADMIN, user: auth.user })
     await next()
   }
 }

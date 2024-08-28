@@ -30,6 +30,6 @@ export default class ExceptionHandler extends HttpExceptionHandler {
 
   async handle(_, ctx: HttpContextContract) {
     ctx.session.flash({ error: ctx.response.getStatus() })
-    return ctx.response.redirect('/')
+    return ctx.response.redirect().back()
   }
 }
