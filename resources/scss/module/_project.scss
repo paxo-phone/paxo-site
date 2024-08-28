@@ -1,43 +1,49 @@
 /* gallery */
 .projects {
-  width: 100%;
-  padding: 1rem 0;
+	width: 100%;
+	padding: 1rem 0;
 }
 
-.project {
-  display: flex;
-  gap: 2rem;
-  margin: 2rem 0;
+.project
+{
+	display: flex;
+	gap: 2rem;
+	margin: 2rem 0;
 }
 
-.project>* {
-  // flex: 1 1 0;
-  // width: 0;
+.project > * 
+{
+	// flex: 1 1 0;
+	// width: 0;
 }
 
-.project .project-img {
-  max-width: 400px;
-  width: 100%;
-  flex-shrink: 1;
+.project .project-img
+{
+	max-width: 400px;
+	width: 100%;
+	flex-shrink: 1;
 }
 
-.project-title {
-  font-weight: bold;
+.project-title
+{
+	font-weight: bold;
 }
 
-.project-body {
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  gap: 1rem;
+.project-body
+{
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+	gap: 1rem;
 }
 
-.project img {
-  display: none;
+.project img
+{
+	display: none;
 }
 
 @media screen and (min-width: map-get($breakpoints, sm)) {
-  .project img {
-    display: block;
-  }
+	.project img {
+		display: block;
+	}
 }

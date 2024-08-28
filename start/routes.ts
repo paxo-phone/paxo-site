@@ -19,9 +19,14 @@
  */
 
 import Route from '@ioc:Adonis/Core/Route'
-// ----------------------------------------------
-// Main routes
-// ----------------------------------------------
+import User, { UserType } from 'App/Models/User'
+import type { HttpContextContract } from '@ioc:Adonis/Core/HttpContext'
+
+/**
+ * ----------------------------------------------
+ * Main routes
+ * ----------------------------------------------
+ */
 Route.group(() => {
   Route.get('/', 'CoreController.index')
   Route.get('about', 'CoreController.about')
@@ -69,47 +74,45 @@ Route.group(() => {
 }).prefix('/apps')
   .middleware('silentAuth')
 
-// ----------------------------------------------
-// Auth
-// ----------------------------------------------
-Route.group(() => {
-  Route.get('/', 'UsersController.login')
-    .as('auth.login')
-  Route.get('/callback', 'UsersController.callback')
 
-  Route.get('/logout', 'UsersController.logout')
-    .as('auth.logout')
+/**
+ * ----------------------------------------------
+ * Auth
+ * ----------------------------------------------
+ */
+Route.group(() => {
+  Route.get('/register', 'UsersController.register')
+    .as('auth.register')
+  Route.post('/register', 'UsersController.store')
+    .as('auth.register.post')
+
+  Route.get('/login', 'UsersController.login')
+    .as('auth.login')
+  Route.post('/login', 'UsersController.loginProcess')
+    .as('auth.login.post')
+
+  Route.post('/logout', 'UsersController.logoutProcess')
+    .as('auth.logoutProcess')
+    .middleware("auth")
 }).prefix('/auth')
 
-// ----------------------------------------------
-// Dashboard
-// ----------------------------------------------
-Route.group(() => {
-  Route.get('/', 'DashboardController.index')
-    .as('dash')
-
-  Route.get('/profile', 'DashboardController.profile')
-    .as('dash.profile')
-
-  Route.group(() => {
-    Route.post('/profile', 'DashboardController.editProfile')
-      .as('dash.profile.edit')
-  }).prefix('/edit')
-})
+/**
+ * ----------------------------------------------
+ * Dashboard
+ * ----------------------------------------------
+ */
+Route.get('/dash', 'DashboardController.index')
   .middleware('auth')
-  .prefix('/dash')
+  .as('dash')
 
-// ----------------------------------------------
-// Marketplace
-// ----------------------------------------------
-const admin_panel = Route.group(() => {
+/**
+ * ----------------------------------------------
+ * Admin panel
+ * ----------------------------------------------
+ */
+Route.group(() => {
   Route.get('/', 'AdminController.index')
     .as('adminPanel.index')
-
-  Route.get('/confirm_register', 'AdminController.confirmRegister')
-    .as('adminPanel.confirmRegister')
-
-  Route.post('/confirm_register', 'AdminController.confirmRegisterProcess')
 
   Route.get('/:model', 'AdminModelController.index')
     .as('adminPanel.model.index')
@@ -130,12 +133,33 @@ const admin_panel = Route.group(() => {
   Route.get('/:model/i/:id/delete', 'AdminModelController.deleteProcess')
     .as('adminPanel.model.delete')
 })
+  .middleware(['auth', 'authAdmin'])
   .prefix('/admin-panel')
 
-if (process.env.UNSAFE_ADMIN_PANEL) {
-  console.warn("Unsafe admin panel enabled")
-} else {
-  admin_panel.middleware('auth')
+/**
+ * ----------------------------------------------
+ * Development environment
+ * ----------------------------------------------
+ */
+if (process.env.NODE_ENV == "development") {
+  /*Route.get('/loginAsUid/:uid', async ({ params, auth, response, session }: HttpContextContract) => {
+     await auth.loginViaId(params.uid)
+     session.flash({ success: "Logged in as " + auth.user?.username })
+     return response.redirect().back()
+   })*/
+  Route.get('/setAsAdmin/:uid', async ({ params, response, session }: HttpContextContract) => {
+    const user = await User
+      .query()
+      .where('id', params.uid)
+      .firstOrFail()
+    user.type = UserType.ADMIN
+    user.save()
+
+    session.flash({ success: "Made " + user?.username + " an admin." })
+
+    return response.redirect().back()
+  })
+
 }
 
 /**
