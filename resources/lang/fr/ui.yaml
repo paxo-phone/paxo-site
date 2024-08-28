@@ -107,6 +107,11 @@ tutorials:
   title: Tutoriels
   description: Vous trouverez les tutos pour la conception du PaxoPhone ainsi que les autres projets signés Paxo.
   last_update: Dernière mise à jour
+  cards:
+    - title: Comment monter son Paxophone ?
+      description: Vidéo explicative du montage du Paxophone.
+    - title: Oshwlab
+      description: Plan détaillé du hardware du Paxophone (PCB, Schematic Diagram).
 
 contributors:
   seo_description: Liste des contributeurs au projet Paxo.
@@ -156,3 +161,5 @@ about:
     p: Aujourd'hui, grâce à la médiatisation du projet, une communauté participe activement au projet. Paxo se divise en plusieurs équipes
       pour répartir le travail de l'hardware, du software, du design et de la communication.
 
+marketplace:
+  indexCategory: Marketplace

@@ -1,0 +1,52 @@
+@!layout('base/main-apps')
+
+@section('title')
+Create App
+@endsection
+
+@section('seo')
+<meta name="description" content="">
+<meta name="robots" content="noindex,nofollow">
+@endsection
+
+@section('content')
+@if(category)
+<h1 class="search-title">{{ t('ui.marketplace.category.' + category) }}</h1>
+@elseif(query)
+<h1 class="search-title">{{ t('ui.marketplace.resultsFor', {query}) }}</h1>
+@else
+<h1 class="search-title">{{ t('ui.marketplace.indexCategory') }}</h1>
+@end
+
+<form>
+  <div>
+    <input type='text' name='name' value='name'/>
+  </div>
+  <div>
+    <input type='text' name='desc' value='description'/>
+  </div>
+  <div>
+    <input type='file' name='image' value='image'/>
+  </div>
+  <div>
+    <input type='url' name='source_url' value='source url'/>
+  </div>
+  <div>
+    <input type='url' name='releases' value='release url'/>
+  </div>
+  <div>
+    <select name="categories" multiple>
+      <option value="productivity">productivity</option>
+      <option value="utilities">utilities</option>
+      <option value="communication">communication</option>
+      <option value="games">games</option>
+      <option value="multimedia">multimedia</option>
+      <option value="other">other</option>
+    </select>
+  </div>
+  <div>
+    <button type="submit">create</button>
+  </div>
+</form>
+
+@endsection
