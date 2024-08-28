@@ -143,12 +143,12 @@ export default class AdminModelController {
     })
   }
 }
-/*
+
 async function cf_invalidate(path: string) {
   axios.post('https://api.cloudflare.com/client/v4/zones/' + process.env.CLOUDFLARE_ZONE + '/purge_cache', {
     files: [
       process.env.ACCESS_ADDRESS + path
-   ]
+    ]
   }, {
     headers: {
       Authorization: 'Bearer ' + process.env.CLOUDFLARE_TOKEN,
@@ -165,4 +165,3 @@ async function cf_invalidate(path: string) {
       console.error(reason)
     })
 }
-*/
