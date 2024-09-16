@@ -27,8 +27,9 @@ Don't forget to add all your environment variables !
 You must prepare the environement first:
 ```sh
 yarn install
-node ace migration:run
+mkdir tmp
 cp .env.example .env # Consider editing it before launching
+node ace migration:run
 ```
 
 Then you can launch the website with a watchman:
@@ -49,11 +50,6 @@ yarn run dev
 |`DB_CONNECTION`|See supported databases in AdonisJS docs|
 |`MYSQL_*`|Configuration for MySQL, required if `DB_CONNECTION=mysql`. See AdonisJS docs|
 |`SMTP_*`|SMTP server configuration, see AdonisJS docs. Not used yet|
-|`GITHUB_CLIENT_ID`|Github client ID for OAuth|
-|`GITHUB_CLIENT_SECRET`|Github client secret for OAuth|
-|`GITHUB_APP_ID`|Github app ID for OAuth|
-|`GITHUB_APP_PRIVATE_KEY`|Private key for Github app authentication in PEM format|
-|`GITHUB_APP_PRIVATE_KEY_PATH`|Path to private key in PEM format. Must be set if `GITHUB_APP_PRIVATE_KEY` is not set.|
 |`ACCESS_ADDRESS`|URL where the server is reachable. Is used to build the Github redirect URI, and should not end with a `/`|
 
 # Contact

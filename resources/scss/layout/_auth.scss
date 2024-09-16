@@ -1,14 +1,24 @@
-.form-login {
-  margin-bottom: 40vh;
-}
-
-#h2-form {
+.h2-form {
   font-size: 25px;
   color: #39BC9B;
   margin: auto;
   text-align: center;
+  margin-top: 100px;
 }
 
+.form-auth{
+  padding: 2rem;
+  width:5vh;
+}
+
+input:not([type=file]), textarea, select {
+  padding: 2vh;
+  border: 2px solid darkgray;
+  border-radius: 0.3rem;
+  margin: 10px;
+
+}
+/*
 .breakup {
   width: 11%;
   padding: 1px;
@@ -16,14 +26,13 @@
   margin-top: 2%;
   margin-bottom: 2%;
   background-color: rgba(0, 0, 0, 0.1)
-}
+}*/
 
 // TOFIX: triggers header display bug. Must be precised
 // i{
 //   height:100vh;
 // }
-.btn-submit,
-.btn-account {
+.btn-submit, .btn-account {
   font-size: 16px;
   margin-top: 1rem;
   border-radius: 10px;

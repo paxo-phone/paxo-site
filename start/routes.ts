@@ -19,6 +19,9 @@
 */
 
 import Route from '@ioc:Adonis/Core/Route'
+import User, { UserType } from 'App/Models/User'
+import type { HttpContextContract } from '@ioc:Adonis/Core/HttpContext'
+
 
 // ----------------------------------------------
 // Main routes
@@ -72,13 +75,21 @@ Route.group(() => {
 // Auth
 // ----------------------------------------------
 Route.group(() => {
-  Route.get('/', 'UsersController.login')
-    .as('auth.login')
-  Route.get('/callback', 'UsersController.callback')
+  Route.get('/register', 'UsersController.register')
+    .as('auth.register')
+  Route.post('/register', 'UsersController.store')
+    .as('auth.register.post')
 
-  Route.get('/logout', 'UsersController.logout')
-    .as('auth.logout')
+  Route.get('/login', 'UsersController.login')
+    .as('auth.login')
+  Route.post('/login', 'UsersController.loginProcess')
+    .as('auth.login.post')
+
+  Route.post('/logout', 'UsersController.logoutProcess')
+    .as('auth.logoutProcess')
+    .middleware("auth")
 }).prefix('/auth')
+
 
 // ----------------------------------------------
 // Dashboard

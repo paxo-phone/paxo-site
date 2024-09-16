@@ -1,30 +1,38 @@
 import { DateTime } from 'luxon'
-import { BaseModel, column } from '@ioc:Adonis/Lucid/Orm'
+import Hash from '@ioc:Adonis/Core/Hash'
+import { BaseModel, beforeSave, column } from '@ioc:Adonis/Lucid/Orm'
 
-export const usernameRegex: RegExp = /[a-zA-Z0-9-]+/
+export enum UserType {
+  DEFAULT,
+  ADMIN
+}
 
 export default class User extends BaseModel {
   @column({ isPrimary: true })
   public id: number
 
   @column()
-  public name: string
-
-  @column()
-  public picture: string
+  public username: string
 
   @column()
   public email: string
 
   @column()
-  public verified: boolean
+  public password: string
 
   @column()
-  public mod: boolean
-
-  @column()
-  public admin: boolean
+  public type: UserType
 
   @column.dateTime({ autoCreate: true })
   public createdAt: DateTime
+
+  @column.dateTime({ autoCreate: true, autoUpdate: true })
+  public updatedAt: DateTime
+
+  @beforeSave()
+  public static async hashPassword(users: User) {
+    if (users.$dirty.password) {
+      users.password = await Hash.make(users.password)
+    }
+  }
 }
