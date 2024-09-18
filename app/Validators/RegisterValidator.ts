@@ -23,3 +23,4 @@ export default class RegisterValidator {
 
   public messages: CustomMessages = {}
 }
+

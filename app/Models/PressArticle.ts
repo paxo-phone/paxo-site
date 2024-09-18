@@ -6,6 +6,9 @@ export default class PressArticle extends BaseModel {
   public id: number
 
   @column()
+  public rank: number
+
+  @column()
   public title: string
 
   @column()

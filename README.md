@@ -22,7 +22,7 @@ docker exec -d ghcr.io/paxo-phone/paxo-site
 Don't forget to add all your environment variables !
 
 ## Running in a dev environment
-> ℹ️ The project will assume that you have set `NODE_ENV` to `development`.
+> ℹ️ The project will consider that you have set `NODE_ENV` to `development`.
 
 You must prepare the environement first:
 ```sh

@@ -20,27 +20,47 @@ footer:
   contributions: |
     Nous sommes reconnaissants envers toutes les personnes qui ont contribué à ce projet. Consulter
   link_text: |
-    la liste complète des contributeurs.
+    la liste complète des contributeurs
 
 index:
   title: Un téléphone libre, modulaire et pédagogique.
   block1:
     title: Libre
     p1: |
-      Le projet Paxo adhère aux principes du logiciel libre, aussi bien au niveau du matériel que du logiciel. Cela signifie qu’il confère à chacun la liberté d'utiliser, d'étudier, d'adapter et de redistribuer les plans et le code du téléphone (dans un cadre non commercial).
+      Le projet Paxo adhère aux principes du logiciel libre, aussi bien au niveau du matériel que du logiciel. Cela
+      signifie qu’il confère à chacun la liberté d'utliliser, d'étudier, d'adapter et de redistribuer les plans et le
+      code du téléphone (dans un cadre non-commercial).
     p2: |
-      Cette dimension libre du projet accorde une place centrale à la communauté. Par ces contributions, elle aide à faire évoluer le projet.
+      Cette dimension libre du projet accorde un place centrale à la communautée. Par ses contributions, elle aide à
+      faire évoluer le projet.
   block2:
     title: Modulaire
     p: |
-      La dimension libre du projet favorise également la modularité. Chacun peut - en modifiant le logiciel et le matériel mis à disposition - adapter le fonctionnement du téléphone à ses besoins, quels qu’ils soient. Le téléphone permet alors à chacun de concevoir une large diversité d’objets sur une base solide et stable.
+      La dimension libre du projet favorise également la modularité. Chacun peut - en modifiant le logiciel et le
+      matériel mis à disposition - adapter le fonctionnement du téléphone à ses besoins, quels qu’ils soient. Le
+      téléphone permet alors à chacun de concevoir une large diversité d’objets sur une base solide et stable.
   block3:
     title: Pédagogique
     p1: |
-      La dimension libre et modulaire du projet en fait un objet pédagogique idéal. Les plans et le code mis à disposition permettent à chacun d’étudier le fonctionnement d’un smart phone moderne et la modularité permet de pratiquer l’électronique et l’informatique sur un cas concret et dans une large diversité de situation. Le projet couvre également d’autres aspects fondamentaux dans la conception d’un tel objet, que ce soit le design, la modélisation ou l’impression 3D.
+      La dimension libre et modulaire du projet en font un objet pédagogique idéal. Les plans et le code mis à
+      disposition permettent à chacun d’étudier le fonctionnement d’un smart-phone moderne et la modularité permet de
+      pratiquer l’électronique et l’informatique sur un cas concret et dans une large diversité de situation. Le projet
+      couvre également d’autres aspects fondamentaux dans la conception d’un tel objet, que ce soit le design, la
+      modélisation ou l’impression 3D.
     p2: |
-      La dimension libre du projet a aussi pour ambition de sensibiliser aux questions qui entourent la liberté dans le monde numérique. De la même manière, la dimension modulaire souhaite sensibiliser à la problématique de la réparabilité des appareils électroniques.
-
+      La dimension libre du projet a aussi pour ambition de sensibiliser aux questions qui entourent la liberté dans le
+      monde monde numérique. De la même manière, la dimension modulaire souhaite sensibiliser à la problématique de la
+      réparabilité des appareils électronique.
+  block4:
+    title: Histoire
+    p: |
+      Il y a trois ans j'ai commencé le projet Paxo afin de
+      créer des appareils utiles, pouvant être réalisés par chacun (DIY - "Do It Yourself") sur un modèle open-source
+      (Libre de Droit), en optimisant les composants de manière à préserver la planète le plus possible! A 15 ans
+      j'avais réalisé mon premier téléphone fonctionnel (j'en ai maintenant 16). Les circuits électroniques, le code
+      des logiciels et les modèles d'impression 3D que j'ai conçus sont tous disponibles via ce site. Avec cette
+      approche j'espère que chacun aura l'envie de réaliser et partager ses propres inventions !
+  contact: Me contacter
 
 contact:
   title: Nous contacter
@@ -68,22 +88,30 @@ contribute:
   cards:
     - title: Hardware
       description: |
-        Le hardware désigne toute la partie matérielle du téléphone, aussi bien les matériaux utilisés que les circuits qui le font fonctionner. La documentation en lien ci-dessous décrit en profondeur tous les détails de la conception.
+        Le Hardware désigne toute la partie materielle du téléphone, aussi bien les matériaux
+        utilisés que les circuit qui le font fonctionner. La documentation en lien ci-dessous décrit en profondeur tous
+        les détails de la conception.
     - title: Software
       description: |
-        Le software désigne toute la partie logicielle du téléphone, c'est-à-dire le système d'exploitation (PaxOS) et les applications qui tournent dessus. La documentation en lien ci-dessous décrit en détail leur architecture et le fonctionnement.
+        Le software désigne toute la partie logicielle du téléphone, c'est à dire le système
+        d'exploitation (PaxOS) et les applications qui tournent dessus. La documentation en lien ci-dessous décrit en
+        détail leur architecture et le fonctionnement.
 
 tutorials:
-  seo_description: Vous trouverez les tutos pour la conception du Paxo Phone ainsi que les autres projets signés Paxo.
+  seo_description: Vous trouverez les tutos pour la conception du PaxoPhone ainsi que les autres projets signés Paxo.
   title: Tutoriels
-  description: Vous trouverez les tutos pour la conception du Paxo Phone ainsi que les autres projets signés Paxo.
+  description: Vous trouverez les tutos pour la conception du PaxoPhone ainsi que les autres projets signés Paxo.
   last_update: Dernière mise à jour
+  cards:
+    - title: Comment monter son Paxophone ?
+      description: Vidéo explicative du montage du Paxophone.
+    - title: Oshwlab
+      description: Plan détaillé du hardware du Paxophone (PCB, Schematic Diagram).
 
 contributors:
-  seo_description: Liste des contributeurs du projet Paxo.
+  seo_description: Liste des contributeurs au projet Paxo.
   title: Contributeurs
   subtitle: |
-    Cette page recense les principaux contributeurs au projet Paxo.
 
 
 ide:
@@ -128,3 +156,5 @@ about:
     p: Aujourd'hui, grâce à la médiatisation du projet, une communauté participe activement au projet. Paxo se divise en plusieurs équipes
       pour répartir le travail de l'hardware, du software, du design et de la communication.
 
+marketplace:
+  indexCategory: Marketplace
