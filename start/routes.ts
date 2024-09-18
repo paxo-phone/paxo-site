@@ -74,12 +74,9 @@ Route.group(() => {
 }).prefix('/apps')
   .middleware('silentAuth')
 
-
-/**
- * ----------------------------------------------
- * Auth
- * ----------------------------------------------
- */
+// ----------------------------------------------
+// Auth
+// ----------------------------------------------
 Route.group(() => {
   Route.get('/register', 'UsersController.register')
     .as('auth.register')
@@ -96,12 +93,22 @@ Route.group(() => {
     .middleware("auth")
 }).prefix('/auth')
 
-/**
- * ----------------------------------------------
- * Dashboard
- * ----------------------------------------------
- */
-Route.get('/dash', 'DashboardController.index')
+
+// ----------------------------------------------
+// Dashboard
+// ----------------------------------------------
+Route.group(() => {
+  Route.get('/', 'DashboardController.index')
+    .as('dash')
+
+  Route.get('/profile', 'DashboardController.profile')
+    .as('dash.profile')
+
+  Route.group(() => {
+    Route.post('/profile', 'DashboardController.editProfile')
+      .as('dash.profile.edit')
+  }).prefix('/edit')
+})
   .middleware('auth')
   .as('dash')
 

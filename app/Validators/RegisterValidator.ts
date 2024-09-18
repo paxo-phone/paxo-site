@@ -17,9 +17,10 @@ export default class RegisterValidator {
     password: schema.string({}, [
       rules.confirmed(),
       rules.minLength(8),
-      rules.maxLength(50)
+      rules.maxLength(50),
     ])
   })
 
   public messages: CustomMessages = {}
 }
+
