@@ -71,7 +71,7 @@ Route.group(() => {
   }
 }).prefix('/apps')
   .middleware('silentAuth')
-  
+
 // ----------------------------------------------
 // Auth
 // ----------------------------------------------
@@ -90,7 +90,7 @@ Route.group(() => {
     .as('auth.logoutProcess')
     .middleware("auth")
 }).prefix('/auth')
-  
+
 
 // ----------------------------------------------
 // Dashboard
@@ -106,7 +106,7 @@ Route.group(() => {
     Route.post('/profile', 'DashboardController.editProfile')
       .as('dash.profile.edit')
   }).prefix('/edit')
-}).prefix('/dashboard').as('dash')
+}).prefix('/dashboard')
   .middleware('auth')
 /**
  * ----------------------------------------------
@@ -138,7 +138,7 @@ Route.group(() => {
 })
   .middleware(['auth', 'authAdmin'])
   .prefix('/admin-panel')
-  
+
 /**
  * ----------------------------------------------
  * Development environment
