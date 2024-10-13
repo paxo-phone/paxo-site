@@ -8,7 +8,7 @@ export default class UsernameValidator {
       rules.regex(/^[a-zA-Z0-9_.]+$/),  // all upper and lower case + all figures + ._
       rules.minLength(3),
       rules.maxLength(20),
-      rules.unique({ table: 'users', column: 'username' }),
+      rules.unique({ table: 'users', column: 'username' })
     ])
   })
 

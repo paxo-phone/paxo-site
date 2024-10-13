@@ -6,7 +6,7 @@ export default class EmailValidator {
 
   public schema = schema.create({
     email: schema.string({}, [
-      rules.email(),
+      rules.email()
     ]),
   })
 

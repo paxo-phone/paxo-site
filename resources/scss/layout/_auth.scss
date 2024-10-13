@@ -1,15 +1,14 @@
+.form-div{
+  padding-top: 135px;
+}
+
 .h2-form {
   font-size: 25px;
   color: #39BC9B;
-  margin: auto;
   text-align: center;
-  margin-top: 100px;
 }
 
-.form-auth{
-  padding: 2rem;
-  width:5vh;
-}
+
 
 input:not([type=file]), textarea, select {
   padding: 2vh;
@@ -18,20 +17,7 @@ input:not([type=file]), textarea, select {
   margin: 10px;
 
 }
-/*
-.breakup {
-  width: 11%;
-  padding: 1px;
-  margin: auto;
-  margin-top: 2%;
-  margin-bottom: 2%;
-  background-color: rgba(0, 0, 0, 0.1)
-}*/
 
-// TOFIX: triggers header display bug. Must be precised
-// i{
-//   height:100vh;
-// }
 .btn-submit, .btn-account {
   font-size: 16px;
   margin-top: 1rem;
@@ -92,7 +78,7 @@ input:not([type=file]), textarea, select {
 }
 
 .arrow {
-  border: solid black;
+  border: solid #39BC9B;
   border-width: 0 3px 3px 0;
   display: inline-block;
   padding: 3px;
