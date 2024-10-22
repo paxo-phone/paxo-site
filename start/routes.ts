@@ -21,7 +21,6 @@
 import Route from '@ioc:Adonis/Core/Route'
 import User, { UserType } from 'App/Models/User'
 import type { HttpContextContract } from '@ioc:Adonis/Core/HttpContext'
-
 /**
  * ----------------------------------------------
  * Main routes
@@ -38,7 +37,6 @@ Route.group(() => {
 
   Route.get('tedx', 'RedirectionsController.tedx')
 })
-
 /**
  * ----------------------------------------------
  * Tutorials
@@ -50,7 +48,7 @@ Route.group(() => {
   Route.get('/t/:id/view', 'TutorialsController.viewStep').as('tutorials.viewStep')
   Route.get('/t/:id/end', 'TutorialsController.stepEnd').as('tutorials.stepEnd')
 })
-  .prefix('/tutorials')
+  .prefix('/tutorials').as('tutorials')
 
 // ----------------------------------------------
 // Marketplace
@@ -74,12 +72,9 @@ Route.group(() => {
 }).prefix('/apps')
   .middleware('silentAuth')
 
-
-/**
- * ----------------------------------------------
- * Auth
- * ----------------------------------------------
- */
+// ----------------------------------------------
+// Auth
+// ----------------------------------------------
 Route.group(() => {
   Route.get('/register', 'UsersController.register')
     .as('auth.register')
@@ -96,15 +91,23 @@ Route.group(() => {
     .middleware("auth")
 }).prefix('/auth')
 
-/**
- * ----------------------------------------------
- * Dashboard
- * ----------------------------------------------
- */
-Route.get('/dash', 'DashboardController.index')
-  .middleware('auth')
-  .as('dash')
 
+// ----------------------------------------------
+// Dashboard
+// ----------------------------------------------
+Route.group(() => {
+  Route.get('/', 'DashboardController.index')
+    .as('dash')
+
+  Route.get('/profile', 'DashboardController.profile')
+    .as('dash.profile')
+
+  Route.group(() => {
+    Route.post('/profile', 'DashboardController.editProfile')
+      .as('dash.profile.edit')
+  }).prefix('/edit')
+}).prefix('/dashboard')
+  .middleware('auth')
 /**
  * ----------------------------------------------
  * Admin panel
@@ -161,7 +164,6 @@ if (process.env.NODE_ENV == "development") {
   })
 
 }
-
 /**
  * ----------------------------------------------
  * Legal
@@ -171,5 +173,4 @@ Route.group(() => {
   Route.get('/', 'LegalController.index').as('legal.index')
   Route.get('/:slug', 'LegalController.view').as('legal.viewLegalDoc')
 })
-  .prefix('/legal')
-
+  .prefix('/legal').as('legal')

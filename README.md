@@ -41,7 +41,16 @@ yarn run dev
 |Variable name|Description|
 |-------------|--------------------------------------------|
 |`NODE_ENV`|Set to `developement` or `production`.|
-Please complete
+|`PORT`|Port to listen on.|
+|`HOST`|Host to listen on. Should be `0.0.0.0`|
+|`APP_KEY`|See AdonisJS documentation|
+|`DRIVE_DISK`||
+|`SESSION_DRIVER`||
+|`CACHE_VIEWS`||
+|`DB_CONNECTION`|See supported databases in AdonisJS docs|
+|`MYSQL_*`|Configuration for MySQL, required if `DB_CONNECTION=mysql`. See AdonisJS docs|
+|`SMTP_*`|SMTP server configuration, see AdonisJS docs. Not used yet|
+|`ACCESS_ADDRESS`|URL where the server is reachable. Is used to build the Github redirect URI, and should not end with a `/`|
 
 # Contact
 

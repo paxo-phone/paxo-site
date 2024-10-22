@@ -10,12 +10,17 @@
 @import 'module/banner';
 @import 'module/form';
 @import 'module/project';
+@import 'module/apps';
+@import 'module/markdown';
 
 // layout
+@import 'layout/auth';
 @import 'layout/header';
 @import 'layout/block';
 @import 'layout/container';
 @import 'layout/footer';
+@import 'layout/sidebar';
+
 
 // utils
 @import 'utils/utils';
