@@ -14,9 +14,6 @@ export default class App extends BaseModel {
   @column({ isPrimary: true })
   public id: number
 
-  @belongsTo(() => User)
-  public author: BelongsTo<typeof User>
-
   @column()
   public userId: number
 
@@ -30,10 +27,7 @@ export default class App extends BaseModel {
   public source_url: string
 
   @column()
-  public image: string
-
-  @column()
-  public releases: string
+  public path: string
 
   @column()
   public category: AppCategory

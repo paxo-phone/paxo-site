@@ -1,0 +1,22 @@
+@component('store/store_container')
+    <h1>
+        Poster une nouvelle app
+    </h1>
+
+    <form method="POST" action="/store/post" enctype="multipart/form-data">
+        <input type="text" name="name" placeholder="Nom de l'Application" required />
+        <input type="text" name="desc" placeholder="Description" required />
+        <input type="text" name="source_url" placeholder="Url additionnel (facultatif)" required />
+        <select name="category" required>
+            <option value="" disabled selected>Choisir une catégorie</option>
+            <option value="0">Productivité</option>
+            <option value="1">Utilitaires</option>
+            <option value="2">Communication</option>
+            <option value="3">Jeux</option>
+            <option value="4">Multimédia</option>
+            <option value="5">Autre</option>
+        </select>
+        <input type="file" name="files" webkitdirectory directory multiple />
+        <button class="btn btn-submit" type="submit">Publier</button>
+    </form>
+@end

@@ -50,12 +50,12 @@ export default class AuthMiddleware {
     /**
      * Unable to authenticate using any guard
      */
-    throw new AuthenticationException(
+    /*throw new AuthenticationException(  // intentally removed
       'Unauthorized access',
       'E_UNAUTHORIZED_ACCESS',
       guardLastAttempted,
       this.redirectTo,
-    )
+    )*/
   }
 
   /**

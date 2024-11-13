@@ -17,7 +17,7 @@ export default class extends BaseSchema {
       table.string('desc', 350).nullable().defaultTo("")
       table.string('source_url', 300).nullable()
       table.string('image', 300).nullable()
-      table.string('releases', 300).nullable()
+      table.string('path', 300).nullable()
 
       table.smallint('category').notNullable()
       table.bigint("downloads").unsigned().notNullable().defaultTo(0)
