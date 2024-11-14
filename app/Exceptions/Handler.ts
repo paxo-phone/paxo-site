@@ -33,7 +33,9 @@ export default class ExceptionHandler extends HttpExceptionHandler {
     ctx.session.flash({ error: ctx.response.getStatus() })
 
     if (error instanceof AuthenticationException) {
-      ctx.response.redirect().toPath(error.redirectTo)
+      return ctx.response.redirect().toPath(error.redirectTo)
     }
+
+    return ctx.response.redirect().back()
   }
 }
