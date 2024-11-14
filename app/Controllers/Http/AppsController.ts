@@ -48,7 +48,6 @@ export default class AppsController {
 
   public async createProcess({ auth, request, response }: HttpContextContract) {
     const data = request.body()
-    let imgUrl: string
     const img = request.file('img')
 
     if (!auth.user) return response.status(403)
@@ -58,7 +57,7 @@ export default class AppsController {
       await img.moveToDisk('/appicons', {
         name: filename
       })
-      imgUrl = process.env.ACCESS_ADDRESS + "/uploads/appicons/" + filename
+      //imgUrl = process.env.ACCESS_ADDRESS + "/uploads/appicons/" + filename
     }
 
     await App.create({
