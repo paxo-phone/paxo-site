@@ -180,12 +180,17 @@ Route.group(() => {
  */
 
 Route.group(() => {
-  Route.get('/', 'StoreController.home').middleware(['auth'])
-  Route.get('/app/:id', 'StoreController.app').middleware(['auth'])
-  Route.get('/myapp/:id', 'StoreController.myapp').middleware(['auth'])
+  Route.get('/', 'StoreController.home')
+  Route.get('/app/:id', 'StoreController.app')
   Route.get('/download/:id', 'StoreController.download')
-  Route.get('/myapps', 'StoreController.myapps').middleware(['auth'])
-  Route.get('/new', 'StoreController.new').middleware(['auth'])
-  Route.post('/post', 'StoreController.post').middleware(['auth'])
+
+  Route.group(() => {
+    Route.get('/myapp/:id', 'StoreController.myapp')
+    Route.get('/myapps', 'StoreController.myapps')
+    Route.get('/new', 'StoreController.new')
+    Route.post('/post', 'StoreController.post')
+  })
+    .middleware(['auth'])
 })
   .prefix('/store')
+  .middleware(['silentAuth'])
