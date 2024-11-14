@@ -36,7 +36,7 @@ export default class AppsController {
   public async show({ view, params }: HttpContextContract) {
     const app = await App.query()
       .where('id', params.id)
-      .preload('author')
+      //.preload('author')
       .firstOrFail()
 
     return view.share({ app }).render('apps/product')
@@ -65,9 +65,9 @@ export default class AppsController {
       userId: auth.user.id,
       name: data.name,
       desc: data.desc,
-      image: imgUrl,
+      //image: imgUrl,
       source_url: data.source_url,
-      releases: data.releases,
+      //releases: data.releases,
       category: data.categories
     })
   }

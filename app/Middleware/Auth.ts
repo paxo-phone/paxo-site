@@ -1,4 +1,4 @@
-import { AuthenticationException } from '@adonisjs/auth/build/standalone'
+//import { AuthenticationException } from '@adonisjs/auth/build/standalone'
 import type { GuardsList } from '@ioc:Adonis/Addons/Auth'
 import type { HttpContextContract } from '@ioc:Adonis/Core/HttpContext'
 import { UserType } from 'App/Models/User'
@@ -31,10 +31,10 @@ export default class AuthMiddleware {
      * it can decide the correct response behavior based upon the guard
      * driver
      */
-    let guardLastAttempted: string | undefined
+    // let guardLastAttempted: string | undefined // for prod
 
     for (const guard of guards) {
-      guardLastAttempted = guard
+      // guardLastAttempted = guard // for prod
 
       if (await auth.use(guard).check()) {
         /**

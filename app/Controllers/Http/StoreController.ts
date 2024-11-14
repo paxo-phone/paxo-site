@@ -1,6 +1,5 @@
 import type { HttpContextContract } from '@ioc:Adonis/Core/HttpContext'
 import Application from '@ioc:Adonis/Core/Application'
-import { v4 as uuidv4 } from 'uuid'
 import App from 'App/Models/App'
 import User from 'App/Models/User'
 import AdmZip from 'adm-zip'
@@ -156,7 +155,7 @@ export default class StoreController
       }
   
       const timestamp = new Date().getTime()
-      const folderPath = `public_apps/${user.id}/${timestamp}`
+      const folderPath = `public_apps/${user.id}/${timestamp}` // absolute  path in the public dir
 
       let app: App
       let directorytoremove = ""
