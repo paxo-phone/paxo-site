@@ -2,6 +2,8 @@ import type { HttpContextContract } from '@ioc:Adonis/Core/HttpContext'
 import App from '../../Models/App'
 import { string } from '@ioc:Adonis/Core/Helpers'
 
+// DEPRECATED - Use StoreController instead
+
 export default class AppsController {
   public async index({ view, params, request }: HttpContextContract) {
     const query = request.qs()["query"]
