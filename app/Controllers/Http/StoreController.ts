@@ -21,10 +21,8 @@ function removeDirectory(directoryPath: string) {
 }
 
 
-export default class StoreController 
-{
-  public async home({ auth, request, view }: HttpContextContract)
-  {
+export default class StoreController {
+  public async home({ auth, request, view }: HttpContextContract) {
     const user = auth.use('web').user
 
     const app_per_page = 15
@@ -50,13 +48,12 @@ export default class StoreController
     })
   }
 
-  public async myapps({ auth, response, view }: HttpContextContract)
-  {
+  public async myapps({ auth, view }: HttpContextContract) {
     const user = auth.use('web').user
 
-    if (!user) {
-      return response.redirect().toPath('/auth/login/?redirect=/store/myapps')
-    }
+    // Should not trigger (backed by auth middleware)
+    if (!user)
+      return
 
     const apps = await App.query()
       .where('userId', user.id)
@@ -67,22 +64,18 @@ export default class StoreController
     })
   }
 
-  public async app({ auth, response, request, view }: HttpContextContract)
-  {
+  public async app({ auth, response, request, view }: HttpContextContract) {
     const id = request.params().id
 
     const app = await App.findOrFail(id)
 
-    if(!app)
-    {
+    if (!app) {
       return response.redirect('/store')
     }
 
     const appuser = await User.findOrFail(app.userId)
 
     const user = auth.use('web').user
-
-    //const size = 
 
     return view.render('store/app', {
       app: app,
@@ -91,14 +84,12 @@ export default class StoreController
     })
   }
 
-  public async myapp({ auth, response, request, view }: HttpContextContract)
-  {
+  public async myapp({ auth, response, request, view }: HttpContextContract) {
     const id = request.params().id
 
     const app = await App.findOrFail(id)
 
-    if(!app)
-    {
+    if (!app) {
       return response.redirect('/store/myapps')
     }
 
@@ -106,9 +97,9 @@ export default class StoreController
 
     const user = auth.use('web').user
 
-    if (!user) {
-      return response.redirect().toPath('/auth/login/?redirect=/store/myapps')
-    }
+    // Should not trigger (backed by auth middleware)
+    if (!user)
+      return
 
     if (appuser.id !== user.id) {
       return response.redirect().toPath('/store/myapps')
@@ -121,15 +112,12 @@ export default class StoreController
     })
   }
 
-  public async new({ auth, response,view }: HttpContextContract)
-  {
+  public async new({ auth, view }: HttpContextContract) {
     const user = auth.use('web').user
 
-    if (!user) {
-      return response.redirect().toPath('/auth/login?redirect=/store/new')
-    }
-
-    console.log(user?.username)
+    // Should not trigger (backed by auth middleware)
+    if (!user)
+      return
 
     return view.render('store/new', {
       user: user,
@@ -141,38 +129,35 @@ export default class StoreController
       const erase = request.qs().eraseid
 
       const user = auth.use('web').user
-  
-      if (!user) {
-        return response.redirect().toPath('/auth/login?redirect=/store/new')
-      }
 
-  
+      // Should not trigger (backed by auth middleware)
+      if (!user)
+        return
+
+
       const files = request.files('files')
-  
+
       if (!files || files.length === 0) {
         console.log('No files uploaded')
         return response.badRequest('No files uploaded')
       }
-  
+
       const timestamp = new Date().getTime()
       const folderPath = `public_apps/${user.id}/${timestamp}` // absolute  path in the public dir
 
       let app: App
       let directorytoremove = ""
 
-      if(erase !== undefined)
-      {
+      if (erase !== undefined) {
         console.log('reusing app ' + erase)
 
         app = await App.findByOrFail('id', erase)
-        if(!app || app.userId !== user.id)
-        {
+        if (!app || app.userId !== user.id) {
           return response.redirect('/store/new')
         }
         directorytoremove = app.path
       }
-      else
-      {
+      else {
         app = new App()
         console.log('Creating new app')
       }
@@ -185,37 +170,36 @@ export default class StoreController
       app.path = folderPath + '/' + files[0].clientName.split('/')[0];
 
       await app.save();
-  
-      if(erase !== undefined)
+
+      if (erase !== undefined)
         response.redirect('/store/myapps')
       else
         response.redirect('/store/apps')
 
       console.log('Starting folder upload')
-  
-      for (let file of files) {
-        
+
+      for (const file of files) {
+
         if (!file.isValid) {
           console.log('File upload issue:', file.errors)
           continue
         }
-  
+
         const fileName = file.clientName
-  
+
         await file.move(Application.publicPath(folderPath), {
           name: fileName,
           overwrite: true,
         })
       }
 
-      if(erase !== undefined && directorytoremove.length > 0)
-      {
+      if (erase !== undefined && directorytoremove.length > 0) {
         console.log(directorytoremove)
         removeDirectory(Application.publicPath(directorytoremove.split('/').slice(0, -1).join('/')))
       }
     } catch (error) {
       console.error('Folder upload failed:', error);
-      return response.status(500).send('Folder upload failed'); 
+      return response.status(500).send('Folder upload failed');
     }
   }
 
@@ -224,11 +208,10 @@ export default class StoreController
 
     const app = await App.findOrFail(id)
 
-    if(!app)
-    {
+    if (!app) {
       return response.redirect('/store')
     }
-    
+
     const directoryPath = Application.publicPath("" + app.path/*.split('/').slice(0, -1).join('/')*/)
     const zipFileName = app.name + '.zip'
 
