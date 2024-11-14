@@ -48,7 +48,7 @@ export default class AppsController {
 
   public async createProcess({ auth, request, response }: HttpContextContract) {
     const data = request.body()
-    let imgUrl = ""
+    let imgUrl: string
     const img = request.file('img')
 
     if (!auth.user) return response.status(403)
