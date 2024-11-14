@@ -174,7 +174,7 @@ export default class StoreController {
       if (erase !== undefined)
         response.redirect('/store/myapps')
       else
-        response.redirect('/store/apps')
+        response.redirect('/store')
 
       console.log('Starting folder upload')
 

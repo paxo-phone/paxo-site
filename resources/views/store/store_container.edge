@@ -15,7 +15,8 @@ Store
   <div class="row">
     <div style="width: 100%;">
       <div style="float:left; min-width: 200px; margin-bottom: 50px; border-color: black; border-right-width: 1px;">
-        <div style="width: 200px; flex-direction: column; justify-content: center; align-items: flex-start; gap: 15px; display: inline-flex">
+        <div
+          style="width: 200px; flex-direction: column; justify-content: center; align-items: flex-start; gap: 15px; display: inline-flex">
           <div style="color: #828282; font-size: 25px;">Catégories</div>
           <a href="/store/" style="color: #837979; font-size: 20px;">Toutes</a>
           <a href="/store/?type=0" style="color: #382222; font-size: 20px;">Productivité</a>
@@ -24,21 +25,21 @@ Store
           <a href="/store/?type=3" style="color: #382222; font-size: 20px;">Jeux</a>
           <a href="/store/?type=4" style="color: #382222; font-size: 20px;">Multimédia</a>
           <a href="/store/?type=5" style="color: #382222; font-size: 20px;">Autres</a>
-            
+
           @if (user)
-            <a href="/dash" style="color: #828282; font-size: 25px; margin-top: 20px;">Mon Compte</a>
-            <a href="/store/mypaxo" style="color: #382222; font-size: 20px;">Mon Appareil</a>
-            <a href="/store/myapps" style="color: #382222; font-size: 20px;">Mes Applications</a>
+          <a href="/dash" style="color: #828282; font-size: 25px; margin-top: 20px;">Mon Compte</a>
+          <!-- <a href="/store/mypaxo" style="color: #382222; font-size: 20px;">Mon Appareil</a> -->
+          <a href="/store/myapps" style="color: #382222; font-size: 20px;">Mes Applications</a>
           @else
-            <a href="/auth/login" style="color: #828282; font-size: 25px; margin-top: 20px;">Connexion</a>
+          <a href="/auth/login" style="color: #828282; font-size: 25px; margin-top: 20px;">Connexion</a>
           @end
-          </div>
+        </div>
       </div>
 
       <div style="float:left; width: calc(100% - 300px); text-align:left;">
         {{{ await $slots.main() }}}
       </div>
-    </div>  
+    </div>
   </div>
 </section>
 @endsection
