@@ -1,5 +1,6 @@
 import { DateTime } from 'luxon'
-import { BaseModel, column } from '@ioc:Adonis/Lucid/Orm'
+import { BaseModel, BelongsTo, belongsTo, column  } from '@ioc:Adonis/Lucid/Orm'
+import User from './User'
 
 export enum AppCategory { // If you want to add an app category, append to the bottom and add translation in language files
   PRODUCTIVITY,
@@ -16,6 +17,9 @@ export default class App extends BaseModel {
   @column()
   public userId: number
 
+  @belongsTo(() => User)
+  public author: BelongsTo<typeof User>
+
   @column()
   public name: string
 
@@ -26,7 +30,10 @@ export default class App extends BaseModel {
   public source_url: string
 
   @column()
-  public path: string
+  public image: string
+
+  @column()
+  public releases: string
 
   @column()
   public category: AppCategory
