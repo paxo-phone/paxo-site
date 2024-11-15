@@ -79,9 +79,9 @@ contribute:
   seo_description: Do you want to contribute to the PaxoPhone ? Don't hesitate and come join us !
   title: Contribute
   subtitle: |
-    The free / open source nature of the project invite each user to contribute to it.
-    On this page you will find the operationg documentation for the telephone as well as instructions
-    for you to participate on this vast project.
+    The free and open source nature of the project invites each user to contribute to it.
+    On this page, you will find the operating documentation for the telephone as well as instructions
+    for how you can participate in this vast project.
   cards:
     - title: Hardware
       description: |
@@ -134,10 +134,10 @@ about:
   title: About Paxo
   block1:
     title: About us
-    p: Three years ago, Gabriel started the Paxo project in order to create useful devices, which can be make by everyone (DIY - "Do It Yourself")     on an open source model, optimizing the components to preserve the planet as much as possible!
-      At 15 years old He swallowed his first functional phone. All the electronic circuits, code 3D printing software and modalities that have been designed are available through this site. With this approach the Paxo Team hope everyone will have the desire to director and partner his inventions!
+    p: Three years ago, Gabriel started the Paxo project to create useful devices that everyone can make themselves (DIY - "Do It Yourself") using an open-source model, optimizing the components to preserve the planet as much as possible.
+      At 15 years old, he built his first functional phone. All the electronic circuits, code, 3D printing software, and modalities that have been designed are available through this site. With this approach, the Paxo Team hopes everyone will be inspired to direct and partner in his inventions!
   block2:
     title: Today
-    p: Today, thanks to the media coverage of the project, a community is actively involved in the project. Paxo is divided into several teams
+    p: Today, thanks to the media coverage of the project, a community is actively involved. Paxo is divided into several teams
       to distribute the work of hardware, software, design and communication.
 
