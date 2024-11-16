@@ -4,11 +4,11 @@
   </h1>
   <br>
 
-  <div class="flex-container" style="display: flex; flex-wrap: wrap; justify-content: space-around; max-width: 70%;"> 
-    @each(app in apps)
-      <div  onclick="window.location.href = '/store/app/{{ app.id }}';" class="Group12" style="width: 274px; height: 75px; display: flex; margin: 10px;"> 
+  <div class="flex-container" style="display: flex; flex-wrap: wrap; justify-content: space-around; max-width: 70%;">
+    @each(app in pager)
+      <div  onclick="window.location.href = '/store/app/{{ app.id }}';" class="Group12" style="width: 274px; height: 75px; display: flex; margin: 10px;">
         <div class="img" style="width: 75px; height: 75px; background: #f4f4f4; border-radius: 20px;">
-          <img src="/{{ app.path }}/icon.png" style="width: 100%; height: 100%; object-fit: cover; border-radius: 20px;">
+          <img src="{{ app.image ?? '/img/logo.png'}}" style="width: 100%; height: 100%; object-fit: cover; border-radius: 20px;">
         </div>
         <div style="margin-left: 8px; width: 175px; height: 75px; overflow: hidden; display: -webkit-box; -webkit-line-clamp: 3; -webkit-box-orient: vertical; line-height: 1.2em;">
           <h1 style="font-size: 25px;">{{app.name}}</h1>

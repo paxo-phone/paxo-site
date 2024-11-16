@@ -1,7 +1,7 @@
 @component('store/store_container')
-    <div class="Group12" style="width: 274px; height: 75px; display: flex; margin: 10px;"> 
+    <div class="Group12" style="width: 274px; height: 75px; display: flex; margin: 10px;">
         <div class="img" style="width: 75px; height: 75px; background: #f4f4f4; border-radius: 20px;">
-            <img src="/{{ app.path }}/icon.png" style="width: 100%; height: 100%; object-fit: cover; border-radius: 20px;">
+            <img src="{{ app.image ?? '/img/logo.png'}}" style="width: 100%; height: 100%; object-fit: cover; border-radius: 20px;">
         </div>
         <div style="margin-left: 15px; width: 175px; height: 75px; overflow: hidden; display: -webkit-box; -webkit-line-clamp: 3; -webkit-box-orient: vertical; line-height: 1.2em;">
             <h1 style="font-size: 30px;">{{app.name}}</h1>
@@ -41,7 +41,7 @@
             <tr>
             <td>N°1</td>
             <td>5,0</td>
-            <td>{{appuser.username}}</td>
+            <td>{{author.username}}</td>
             <td>Fr</td>
             <td>100 Mo</td>
             </tr>
@@ -54,13 +54,31 @@
     </p>
     <br>
 
-    
+    <table style="border: 1px solid gray;">
+      <th>
+      <td>Version</td>
+      <td>Actions</td>
+      </th>
+      @each(release in releases)
+      <tr>
+        <td>{{release.name}}</td>
+        <td>
+          <a href="/store/app/{{app.id}}/download?r={{release.id}}">Télécharger</a>
+          <a href="/store/app/{{app.id}}/source?r={{release.id}}">Voir source</a>
+          @if(release.changelog)
+          <a href="/store/app/{{app.id}}/changelog/{{release.id}}">Changelog</a>
+          @end
+        </td>
+      </tr>
+      @end
+    </table>
+
     <div class="flex justify-center">
-        <a href="/store/download/{{app.id}}" class="btn btn-submit">
-            Download
-        </a>
-        <a class="btn btn-submit" style="margin-left: 10px;">
-            Upload
-        </a>
-    </div>
+      <a href="/store/app/{{app.id}}/manage" class="btn btn-submit">
+          Modifier
+      </a>
+      <a href="/store/app/{{app.id}}/releases/manage" class="btn btn-submit" style="margin-left: 10px;">
+          Gérer les versions
+      </a>
+  </div>
 @end

@@ -184,15 +184,25 @@ Route.group(() => {
 Route.group(() => {
   Route.get('/', 'StoreController.home')
   Route.get('/app/:id', 'StoreController.app')
-  Route.get('/download/:id', 'StoreController.download')
+
+  Route.get('/app/:appid/download', 'ReleasesController.download')
+  Route.get('/app/:appid/source', 'ReleasesController.source')
+  Route.get('/app/:appid/changelog/:relid', 'ReleasesController.changelog')
 
   Route.group(() => {
-    Route.get('/myapp/:id', 'StoreController.myapp')
+    Route.get('/app/:id/manage', 'StoreController.myapp')
+    Route.post('/app/:id/manage', 'StoreController.update')
+
+    Route.get('/app/:id/releases/manage', 'ReleasesController.manage')
+    Route.get('/app/:id/releases/new', 'ReleasesController.new')
+    Route.post('/app/:id/releases/new', 'ReleasesController.create')
+
     Route.get('/myapps', 'StoreController.myapps')
+
     Route.get('/new', 'StoreController.new')
-    Route.post('/post', 'StoreController.post')
+    Route.post('/new', 'StoreController.post')
   })
-    .middleware(['auth'])
+    .middleware('auth')
 })
   .prefix('/store')
   .middleware(['silentAuth'])

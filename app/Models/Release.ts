@@ -13,10 +13,16 @@ export default class Release extends BaseModel {
   public app: BelongsTo<typeof App>
 
   @column()
+  public name: string
+
+  @column()
   public commitSha: string
 
   @column()
   public downloadLink: string
+
+  @column()
+  public changelog: string
 
   @column.dateTime({ autoCreate: true })
   public createdAt: DateTime
