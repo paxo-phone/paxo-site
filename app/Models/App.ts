@@ -27,7 +27,7 @@ export default class App extends BaseModel {
   public desc: string
 
   @column()
-  public source_url: string
+  public ext_url: string
 
   @column()
   public source: string

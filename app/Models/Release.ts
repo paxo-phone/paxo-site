@@ -10,7 +10,7 @@ export default class Release extends BaseModel {
   public appId: number
 
   @belongsTo(() => App)
-  public author: BelongsTo<typeof App>
+  public app: BelongsTo<typeof App>
 
   @column()
   public commitSha: string
