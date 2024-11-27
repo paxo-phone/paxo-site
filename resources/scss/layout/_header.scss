@@ -5,13 +5,8 @@
   display: flex;
   justify-content: space-between;
   align-items: center;
-  transition: all $transition-duration ease-in-out;
+  // transition: all $// transition-duration ease-in-out;
   background-color: transparent;
-  z-index: 2;
-  position: fixed;
-  top: 0;
-  left: 0;
-  right: 0;
 
   >.toggle-nav-btn {
     // transform: translateY(-300%);
@@ -20,7 +15,7 @@
     font-size: 1.5rem;
     color: inherit;
     cursor: pointer;
-    transition: all $transition-duration ease;
+    // transition: all $// transition-duration ease;
     z-index: 1;
 
     &.active {
@@ -41,10 +36,10 @@
     color: inherit;
     z-index: 1;
     height: 60px;
-    transition: height $transition-duration ease;
+    // transition: height $// transition-duration ease;
     /*
     transform: translateY(-300%);
-    transition: all 0.5s ease;
+    // transition: all 0.5s ease;
 
     &.visible {
       transform: translate(0);
@@ -54,7 +49,7 @@
 
   >.nav {
     display: none;
-    transition: all $transition-duration ease;
+    // transition: all $// transition-duration ease;
 
     >.nav-list {
       display: flex;
@@ -80,7 +75,7 @@
             border-radius: 0.2rem;
             padding: 10%;
             background: rgba(255, 255, 255, 0.7);
-            transition: all $transition-duration;
+            // transition: all $// transition-duration;
             z-index: 2;
             margin: -10%;
             margin-top: 100%;
@@ -192,7 +187,7 @@
 
 .responsive-nav {
   transform: translateX(-200%);
-  transition: all $transition-duration ease;
+  // transition: all $// transition-duration ease;
 }
 
 .responsive-nav.active {
@@ -204,7 +199,7 @@
 
 //   opacity: 0;
 //   transform: translateY(-70%);
-//   transition: all 0.5s ease;
+//   // transition: all 0.5s ease;
 
 // }
 
@@ -254,7 +249,7 @@
 
 .presentation {
   opacity: 0;
-  transition: all $transition-duration ease;
+  // transition: all $// transition-duration ease;
 
   &.visible {
     opacity: 1;

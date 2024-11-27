@@ -1,6 +1,6 @@
 /* container */
 
-$padding-top: calc((50px + 30px) * 2);
+$padding-top: 0; // Header was set to fixed
 
 .container {
   padding: $padding-top 7% 3% 7%;
@@ -12,7 +12,7 @@ $padding-top: calc((50px + 30px) * 2);
   }
 }
 
-body{
+body {
   display: flex;
   flex-direction: column;
   height: 100vh;
