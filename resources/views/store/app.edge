@@ -63,10 +63,10 @@
       <tr>
         <td>{{release.name}}</td>
         <td>
-          <a href="/store/app/{{app.id}}/download?r={{release.id}}">Télécharger</a>
-          <a href="/store/app/{{app.id}}/source?r={{release.id}}">Voir source</a>
+          <a href="/app/{{app.id}}/download?r={{release.id}}">Télécharger</a>
+          <a href="/app/{{app.id}}/source?r={{release.id}}">Voir source</a>
           @if(release.changelog)
-          <a href="/store/app/{{app.id}}/changelog/{{release.id}}">Changelog</a>
+          <a href="/app/{{app.id}}/changelog/{{release.id}}">Changelog</a>
           @end
         </td>
       </tr>
@@ -74,10 +74,10 @@
     </table>
 
     <div class="flex justify-center">
-      <a href="/store/app/{{app.id}}/manage" class="btn btn-submit">
+      <a href="/app/{{app.id}}/manage" class="btn btn-submit">
           Modifier
       </a>
-      <a href="/store/app/{{app.id}}/releases/manage" class="btn btn-submit" style="margin-left: 10px;">
+      <a href="/app/{{app.id}}/releases/manage" class="btn btn-submit" style="margin-left: 10px;">
           Gérer les versions
       </a>
   </div>

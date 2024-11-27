@@ -3,7 +3,7 @@
         Mes Applications
     </h1>
     <br>
-    <a href="/store/new" class="btn btn-submit">Publier</a>
+    <a href="/new" class="btn btn-submit">Publier</a>
     <br>
     <h1 style="color:dimgrey;">
         Vos applications
@@ -12,7 +12,7 @@
 
     <div class="flex-container" style="display: flex; flex-wrap: wrap; justify-content: space-around; max-width: 70%;">
         @each(app in apps)
-        <div  onclick="window.location.href = '/store/app/{{ app.id }}/manage';" class="Group12" style="width: 274px; height: 75px; display: flex; margin: 10px;">
+        <div  onclick="window.location.href = '/app/{{ app.id }}/manage';" class="Group12" style="width: 274px; height: 75px; display: flex; margin: 10px;">
             <div class="img" style="width: 75px; height: 75px; background: #f4f4f4; border-radius: 20px;">
             <img src="{{ app.image ?? '/img/logo.png'}}" style="width: 100%; height: 100%; object-fit: cover; border-radius: 20px;">
             </div>

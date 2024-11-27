@@ -1,12 +1,13 @@
-textPresentation = document.querySelector('.presentation');
+// UNUSED LEGACY CODE
+// textPresentation = document.querySelector('.presentation');
 
-window.addEventListener('load', (e) => {
+// window.addEventListener('load', (e) => {
 
-  setTimeout(() => {
+//   setTimeout(() => {
 
-    textPresentation.classList.add('visible');
+//     textPresentation.classList.add('visible');
 
-  }, 100)
+//   }, 100)
 
 
-})
+// })

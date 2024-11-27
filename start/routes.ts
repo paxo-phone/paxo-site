@@ -27,30 +27,30 @@ import type { HttpContextContract } from '@ioc:Adonis/Core/HttpContext'
  * Main routes
  * ----------------------------------------------
  */
-Route.group(() => {
-  Route.get('/', 'CoreController.index')
-  Route.get('about', 'CoreController.about')
-  Route.get('contact', 'CoreController.contact')
-  Route.get('contribute', 'CoreController.contribute')
-  Route.get('contributors', 'CoreController.contributors')
-  Route.get('projects', 'CoreController.projects')
-  Route.get('press', 'PressController.index')
+// Route.group(() => {
+//   Route.get('/', 'CoreController.index')
+//   Route.get('about', 'CoreController.about')
+//   Route.get('contact', 'CoreController.contact')
+//   Route.get('contribute', 'CoreController.contribute')
+//   Route.get('contributors', 'CoreController.contributors')
+//   Route.get('projects', 'CoreController.projects')
+//   Route.get('press', 'PressController.index')
 
-  Route.get('tedx', 'RedirectionsController.tedx')
-})
+//   Route.get('tedx', 'RedirectionsController.tedx')
+// })
 
 /**
  * ----------------------------------------------
  * Tutorials
  * ----------------------------------------------
  */
-Route.group(() => {
-  Route.get('/', 'TutorialsController.index').as('tutorials.index')
-  Route.get('/t/:id', 'TutorialsController.viewTutorial').as('tutorials.viewTutorial')
-  Route.get('/t/:id/view', 'TutorialsController.viewStep').as('tutorials.viewStep')
-  Route.get('/t/:id/end', 'TutorialsController.stepEnd').as('tutorials.stepEnd')
-})
-  .prefix('/tutorials')
+// Route.group(() => {
+//   Route.get('/', 'TutorialsController.index').as('tutorials.index')
+//   Route.get('/t/:id', 'TutorialsController.viewTutorial').as('tutorials.viewTutorial')
+//   Route.get('/t/:id/view', 'TutorialsController.viewStep').as('tutorials.viewStep')
+//   Route.get('/t/:id/end', 'TutorialsController.stepEnd').as('tutorials.stepEnd')
+// })
+//   .prefix('/tutorials')
 
 // ----------------------------------------------
 // Marketplace
@@ -112,31 +112,31 @@ Route.get('/dash', 'DashboardController.index')
  * Admin panel
  * ----------------------------------------------
  */
-Route.group(() => {
-  Route.get('/', 'AdminController.index')
-    .as('adminPanel.index')
+// Route.group(() => {
+//   Route.get('/', 'AdminController.index')
+//     .as('adminPanel.index')
 
-  Route.get('/:model', 'AdminModelController.index')
-    .as('adminPanel.model.index')
+//   Route.get('/:model', 'AdminModelController.index')
+//     .as('adminPanel.model.index')
 
-  Route.get('/:model/i/:id', 'AdminModelController.view')
-    .as('adminPanel.model.view')
+//   Route.get('/:model/i/:id', 'AdminModelController.view')
+//     .as('adminPanel.model.view')
 
-  Route.get('/:model/create', 'AdminModelController.create')
-    .as('adminPanel.model.create')
-  Route.post('/:model/create', 'AdminModelController.createProcess')
+//   Route.get('/:model/create', 'AdminModelController.create')
+//     .as('adminPanel.model.create')
+//   Route.post('/:model/create', 'AdminModelController.createProcess')
 
-  Route.post('/:model/inject', 'AdminModelController.injectProcess')
+//   Route.post('/:model/inject', 'AdminModelController.injectProcess')
 
-  Route.get('/:model/i/:id/update', 'AdminModelController.update')
-    .as('adminPanel.model.update')
-  Route.post('/:model/i/:id/update', 'AdminModelController.updateProcess')
+//   Route.get('/:model/i/:id/update', 'AdminModelController.update')
+//     .as('adminPanel.model.update')
+//   Route.post('/:model/i/:id/update', 'AdminModelController.updateProcess')
 
-  Route.get('/:model/i/:id/delete', 'AdminModelController.deleteProcess')
-    .as('adminPanel.model.delete')
-})
-  .middleware(['auth', 'authAdmin'])
-  .prefix('/admin-panel')
+//   Route.get('/:model/i/:id/delete', 'AdminModelController.deleteProcess')
+//     .as('adminPanel.model.delete')
+// })
+//   .middleware(['auth', 'authAdmin'])
+//   .prefix('/admin-panel')
 
 /**
  * ----------------------------------------------
@@ -168,11 +168,11 @@ if (process.env.NODE_ENV == "development") {
  * Legal
  * ----------------------------------------------
  */
-Route.group(() => {
-  Route.get('/', 'LegalController.index').as('legal.index')
-  Route.get('/:slug', 'LegalController.view').as('legal.viewLegalDoc')
-})
-  .prefix('/legal')
+// Route.group(() => {
+//   Route.get('/', 'LegalController.index').as('legal.index')
+//   Route.get('/:slug', 'LegalController.view').as('legal.viewLegalDoc')
+// })
+//   .prefix('/legal')
 
 
 /**
@@ -204,5 +204,5 @@ Route.group(() => {
   })
     .middleware('auth')
 })
-  .prefix('/store')
+  // .prefix('/store')
   .middleware(['silentAuth'])

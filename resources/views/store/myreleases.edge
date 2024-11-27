@@ -3,7 +3,7 @@
   Versions de {{app.name}}
 </h1>
 <br>
-<a href="/store/app/{{app.id}}/releases/new" class="btn btn-submit">Nouvelle version</a>
+<a href="/app/{{app.id}}/releases/new" class="btn btn-submit">Nouvelle version</a>
 <br>
 
 <table style="border: 1px solid gray;">
@@ -15,10 +15,10 @@
   <tr>
     <td>{{release.name}}</td>
     <td>
-      <a href="/store/app/{{app.id}}/download?r={{release.id}}">Télécharger</a>
-      <a href="/store/app/{{app.id}}/source?r={{release.id}}">Voir source</a>
+      <a href="/app/{{app.id}}/download?r={{release.id}}">Télécharger</a>
+      <a href="/app/{{app.id}}/source?r={{release.id}}">Voir source</a>
       @if(release.changelog)
-      <a href="/store/app/{{app.id}}/changelog/{{release.id}}">Changelog</a>
+      <a href="/app/{{app.id}}/changelog/{{release.id}}">Changelog</a>
       @end
     </td>
   </tr>
