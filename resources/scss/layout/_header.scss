@@ -2,6 +2,7 @@
 
 .header {
   padding: 50px 7%;
+  margin-bottom: 60px;
   display: flex;
   justify-content: space-between;
   align-items: center;
@@ -45,6 +46,10 @@
       transform: translate(0);
     }
     */
+
+    >img {
+      height: 100%;
+    }
   }
 
   >.nav {

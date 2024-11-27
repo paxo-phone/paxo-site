@@ -1,11 +1,20 @@
 @component('store/store_container')
-<div id="app-head">
-  <img src="{{ app.image ?? '/img/logo.png'}}">
-  <div id="app-details">
-    <h1>{{app.name}}</h1>
-    <h2>{{author.username}}</h2>
+<div class="flex-spacer">
+  <div id="app-head">
+    <img src="{{ app.image ?? '/img/logo.png'}}">
+    <div id="app-details">
+      <h1>{{app.name}}</h1>
+      <h2>{{author.username}}</h2>
+    </div>
+  </div>
+
+  <div id="app-head-actions">
+    <a href="/app/{{app.id}}/download" class="btn btn-submit">
+      Télécharger
+    </a>
   </div>
 </div>
+
 
 <table id="app-details-table">
   <thead>
@@ -21,7 +30,7 @@
       <td>{{app.downloads}}</td>
       <!-- <td>Non implémenté</td> -->
       <td>Francais</td>
-      <td><a href="{{app.ext_url}}">{{ (new URL(app.ext_url)).hostname }}</a></td>
+      <td><a href="{{app.ext_url}}" target="_blank">{{ (new URL(app.ext_url)).hostname }}</a></td>
     </tr>
   </tbody>
 </table>
@@ -34,7 +43,7 @@
 
 <h1 class="app-prop-title">Versions</h1>
 
-<table style="border: 1px solid gray;">
+<table id="app-release-table">
   <thead>
     <th>Version</th>
     <th>Actions</th>
@@ -53,12 +62,17 @@
   @end
 </table>
 
-<div class="flex justify-center">
+@if(user && user.id == author.id)
+
+<h1 class="app-prop-title">Administration de l'app</h1>
+<div style="display: flex; gap: 15px;">
   <a href="/app/{{app.id}}/manage" class="btn btn-submit">
     Modifier
   </a>
-  <a href="/app/{{app.id}}/releases/manage" class="btn btn-submit" style="margin-left: 10px;">
+  <a href="/app/{{app.id}}/releases/manage" class="btn btn-submit">
     Gérer les versions
   </a>
 </div>
+
+@endif
 @end

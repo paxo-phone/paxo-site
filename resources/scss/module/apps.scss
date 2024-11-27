@@ -1,3 +1,10 @@
+.flex-spacer {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  min-width: 100%;
+}
+
 div#app-head {
   display: flex;
   gap: 20px;
@@ -43,10 +50,6 @@ table#app-details-table {
     padding-right: 35px;
     border: 8px transparent solid;
   }
-
-  >thead {
-    font-weight: normal;
-  }
 }
 
 h1.app-prop-title {
@@ -55,4 +58,20 @@ h1.app-prop-title {
 
   margin-top: 20px;
   margin-bottom: 10px;
+}
+
+table#app-release-table {
+  background-color: #eee;
+  min-width: 100%;
+
+  th,
+  td {
+    padding: 10px;
+    border: 1px solid #ccc;
+  }
+
+  tr:nth-child(even) {
+    background-color: #ddd;
+  }
+
 }
