@@ -58,10 +58,10 @@ import type { HttpContextContract } from '@ioc:Adonis/Core/HttpContext'
 
 // DEPRECATED - Use StoreController instead
 
-// Route.group(() => {
+//Route.group(() => {
 //   Route.get('/', 'AppsController.index')
 //     .as('apps')
-//   Route.get('/cat/:category', 'AppsController.index')
+//  Route.get('/cat/:category', 'AppsController.index')
 //   Route.get('/product', 'AppsController.product')
 //   Route.get('/create', 'AppsController.create')
 //   Route.post('/createProcess', 'AppsController.createProcess')
@@ -73,7 +73,7 @@ import type { HttpContextContract } from '@ioc:Adonis/Core/HttpContext'
 //     console.warn("Development route /apps/appinstalledemo was loaded");
 //     Route.get('/appinstalldemo', 'AppsController.appinstalldemo')
 //   }
-// }).prefix('/apps')
+//}).prefix('/apps')
 //   .middleware('silentAuth')
 
 
@@ -85,7 +85,7 @@ import type { HttpContextContract } from '@ioc:Adonis/Core/HttpContext'
 Route.group(() => {
   Route.get('/register', 'UsersController.register')
     .as('auth.register')
-  Route.post('/register', 'UsersController.store')
+  Route.post('/register', 'UsersController.registerProcess')
     .as('auth.register.post')
 
   Route.get('/login', 'UsersController.login')
@@ -112,31 +112,31 @@ Route.get('/dash', 'DashboardController.index')
  * Admin panel
  * ----------------------------------------------
  */
-// Route.group(() => {
-//   Route.get('/', 'AdminController.index')
-//     .as('adminPanel.index')
+ Route.group(() => {
+   Route.get('/', 'AdminController.index')
+     .as('adminPanel.index')
 
-//   Route.get('/:model', 'AdminModelController.index')
-//     .as('adminPanel.model.index')
+   Route.get('/:model', 'AdminModelController.index')
+     .as('adminPanel.model.index')
 
-//   Route.get('/:model/i/:id', 'AdminModelController.view')
-//     .as('adminPanel.model.view')
+   Route.get('/:model/i/:id', 'AdminModelController.view')
+     .as('adminPanel.model.view')
 
-//   Route.get('/:model/create', 'AdminModelController.create')
-//     .as('adminPanel.model.create')
-//   Route.post('/:model/create', 'AdminModelController.createProcess')
+   Route.get('/:model/create', 'AdminModelController.create')
+     .as('adminPanel.model.create')
+   Route.post('/:model/create', 'AdminModelController.createProcess')
 
-//   Route.post('/:model/inject', 'AdminModelController.injectProcess')
+   Route.post('/:model/inject', 'AdminModelController.injectProcess')
 
-//   Route.get('/:model/i/:id/update', 'AdminModelController.update')
-//     .as('adminPanel.model.update')
-//   Route.post('/:model/i/:id/update', 'AdminModelController.updateProcess')
+   Route.get('/:model/i/:id/update', 'AdminModelController.update')
+     .as('adminPanel.model.update')
+   Route.post('/:model/i/:id/update', 'AdminModelController.updateProcess')
 
-//   Route.get('/:model/i/:id/delete', 'AdminModelController.deleteProcess')
-//     .as('adminPanel.model.delete')
-// })
-//   .middleware(['auth', 'authAdmin'])
-//   .prefix('/admin-panel')
+   Route.get('/:model/i/:id/delete', 'AdminModelController.deleteProcess')
+     .as('adminPanel.model.delete')
+})
+   .middleware(['auth', 'authAdmin'])
+     .prefix('/admin-panel')
 
 /**
  * ----------------------------------------------

@@ -46,3 +46,9 @@ input[type="submit"]
   }
 
 }
+
+.row-button-form{
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}

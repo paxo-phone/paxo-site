@@ -8,13 +8,22 @@ export default class UsersController {
     return view.render('auth/register')
   }
 
-  public async store({ request, response, auth }: HttpContextContract) {
-    const data = await request.validate(new RegisterValidator())
-    const user = await User.create(data)
-
-    auth.login(user)
-
-    response.redirect().toRoute("dash")
+  public async registerProcess({ auth, request, response, session  }: HttpContextContract) {
+    try {
+      console.log('TESTESTEST')
+      const data = await request.validate(new RegisterValidator())
+      const user = await User.create(data)
+      await auth.login(user)
+      session.flash('success', 'Post created successfully')
+      response.redirect().toRoute("dash")
+    }
+    catch{
+      console.log('LOG ERROR')
+      session.flash({error: 'Invalid data'})
+      response.redirect().toRoute('auth.register')
+    }
+    
+    
   }
 
   public async login({ view }: HttpContextContract) {
