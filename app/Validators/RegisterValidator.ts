@@ -22,7 +22,7 @@ export default class RegisterValidator {
     ])
   })
 
-  public messages: CustomMessages = { 
+  public messages = { 
     'username.required':  'error : The username nom is mandatory.',
     'username.minLength': 'error : The username must contain at least 3 characters.',
     'username.maxLength': 'error : The username must contain at most 20 characters.',
