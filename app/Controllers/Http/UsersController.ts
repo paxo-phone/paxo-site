@@ -18,7 +18,6 @@ export default class UsersController {
       await auth.login(user)
       console.log('registered')
       session.flash('success', 'Post created successfully')
-      response.redirect().toRoute("dash")
     }
     catch{
       session.flash({error: 'Invalid registration'})
