@@ -9,6 +9,8 @@ Dashboard
   <h1 style="color: #333; font-size: 24px; margin-bottom: 10px;">Bonjour, {{ user.username }}</h1>
   <p style="color: #666; font-size: 18px; margin: 5px 0;">Email: {{ user.email }}</p>
   
+  <a href="/myapps" style="color: #382222; font-size: 20px;">Mes Applications</a>
+
   @if (user.type == 1)
   <p style="color: #666; font-size: 18px; margin: 5px 0;">Vous êtes Administrateur</p>
   @end
