@@ -37,16 +37,7 @@ export default class ExceptionHandler {
 
   async handle(error, ctx: HttpContextContract) {
     ctx.session.flash({ error: ctx.response.getStatus() })
-    
-
-    if (error instanceof RegisterValidator) {
-      ctx.session.flash({ error: ctx.response.getStatus() })
-      return
-    }
-    if (error instanceof AuthenticationException) {
-      return ctx.response.redirect().back()
-    }
-
+  
     console.log("!ERROR : "+error)
     return ctx.response.redirect().back()
   }
