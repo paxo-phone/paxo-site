@@ -10,21 +10,22 @@ export default class UsersController {
 
   public async registerProcess({ auth, request, response, session  }: HttpContextContract) {
     try {
-      console.log('TESTESTEST')
+      console.log('try validation')
       const data = await request.validate(new RegisterValidator())
+      console.log('user validated')
       const user = await User.create(data)
+      console.log('user created')
       await auth.login(user)
+      console.log('registered')
       session.flash('success', 'Post created successfully')
       response.redirect().toRoute("dash")
     }
     catch{
-      console.log('LOG ERROR')
-      session.flash({error: 'Invalid data'})
+      session.flash({error: 'Invalid registration'})
       response.redirect().toRoute('auth.register')
     }
-    
-    
   }
+
 
   public async login({ view }: HttpContextContract) {
     return view.render('auth/login')
@@ -39,7 +40,7 @@ export default class UsersController {
     try {
       const user = await auth.verifyCredentials(login, password)
       await auth.login(user)
-      response.redirect().toPath(redirectTo)
+      response.redirect().toRoute("dash")
     } catch {
       session.flash({ error: 'Invalid credentials' })
       response.redirect().toRoute('auth.login')
@@ -49,6 +50,7 @@ export default class UsersController {
   public async logoutProcess({ auth, response, session }: HttpContextContract) {
     await auth.logout()
     session.flash({ success: 'Log out successfully' })
-    response.redirect('/')
+    response.redirect().toRoute("/")
   }
+
 }

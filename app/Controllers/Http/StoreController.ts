@@ -120,10 +120,8 @@ export default class StoreController {
   public async new({ view }: HttpContextContract) {
     return view.render('store/new')
   }
-
   public async post({ auth, request, response, session }: HttpContextContract) {
     const user = auth.use('web').user
-
     // Should not trigger (backed by auth middleware)
     if (!user)
       return
