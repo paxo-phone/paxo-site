@@ -142,7 +142,7 @@ export default class StoreController {
     })
 
     await app.save();
-
-    return response.redirect(`/store/app/${app.id}`)
+    session.flash({ success: 'App created successfully!' })
+    return response.redirect(`/app/${app.id}/manage`)
   }
 }
