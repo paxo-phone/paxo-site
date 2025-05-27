@@ -10,7 +10,7 @@ export default class AuthAdmin {
     }
 
     // Check if user is an admin
-    if (auth.user.type !== UserType.ADMIN && auth.user.id !== 1) {
+    if (auth.user.type !== UserType.ADMIN) {
       return response.forbidden('Forbidden')
     }
 
