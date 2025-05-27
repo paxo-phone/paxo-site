@@ -198,6 +198,7 @@ Route.group(() => {
     Route.post('/app/:id/releases/new', 'ReleasesController.create')
 
     Route.get('/myapps', 'StoreController.myapps')
+      .as('store.myapps')
 
     Route.get('/new', 'StoreController.new')
     Route.post('/new', 'StoreController.post')
