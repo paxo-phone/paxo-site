@@ -20,7 +20,6 @@ export default class AdminModelController {
   public async index({ params, request, view }: HttpContextContract) {
     const items = await models[params.model].query()
       .paginate(request.input('page', 1), 5)
-
     return view.render('adminmodel/index', {
       model: params.model,
       items: items.map((val) => val.toJSON())
