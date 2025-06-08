@@ -38,7 +38,6 @@ export default class ExceptionHandler {
   async handle(error, ctx: HttpContextContract) {
     ctx.session.flash({ error: ctx.response.getStatus() })
   
-    console.log("!ERROR : "+error)
     return ctx.response.redirect().back()
   }
 }
