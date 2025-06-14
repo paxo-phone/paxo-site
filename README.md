@@ -27,6 +27,8 @@ Don't forget to add all your environment variables !
 You must prepare the environement first:
 ```sh
 yarn install
+yarn add uuid
+yarn add -D @types/uuid
 mkdir tmp
 cp .env.example .env # Consider editing it before launching
 node ace migration:run
