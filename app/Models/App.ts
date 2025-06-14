@@ -1,5 +1,7 @@
 import { DateTime } from 'luxon'
-import { BaseModel, BelongsTo, belongsTo, column } from '@ioc:Adonis/Lucid/Orm'
+import { BaseModel, BelongsTo, belongsTo, column, beforeCreate } from '@ioc:Adonis/Lucid/Orm'
+import { v4 as uuidv4 } from 'uuid'
+
 import User from './User'
 
 export enum AppCategory { // If you want to add an app category, append to the bottom and add translation in language files
@@ -15,6 +17,9 @@ export default class App extends BaseModel {
   public id: number
 
   @column()
+  public uuid: string
+
+  @column()
   public userId: number
 
   @belongsTo(() => User)
@@ -27,12 +32,6 @@ export default class App extends BaseModel {
   public desc: string
 
   @column()
-  public ext_url: string
-
-  @column()
-  public source: string
-
-  @column()
   public category: AppCategory
 
   @column()
@@ -40,4 +39,11 @@ export default class App extends BaseModel {
 
   @column.dateTime({ autoCreate: true })
   public createdAt: DateTime
+
+  @beforeCreate()
+  public static async generateUuid(app: App) {
+    if (!app.uuid) { 
+      app.uuid = uuidv4()
+    }
+  }
 }
