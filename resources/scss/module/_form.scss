@@ -26,9 +26,30 @@ input,
 textarea,
 select
 {
-  padding: 1rem;
   margin-bottom: 1.5rem;
   border: lightgray 2px solid;
+  color:black;
+  border-radius: 0%;
+}
+input:invalid,select:invalid{
+  color:$grey1;
+}
+select,select::picker(select){
+  appearance: base-select;
+  &:focus,&:valid{
+    outline: none;
+    border-color: $green1;
+  }
+}
+
+
+select:after{
+  color:black;
+}
+select::picker-icon{
+    content:"v";
+  color:$green1;
+  margin-right:3%;
 }
 
 input[type="submit"]
@@ -44,8 +65,67 @@ input[type="submit"]
     background: white;
     color: black;
   }
-
 }
+//size of the box input
+input[type=text], input[type=password], select{
+    padding: 1.3rem;
+
+    &:focus, &:valid{
+      outline: none;
+      border-color: $green1;
+    }
+}
+
+
+input[type=file]::file-selector-button {
+  border: none;
+  background: $green1;
+  padding: 8px 12px;
+  color: #fff;
+  cursor: pointer;
+}
+
+//modify the text of the input file
+input[type=file]{
+  display: block;
+  padding: 1rem;
+
+  &:valid{
+    outline: none;
+    border-color: $green1;
+  }
+}
+
+//dropzone
+.drop-container {
+  position: relative;
+  display: flex;
+  gap: 10px;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  height: 300px;
+  padding: 20px;
+  border: 2px dashed lightgray;
+  color: #444;
+  cursor: pointer;
+  transition: background .2s ease-in-out, border .2s ease-in-out;
+  margin-bottom:5%;
+}
+
+.drop-container:hover {
+  background: #eee;
+  border-color: $green1;
+}
+.drop-container span{
+    margin-top:5%;
+    margin-bottom:10%;
+}
+
+.drop-container input{
+  margin-top:10%;
+}
+
 
 .row-button-form{
   display: flex;
