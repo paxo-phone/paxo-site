@@ -1,7 +1,6 @@
 @component('store/store_container')
 <div class="flex-spacer">
   <div id="app-head">
-    <img src="{{ app.image ?? '/img/logo.png'}}">
     <div id="app-details">
       <h1>{{app.name}}</h1>
       <h2>{{author.username}}</h2>
@@ -20,47 +19,24 @@
   <thead>
     <tr>
       <th>Téléchargements</th>
-      <!-- <th>Taille</th> -->
       <th>Langues supportés</th>
-      <th>Site web</th>
     </tr>
   </thead>
   <tbody>
     <tr>
       <td>{{app.downloads}}</td>
-      <!-- <td>Non implémenté</td> -->
       <td>Francais</td>
-      <td><a href="{{app.ext_url}}" target="_blank">{{ (new URL(app.ext_url)).hostname }}</a></td>
     </tr>
   </tbody>
-</table>
+</table> 
 
 
 <h1 class="app-prop-title">Description</h1>
 <p>
   {{app.desc}}
 </p>
-
-<h1 class="app-prop-title">Versions</h1>
-
-<table id="app-release-table">
-  <thead>
-    <th>Version</th>
-    <th>Actions</th>
-  </thead>
-  @each(release in releases)
-  <tr>
-    <td>{{release.name}}</td>
-    <td>
-      <a href="/app/{{app.id}}/download?r={{release.id}}">Télécharger</a>
-      <a href="/app/{{app.id}}/source?r={{release.id}}">Voir source</a>
-      @if(release.changelog)
-      <a href="/app/{{app.id}}/changelog/{{release.id}}">Changelog</a>
-      @end
-    </td>
-  </tr>
-  @end
-</table>
+                                                  
+                                                 
 
 @if(user && user.id == author.id)
 
@@ -69,10 +45,6 @@
   <a href="/app/{{app.id}}/manage" class="btn btn-submit">
     Modifier
   </a>
-  <a href="/app/{{app.id}}/releases/manage" class="btn btn-submit">
-    Gérer les versions
-  </a>
-</div>
 
 @endif
 @end
