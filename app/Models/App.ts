@@ -40,5 +40,11 @@ export default class App extends BaseModel {
   @column.dateTime({ autoCreate: true })
   public createdAt: DateTime
 
+  @column()
+  public review: boolean
+
+  @column()
+  public capabilities: JSON
+
 
 }
