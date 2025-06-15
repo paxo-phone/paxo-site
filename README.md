@@ -9,6 +9,16 @@
 - [See More](#see-more)
 - [Contributors](#contributors)
 
+## App structure
+
+name/
+├── manifest.json
+├── icon.png
+├── app.lua
+
+- manifest.json is mandatory and gives the capabilities used by the app.
+- icon.png is mandatory and must be 40x40
+
 ## Build the docker image
 
 Build everything with this command:
