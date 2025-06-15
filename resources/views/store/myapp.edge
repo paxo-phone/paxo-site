@@ -57,8 +57,6 @@
         <form method="post">
             <input type="text" name="name" placeholder="Nom de l'Application" value="{{app.name}}" required />
             <input type="text" name="desc" placeholder="Description" value="{{app.desc}}" required />
-            <input type="text" name="source" placeholder="Lien vers le code source" value="{{app.source}}" required />
-            <input type="text" name="ext_url" placeholder="Lien externe (facultatif)" value="{{app.ext_url ?? ''}}" />
             <select name="category" required>
                 <option value="0" {{ app.category == '0' ? 'selected' : '' }}>Productivité</option>
                 <option value="1" {{ app.category == '1' ? 'selected' : '' }}>Utilitaires</option>
