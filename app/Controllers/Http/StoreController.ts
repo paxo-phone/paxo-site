@@ -1,13 +1,12 @@
 import type { HttpContextContract } from '@ioc:Adonis/Core/HttpContext'
 import App from 'App/Models/App'
-import Release from 'App/Models/Release'
 import AppValidator from 'App/Validators/AppValidator' // Importez votre validateur
 import Application from '@ioc:Adonis/Core/Application' // Pour construire des chemins de fichiers
 import { v4 as uuidv4 } from 'uuid'
 import { AppCategory } from 'App/Models/App' // Assurez-vous que cette importation est correcte
 import Extract from 'extract-zip'
-import path from 'path'
 import fs from 'fs/promises'
+import fg from 'fast-glob'
 
 export default class StoreController {
   public async home({ request, view }: HttpContextContract) {
@@ -124,15 +123,15 @@ export default class StoreController {
     }
 
     const appUuid = uuidv4() // Génération d'un UUID unique pour l'application
-
     try {
       const validatedData = await request.validate(AppValidator)
       const appZipFile = validatedData.app_zip
+      const contentDirectory = Application.tmpPath(`apps/${appUuid}`)
 
-      await appZipFile.move(Application.tmpPath(`apps/${appUuid}`), {
+      await appZipFile.move(contentDirectory, {
         name : `${appUuid}`, // It's good practice to keep the .zip extension
         overwrite: false,
-      })
+      });
 
       if (appZipFile.state !== 'moved' || !appZipFile.filePath) {
         session.flash({ error: 'Erreur lors du déplacement du fichier ZIP.' })
@@ -143,7 +142,6 @@ export default class StoreController {
       }
 
       // 5. Définir le dossier où le contenu sera extrait
-      const contentDirectory = Application.tmpPath(`apps/${appUuid}/`)
       const zipFilePath = appZipFile.filePath // Chemin du fichier ZIP déplacé
 
       // 6. Créer le dossier de destination AVANT de tenter d'extraire
@@ -156,6 +154,26 @@ export default class StoreController {
       // 8. (Optionnel mais recommandé) Nettoyer le fichier .zip original
       await fs.unlink(zipFilePath)
 
+      // 9. Chercher le manifest.json dans le dossier extrait
+      console.log("====",contentDirectory)
+      const manifestPaths = await fg('**/manifest.json', { 
+            cwd: contentDirectory, // Cherche à partir du dossier d'extraction
+            absolute: true,     // Renvoie des chemins absolus
+            onlyFiles: true,
+        });
+
+        if (manifestPaths.length === 0) {
+            throw new Error("Le fichier manifest.json est introuvable dans le ZIP fourni.");
+        }
+        
+        // On prend le premier manifest trouvé.
+        const manifestPath = manifestPaths[0];
+        console.log(`Manifest trouvé à : ${manifestPath}`);
+
+        const fileContent = await fs.readFile(manifestPath, 'utf-8');
+        const manifest = JSON.parse(fileContent);
+
+
       const newApp = await App.create({
             userId: user.id,
             uuid: appUuid, // Génération d'un UUID unique pour l'application
@@ -163,6 +181,7 @@ export default class StoreController {
             desc: validatedData.desc,
             category: validatedData.category as unknown as AppCategory,
             downloads: 0,
+            capabilities: manifest,
           })
 
     await newApp.save()
@@ -202,4 +221,3 @@ export default class StoreController {
     }
   }
 }
-
