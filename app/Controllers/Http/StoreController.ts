@@ -3,8 +3,11 @@ import App from 'App/Models/App'
 import Release from 'App/Models/Release'
 import AppValidator from 'App/Validators/AppValidator' // Importez votre validateur
 import Application from '@ioc:Adonis/Core/Application' // Pour construire des chemins de fichiers
-import { cuid } from '@ioc:Adonis/Core/Helpers'
-
+import { v4 as uuidv4 } from 'uuid'
+import { AppCategory } from 'App/Models/App' // Assurez-vous que cette importation est correcte
+import Extract from 'extract-zip'
+import path from 'path'
+import fs from 'fs/promises'
 
 export default class StoreController {
   public async home({ request, view }: HttpContextContract) {
@@ -84,7 +87,7 @@ export default class StoreController {
       author
     })
   }
-
+/*
   public async update({ auth, request, response, params, session }: HttpContextContract) {
     const app = await App.query()
       .preload('author')
@@ -110,7 +113,7 @@ export default class StoreController {
     await app.save();
 
     return response.redirect(`/store/app/${app.id}`)
-  }
+  }*/
 
   public async new({ view }: HttpContextContract) {
     return view.render('store/new')
@@ -123,56 +126,71 @@ export default class StoreController {
       return response.redirect().back()
     }
 
+    const appUuid = uuidv4() // Génération d'un UUID unique pour l'application
+
     try {
-      // Valider la requête en utilisant AppValidator
-      const payload = await request.validate(AppValidator)
+      const validatedData = await request.validate(AppValidator)
+      const appZipFile = validatedData.app_zip
 
-      const appZipFile = payload.app_zip // Accès au fichier validé
-
-      // Générer un nom de fichier unique pour éviter les conflits
-      const zipFileName = `${cuid()}.${appZipFile.extname}`
-
-      // Déplacer le fichier uploadé vers le dossier 'uploads/app_zips' dans le dossier public
-      // Assurez-vous que ce dossier existe: public/uploads/app_zips
-      await appZipFile.moveToDisk('../../public/uploads/app_zips', { name: zipFileName }, 'local')
-
-
-      if (appZipFile.state !== 'moved' || !appZipFile.filePath) {
-        session.flash({ error: `Erreur lors du téléversement du fichier ZIP : ${appZipFile.errors[0]?.message || 'Chemin de fichier non disponible après déplacement.'}` })
-        return response.redirect().back()
-      }
-      // Chemin relatif accessible publiquement pour stocker dans la DB
-      const publicZipPath = `/uploads/app_zips/${zipFileName}`
-
-      // Créer l'application dans la base de données
-      const app = await App.create({
-        userId: user.id,
-        name: payload.name,
-        desc: payload.desc,
-        category: payload.category as App['category'],
-        // Vous pourriez vouloir ajouter une colonne à votre modèle App pour stocker ce chemin
-        // zipPath: publicZipPath, // Exemple
-        downloads: 0,
+      await appZipFile.move(Application.tmpPath(`apps/${appUuid}`), {
+        name : `${appUuid}`, // It's good practice to keep the .zip extension
+        overwrite: false,
       })
 
-      // Créer une release initiale pour cette application
-      // (Adaptez cette logique si nécessaire)
-      try {
-        await Release.create({
-          appId: app.id,
-          name: '1.0.0 - Version Initiale', // Ou un nom plus descriptif
-          commitSha: 'initial_upload', // Ou un placeholder
-          changelog: 'Première version de l\'application.',
-          downloadLink: publicZipPath, // Lien vers le fichier ZIP téléversé
-        })
-      } catch (releaseError) {
-        console.error(`Échec de la création de la release initiale pour l'app ${app.id}:`, releaseError.message)
-        // Vous pouvez choisir de flasher un avertissement ici
-        session.flash({ warning: 'Application créée, mais la release initiale n\'a pas pu être générée.' })
+      if (appZipFile.state !== 'moved' || !appZipFile.filePath) {
+        session.flash({ error: 'Erreur lors du déplacement du fichier ZIP.' })
+        if (appZipFile.errors) {
+          console.error('Erreurs de déplacement du fichier:', appZipFile.errors)
+        }
+        return response.redirect().back()
       }
 
-      session.flash({ success: 'Application créée avec succès ! Une première release a été générée.' })
-      return response.redirect().toRoute('StoreController.myapp', { id: app.id }) // ou une autre route appropriée
+      // 5. Définir le dossier où le contenu sera extrait
+      const contentDirectory = Application.tmpPath(`apps/${appUuid}/`)
+      const zipFilePath = appZipFile.filePath // Chemin du fichier ZIP déplacé
+
+      // 6. Créer le dossier de destination AVANT de tenter d'extraire
+      await fs.mkdir(contentDirectory, { recursive: true })
+
+      // 7. Extraire le zip EN UTILISANT LE BON CHEMIN
+      await Extract(zipFilePath, { dir: contentDirectory })
+      console.log(`Fichier extrait avec succès dans ${contentDirectory}`)
+
+      // 8. (Optionnel mais recommandé) Nettoyer le fichier .zip original
+      await fs.unlink(zipFilePath)
+
+      const newApp = await App.create({
+            userId: user.id,
+            uuid: appUuid, // Génération d'un UUID unique pour l'application
+            name: validatedData.name,
+            desc: validatedData.desc,
+            category: validatedData.category as unknown as AppCategory,
+            downloads: 0,
+          })
+
+    await newApp.save()
+
+    
+
+    // Créer une release initiale pour cette application
+    // (Adaptez cette logique si nécessaire)
+    /*
+    try {
+      await Release.create({
+        appId: newApp.id,
+        name: '1.0.0 - Version Initiale', // Ou un nom plus descriptif
+        commitSha: 'initial_upload', // Ou un placeholder
+        changelog: 'Première version de l\'application.',
+        downloadLink: appZipFile.filePath, // Lien vers le fichier ZIP téléversé
+      })
+    } catch (releaseError) {
+      console.error(`Échec de la création de la release initiale pour l'app ${newApp.id}:`, releaseError.message)
+      // Vous pouvez choisir de flasher un avertissement ici
+      session.flash({ warning: 'Application créée, mais la release initiale n\'a pas pu être générée.' })
+    }*/
+
+    session.flash({ success: 'Application créée avec succès !' })
+    return response.redirect().toRoute('StoreController.myapp', { id: newApp.id }) // ou une autre route appropriée
 
     } catch (error) {
       if (error.messages) { // Erreur de validation d'AdonisJS
