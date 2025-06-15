@@ -45,23 +45,20 @@ export default class StoreController {
   }
 
   public async app({ view, params }: HttpContextContract) {
-    const app = await App.query()
-      .preload('author')
-      .where('id', params.id)
-      .firstOrFail()
+    try{
+      const app = await App.query()
+            .preload('author')
+            .where('id', params.id)
+            .firstOrFail()
 
-    const releases = await Release.query()
-      .where('appId', app.id)
-      .orderBy('id', 'desc')
-      .exec()
-
-    const author = app.author
-
-    return view.render('store/app', {
-      app,
-      author,
-      releases
-    })
+      return view.render('store/app', {
+              app,
+              author:app.author,
+          })
+    }
+    catch (error) {
+      console.error('Error fetching app:', error)
+    }
   }
 
   public async myapp({ auth, response, view, params }: HttpContextContract) {
