@@ -29,6 +29,7 @@ You must prepare the environement first:
 yarn install
 yarn add uuid
 yarn add -D @types/uuid
+yarn add extract-zip
 mkdir tmp
 cp .env.example .env # Consider editing it before launching
 node ace migration:run
