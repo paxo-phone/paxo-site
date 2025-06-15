@@ -30,7 +30,9 @@ yarn install
 yarn add uuid
 yarn add -D @types/uuid
 yarn add extract-zip
+yarn add fast-glob
 mkdir tmp
+mkdir tmp/apps
 cp .env.example .env # Consider editing it before launching
 node ace migration:run
 ```
