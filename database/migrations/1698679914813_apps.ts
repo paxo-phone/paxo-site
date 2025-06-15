@@ -21,6 +21,9 @@ export default class extends BaseSchema {
       table.bigint("downloads").unsigned().notNullable().defaultTo(0)
 
       table.timestamp('created_at', { useTz: true })
+
+      table.boolean('review').defaultTo(false)
+      table.json('capabilities').nullable().defaultTo("")
     })
   }
 
