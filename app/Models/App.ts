@@ -17,10 +17,10 @@ export default class App extends BaseModel {
   public id: number
 
   @column()
-  public uuid: string
+  public userId: number
 
   @column()
-  public userId: number
+  public uuid: string
 
   @belongsTo(() => User)
   public author: BelongsTo<typeof User>
@@ -40,10 +40,5 @@ export default class App extends BaseModel {
   @column.dateTime({ autoCreate: true })
   public createdAt: DateTime
 
-  @beforeCreate()
-  public static async generateUuid(app: App) {
-    if (!app.uuid) { 
-      app.uuid = uuidv4()
-    }
-  }
+
 }
