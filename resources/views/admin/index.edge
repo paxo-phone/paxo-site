@@ -11,11 +11,10 @@ Admin panel
       <!-- Assuming @each is handled server-side and generates proper HTML -->
       @each(model in models)
       <li style="margin: 10px 0;">
-          <a href="{{ route('adminPanel.model.index', {model: model}) }}" style="color: #007BFF; text-decoration: none; font-size: 18px;">
-              {{ model }}
-          </a>
+          <a href="{{ route('adminPanel.model.review', {model: model}) }}" style="color: #007BFF; text-decoration: none; font-size: 18px;">{{ model }}</a>
       </li>
       @endeach
   </ul>
+
 </section>
 @endsection
