@@ -53,3 +53,29 @@
     </ul>
   </nav>
 </header>
+@!section('script')
+<script>
+  document.addEventListener('DOMContentLoaded', () => {
+    const header = document.querySelector('.header');
+    const toggleBtn = document.querySelector('.toggle-nav-btn');
+    const responsiveNav = document.querySelector('.responsive-nav');
+
+    // 1. Gérer l'ouverture/fermeture du menu mobile
+    if (toggleBtn && responsiveNav) {
+      toggleBtn.addEventListener('click', () => {
+        responsiveNav.classList.toggle('active');
+      });
+    }
+
+    // 2. Gérer le style du header au scroll
+    if (header) {
+      window.addEventListener('scroll', () => {
+        if (window.scrollY > 50) { // Si on a scrollé de plus de 50px
+          header.classList.add('scrolled');
+        } else {
+          header.classList.remove('scrolled');
+        }
+      });
+    }
+  });
+</script>
