@@ -1,155 +1,162 @@
-/* header */
-body{
-  &[path="/"]{
-    .header{
-      color: white;
 
-      > .logo {
-        filter: brightness(0) invert(1); // logo blanc
+// On définit une variable pour la transition, c'est plus propre
+$transition-duration: 0.3s;
+
+/* --- Structure de base du header --- */
+.header {
+  padding: 50px 7%;
+  margin-bottom: 60px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: 1000;
+  transition: all $transition-duration ease-in-out;
+  background-color: white;
+  color: black; // Couleur par défaut (quand il est en haut)
+
+  /* --- Le logo --- */
+  .logo img {
+    height: 60px; // Taille par défaut du logo
+    transition: all $transition-duration ease;
+  }
+
+  /* --- La navigation principale (pour les grands écrans) --- */
+  .nav {
+    display: none; // Cachée par défaut, affichée via media query
+
+    .nav-list {
+      display: flex;
+      align-items: center;
+      list-style: none;
+      padding: 0;
+      margin: 0;
+      gap: 2rem;
+    }
+
+    .nav-link {
+      text-decoration: none;
+      color: inherit;
+      text-transform: uppercase;
+      font-size: 16px;
+      font-weight: bold;
+      transition: color $transition-duration ease;
+
+      &:hover {
+        color: #3ABA99;
       }
+    }
+  }
+
+  /* --- Le sélecteur de langue --- */
+  .lang-select-wrapper {
+    position: relative;
+
+    #lang-select {
+      display: none; // Caché par défaut
+      position: absolute;
+      top: 100%;
+      left: 50%;
+      transform: translateX(-50%);
+      padding: 10px;
+      margin-top: 15px;
+      background: rgba(255, 255, 255, 0.9);
+      border-radius: 5px;
+
+      a {
+        display: block; // Pour que les liens soient les uns sous les autres
+        padding: 5px;
+      }
+    }
+
+    // Affiche le menu au survol
+    &:hover #lang-select {
+      display: flex;
+      flex-direction: column;
+      gap: 5px;
+    }
+  }
+
+
+  /* --- Le bouton pour ouvrir/fermer le menu mobile --- */
+  .toggle-nav-btn {
+    font-size: 1.5rem;
+    color: inherit;
+    cursor: pointer;
+    background: none;
+    border: none;
+    z-index: 1002; // Doit être au-dessus du reste
+  }
+
+  /* --- Le menu responsive qui apparaît en plein écran --- */
+  .responsive-nav {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100vh;
+    background: black;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    transform: translateX(-100%); // Sorti de l'écran par défaut
+    transition: transform $transition-duration ease;
+    z-index: 1001;
+
+    &.active {
+      transform: translateX(0); // Arrive sur l'écran
+    }
+
+    .responsive-nav-list {
+      display: flex;
+      flex-direction: column;
+      gap: 1.5rem;
+      list-style: none;
+      padding: 0;
+      text-align: center;
+    }
+
+    .responsive-nav-link {
+      color: white;
+      font-size: 1.4rem;
+      text-decoration: none;
+    }
+  }
+
+  /* --- Variante du header quand on a scrollé --- */
+  // On utilise une classe .scrolled qui sera ajoutée en JS
+  &.scrolled {
+    background-color: white;
+    color: black;
+    padding-top: 12px;
+    padding-bottom: 12px;
+    box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+
+    .logo img {
+      height: 40px;
+      filter: none; // On enlève le filtre pour voir le logo en couleur
     }
   }
 }
 
-.header{
-  padding: 30px 7%;
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  transition: all $transition-duration cubic-bezier(.5,0,0,1);
-  background: transparent;
-  z-index: 2;
-  position: fixed;
-  top: 0;
-  left: 0;
-  right: 0;
+/* --- Media Queries pour le responsive --- */
 
-  >.toggle-nav-btn {
-    // transform: translateY(-300%);
-    background: none;
-    border: none;
-    font-size: 1.5rem;
-    color: inherit;
-    cursor: pointer;
-    transition: all $transition-duration cubic-bezier(.5,0,0,1);
-    z-index: 1;
-
-    &.active {
-      color: white;
-    }
-
-    /*
-    &.visible {
-      transform: translate(0);
-    }
-    */
-  }
-
-  >.logo {
-    font-size: 33px;
-    font-weight: bold;
-    text-transform: uppercase;
-    color: inherit;
-    z-index: 1;
-    height: 48px;
-    transition: height $transition-duration cubic-bezier(.5,0,0,1);
-    /*
-    transform: translateY(-300%);
-    // transition: all 0.5s ease;
-
-    &.visible {
-      transform: translate(0);
-    }
-    */
-
-    >img {
-      height: 100%;
-    }
-  }
-
-  >.nav {
-    display: none;
-    transition: all $transition-duration cubic-bezier(.5,0,0,1), color 0s ease, filter 0s ease;
-
-
-    >.nav-list {
+// A partir de la taille XL, on change l'affichage
+@media screen and (min-width: 1200px) { // Remplacez 1200px par votre valeur pour 'xl'
+  .header {
+    // On affiche la navigation principale
+    .nav {
       display: flex;
-      justify-content: center;
-      align-items: center;
-      flex-wrap: wrap;
-
-      >.nav-item {
-        padding: 0 .8rem;
-
-        &.lang-select-wrapper {
-          position: relative;
-          display: flex;
-          align-items: center;
-
-          >#lang-current {
-            cursor: pointer;
-
-            border-radius: 3px;
-            overflow: hidden;
-          }
-
-          >#lang-select {
-            position: absolute;
-            display: none;
-            border-radius: 0.2rem;
-            padding: 10%;
-            background: rgba(255, 255, 255, 0.7);
-            border-bottom: none;
-            transition: all $transition-duration cubic-bezier(.5,0,0,1);
-
-            z-index: 2;
-            margin: -10%;
-            margin-top: 100%;
-
-            &.open {
-              display: block;
-            }
-          }
-        }
-
-        >.nav-link {
-          text-decoration: none;
-          color: inherit;
-          font-size: 16px;
-          font-weight: 600;
-          padding: 3px 0px;
-
-          &:hover {
-            color: #3ABA99;
-            border-bottom: 2px solid #3ABA99;
-          }
-        }
-      }
+    }
+    // On cache le bouton hamburger
+    .toggle-nav-btn {
+      display: none;
+    }
+    // On s'assure que le menu mobile n'est pas visible
+    .responsive-nav {
+      display: none;
     }
   }
-
-  &:not(.top){
-    background: white;
-
-    background-color: white;
-    box-shadow: 0 1px 5px rgba(0, 0, 0, 0.5);
-
-    &:not(.mobile_menu_active) {
-      padding-top: 12px;
-      padding-bottom: 12px;
-      color: black;
-  
-      > .logo {
-        height: 34px;
-
-        filter: none; // logo vert
-      }
-
-      >.nav {
-        ul {
-          >li {
-            color: black;
-          }
-        }
-      }
-    }
+}
