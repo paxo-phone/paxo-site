@@ -4,19 +4,65 @@ import { randomBytes } from 'node:crypto'
 import Drive from '@ioc:Adonis/Core/Drive'
 import axios from "axios"
 
-import Tutorial from 'App/Models/Tutorial'
+/*import Tutorial from 'App/Models/Tutorial'
 import PressArticle from 'App/Models/PressArticle'
 import Project from 'App/Models/Project'
-import File from 'App/Models/File'
+import File from 'App/Models/File'*/
+import Review from 'App/Models/App'
+
 
 export const models: { [key: string]: LucidModel } = { // Models available in the admin panel
-  Tutorial,
+  /*Tutorial,
   PressArticle,
   Project,
-  File
-}
+  File*/
+  Review
+} 
 
 export default class AdminModelController {
+   public async review({ view, params, session, response }: HttpContextContract) {
+    try {
+      const appsToReview = await Review.query() // Review est un alias pour App
+        .where('review', 0) // Cherche les applications où review est false (0)
+        .preload('author')
+        .orderBy('created_at', 'asc');
+
+      return view.render('adminmodel/review', {
+        model: params.model,
+        items: appsToReview,
+      });
+    } catch (error) {
+      // Retourner une vue d'erreur ou un message approprié
+      session.flash({ error: 'Une erreur est survenue lors du chargement des applications à valider.' });
+      return response.redirect().back(); // Ou vers une page d'erreur
+    }
+  }
+
+  public async reviewApp({ view, params,session }: HttpContextContract) {
+    console.log('[POINT DE CONTRÔLE B] --- Entrée dans la méthode reviewApp ---');
+    try{
+      console.log(`[POINT DE CONTRÔLE C] --- Entrée dans le bloc try, recherche de l'ID: ${params.id} ---`);
+      const app = await Review.findOrFail(params.id);
+      // findOrFail est parfait : il trouve l'app ou renvoie une erreur 404
+      // 2. On précharge les relations dont on pourrait avoir besoin (ex: l'auteur)
+      await app.load('author');
+
+      // 3. On rend la nouvelle vue 'reviewapp.edge' en lui passant l'application
+      return view.render('adminmodel/reviewapp', {
+        model: params.model, // Pour les titres et les futures routes
+        app: app,            // L'objet contenant les détails de l'app
+      });
+    }
+    catch (error) {
+      // Gérer l'erreur si l'application n'est pas trouvée
+      console.error('[POINT DE CONTRÔLE D] --- ERREUR ATTRAPÉE ---', error);
+      session.flash({ error: "Une erreur est survenue lors du chargement de l'applications." });
+      return view.render('errors/not_found'); // Afficher une page d'erreur 404
+    }
+    
+  }
+
+  /*
   public async index({ params, request, view }: HttpContextContract) {
     const items = await models[params.model].query()
       .paginate(request.input('page', 1), 5)
@@ -159,9 +205,9 @@ export default class AdminModelController {
     return response.redirect().toRoute('adminPanel.model.index', {
       model: params.model
     })
-  }
+  }*/
 }
-
+/*
 async function cf_invalidate(path: string) {
   axios.post('https://api.cloudflare.com/client/v4/zones/' + process.env.CLOUDFLARE_ZONE + '/purge_cache', {
     files: [
@@ -182,4 +228,4 @@ async function cf_invalidate(path: string) {
       console.error("Error while wiping the cloudflare cache")
       console.error(reason)
     })
-}
+}*/
