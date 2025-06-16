@@ -1,6 +1,7 @@
 // base
 @import 'base/reset';
 @import 'base/variables';
+@import 'base/fonts';
 @import 'base/base';
 
 // module
@@ -19,3 +20,7 @@
 
 // utils
 @import 'utils/utils';
+
+// atoms
+@import 'atoms/title';
+@import 'atoms/sections';

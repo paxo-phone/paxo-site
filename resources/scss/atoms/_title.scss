@@ -1,0 +1,86 @@
+/* title */
+/* serves the main title on the index */
+
+.title-container {
+  height: 65vh;
+}
+
+@media screen and (max-width: map-get($breakpoints, md)) {
+  .title-container {
+    height: 80vh;
+  }
+}
+
+.cta-title {
+  color: #fff;
+  filter: drop-shadow(0px 1px 2px rgba(0, 0, 0, 0.7));
+
+  display: flex;
+  flex-direction: column;
+  gap: 32px;
+
+  margin-top: 2%;
+
+  > .title {
+    font-size: 1.8rem;
+    line-height: 2rem;
+    font-weight: 600;
+
+    max-width: 700px;
+  }
+
+  > .description {
+    font-size: 1rem;
+    font-weight: 400;
+
+    max-width: 800px;
+
+    opacity: 0.8;
+  }
+
+  > .over_title {
+    font-size: 0.9rem;
+    font-weight: 400;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    opacity: 0.8;
+
+    max-width: 800px;
+  }
+
+  > .button {
+    display: flex;
+    width: fit-content;
+
+    gap: 16px;
+    align-items: center;
+    justify-content: center;
+
+    color: #fff;
+    border: 2px solid #fff;
+    border-radius: 0px;
+    padding: 8px 16px;
+
+    font-size: 0.9rem;
+    transition: all 0.3s ease;
+
+    animation: button-pulse 1.5s infinite;
+
+    &:hover {
+      background-color: #fff;
+      color: #000;
+    }
+  }
+}
+
+@keyframes button-pulse {
+  0% {
+    outline: 0px solid #fff;
+  }
+  50% {
+    outline: 8px solid #ffffff00;
+  }
+  100% {
+    outline: 8px solid #ffffff00;
+  }
+}

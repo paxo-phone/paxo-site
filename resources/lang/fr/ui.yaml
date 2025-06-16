@@ -23,7 +23,12 @@ footer:
     la liste complète des contributeurs
 
 index:
-  title: Un téléphone libre, modulaire et pédagogique.
+  header:
+    over_title: Découvrez le Paxo Phone
+    title: Un téléphone libre, modulaire et pédagogique.
+    description: |
+      Paxo, c'est un téléphone libre, modulaire et pédagogique. Il est conçu pour être réalisé par chacun, ouvert à tous et entièrement personnalisable.
+    more_info: Plus d'informations
   block1:
     title: Libre
     p1: |
