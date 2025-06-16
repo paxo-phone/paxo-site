@@ -113,12 +113,18 @@ Route.get('/dash', 'DashboardController.index')
  * ----------------------------------------------
  */
  Route.group(() => {
-   Route.get('/', 'AdminController.index')
-     .as('adminPanel.index')
+    Route.get('/', 'AdminController.index')
+      .as('adminPanel.index')
 
-   Route.get('/:model', 'AdminModelController.index')
-     .as('adminPanel.model.index')
+    Route.get('/:model/list', 'AdminModelController.review')
+      .as('adminPanel.model.review')
 
+    Route.get('/:model/view/:id', 'AdminModelController.reviewApp')
+      .as('adminPanel.model.reviewapp')
+
+    Route.post('/:model/:id/approve', 'AdminModelController.approve').as('admin.approveapp')
+    Route.post('/:model/:id/reject', 'AdminModelController.reject').as('admin.rejectpp')
+/*
    Route.get('/:model/i/:id', 'AdminModelController.view')
      .as('adminPanel.model.view')
 
@@ -134,6 +140,7 @@ Route.get('/dash', 'DashboardController.index')
 
    Route.get('/:model/i/:id/delete', 'AdminModelController.deleteProcess')
      .as('adminPanel.model.delete')
+  */
 })
    .middleware(['auth', 'authAdmin'])
      .prefix('/admin-panel')
