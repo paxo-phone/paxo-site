@@ -1,5 +1,4 @@
 /* header */
-
 body{
   &[path="/"]{
     .header{
@@ -25,7 +24,7 @@ body{
   left: 0;
   right: 0;
 
-  > .toggle-nav-btn {
+  >.toggle-nav-btn {
     // transform: translateY(-300%);
     background: none;
     border: none;
@@ -34,11 +33,11 @@ body{
     cursor: pointer;
     transition: all $transition-duration cubic-bezier(.5,0,0,1);
     z-index: 1;
-  
+
     &.active {
       color: white;
     }
-  
+
     /*
     &.visible {
       transform: translate(0);
@@ -46,7 +45,7 @@ body{
     */
   }
 
-  > .logo {
+  >.logo {
     font-size: 33px;
     font-weight: bold;
     text-transform: uppercase;
@@ -56,25 +55,30 @@ body{
     transition: height $transition-duration cubic-bezier(.5,0,0,1);
     /*
     transform: translateY(-300%);
-    transition: all 0.5s ease;
+    // transition: all 0.5s ease;
 
     &.visible {
       transform: translate(0);
     }
     */
+
+    >img {
+      height: 100%;
+    }
   }
 
-  > .nav {
+  >.nav {
     display: none;
     transition: all $transition-duration cubic-bezier(.5,0,0,1), color 0s ease, filter 0s ease;
 
-    > .nav-list {
+
+    >.nav-list {
       display: flex;
       justify-content: center;
       align-items: center;
       flex-wrap: wrap;
 
-      > .nav-item {
+      >.nav-item {
         padding: 0 .8rem;
 
         &.lang-select-wrapper {
@@ -82,14 +86,14 @@ body{
           display: flex;
           align-items: center;
 
-          > #lang-current{
+          >#lang-current {
             cursor: pointer;
 
             border-radius: 3px;
             overflow: hidden;
           }
-  
-          > #lang-select {
+
+          >#lang-select {
             position: absolute;
             display: none;
             border-radius: 0.2rem;
@@ -97,17 +101,18 @@ body{
             background: rgba(255, 255, 255, 0.7);
             border-bottom: none;
             transition: all $transition-duration cubic-bezier(.5,0,0,1);
+
             z-index: 2;
             margin: -10%;
             margin-top: 100%;
-  
+
             &.open {
               display: block;
             }
           }
         }
 
-        > .nav-link {
+        >.nav-link {
           text-decoration: none;
           color: inherit;
           font-size: 16px;
@@ -125,40 +130,43 @@ body{
 
   &:not(.top){
     background: white;
+
     background-color: white;
     box-shadow: 0 1px 5px rgba(0, 0, 0, 0.5);
 
-    &:not(.mobile_menu_active){
+    &:not(.mobile_menu_active) {
       padding-top: 12px;
       padding-bottom: 12px;
       color: black;
   
       > .logo {
         height: 34px;
+
         filter: none; // logo vert
       }
 
-      > .nav{
-         ul{
-          > li{
+      >.nav {
+        ul {
+          >li {
             color: black;
           }
-         }
+        }
       }
     }
 
     > nav{
+
       &.nav {
-        > .nav-list {
-          > .nav-item {
-            > #lang-select {
+        >.nav-list {
+          >.nav-item {
+            >#lang-select {
               background: rgba(0, 0, 0, 0.3);
             }
           }
         }
       }
 
-      option{
+      option {
         color: black;
       }
     }
@@ -192,8 +200,8 @@ body{
   height: 100vh;
   background: black;
 
-  select{
-    > option{
+  select {
+    >option {
       color: black;
     }
   }
@@ -201,7 +209,7 @@ body{
 
 .responsive-nav {
   transform: translateX(-200%);
-  transition: all $transition-duration ease;
+  // transition: all $// transition-duration ease;
 }
 
 .responsive-nav.active {
@@ -213,7 +221,7 @@ body{
 
 //   opacity: 0;
 //   transform: translateY(-70%);
-//   transition: all 0.5s ease;
+//   // transition: all 0.5s ease;
 
 // }
 
@@ -263,7 +271,7 @@ body{
 
 .presentation {
   opacity: 0;
-  transition: all $transition-duration ease;
+  // transition: all $// transition-duration ease;
 
   &.visible {
     opacity: 1;

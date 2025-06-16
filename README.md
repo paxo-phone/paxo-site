@@ -28,8 +28,8 @@ You must prepare the environement first:
 ```sh
 yarn install
 mkdir tmp
-node ace migration:run
 cp .env.example .env # Consider editing it before launching
+node ace migration:run
 ```
 
 Then you can launch the website with a watchman:

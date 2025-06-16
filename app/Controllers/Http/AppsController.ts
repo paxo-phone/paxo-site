@@ -1,88 +1,89 @@
-import type { HttpContextContract } from '@ioc:Adonis/Core/HttpContext'
-import App from '../../Models/App'
-import { string } from '@ioc:Adonis/Core/Helpers'
+// import type { HttpContextContract } from '@ioc:Adonis/Core/HttpContext'
+// import App from '../../Models/App'
+// import { string } from '@ioc:Adonis/Core/Helpers'
 
-export default class AppsController {
-  public async index({ view, params, request }: HttpContextContract) {
-    const query = request.qs()["query"]
-    const cat: number = params['category']
-    let apps: App[]
+// // DEPRECATED - Use StoreController instead
 
-    if (query) {
-      apps = await App.query()
-        .orderBy("downloads", "desc")
-        .orWhereLike("name", `%${query}%`)
-        .orWhereLike("desc", `%${query}%`)
-        .limit(15)
-    } else {
-      const q = App.query()
-        .orderBy("downloads", "desc")
-        .limit(15)
+// export default class AppsController {
+//   public async index({ view, params, request }: HttpContextContract) {
+//     const query = request.qs()["query"]
+//     const cat: number = params['category']
+//     let apps: App[]
 
-      if (cat) {
-        q.where('category', cat)
-      }
+//     if (query) {
+//       apps = await App.query()
+//         .orderBy("downloads", "desc")
+//         .orWhereLike("name", `%${query}%`)
+//         .orWhereLike("desc", `%${query}%`)
+//         .limit(15)
+//     } else {
+//       const q = App.query()
+//         .orderBy("downloads", "desc")
+//         .limit(15)
 
-      apps = await q
-    }
+//       if (cat) {
+//         q.where('category', cat)
+//       }
 
-    return view.share({
-      category: cat,
-      apps,
-      query
-    }).render('apps/index')
-  }
+//       apps = await q
+//     }
 
-  public async show({ view, params }: HttpContextContract) {
-    const app = await App.query()
-      .where('id', params.id)
-      .preload('author')
-      .firstOrFail()
+//     return view.share({
+//       category: cat,
+//       apps,
+//       query
+//     }).render('apps/index')
+//   }
 
-    return view.share({ app }).render('apps/product')
-  }
+//   public async show({ view, params }: HttpContextContract) {
+//     const app = await App.query()
+//       .where('id', params.id)
+//       //.preload('author')
+//       .firstOrFail()
 
-  public async create({ view }: HttpContextContract) {
-    return view.render('apps/create')
-  }
+//     return view.share({ app }).render('apps/product')
+//   }
 
-  public async createProcess({ auth, request, response }: HttpContextContract) {
-    const data = request.body()
-    let imgUrl = ""
-    const img = request.file('img')
+//   public async create({ view }: HttpContextContract) {
+//     return view.render('apps/create')
+//   }
 
-    if (!auth.user) return response.status(403)
+//   public async createProcess({ auth, request, response }: HttpContextContract) {
+//     const data = request.body()
+//     const img = request.file('img')
 
-    if (img) {
-      const filename = img.fileName + string.generateRandom(8) + (img.extname ? "." + img.extname : "")
-      await img.moveToDisk('/appicons', {
-        name: filename
-      })
-      imgUrl = process.env.ACCESS_ADDRESS + "/uploads/appicons/" + filename
-    }
+//     if (!auth.user) return response.status(403)
 
-    await App.create({
-      userId: auth.user.id,
-      name: data.name,
-      desc: data.desc,
-      image: imgUrl,
-      source_url: data.source_url,
-      releases: data.releases,
-      category: data.categories
-    })
-  }
+//     if (img) {
+//       const filename = img.fileName + string.generateRandom(8) + (img.extname ? "." + img.extname : "")
+//       await img.moveToDisk('/appicons', {
+//         name: filename
+//       })
+//       //imgUrl = process.env.ACCESS_ADDRESS + "/uploads/appicons/" + filename
+//     }
 
-  public async getAppJson({ params, response }: HttpContextContract) {
-    const app = await App.findOrFail(params["id"])
-    return response.send(app.toJSON())
-  }
+//     await App.create({
+//       userId: auth.user.id,
+//       name: data.name,
+//       desc: data.desc,
+//       //image: imgUrl,
+//       source_url: data.source_url,
+//       //releases: data.releases,
+//       category: data.categories
+//     })
+//   }
 
-  public async appinstalldemo({ view }: HttpContextContract) {
-    return view.render('apps/appinstalldemo');
-  }
+//   public async getAppJson({ params, response }: HttpContextContract) {
+//     const app = await App.findOrFail(params["id"])
+//     return response.send(app.toJSON())
+//   }
 
-  public async product({ view }: HttpContextContract) {
-    return view.render('apps/product');
-  }
-}
+//   public async appinstalldemo({ view }: HttpContextContract) {
+//     return view.render('apps/appinstalldemo');
+//   }
+
+//   public async product({ view }: HttpContextContract) {
+//     return view.render('apps/product');
+//   }
+// }
 

@@ -16,6 +16,7 @@
 import Logger from '@ioc:Adonis/Core/Logger'
 import HttpExceptionHandler from '@ioc:Adonis/Core/HttpExceptionHandler'
 import { HttpContextContract } from '@ioc:Adonis/Core/HttpContext'
+import { AuthenticationException } from '@adonisjs/auth/build/standalone'
 
 export default class ExceptionHandler extends HttpExceptionHandler {
   protected statusPages = {
@@ -28,8 +29,13 @@ export default class ExceptionHandler extends HttpExceptionHandler {
     super(Logger)
   }
 
-  async handle(_, ctx: HttpContextContract) {
+  async handle(error, ctx: HttpContextContract) {
     ctx.session.flash({ error: ctx.response.getStatus() })
+
+    if (error instanceof AuthenticationException) {
+      return ctx.response.redirect().toPath(error.redirectTo)
+    }
+
     return ctx.response.redirect().back()
   }
 }

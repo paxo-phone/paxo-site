@@ -1,0 +1,27 @@
+@component('store/store_container')
+<h1 style="font-size: 25px;">
+  Versions de {{app.name}}
+</h1>
+<br>
+<a href="/app/{{app.id}}/releases/new" class="btn btn-submit">Nouvelle version</a>
+<br>
+
+<table style="border: 1px solid gray;">
+  <th>
+  <td>Version</td>
+  <td>Actions</td>
+  </th>
+  @each(release in releases)
+  <tr>
+    <td>{{release.name}}</td>
+    <td>
+      <a href="/app/{{app.id}}/download?r={{release.id}}">Télécharger</a>
+      <a href="/app/{{app.id}}/source?r={{release.id}}">Voir source</a>
+      @if(release.changelog)
+      <a href="/app/{{app.id}}/changelog/{{release.id}}">Changelog</a>
+      @end
+    </td>
+  </tr>
+  @end
+</table>
+@end

@@ -14,7 +14,7 @@ export default class AuthMiddleware {
   /**
    * The URL to redirect to when request is Unauthorized
    */
-  protected redirectTo = '/'
+  protected redirectTo = '/auth/login'
 
   /**
    * Authenticates the current HTTP request against a custom set of defined
@@ -24,7 +24,7 @@ export default class AuthMiddleware {
    * of the mentioned guards and that guard will be used by the rest of the code
    * during the current request.
    */
-  protected async authenticate(auth: HttpContextContract['auth'], guards: (keyof GuardsList)[]) {
+  protected async authenticate(auth: HttpContextContract['auth'], guards: (keyof GuardsList)[], requestedPath: string) {
     /**
      * Hold reference to the guard last attempted within the for loop. We pass
      * the reference of the guard to the "AuthenticationException", so that
@@ -34,7 +34,7 @@ export default class AuthMiddleware {
     let guardLastAttempted: string | undefined
 
     for (const guard of guards) {
-      guardLastAttempted = guard
+      // guardLastAttempted = guard // for prod
 
       if (await auth.use(guard).check()) {
         /**
@@ -50,11 +50,15 @@ export default class AuthMiddleware {
     /**
      * Unable to authenticate using any guard
      */
+    const redirectURL = new URL(requestedPath)
+    redirectURL.searchParams.set('next', redirectURL.pathname)
+    redirectURL.pathname = this.redirectTo
+
     throw new AuthenticationException(
       'Unauthorized access',
       'E_UNAUTHORIZED_ACCESS',
       guardLastAttempted,
-      this.redirectTo,
+      redirectURL.toString()
     )
   }
 
@@ -62,7 +66,7 @@ export default class AuthMiddleware {
    * Handle request
    */
   public async handle(
-    { auth, view }: HttpContextContract,
+    { auth, view, request }: HttpContextContract,
     next: () => Promise<void>,
     customGuards: (keyof GuardsList)[]
   ) {
@@ -71,7 +75,8 @@ export default class AuthMiddleware {
      * the config file
      */
     const guards = customGuards.length ? customGuards : [auth.name]
-    await this.authenticate(auth, guards)
+    await this.authenticate(auth, guards, request.completeUrl(false))
+
     view.share({ admin: auth.user?.type == UserType.ADMIN, user: auth.user })
     await next()
   }

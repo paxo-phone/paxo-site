@@ -40,3 +40,4 @@ window.addEventListener('load', (e) => {
     reset: false
   });
 })
+

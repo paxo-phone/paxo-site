@@ -79,24 +79,24 @@ document.body.setAttribute("path", window.location.pathname)
  * We watch the position of the vertical scroll of the page.
  * If it exceeds a certain point, we activate/deactivate the scroll mode of the header.
  */
-window.addEventListener("scroll", () => {
-  checkHeaderOnScroll();
-});
+// window.addEventListener("scroll", () => {
+//   checkHeaderOnScroll();
+// });
 
-function checkHeaderOnScroll(){
-  const BREAK_POINT = 60;
-  const CLASS = "top";
-  if(window.scrollY > BREAK_POINT){
-    if(HEADER.classList.contains(CLASS)){
-      HEADER.classList.remove(CLASS);
-    }
-  }
-  else{
-    if(!HEADER.classList.contains(CLASS)){
-      HEADER.classList.add(CLASS);
-    }
-  }
-}
-checkHeaderOnScroll();
+// function checkHeaderOnScroll(){
+//   const BREAK_POINT = 60;
+//   const CLASS = "top";
+//   if(window.scrollY > BREAK_POINT){
+//     if(HEADER.classList.contains(CLASS)){
+//       HEADER.classList.remove(CLASS);
+//     }
+//   }
+//   else{
+//     if(!HEADER.classList.contains(CLASS)){
+//       HEADER.classList.add(CLASS);
+//     }
+//   }
+// }
+// checkHeaderOnScroll();
 
 //#endregion

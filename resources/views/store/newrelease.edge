@@ -1,0 +1,37 @@
+@component('store/store_container')
+<h1>
+  Poster une nouvelle version de {{app.name}}
+</h1>
+
+<form method="POST">
+  <input type="text" name="name" placeholder="Nom de la version" required />
+  <input type="text" name="changelog" placeholder="Lien vers le changelog (facultatif)" />
+  <select name="branch" id="branch-selector-input" required>
+    <option value="" disabled selected>Selectionner une branche...</option>
+    @each(branch in branches)
+    <option value="{{branch}}">{{branch}}</option>
+    @endeach
+    <option value="" id="manual-commit-option">Référencer un commit...</option>
+  </select>
+  <input type="text" name="commit-sha" placeholder="SHA1 complet du commit" id="commit-input" class="hidden" />
+  <button class="btn btn-submit" type="submit">Soumettre</button>
+</form>
+
+<style>
+  .hidden {
+    display: none;
+  }
+</style>
+
+<script>
+  document.addEventListener('DOMContentLoaded', function () {
+    document.getElementById('branch-selector-input').addEventListener('input', function (ev) {
+      if (ev.target.selectedOptions[0].id === 'manual-commit-option') {
+        document.querySelector('#commit-input').classList.remove('hidden')
+      } else {
+        document.querySelector('#commit-input').classList.add('hidden')
+      }
+    })
+  })
+</script>
+@end

@@ -1,23 +1,16 @@
-<header class="header top">
+<header class="header">
   <a href="/" class="logo">
-    <img src="/img/logo.png" alt="Paxo" style="height: 100%">
+    <img src="/img/logo_store.svg" alt="Paxo store logo">
   </a>
 
   <nav class="nav">
     <ul class="nav-list">
-      <li class="nav-item"><a class="nav-link" href="/about">{{ t("ui.header.about")
-          }}</a></li>
-      <li class="nav-item"><a class="nav-link" href="/contribute">{{
-          t("ui.header.contribute") }}</a>
+      <li class="nav-item"><a class="nav-link" href="https://paxo.fr">Site principal</a></li>
+      <li class="nav-item"><a class="nav-link" href="https://github.com/paxo-phone" target="_blank">GitHub</a>
       </li>
       <li class="nav-item"><a class="nav-link" href="https://discord.gg/84Qsp6tUSK" target="_blank">{{
           t("ui.header.discord") }}</a></li>
-      <li class="nav-item"><a class="nav-link" href="/tutorials">{{ t("ui.header.tutorials") }}</a></li>
-      <li class="nav-item"><a class="nav-link" href="/press">{{ t("ui.header.press") }}</a></li>
-      <li class="nav-item"><a class="nav-link" href="/contact">{{ t("ui.header.contact") }}</a></li>
-      <li class="nav-item"><a class="nav-link"
-          href="https://tribee.fr/cagnotte/01H7DFJGAQHNWSH4SC77A9X2ZV/participation" target="_blank">{{
-          t("ui.header.donations") }}</a></li>
+      <li class="nav-item"><a class="nav-link" href="https://docs.paxo.fr">{{ t("ui.header.tutorials") }}</a></li>
       <li class="nav-item lang-select-wrapper">
         <div id="lang-current" href="#">
           <span class="fi fi-{{ flags[i18n.locale] }}" aria-label="{{ t(`ui.languages.${i18n.locale}`) }}"></span>
@@ -50,6 +43,7 @@
           target="_blank">{{ t("ui.header.discord") }}</a></li>
       <li class="responsive-nav-item"><a class="responsive-nav-link" href="/tutorials">{{ t("ui.header.tutorials")
           }}</a></li>
+      <li class="responsive-nav-item"><a class="responsive-nav-link" href="/store">Store</a></li>
       <li class="responsive-nav-item"><a class="responsive-nav-link" href="/press">{{ t("ui.header.press") }}</a></li>
       <li class="responsive-nav-item"><a class="responsive-nav-link" href="/contact">{{ t("ui.header.contact") }}</a>
       </li>
