@@ -39,25 +39,19 @@ export default class AdminModelController {
   }
 
   public async reviewApp({ view, params,session }: HttpContextContract) {
-    console.log('[POINT DE CONTRÔLE B] --- Entrée dans la méthode reviewApp ---');
     try{
-      console.log(`[POINT DE CONTRÔLE C] --- Entrée dans le bloc try, recherche de l'ID: ${params.id} ---`);
       const app = await Review.findOrFail(params.id);
-      // findOrFail est parfait : il trouve l'app ou renvoie une erreur 404
-      // 2. On précharge les relations dont on pourrait avoir besoin (ex: l'auteur)
+
       await app.load('author');
 
-      // 3. On rend la nouvelle vue 'reviewapp.edge' en lui passant l'application
       return view.render('adminmodel/reviewapp', {
-        model: params.model, // Pour les titres et les futures routes
-        app: app,            // L'objet contenant les détails de l'app
+        model: params.model, 
+        app: app,            
       });
     }
     catch (error) {
-      // Gérer l'erreur si l'application n'est pas trouvée
-      console.error('[POINT DE CONTRÔLE D] --- ERREUR ATTRAPÉE ---', error);
       session.flash({ error: "Une erreur est survenue lors du chargement de l'applications." });
-      return view.render('errors/not_found'); // Afficher une page d'erreur 404
+      return view.render('errors/not_found'); 
     }
     
   }
