@@ -1,0 +1,127 @@
+/* =================================
+   Page de validation d'application
+   ================================= */
+
+/* Le conteneur principal de la page */
+.review-page-container {
+  max-width: 800px;
+  margin: 50px auto; /* Centre la page */
+  padding: 20px;
+}
+
+/* Le lien de retour */
+.review-page__back-link {
+  display: inline-block;
+  margin-bottom: 25px;
+  color: #555;
+  text-decoration: none;
+  font-size: 1rem;
+  &:hover {
+    text-decoration: underline;
+  }
+}
+
+/* Le titre principal de la page */
+.review-page__header {
+  font-size: 2rem;
+  font-weight: 300;
+  color: #333;
+  margin-bottom: 30px;
+  border-bottom: 1px solid #eee;
+  padding-bottom: 15px;
+
+  strong {
+    font-weight: 600;
+  }
+}
+
+/* La "carte" qui contient les détails */
+.review-page__card {
+  background: #ffffff;
+  padding: 25px 30px;
+  border-radius: 8px;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.07);
+}
+
+.card__title {
+  margin-top: 0;
+  margin-bottom: 20px;
+  font-size: 1.4rem;
+  color: #444;
+}
+
+/* La liste des détails (ID, Nom, Auteur...) */
+.details-list {
+  display: grid;
+  grid-template-columns: 180px 1fr; /* Colonne pour les étiquettes, colonne pour les valeurs */
+  gap: 12px 20px; /* Espace vertical et horizontal */
+
+  dt { /* Les étiquettes (ex: "Auteur :") */
+    font-weight: 600;
+    color: #666;
+    text-align: right;
+  }
+
+  dd { /* Les valeurs (ex: "John Doe") */
+    margin: 0;
+    color: #333;
+  }
+}
+.capabilities-list {
+    display: flex;
+    flex-wrap: wrap; /* Permet aux tags de passer à la ligne si l'espace manque */
+    gap: 8px; /* Espace entre chaque tag */
+  }
+
+  /* Le style de chaque tag individuel */
+  .capability-tag {
+    background-color: #e9ecef; /* Un gris clair et neutre */
+    color: #495057; /* Un gris plus foncé pour le texte */
+    padding: 4px 10px; /* Un peu d'espace intérieur */
+    border-radius: 12px; /* Pour un effet "pilule" */
+    font-size: 0.85rem;
+    font-weight: 500;
+    line-height: 1.5; /* Améliore l'alignement vertical du texte */
+  }
+
+/* La section avec les boutons d'action */
+.review-page__actions {
+  margin-top: 30px;
+  display: flex;
+  justify-content: flex-end; /* Aligne les boutons à droite */
+  gap: 15px;
+}
+
+/* --- Styles pour les boutons réutilisables --- */
+.btn-review {
+  padding: 6% 10%;
+  font-size: 1rem;
+  font-weight: 600;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+
+  &:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.15);
+  }
+}
+
+/* Modificateur pour le bouton d'approbation */
+.btn--approve {
+  background-color: #28a745; /* Vert */
+  color: white;
+}
+
+/* Modificateur pour le bouton de rejet */
+.btn--reject {
+  background-color: #dc3545; /* Rouge */
+  color: white;
+}
+
+.form-review{
+  display:flex;
+  flex-direction: row;
+  justify-content: center;
+}
