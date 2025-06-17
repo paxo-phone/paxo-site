@@ -8,13 +8,12 @@ Admin panel - {{ model }}
 <section class="container">
 
   <h1>Admin panel - {{ model }}</h1>
-
   <div>
     @if(model != "users")
     <a href="{{ route('adminPanel.model.create', {model: model}) }}">Create</a>
     @endif
   </div>
-
+  
   <div>
     @each(item in items)
     <a href="{{ route('adminPanel.model.view' , {model: model, id: item.id}) }}">
