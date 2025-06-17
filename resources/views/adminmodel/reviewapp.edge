@@ -1,0 +1,66 @@
+@!layout('base/main')
+
+@section('title')
+  Validation : {{ app.name }}
+@endsection
+
+@section('content')
+<div class="review-page-container">
+
+  <a href="{{ route('adminPanel.model.review', { model: model }) }}" class="review-page__back-link">← Retour à la liste</a>
+  
+  <h1 class="review-page__header">Validation : <strong>"{{ app.name }}"</strong></h1>
+  
+  <div class="review-page__card">
+    <h3 class="card__title">Détails de l'application</h3>
+    
+    <dl class="details-list">
+      <dt>Nom :</dt>
+      <dd>{{ app.name }}</dd>
+
+      <dt>Auteur :</dt>
+      <dd>{{ app.author ? app.author.username : 'Utilisateur inconnu' }}</dd>
+
+      <dt>Description :</dt>
+      <dd>{{ app.desc }}</dd>
+
+      <dt>Catégorie :</dt>
+      <dd>{{ app.category }}</dd>
+
+      <dt>Date :</dt>
+      <dd>{{ app.createdAt.toFormat('dd LLLL yyyy HH:mm') }}</dd>
+    
+      @if(app.capabilities && Object.keys(app.capabilities).length > 0)
+          <dt>Capacités :</dt>
+          <dd>
+            <div class="capabilities-list">
+              {{-- On boucle directement sur les valeurs de l'objet --}}
+              @each(value in Object.values(app.capabilities))
+                <span class="capability-tag">{{ value }}</span>
+              @endeach
+            </div>
+          </dd>
+        @endif
+    </dl>
+  </div>
+  
+  <div class="review-page__actions">
+    
+      {{-- action="{{ route('admin.rejectApp', { model: model, id: app.id }) }}" --}}
+    <form class="form-review" method="POST">
+      <button type="submit" class="btn-review btn--reject">
+        Rejeter
+      </button>
+    </form>
+
+  
+    <form class="form-review" method="POST">
+      <button type="submit" class="btn-review btn--approve">
+        Approuver
+      </button>
+    </form>
+    
+  </div>
+
+</div>
+@endsection
