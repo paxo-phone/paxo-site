@@ -7,15 +7,16 @@
     </div>
   </div>
   @!section('script')
-    <script type="module" src="https://unpkg.com/esp-web-tools@10/dist/web/install-button.js?module"></script>
+    <script type="module" src="/dist/web/install-button.js?module"></script>
 
-  <div id="app-head-actions">
-    <esp-web-install-button manifest="https://firmware.esphome.io/esp-web-tools/manifest.json">
-      <button slot="activate" class="btn btn-submit" >Télécharger</button>
-      <span slot="unsupported">Ah snap, your browser doesn't work! use a chromium.</span>
-      <span slot="not-allowed">Ah snap, you are not allowed to use this on HTTP! use https</span>
-    </esp-web-install-button>
-  </div>
+    <div id="app-head-actions">
+      <esp-web-install-button manifest="manifest.json"/>
+        <button slot="activate" class="btn btn-submit" >Télécharger</button>
+        <span slot="unsupported">Ah snap, your browser doesn't work! use a chromium.</span> 
+        <span slot="not-allowed">Ah snap, you are not allowed to use this on HTTP! use https</span>  
+      </esp-web-install-button>
+    </div>
+  
 </div>
 
 
