@@ -17,6 +17,11 @@ name/
 ├── app.lua
 
 - manifest.json is mandatory and gives the capabilities used by the app.
+```
+{
+    "access": ["files", "files_root", "os", "gsm", "gui", "time"]
+}
+```
 - icon.png is mandatory and must be 40x40
 
 ## Build the docker image
