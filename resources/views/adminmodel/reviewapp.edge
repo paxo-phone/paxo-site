@@ -36,14 +36,16 @@
             <div class="capabilities-list">
               {{-- On boucle directement sur les valeurs de l'objet --}}
               @each(value in Object.values(app.capabilities))
-                <span class="capability-tag">{{ value }}</span>
+              @each(v in value)
+                <span class="capability-tag">{{ v }}</span>
+              @endeach
               @endeach
             </div>
           </dd>
         @endif
     </dl>
   </div>
-  
+
   <div class="review-page__actions">
     
       {{-- action="{{ route('admin.rejectApp', { model: model, id: app.id }) }}" --}}
@@ -53,6 +55,12 @@
       </button>
     </form>
 
+    <button type="submit" class="btn btn-review">
+        <a href="{{ route('admin.model.explorerfile', { model: model, id: app.id }) }}" target="_blank">
+        <i class="fa fa-folder-open"></i>  <!-- Icône sympa si vous utilisez FontAwesome -->
+        Explorer
+      </a>
+      </button>
   
     <form class="form-review" method="POST">
       <button type="submit" class="btn-review btn--approve">
