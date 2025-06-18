@@ -1,0 +1,23 @@
+@!layout('base/main')
+
+@section('title')
+  Code : {{ fileName }} - {{ app.name }}
+@endsection
+
+@section('content')
+<div class="code-viewer-container">
+  <div class="code-viewer__header">
+    <h1>Source : <strong>{{ fileName }}</strong></h1>
+    <p>Application : {{ app.name }}</p>
+  </div>
+
+  {{-- La classe 'language-...' est maintenant dynamique ! --}}
+  <pre class="code-viewer__pre"><code class="language-{{ language }}">
+{{{
+  codeContent
+}}}
+</code></pre>
+</div>
+@endsection
+
+{{-- Ajoutez ici le même @section('style') que pour la page view_code --}}
