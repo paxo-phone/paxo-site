@@ -1,0 +1,111 @@
+@!layout('base/main')
+
+@section('title')
+  Explorateur de fichiers : {{ app.name }}
+@endsection
+
+@section('content')
+<div class="file-explorer-container">
+  <h1>Explorateur de fichiers : <strong>{{ app.name }}</strong></h1>
+  
+  <ul class="file-list">
+    @if(fileList.length === 0)
+      <li class="file-item--empty">Aucun fichier trouvé dans cette application.</li>
+    @else
+      {{-- On vérifie si fileList est un tableau d'objets ou de strings --}}
+      @if(typeof(fileList[0]) === 'object')
+        {{-- Cas où fileList est un tableau d'objets (Solution 2) --}}
+        @each(entry in fileList)
+          @if(entry.isDirectory)
+            <li class="file-item file-item--directory">
+              <i class="fa-solid fa-folder"></i>
+              <span>{{ entry.path }}</span>
+            </li>
+          @else
+            <li class="file-item">
+              <a href="{{ route('admin.model.reviewfile', { model: model, id: app.id, '*': entry.path.split('/') }) }}" style="color:red;" target="_blank">
+                @if(entry.path.endsWith('.lua'))
+                  <i class="fa-solid fa-code"></i>
+                @elseif(entry.path.endsWith('.png') || entry.path.endsWith('.jpg'))
+                  <i class="fa-solid fa-image"></i>
+                @elseif(entry.path.endsWith('.json'))
+                  <i class="fa-solid fa-gear"></i>
+                @else
+                  <i class="fa-solid fa-file"></i>
+                @endif
+                <span>{{ entry.path }}</span>
+              </a>
+            </li>
+          @endif
+        @endeach
+      @else
+        {{-- Cas où fileList est un tableau de strings (Solution 1) --}}
+        @each(file in fileList)
+          <li class="file-item">
+            <a href="{{ route('admin.model.reviewfile', { model: model, id: app.id, '*': file.split('/') }) }}" style="color:red;"  target="_blank">
+              @if(file.endsWith('.lua'))
+                <i class="fa-solid fa-code"></i>
+              @elseif(file.endsWith('.png') || file.endsWith('.jpg'))
+                <i class="fa-solid fa-image"></i>
+              @elseif(file.endsWith('.json'))
+                <i class="fa-solid fa-gear"></i>
+              @else
+                <i class="fa-solid fa-file"></i>
+              @endif
+              <span>{{ file }}</span>
+            </a>
+          </li>
+        @endeach
+      @endif
+    @endif
+  </ul>
+</div>
+@endsection
+
+@section('style')
+<style>
+.file-explorer-container { max-width: 900px; margin: 40px auto; padding: 0 20px; }
+.file-explorer-container h1 { font-size: 1.8rem; font-weight: 300; margin-bottom: 30px; }
+.file-list { list-style: none; padding: 0; border: 1px solid #ddd; border-radius: 8px; overflow: hidden; }
+.file-item--empty { padding: 20px; color: #888; }
+
+/* Styles pour une ligne de fichier (cliquable ou non) */
+.file-item a, 
+.file-item--directory {
+  display: flex;           /* Utilise Flexbox pour un alignement parfait */
+  align-items: center;     /* Centre verticalement l'icône et le texte */
+  padding: 12px 20px;
+  text-decoration: none;
+  color: #333;
+  border-bottom: 1px solid #eee;
+  transition: background-color 0.2s ease;
+}
+
+.file-item a:hover { 
+  background-color: #f7f7f7; 
+}
+
+.file-item:last-child a, 
+.file-item:last-child { 
+  border-bottom: none; 
+}
+
+/* === MODIFICATIONS POUR LA TAILLE DES ICÔNES === */
+.file-item i,
+.file-item--directory i {
+  font-size: 20px;         /* Définit la taille de l'icône à 20px */
+  width: 35px;             /* Alloue une largeur fixe pour un alignement parfait des textes */
+  text-align: center;      /* Centre l'icône dans sa zone de largeur fixe */
+  margin-right: 15px;      /* Espace entre l'icône et le nom du fichier */
+  color: #5a6a82;          /* Une couleur de bleu-gris pour les icônes */
+}
+/* === FIN DES MODIFICATIONS === */
+
+/* Style spécifique pour les dossiers */
+.file-item--directory {
+  color: #4a5a70;
+  background-color: #f0f4f8;
+  font-weight: bold;
+}
+</style>
+@endsection
