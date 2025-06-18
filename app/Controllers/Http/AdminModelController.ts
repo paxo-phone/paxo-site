@@ -1,8 +1,13 @@
 import type { HttpContextContract } from '@ioc:Adonis/Core/HttpContext'
 import { LucidModel } from '@ioc:Adonis/Lucid/Orm'
-import { randomBytes } from 'node:crypto'
+import fs from 'fs/promises'
+import fg from 'fast-glob'
+import path from 'path'
+import Application from '@ioc:Adonis/Core/Application'
+
+/*import { randomBytes } from 'node:crypto'
 import Drive from '@ioc:Adonis/Core/Drive'
-import axios from "axios"
+import axios from "axios"*/
 
 /*import Tutorial from 'App/Models/Tutorial'
 import PressArticle from 'App/Models/PressArticle'
@@ -53,9 +58,70 @@ export default class AdminModelController {
       session.flash({ error: "Une erreur est survenue lors du chargement de l'applications." });
       return view.render('errors/not_found'); 
     }
-    
   }
 
+  public async explorerfile({ view, params }: HttpContextContract) {
+    const app = await Review.findOrFail(params.id)
+    const searchDirectory = Application.tmpPath(`apps/${app.uuid}/${app.name}`)
+    console.log('[CHEMIN DE RECHERCHE] :', searchDirectory);
+
+    // On utilise fast-glob pour lister tous les fichiers de manière récursive
+    const entries = await fg('**/*', { 
+    cwd: searchDirectory,
+    onlyFiles: true,
+    stats: true // 
+  })
+  const fileList = entries.map(entry => ({
+    path: entry.path, // Le chemin du fichier/dossier
+    isDirectory: entry.stats!.isDirectory() // Un booléen qui nous dit si c'est un dossier
+  })).sort((a, b) => a.path.localeCompare(b.path)); // On trie par nom
+
+    return view.render('adminmodel/explorerfile', {
+      app,
+      model: params.model,
+      fileList: fileList.sort(), // On trie la liste pour un affichage propre
+    })
+  }
+
+  public async reviewfile({ params, response, view, session}: HttpContextContract) {
+    // Le '*' dans la route est accessible via params['*']
+    const relativeFilePath = params['*'].join('/')
+    const app = await Review.findOrFail(params.id)
+    
+    const absoluteFilePath = Application.tmpPath(`apps/${app.uuid}/${app.name}/${relativeFilePath}`)
+    const fileExtension = path.extname(relativeFilePath).toLowerCase()
+
+    try {
+      switch (fileExtension) {
+        case '.lua':
+        case '.json':
+          // Pour les fichiers texte, on les lit et on les affiche avec une vue
+          const codeContent = await fs.readFile(absoluteFilePath, 'utf-8')
+          return view.render('adminmodel/reviewfile', {
+            app,
+            model: params.model,
+            fileName: relativeFilePath,
+            language: fileExtension === '.lua' ? 'lua' : 'json', // Pour Prism.js
+            codeContent,
+          })
+
+        case '.png':
+        case '.jpg':
+        case '.jpeg':
+        case '.gif':
+        case '.svg':
+          // Pour les images, on les envoie directement au navigateur
+          return response.download(absoluteFilePath)
+
+        default:
+          // Pour tous les autres types de fichiers, on propose un téléchargement forcé
+          return response.download(absoluteFilePath, true)
+      }
+    } catch (error) {
+      session.flash({ error: `Erreur lors du service du fichier ${absoluteFilePath}:` });
+      return view.render('errors/not_found'); 
+    }
+  }
   /*
   public async index({ params, request, view }: HttpContextContract) {
     const items = await models[params.model].query()
