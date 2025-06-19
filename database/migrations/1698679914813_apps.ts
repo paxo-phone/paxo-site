@@ -17,13 +17,17 @@ export default class extends BaseSchema {
       table.uuid('uuid').notNullable().unique()
       table.string('name', 100).notNullable().defaultTo("")
       table.string('desc', 500).nullable().defaultTo("")
+
       table.smallint('category').notNullable()
+      table.json('capabilities').nullable().defaultTo("")
+
       table.bigint("downloads").unsigned().notNullable().defaultTo(0)
 
       table.timestamp('created_at', { useTz: true })
 
-      table.boolean('review').defaultTo(false)
-      table.json('capabilities').nullable().defaultTo("")
+      table.smallint('review').notNullable().defaultTo(0)
+      table.text('comment')
+      
     })
   }
 
