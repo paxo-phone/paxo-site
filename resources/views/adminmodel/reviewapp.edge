@@ -46,29 +46,56 @@
     </dl>
   </div>
 
-  <div class="review-page__actions">
-    
-      {{-- action="{{ route('admin.rejectApp', { model: model, id: app.id }) }}" --}}
-    <form class="form-review" method="POST">
-      <button type="submit" class="btn-review btn--reject">
-        Rejeter
-      </button>
-    </form>
-
-    <button type="submit" class="btn btn-review">
-        <a href="{{ route('admin.model.explorerfile', { model: model, id: app.id }) }}" target="_blank">
-        <i class="fa fa-folder-open"></i>  <!-- Icône sympa si vous utilisez FontAwesome -->
-        Explorer
-      </a>
-      </button>
+  <div class="review-page__actions" id="actions-container">
   
-    <form class="form-review" method="POST">
-      <button type="submit" class="btn-review btn--approve">
-        Approuver
+  {{-- ÉTAT 1 : Les boutons par défaut (visibles au départ) --}}
+  <div class="actions__default" id="default-actions">
+    {{-- Le bouton Rejeter n'est plus un formulaire, mais un simple bouton qui déclenche l'animation --}}
+    <button type="button" class="btn btn--reject" id="open-reject-form-btn">
+      Rejeter
+    </button>
+    
+    {{-- Le formulaire pour Approuver ne change pas --}}
+    <form action="{{ route('admin.model.approved', { model: model, id: app.id }) }}" method="POST">
+      <button type="submit" class="btn btn--approve">
+        Approuver l'application
       </button>
     </form>
-    
+  </div>
+
+  {{-- ÉTAT 2 : Le formulaire de rejet (caché au départ) --}}
+  <div class="actions__reject-form" id="reject-form">
+    <form action="{{ route('admin.model.rejected', { model: model, id: app.id }) }}" method="POST" class="reject-form__content">
+      
+      <textarea name="comment" class="reject-form__comment-input" required placeholder="Motif du rejet..."></textarea>
+      
+      <div class="reject-form__buttons">
+        <button type="button" class="btn btn--secondary" id="cancel-reject-btn">Annuler</button>
+        <button type="submit" class="btn btn--reject">Envoyer le rejet</button>
+      </div>
+    </form>
   </div>
 
 </div>
+@endsection
+@section('script')
+<script>
+document.addEventListener('DOMContentLoaded', () => {
+  const actionsContainer = document.getElementById('actions-container');
+  const openRejectBtn = document.getElementById('open-reject-form-btn');
+  const cancelRejectBtn = document.getElementById('cancel-reject-btn');
+
+  if (actionsContainer && openRejectBtn && cancelRejectBtn) {
+    // Quand on clique sur "Rejeter"
+    openRejectBtn.addEventListener('click', () => {
+      actionsContainer.classList.add('is-rejecting');
+    });
+
+    // Quand on clique sur "Annuler"
+    cancelRejectBtn.addEventListener('click', () => {
+      actionsContainer.classList.remove('is-rejecting');
+    });
+  }
+});
+</script>
 @endsection
