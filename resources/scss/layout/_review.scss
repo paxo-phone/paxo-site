@@ -84,44 +84,78 @@
     line-height: 1.5; /* Améliore l'alignement vertical du texte */
   }
 
-/* La section avec les boutons d'action */
+
+
+
+
+
+
+
+  
+/* --- Section des actions interactive --- */
 .review-page__actions {
   margin-top: 30px;
+  position: relative; /* Crucial pour superposer les enfants */
+  height: 50px;       /* Hauteur fixe pour éviter les sauts de page, à ajuster si vos boutons sont plus grands */
   display: flex;
-  justify-content: flex-end; /* Aligne les boutons à droite */
+  justify-content: flex-end;
+}
+
+/* Conteneur pour les deux "états" */
+.actions__default,
+.actions__reject-form {
+  position: absolute; /* On les superpose */
+  top: 0;
+  right: 0;
+  display: flex;
   gap: 15px;
+  align-items: center;
+  transition: opacity 0.3s ease, transform 0.3s ease;
 }
 
-/* --- Styles pour les boutons réutilisables --- */
-.btn-review {
-  padding: 6% 10%;
-  font-size: 1rem;
-  font-weight: 600;
-  border: none;
+/* Par défaut, le formulaire de rejet est invisible et légèrement décalé vers le bas */
+.actions__reject-form {
+  opacity: 0;
+  transform: translateY(10px);
+  pointer-events: none; /* Empêche les clics quand il est invisible */
+  width: 100%; // Prend toute la largeur pour le champ de texte
+}
+
+/* Style du contenu du formulaire de rejet */
+.reject-form__content {
+  display: flex;
+  width: 100%;
+  gap: 15px;
+  align-items: center;
+}
+.reject-form__comment-input {
+  flex-grow: 1; /* Le champ de texte prend toute la place disponible */
+  padding: 10px;
+  border: 1px solid #ccc;
   border-radius: 5px;
-  cursor: pointer;
-  transition: transform 0.2s ease, box-shadow 0.2s ease;
+  font-size: 1rem;
+}
+.reject-form__buttons {
+  display: flex;
+  gap: 10px;
+}
 
-  &:hover {
-    transform: translateY(-2px);
-    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.15);
+
+/* --- Le changement d'état via la classe .is-rejecting --- */
+
+/* Quand le conteneur est en mode rejet... */
+.review-page__actions.is-rejecting {
+  /* ...on cache les boutons par défaut en les faisant glisser vers le haut */
+  .actions__default {
+    opacity: 0;
+    transform: translateY(-10px);
+    pointer-events: none;
   }
-}
 
-/* Modificateur pour le bouton d'approbation */
-.btn--approve {
-  background-color: #28a745; /* Vert */
-  color: white;
-}
-
-/* Modificateur pour le bouton de rejet */
-.btn--reject {
-  background-color: #dc3545; /* Rouge */
-  color: white;
-}
-
-.form-review{
-  display:flex;
-  flex-direction: row;
-  justify-content: center;
+  /* ...et on affiche le formulaire en le faisant glisser à sa place */
+  .actions__reject-form {
+    opacity: 1;
+    transform: translateY(0);
+    pointer-events: auto;
+  }
 }
