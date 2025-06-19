@@ -126,8 +126,8 @@ Route.get('/dash', 'DashboardController.index')
 
     Route.get('/:model/:id/file/*', 'AdminModelController.reviewfile').as('admin.model.reviewfile')
 
-    Route.post('/:model/:id/approve', 'AdminModelController.approve').as('admin.approveapp')
-    Route.post('/:model/:id/reject', 'AdminModelController.reject').as('admin.rejectpp')
+    Route.post('/:model/:id/approve', 'AdminModelController.approve').as('admin.model.approved')
+    Route.post('/:model/:id/reject', 'AdminModelController.reject').as('admin.model.rejected')
 /*
    Route.get('/:model/i/:id', 'AdminModelController.view')
      .as('adminPanel.model.view')
