@@ -14,6 +14,7 @@ import PressArticle from 'App/Models/PressArticle'
 import Project from 'App/Models/Project'
 import File from 'App/Models/File'*/
 import Review from 'App/Models/App'
+import { ReviewCategory } from 'App/Models/App'
 
 
 export const models: { [key: string]: LucidModel } = { // Models available in the admin panel
@@ -121,6 +122,37 @@ export default class AdminModelController {
       session.flash({ error: `Erreur lors du service du fichier ${absoluteFilePath}:` });
       return view.render('errors/not_found'); 
     }
+  }
+
+  public async approve({ params, response, session }: HttpContextContract) {
+    const app = await Review.findOrFail(params.id);
+    app.review = ReviewCategory.APPROVED;
+    app.comment = null; // Clear any previous rejection comment
+    await app.save();
+
+    session.flash({ success: `L'application "${app.name}" a été approuvée.` });
+    return response.redirect().toRoute('adminPanel.model.review', { model: params.model });
+  }
+
+  // The reject method now needs the 'request' object
+  public async reject({ params, request, response, session }: HttpContextContract) {
+    const app = await Review.findOrFail(params.id);
+    
+    // Get the comment from the form submission
+    const comment = request.input('comment');
+
+    // Basic validation: ensure a comment was provided
+    if (!comment || comment.trim() === '') {
+      session.flash({ error: 'Un commentaire est obligatoire pour rejeter une application.' });
+      return response.redirect().back();
+    }
+
+    app.review = ReviewCategory.REJECTED;
+    app.comment = comment; // Save the comment
+    await app.save();
+
+    session.flash({ success: `L'application "${app.name}" a été rejetée.` });
+    return response.redirect().toRoute('adminPanel.model.review', { model: params.model });
   }
   /*
   public async index({ params, request, view }: HttpContextContract) {
