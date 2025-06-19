@@ -2,19 +2,17 @@ import { HttpContextContract } from '@ioc:Adonis/Core/HttpContext'
 import { UserType } from 'App/Models/User'
 
 export default class AuthAdmin {
-  public async handle({ auth, response }: HttpContextContract, next: () => Promise<void>) {
-    // Check if user is authenticated
-    console.log(auth.user)
-    if (!auth.user) {
-      return response.unauthorized('Unauthorized')
+  public async handle({ auth, response, session }: HttpContextContract, next: () => Promise<void>) {
+    const user = auth.use('web').user
+    if (!user) {
+      return response.redirect().toRoute('auth.login') 
     }
 
-    // Check if user is an admin
-    if (auth.user.type !== UserType.ADMIN && auth.user.id !== 1) {
-      return response.forbidden('Forbidden')
+    if (user.type !== UserType.ADMIN) {
+      session.flash({ error: 'Accès non autorisé.' })
+      return response.redirect().toRoute('adminPanel.index') 
     }
 
-    // If everything is okay, proceed to the next middleware or route
-    next()
+    await next()
   }
 }

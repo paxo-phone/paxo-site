@@ -13,7 +13,7 @@ import Server from '@ioc:Adonis/Core/Server'
 
 /*
 |--------------------------------------------------------------------------
-| Global middleware
+| Global middleware"
 |--------------------------------------------------------------------------
 |
 | An array of global middleware, that will be executed in the order they
@@ -22,7 +22,7 @@ import Server from '@ioc:Adonis/Core/Server'
 */
 Server.middleware.register([
   () => import('@ioc:Adonis/Core/BodyParser'),
-  () => import('App/Middleware/DetectUserLocale')
+  () => import('App/Middleware/DetectUserLocale'),
 ])
 
 /*

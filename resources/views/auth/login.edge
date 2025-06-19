@@ -7,8 +7,13 @@ Log in
 @section('content')
 <form method="post" enctype="multipart/form-data" style="margin-top: 150px;">
   <input type="text" name="login" placeholder="Username / email" required>
+  
   <input type="password" name="password" placeholder="Password" required>
 
-  <button type="submit" class="btn btn-submit">Log in</button>
+  <section class="row-button-form">
+    <button type="submit" class="btn btn-submit">Log in</button>
+    <button class="btn btn-submit"><a href="../auth/register">Sign up</a></button>
+  </section>
+
 </form>
 @endsection

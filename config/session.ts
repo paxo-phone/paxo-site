@@ -36,7 +36,7 @@ export default sessionConfig({
   | Note: Switching drivers will make existing sessions invalid.
   |
   */
-  driver: Env.get('SESSION_DRIVER'),
+  driver: Env.get('SESSION_DRIVER', 'cookie'),
 
   /*
   |--------------------------------------------------------------------------

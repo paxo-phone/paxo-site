@@ -1,26 +1,163 @@
 import type { HttpContextContract } from '@ioc:Adonis/Core/HttpContext'
 import { LucidModel } from '@ioc:Adonis/Lucid/Orm'
-import { randomBytes } from 'node:crypto'
-import Drive from '@ioc:Adonis/Core/Drive'
-import axios from "axios"
+import fs from 'fs/promises'
+import fg from 'fast-glob'
+import path from 'path'
+import Application from '@ioc:Adonis/Core/Application'
 
-import Tutorial from 'App/Models/Tutorial'
+/*import { randomBytes } from 'node:crypto'
+import Drive from '@ioc:Adonis/Core/Drive'
+import axios from "axios"*/
+
+/*import Tutorial from 'App/Models/Tutorial'
 import PressArticle from 'App/Models/PressArticle'
 import Project from 'App/Models/Project'
-import File from 'App/Models/File'
+import File from 'App/Models/File'*/
+import Review from 'App/Models/App'
+import { ReviewCategory } from 'App/Models/App'
+
 
 export const models: { [key: string]: LucidModel } = { // Models available in the admin panel
-  Tutorial,
+  /*Tutorial,
   PressArticle,
   Project,
-  File
-}
+  File*/
+  Review
+} 
 
 export default class AdminModelController {
+   public async review({ view, params, session, response }: HttpContextContract) {
+    try {
+      const appsToReview = await Review.query() // Review est un alias pour App
+        .where('review', 0) // Cherche les applications où review est false (0)
+        .preload('author')
+        .orderBy('created_at', 'asc');
+
+      return view.render('adminmodel/review', {
+        model: params.model,
+        items: appsToReview,
+      });
+    } catch (error) {
+      // Retourner une vue d'erreur ou un message approprié
+      session.flash({ error: 'Une erreur est survenue lors du chargement des applications à valider.' });
+      return response.redirect().back(); // Ou vers une page d'erreur
+    }
+  }
+
+  public async reviewApp({ view, params,session }: HttpContextContract) {
+    try{
+      const app = await Review.findOrFail(params.id);
+
+      await app.load('author');
+
+      return view.render('adminmodel/reviewapp', {
+        model: params.model, 
+        app: app,            
+      });
+    }
+    catch (error) {
+      session.flash({ error: "Une erreur est survenue lors du chargement de l'applications." });
+      return view.render('errors/not_found'); 
+    }
+  }
+
+  public async explorerfile({ view, params }: HttpContextContract) {
+    const app = await Review.findOrFail(params.id)
+    const searchDirectory = Application.tmpPath(`apps/${app.uuid}/${app.name}`)
+    console.log('[CHEMIN DE RECHERCHE] :', searchDirectory);
+
+    // On utilise fast-glob pour lister tous les fichiers de manière récursive
+    const entries = await fg('**/*', { 
+    cwd: searchDirectory,
+    onlyFiles: true,
+    stats: true // 
+  })
+  const fileList = entries.map(entry => ({
+    path: entry.path, // Le chemin du fichier/dossier
+    isDirectory: entry.stats!.isDirectory() // Un booléen qui nous dit si c'est un dossier
+  })).sort((a, b) => a.path.localeCompare(b.path)); // On trie par nom
+
+    return view.render('adminmodel/explorerfile', {
+      app,
+      model: params.model,
+      fileList: fileList.sort(), // On trie la liste pour un affichage propre
+    })
+  }
+
+  public async reviewfile({ params, response, view, session}: HttpContextContract) {
+    // Le '*' dans la route est accessible via params['*']
+    const relativeFilePath = params['*'].join('/')
+    const app = await Review.findOrFail(params.id)
+    
+    const absoluteFilePath = Application.tmpPath(`apps/${app.uuid}/${app.name}/${relativeFilePath}`)
+    const fileExtension = path.extname(relativeFilePath).toLowerCase()
+
+    try {
+      switch (fileExtension) {
+        case '.lua':
+        case '.json':
+          // Pour les fichiers texte, on les lit et on les affiche avec une vue
+          const codeContent = await fs.readFile(absoluteFilePath, 'utf-8')
+          return view.render('adminmodel/reviewfile', {
+            app,
+            model: params.model,
+            fileName: relativeFilePath,
+            language: fileExtension === '.lua' ? 'lua' : 'json', // Pour Prism.js
+            codeContent,
+          })
+
+        case '.png':
+        case '.jpg':
+        case '.jpeg':
+        case '.gif':
+        case '.svg':
+          // Pour les images, on les envoie directement au navigateur
+          return response.download(absoluteFilePath)
+
+        default:
+          // Pour tous les autres types de fichiers, on propose un téléchargement forcé
+          return response.download(absoluteFilePath, true)
+      }
+    } catch (error) {
+      session.flash({ error: `Erreur lors du service du fichier ${absoluteFilePath}:` });
+      return view.render('errors/not_found'); 
+    }
+  }
+
+  public async approve({ params, response, session }: HttpContextContract) {
+    const app = await Review.findOrFail(params.id);
+    app.review = ReviewCategory.APPROVED;
+    app.comment = null; // Clear any previous rejection comment
+    await app.save();
+
+    session.flash({ success: `L'application "${app.name}" a été approuvée.` });
+    return response.redirect().toRoute('adminPanel.model.review', { model: params.model });
+  }
+
+  // The reject method now needs the 'request' object
+  public async reject({ params, request, response, session }: HttpContextContract) {
+    const app = await Review.findOrFail(params.id);
+    
+    // Get the comment from the form submission
+    const comment = request.input('comment');
+
+    // Basic validation: ensure a comment was provided
+    if (!comment || comment.trim() === '') {
+      session.flash({ error: 'Un commentaire est obligatoire pour rejeter une application.' });
+      return response.redirect().back();
+    }
+
+    app.review = ReviewCategory.REJECTED;
+    app.comment = comment; // Save the comment
+    await app.save();
+
+    session.flash({ success: `L'application "${app.name}" a été rejetée.` });
+    return response.redirect().toRoute('adminPanel.model.review', { model: params.model });
+  }
+  /*
   public async index({ params, request, view }: HttpContextContract) {
     const items = await models[params.model].query()
       .paginate(request.input('page', 1), 5)
-
     return view.render('adminmodel/index', {
       model: params.model,
       items: items.map((val) => val.toJSON())
@@ -160,9 +297,9 @@ export default class AdminModelController {
     return response.redirect().toRoute('adminPanel.model.index', {
       model: params.model
     })
-  }
+  }*/
 }
-
+/*
 async function cf_invalidate(path: string) {
   axios.post('https://api.cloudflare.com/client/v4/zones/' + process.env.CLOUDFLARE_ZONE + '/purge_cache', {
     files: [
@@ -183,4 +320,4 @@ async function cf_invalidate(path: string) {
       console.error("Error while wiping the cloudflare cache")
       console.error(reason)
     })
-}
+}*/

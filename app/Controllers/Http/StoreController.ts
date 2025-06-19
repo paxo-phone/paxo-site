@@ -1,7 +1,12 @@
 import type { HttpContextContract } from '@ioc:Adonis/Core/HttpContext'
 import App from 'App/Models/App'
-import Release from 'App/Models/Release'
-
+import AppValidator from 'App/Validators/AppValidator' // Importez votre validateur
+import Application from '@ioc:Adonis/Core/Application' // Pour construire des chemins de fichiers
+import { v4 as uuidv4 } from 'uuid'
+import { AppCategory } from 'App/Models/App' // Assurez-vous que cette importation est correcte
+import Extract from 'extract-zip'
+import fs from 'fs/promises'
+import fg from 'fast-glob'
 
 export default class StoreController {
   public async home({ request, view }: HttpContextContract) {
@@ -11,9 +16,9 @@ export default class StoreController {
     const cat = request.input('cat', -1)
 
     const pager = await App.query()
-      .orderBy('downloads')
-      .if(cat !== -1, (query) => {
-        query.where('category', cat)
+      .orderBy('downloads', 'desc')
+      .if(parseInt(cat as string, 10) !== -1, (query) => {
+        query.where('category', parseInt(cat as string, 10))
       })
       .paginate(page, app_per_page)
 
@@ -39,23 +44,20 @@ export default class StoreController {
   }
 
   public async app({ view, params }: HttpContextContract) {
-    const app = await App.query()
-      .preload('author')
-      .where('id', params.id)
-      .firstOrFail()
+    try{
+      const app = await App.query()
+            .preload('author')
+            .where('id', params.id)
+            .firstOrFail()
 
-    const releases = await Release.query()
-      .where('appId', app.id)
-      .orderBy('id', 'desc')
-      .exec()
-
-    const author = app.author
-
-    return view.render('store/app', {
-      app,
-      author,
-      releases
-    })
+      return view.render('store/app', {
+              app,
+              author:app.author,
+          })
+    }
+    catch (error) {
+      console.error('Error fetching app:', error)
+    }
   }
 
   public async myapp({ auth, response, view, params }: HttpContextContract) {
@@ -81,7 +83,7 @@ export default class StoreController {
       author
     })
   }
-
+/*
   public async update({ auth, request, response, params, session }: HttpContextContract) {
     const app = await App.query()
       .preload('author')
@@ -100,22 +102,14 @@ export default class StoreController {
       return response.redirect().toPath('/store/myapps')
     }
 
-    if (/^(?:https:\/\/)?github.com\/[A-Za-z0-9_.-]+\/[A-Za-z0-9_.-]+\/?$/.test(request.input('source')) === false) {
-      // TODO proper error handling
-      session.flash({ error: 'Only HTTP GitHub repositories are supported (for now)' })
-      return response.redirect().back()
-    }
-
     app.name = request.input('name')
     app.desc = request.input('desc')
-    app.ext_url = request.input('ext_url')
-    app.source = request.input('source')
     app.category = request.input('category')
 
     await app.save();
 
     return response.redirect(`/store/app/${app.id}`)
-  }
+  }*/
 
   public async new({ view }: HttpContextContract) {
     return view.render('store/new')
@@ -123,28 +117,107 @@ export default class StoreController {
 
   public async post({ auth, request, response, session }: HttpContextContract) {
     const user = auth.use('web').user
-
-    // Should not trigger (backed by auth middleware)
-    if (!user)
-      return
-
-    if (/^(?:https:\/\/)?github.com\/[A-Za-z0-9_.-]+\/[A-Za-z0-9_.-]+\/?$/.test(request.input('source')) === false) {
-      // TODO proper error handling
-      session.flash({ error: 'Only HTTP GitHub repositories are supported (for now)' })
+    if (!user) {
+      session.flash({ error: 'Authentification requise.' })
       return response.redirect().back()
     }
 
-    const app = await App.create({
-      name: request.input('name'),
-      desc: request.input('desc'),
-      ext_url: request.input('ext_url'),
-      source: request.input('source'),
-      category: request.input('category'),
-      userId: user.id
-    })
+    const appUuid = uuidv4() // Génération d'un UUID unique pour l'application
+    try {
+      const validatedData = await request.validate(AppValidator)
+      const appZipFile = validatedData.app_zip
+      const contentDirectory = Application.tmpPath(`apps/${appUuid}`)
 
-    await app.save();
+      await appZipFile.move(contentDirectory, {
+        name : `${appUuid}`, // It's good practice to keep the .zip extension
+        overwrite: false,
+      });
 
-    return response.redirect(`/store/app/${app.id}`)
+      if (appZipFile.state !== 'moved' || !appZipFile.filePath) {
+        session.flash({ error: 'Erreur lors du déplacement du fichier ZIP.' })
+        if (appZipFile.errors) {
+          console.error('Erreurs de déplacement du fichier:', appZipFile.errors)
+        }
+        return response.redirect().back()
+      }
+
+      // 5. Définir le dossier où le contenu sera extrait
+      const zipFilePath = appZipFile.filePath // Chemin du fichier ZIP déplacé
+
+      // 6. Créer le dossier de destination AVANT de tenter d'extraire
+      await fs.mkdir(contentDirectory, { recursive: true })
+
+      // 7. Extraire le zip EN UTILISANT LE BON CHEMIN
+      await Extract(zipFilePath, { dir: contentDirectory })
+      console.log(`Fichier extrait avec succès dans ${contentDirectory}`)
+
+      // 8. (Optionnel mais recommandé) Nettoyer le fichier .zip original
+      await fs.unlink(zipFilePath)
+
+      // 9. Chercher le manifest.json dans le dossier extrait
+      console.log("====",contentDirectory)
+      const manifestPaths = await fg('**/manifest.json', { 
+            cwd: contentDirectory, // Cherche à partir du dossier d'extraction
+            absolute: true,     // Renvoie des chemins absolus
+            onlyFiles: true,
+        });
+
+        if (manifestPaths.length === 0) {
+            throw new Error("Le fichier manifest.json est introuvable dans le ZIP fourni.");
+        }
+        
+        // On prend le premier manifest trouvé.
+        const manifestPath = manifestPaths[0];
+        console.log(`Manifest trouvé à : ${manifestPath}`);
+
+        const fileContent = await fs.readFile(manifestPath, 'utf-8');
+        const manifest = JSON.parse(fileContent);
+
+
+      const newApp = await App.create({
+            userId: user.id,
+            uuid: appUuid, // Génération d'un UUID unique pour l'application
+            name: validatedData.name,
+            desc: validatedData.desc,
+            category: validatedData.category as unknown as AppCategory,
+            downloads: 0,
+            capabilities: manifest,
+          })
+
+    await newApp.save()
+
+    
+
+    // Créer une release initiale pour cette application
+    // (Adaptez cette logique si nécessaire)
+    /*
+    try {
+      await Release.create({
+        appId: newApp.id,
+        name: '1.0.0 - Version Initiale', // Ou un nom plus descriptif
+        commitSha: 'initial_upload', // Ou un placeholder
+        changelog: 'Première version de l\'application.',
+        downloadLink: appZipFile.filePath, // Lien vers le fichier ZIP téléversé
+      })
+    } catch (releaseError) {
+      console.error(`Échec de la création de la release initiale pour l'app ${newApp.id}:`, releaseError.message)
+      // Vous pouvez choisir de flasher un avertissement ici
+      session.flash({ warning: 'Application créée, mais la release initiale n\'a pas pu être générée.' })
+    }*/
+
+    session.flash({ success: 'Application créée avec succès !' })
+    return response.redirect().toRoute('StoreController.myapp', { id: newApp.id }) // ou une autre route appropriée
+
+    } catch (error) {
+      if (error.messages) { // Erreur de validation d'AdonisJS
+        session.flashAll() // Renvoyer les anciennes entrées au formulaire
+        session.flash({ error: 'Veuillez corriger les erreurs dans le formulaire.' })
+        console.error('Erreur de validation:', error.messages)
+      } else {
+        console.error('Erreur lors de la création de l\'application:', error)
+        session.flash({ error: 'Une erreur est survenue lors de la création de l\'application.' })
+      }
+      return response.redirect().back()
+    }
   }
 }

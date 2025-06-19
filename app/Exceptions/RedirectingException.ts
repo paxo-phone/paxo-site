@@ -1,5 +1,6 @@
 import { Exception } from '@adonisjs/core/build/standalone'
 import type { HttpContextContract } from '@ioc:Adonis/Core/HttpContext'
+import RegisterValidator from 'App/Validators/RegisterValidator'
 
 /*
 |--------------------------------------------------------------------------
@@ -7,7 +8,8 @@ import type { HttpContextContract } from '@ioc:Adonis/Core/HttpContext'
 |--------------------------------------------------------------------------
 |
 | The Exception class imported from `@adonisjs/core` allows defining
-| a status code and error code for every exception.
+| a status code and erimport { validator } from '../../config/app';
+ror code for every exception.
 |
 | @example
 | new RedirectingException('message', 500, 'E_RUNTIME_EXCEPTION', 'route')
@@ -25,5 +27,6 @@ export default class RedirectingException extends Exception {
     ctx.session.flash({ error: `${error.status}: ${error.message}` })
     ctx.response.redirect().toRoute(error.redirectTo)
   }
+  
 
 }

@@ -5,15 +5,18 @@ Register
 @endsection
 
 @section('content')
+
 <form method="post" enctype="multipart/form-data" style="margin-top: 150px;">
   <input type="text" name="username" placeholder="Username" value="" required />
-
+   
   <input type="text" name="email" placeholder="Email" value="" required />
-
+ 
   <input type="password" name="password" placeholder="Password" required />
-
+   
   <input type="password" name="password_confirmation" placeholder="Repeat password" required />
-
-  <button class="btn btn-submit">Register</button>
+ 
+  <section class="row-button-form">
+    <button type="submit" class="btn btn-submit">Register</button>
+  </section>
 </form>
 @endsection
