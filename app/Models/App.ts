@@ -11,6 +11,13 @@ export enum AppCategory { // If you want to add an app category, append to the b
   MULTIMEDIA,
   OTHER
 }
+export enum ReviewCategory { // If you want to add an app category, append to the bottom and add translation in language files
+  WAITING,
+  APPROVED,
+  REJECTED,
+}
+
+
 export default class App extends BaseModel {
   @column({ isPrimary: true })
   public id: number
@@ -32,15 +39,6 @@ export default class App extends BaseModel {
 
   @column()
   public category: AppCategory
-
-  @column()
-  public downloads: number
-
-  @column.dateTime({ autoCreate: true })
-  public createdAt: DateTime
-
-  @column()
-  public review: boolean
 
   @column({
     prepare: (value: { [key: string]: any } | undefined): string => {
@@ -69,6 +67,18 @@ export default class App extends BaseModel {
     },
   })
   public capabilities: { [key: string]: any }
+
+  @column()
+  public downloads: number
+
+  @column.dateTime({ autoCreate: true })
+  public createdAt: DateTime
+
+  @column()
+  public review: ReviewCategory
+
+  @column()
+  public comment: string | null
 
 
 }
