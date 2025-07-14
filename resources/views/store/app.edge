@@ -10,10 +10,10 @@
     <script type="module" src="/dist/web/install-button.js?module"></script>
 
     <div id="app-head-actions">
-      <esp-web-install-button manifest="manifest.json"/>
-        <button slot="activate" class="btn btn-submit" >Télécharger</button>
-        <span slot="unsupported">Ah snap, your browser doesn't work! use a chromium.</span> 
-        <span slot="not-allowed">Ah snap, you are not allowed to use this on HTTP! use https</span>  
+      <esp-web-install-button manifest="{{ route('apps.manifest', { uuid: app.uuid, fileName: app.name }) }}"/>
+      <button slot="activate" class="btn btn-submit" >Télécharger</button>
+      <span slot="unsupported">Ah snap, your browser doesn't work! use a chromium.</span> 
+      <span slot="not-allowed">Ah snap, you are not allowed to use this on HTTP! use https</span>  
       </esp-web-install-button>
     </div>
   
@@ -34,7 +34,6 @@
     </tr>
   </tbody>
 </table> 
-
 
 <h1 class="app-prop-title">Description</h1>
 <p>
