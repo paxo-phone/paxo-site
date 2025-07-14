@@ -122,12 +122,16 @@ Route.get('/dash', 'DashboardController.index')
     Route.get('/:model/view/:id', 'AdminModelController.reviewApp')
       .as('adminPanel.model.reviewapp')
 
-    Route.get('/:model/:id/explorer', 'AdminModelController.explorerfile').as('admin.model.explorerfile')
+    Route.get('/:model/:id/explorer', 'AdminModelController.explorerfile')
+      .as('admin.model.explorerfile')
 
-    Route.get('/:model/:id/file/*', 'AdminModelController.reviewfile').as('admin.model.reviewfile')
+    Route.get('/:model/:id/file/*', 'AdminModelController.reviewfile')
+      .as('admin.model.reviewfile')
 
-    Route.post('/:model/:id/approve', 'AdminModelController.approve').as('admin.model.approved')
-    Route.post('/:model/:id/reject', 'AdminModelController.reject').as('admin.model.rejected')
+    Route.post('/:model/:id/approve', 'AdminModelController.approve')
+      .as('admin.model.approved')
+    Route.post('/:model/:id/reject', 'AdminModelController.reject')
+      .as('admin.model.rejected')
 /*
    Route.get('/:model/i/:id', 'AdminModelController.view')
      .as('adminPanel.model.view')
@@ -196,9 +200,14 @@ Route.group(() => {
   Route.get('/', 'StoreController.home')
   Route.get('/app/:id', 'StoreController.app')
 
-  Route.get('/app/:appid/download', 'ReleasesController.download')
-  Route.get('/app/:appid/source', 'ReleasesController.source')
-  Route.get('/app/:appid/changelog/:relid', 'ReleasesController.changelog')
+  Route.get('/apps/:uuid/:fileName/manifest', 'StoreController.getManifest')
+    .as('apps.manifest')
+  Route.get('/apps/:uuid/:fileName', 'StoreController.getFirmware')
+    .as('apps.firmware')
+    
+//  Route.get('/app/:appid/download', 'ReleasesController.download')
+//  Route.get('/app/:appid/source', 'ReleasesController.source')
+//  Route.get('/app/:appid/changelog/:relid', 'ReleasesController.changelog')
 
   Route.group(() => {
     Route.get('/app/:id/manage', 'StoreController.myapp')
