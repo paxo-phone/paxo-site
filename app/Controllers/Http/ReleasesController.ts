@@ -3,7 +3,7 @@ import Release from 'App/Models/Release'
 import App from 'App/Models/App'
 import path from 'path'
 import GitLib from 'App/lib/git'
-
+/*
 export default class ReleasesController {
 
   public async manage({ params, view, auth, response }: HttpContextContract) {
@@ -146,4 +146,4 @@ export default class ReleasesController {
     return response.redirect().toPath(`/store/app/${app.id}/releases/manage`)
   }
 
-}
+}*/
