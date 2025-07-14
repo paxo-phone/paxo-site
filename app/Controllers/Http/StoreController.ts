@@ -7,6 +7,7 @@ import { AppCategory } from 'App/Models/App' // Assurez-vous que cette importati
 import Extract from 'extract-zip'
 import fs from 'fs/promises'
 import fg from 'fast-glob'
+import Route from '@ioc:Adonis/Core/Route'
 
 export default class StoreController {
   public async home({ request, view }: HttpContextContract) {
@@ -16,11 +17,13 @@ export default class StoreController {
     const cat = request.input('cat', -1)
 
     const pager = await App.query()
+      .where('review',1)
       .orderBy('downloads', 'desc')
       .if(parseInt(cat as string, 10) !== -1, (query) => {
         query.where('category', parseInt(cat as string, 10))
       })
       .paginate(page, app_per_page)
+      
 
     return view.render('store/store', {
       pager,
@@ -49,7 +52,6 @@ export default class StoreController {
             .preload('author')
             .where('id', params.id)
             .firstOrFail()
-
       return view.render('store/app', {
               app,
               author:app.author,
@@ -59,6 +61,28 @@ export default class StoreController {
       console.error('Error fetching app:', error)
     }
   }
+
+  public async getManifest({ params, response, request }: HttpContextContract) {
+    const manifestPath = Application.tmpPath(`apps/${params.uuid}/.../manifest.json`); // Le chemin vers votre manifest
+    const manifestContent = await fs.readFile(manifestPath, 'utf-8');
+    const manifest = JSON.parse(manifestContent);
+
+    for (const build of manifest.builds) {
+      for (const part of build.parts) {
+        // On transforme "firmware.bin" en une URL complète que le navigateur peut utiliser
+        part.path = Route.makeUrl('apps.firmware', { uuid: params.uuid, fileName: part.path }, {
+          prefixUrl: request.header('origin') || '' 
+        });
+      }
+    }
+    return response.json(manifest);
+  }
+
+  public async getFirmware({ params, response }: HttpContextContract) {
+    const filePath = Application.tmpPath(`apps/${params.uuid}/.../${params.fileName}`); // Le chemin vers votre .bin
+    return response.download(filePath);
+  }
+
 
   public async myapp({ auth, response, view, params }: HttpContextContract) {
     const app = await App.query()
