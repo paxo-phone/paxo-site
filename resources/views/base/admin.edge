@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="{{ i18n.locale }}">
+  <head>
+    <meta charset="utf8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>
+      @!section('title')
+        {{ t("ui.brand") }}
+    </title>
+
+    @!section('seo')
+
+    @entryPointStyles('main')
+
+    <!-- fontawesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css"
+      integrity="sha512-z3gLpd7yknf1YoNbCzqRKc4qyor8gaKU1qmn+CShxbuBusANI9QpRohGBreCFkKxLhei6S9CQXFEbbKuqLg0DA=="
+      crossorigin="anonymous" referrerpolicy="no-referrer" />
+
+    <!-- Flag-icons -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/lipis/flag-icons@6.14.0/css/flag-icons.min.css" />
+
+
+      {{-- === PRISM.JS === --}}
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism-tomorrow.min.css" />
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js" defer></script>
+    
+    {{-- support pour le langage LUA --}}
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-lua.min.js" defer></script>
+
+    @!section('head')
+
+  </head>
+    <body>
+        @!component('base/admin-header')
+    <main>
+      @!include('components/flash')
+      @!section('content')
+    </main>
+    @entryPointScripts('main')
+    @!section('script')
+  </body>
+</html>
