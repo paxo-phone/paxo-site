@@ -1,7 +1,9 @@
 import { DateTime } from 'luxon'
-import { BaseModel, BelongsTo, belongsTo, column } from '@ioc:Adonis/Lucid/Orm'
+import { BaseModel, BelongsTo, belongsTo, column, hasMany, HasMany} from '@ioc:Adonis/Lucid/Orm'
 
 import User from 'App/Models/User'
+import Release from 'App/Models/Release';
+
 
 export enum AppCategory { // If you want to add an app category, append to the bottom and add translation in language files
   PRODUCTIVITY,
@@ -74,11 +76,15 @@ export default class App extends BaseModel {
   @column.dateTime({ autoCreate: true })
   public createdAt: DateTime
 
+  // REVIEW //
   @column()
   public review: ReviewCategory
 
   @column()
   public comment: string | null
 
+  // UPDATE //
+  @hasMany(() => Release)
+  public releases: HasMany<typeof Release>
 
 }
