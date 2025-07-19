@@ -1,22 +1,50 @@
 @!layout('base/main')
 
 @section('title')
-Register
+  Register
 @endsection
 
 @section('content')
+<div class="form-container" style="margin-top: 3rem;">
+  
+  {{-- On affiche les erreurs générales (s'il y en a) --}}
+  @if(flashMessages.has('error'))
+    <div class="alert alert-danger">{{ flashMessages.get('error') }}</div>
+  @endif
 
-<form method="post" enctype="multipart/form-data" style="margin-top: 150px;">
-  <input type="text" name="username" placeholder="Username" value="" required />
+  <form method="POST">
+
+    <div class="form-group" style=" margin-bottom: 15px;">
+      @if(flashMessages.has('errors.username'))
+        <span class="error-message" style="color: #dc3545; font-size: 0.9rem; margin-top: 5px; display: flex; flex-wrap: nowrap;">{{ flashMessages.get('errors.username') }}</span>
+      @endif
+      <input type="text" name="username" id="username" placeholder="Username" value="" required />
+    </div>
    
-  <input type="text" name="email" placeholder="Email" value="" required />
+    <div class="form-group">
+      @if(flashMessages.has('errors.email'))
+        <span class="error-message" style="color: #dc3545; font-size: 0.9rem; margin-top: 5px; display: flex; flex-wrap: nowrap;">{{ flashMessages.get('errors.email') }}</span>
+      @endif
+      <input type="text" name="email" id="email" placeholder="Email" value="" required />
+    </div>
  
-  <input type="password" name="password" placeholder="Password" required />
+    <div class="form-group">
+      @if(flashMessages.has('errors.password'))
+        <span class="error-message" style="color: #dc3545; font-size: 0.9rem; margin-top: 5px; display: flex; flex-wrap: nowrap;">{{ flashMessages.get('errors.password') }}</span>
+      @endif
+      @if(flashMessages.has('errors.password_confirmation'))
+        <span class="error-message" style="color: #dc3545; font-size: 0.9rem; margin-top: 5px; display: flex; flex-wrap: nowrap;">{{ flashMessages.get('errors.password_confirmation') }}</span>
+      @endif
+      <input type="password" name="password" id="password" placeholder="Password" required />
+    </div>
    
-  <input type="password" name="password_confirmation" placeholder="Repeat password" required />
+    <div class="form-group">
+      <input type="password" name="password_confirmation" id="password_confirmation" placeholder="Repeat password" required />
+    </div>
  
-  <section class="row-button-form">
-    <button type="submit" class="btn btn-submit">Register</button>
-  </section>
-</form>
+    <div class="row-button-form">
+      <button type="submit" class="btn btn-submit">Register</button>
+    </div>
+  </form>
+</div>
 @endsection
