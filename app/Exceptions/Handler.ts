@@ -36,25 +36,23 @@ export default class ExceptionHandler extends HttpExceptionHandler {
   async report (error: Error, ctx: HttpContextContract) {
   }
 
-  async handle(error, ctx: HttpContextContract) {
-    // Loggue TOUTES les erreurs qui arrivent ici
-    Logger.error('Une erreur a été interceptée par ExceptionHandler:')
-    Logger.error(error) // Loggue l'objet erreur complet
-    if (error.stack) {
-      Logger.error(error.stack) // Loggue la stack trace si disponible
+  public async handle(error: any, ctx: HttpContextContract) {
+    /**
+     * On vérifie si l'erreur est une erreur de validation.
+     * Le code 'E_VALIDATION_FAILURE' est le code unique pour ce type d'erreur.
+     */
+    if (error.code === 'E_VALIDATION_FAILURE') {
+      // C'est la logique qui renvoie les erreurs au formulaire.
+      ctx.session.flashAll() // Garde les anciennes valeurs (username, email)
+      ctx.session.flash({ errors: error.messages }) // Passe les messages d'erreur
+      
+      return ctx.response.redirect().back()
     }
 
-    // Commentez temporairement la gestion spécifique de RedirectingException
-    /*
-    if (error instanceof RedirectingException) {
-      // Pour l'instant, laissons le parent gérer pour voir si on a des logs
-      // error.handle(ctx) // Si RedirectingException.handle prend seulement ctx
-      // return
-    }
-    */
-
-    // Laissez la classe parente HttpExceptionHandler faire son travail standard
-    // Elle devrait logguer l'erreur et retourner une réponse appropriée (page d'erreur 500 avec détails en dev)
+    /**
+     * Pour toutes les autres erreurs, on laisse le gestionnaire par défaut
+     * d'AdonisJS faire son travail (afficher une page 404, 500, etc.).
+     */
     return super.handle(error, ctx)
   }
 }
