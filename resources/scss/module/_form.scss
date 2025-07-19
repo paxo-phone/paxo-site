@@ -67,7 +67,7 @@ input[type="submit"]
   }
 }
 //size of the box input
-input[type=text], input[type=password], select{
+input[type=text], input[type=password], select, textarea{
     padding: 1.3rem;
 
     &:focus, &:valid{
