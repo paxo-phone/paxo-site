@@ -54,7 +54,7 @@
             Éditer l'application
         </h1>
 
-        <form method="post">
+        <form action="{{ route('StoreController.update', { id: app.id }) }}" method="POST" enctype="multipart/form-data">
             <input type="text" name="name" placeholder="Nom de l'Application" value="{{app.name}}" required />
             <input type="text" name="desc" placeholder="Description" value="{{app.desc}}" required />
             <select name="category" required>
@@ -65,9 +65,20 @@
                 <option value="4" {{ app.category == '4' ? 'selected' : '' }}>Multimédia</option>
                 <option value="5" {{ app.category == '5' ? 'selected' : '' }}>Autre</option>
             </select>
-
             <button class="btn btn-submit" type="submit">Sauvegarder</button>
         </form>
     <br>
     <br>
+        <h1>
+            Nouvelle version
+        </h1>
+
+    <form action="{{ route('releases.store', { id: app.id }) }}" method="POST" enctype="multipart/form-data">
+        <label for="input_zipfile" class="drop-container" id="dropcontainer">
+            <span for="app_zip">Déposer le fichier zip ici</span>
+            <input type="file" name="app_zip" id="input_zipfile" accept=".zip,application/zip,application/x-zip-compressed" required />
+        </label>
+
+        <button type="submit" class="btn btn-submit">Soumettre</button>
+  </form>
 @end
