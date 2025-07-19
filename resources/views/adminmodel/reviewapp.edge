@@ -1,5 +1,4 @@
-@!layout('base/admin')
-
+@!layout('admin/index') 
 @section('title')
   Validation : {{ app.name }}
 @endsection
@@ -7,10 +6,10 @@
 @section('content')
 <div class="review-page-container">
 
-  <a href="{{ route('adminPanel.model.review', { model: model }) }}" class="review-page__back-link">← Retour à la liste</a>
+  {{-- Le lien de retour pointe maintenant vers la liste des apps --}}
+  <a href="{{ route('adminPanel.model.view', {model: model}) }}" class="review-page__back-link">← Retour à la liste des applications</a>
     
   <div class="review-page__card">
-    
     <dl class="details-list">
       <dt>Nom :</dt>
       <dd>{{ app.name }}</dd>
@@ -28,52 +27,66 @@
       <dd>{{ app.createdAt.toFormat('dd LLLL yyyy HH:mm') }}</dd>
     
       @if(app.capabilities && Object.keys(app.capabilities).length > 0)
-          <dt>Capacités :</dt>
-          <dd>
-            <div class="capabilities-list">
-              {{-- On boucle directement sur les valeurs de l'objet --}}
-              @each(value in Object.values(app.capabilities))
+        <dt>Capacités :</dt>
+        <dd>
+          <div class="capabilities-list">
+            {{-- CORRECTION : Une seule boucle suffit --}}
+            @each(value in Object.values(app.capabilities))
               @each(v in value)
                 <span class="capability-tag">{{ v }}</span>
               @endeach
-              @endeach
-            </div>
-          </dd>
-        @endif
+            @endeach
+          </div>
+        </dd>
+      @endif
     </dl>
   </div>
 
+  {{-- La section des actions avec les boutons et le formulaire --}}
   <div class="review-page__actions" id="actions-container">
   
-  {{-- ÉTAT 1 : Les boutons par défaut (visibles au départ) --}}
-  <div class="actions__default" id="default-actions">
-    {{-- Le bouton Rejeter n'est plus un formulaire, mais un simple bouton qui déclenche l'animation --}}
-    <button type="button" class="btn btn--reject" id="open-reject-form-btn">
-      Rejeter
-    </button>
-    <button type="button" class="btn btn--reject" id="open-reject-form-btn">
-      Explorer 
-    </button>
-    {{-- Le formulaire pour Approuver ne change pas --}}
-    <form action="{{ route('admin.model.approved', { model: model, id: app.id }) }}" method="POST">
-      <button type="submit" class="btn btn--approve">
-        Valider
-      </button>
-    </form>
-  </div>
+    {{-- ÉTAT 1 : Les boutons par défaut --}}
+    <div class="actions__default" id="default-actions">
+      
+      {{-- Bouton pour déclencher le formulaire de rejet --}}
+      <form class="form-review btn--reject">
+        <button type="button" class="btn--review" id="open-reject-form-btn">
+          <i class="fa-solid fa-xmark"></i>
+        </button>
+      </form>
 
-  {{-- ÉTAT 2 : Le formulaire de rejet (caché au départ) --}}
-  <div class="actions__reject-form" id="reject-form">
-    <form action="{{ route('admin.model.rejected', { model: model, id: app.id }) }}" method="POST" class="reject-form__content">
-      <textarea name="comment" class="reject-form__comment-input" required placeholder="Motif du rejet..."></textarea>
-      <div class="reject-form__buttons">
-        <button type="button" class="btn btn--secondary" id="cancel-reject-btn">Annuler</button>
-        <button type="submit" class="btn btn--reject">Envoyer le rejet</button>
-      </div>
-    </form>
+      
+      {{-- CORRECTION : Le bouton Explorer est maintenant un lien stylisé --}}
+      <form class="form-review btn--epxlore">
+        <a href="{{ route('adminPanel.apps.explorerApp', { id: app.id }) }}" target="_blank">
+          <button type="button" class="btn--review">
+                      <i class="fa-solid fa-folder-open"></i>
+          </button>
+        </a>        
+      </form>
+      
+      {{-- Formulaire pour approuver --}}
+      <form action="{{ route('adminPanel.apps.approve', { id: app.id }) }}" method="POST" class="form-review btn--approve">
+        <button type="submit" class="btn--review">
+          <i class="fa-solid fa-check"></i>
+        </button>
+      </form>
+    </div>
+
+    {{-- ÉTAT 2 : Le formulaire de rejet --}}
+    <div class="actions__reject-form" id="reject-form">
+      <form action="{{ route('adminPanel.apps.reject', { id: app.id }) }}" method="POST" class="form-review reject-form__content">
+        <textarea name="comment" class="reject-form__comment-input" required placeholder="Motif du rejet..."></textarea>
+        <div class="reject-form__buttons">
+          <button type="button" class="btn--review btn--reject" id="cancel-reject-btn"><i class="fa-solid fa-xmark"></i></button>
+          <button type="submit" class="btn--review btn--approve"><i class="fa-solid fa-paper-plane"></i></button>
+        </div>
+      </form>
+    </div>
   </div>
 </div>
 @endsection
+
 @section('script')
 <script>
 document.addEventListener('DOMContentLoaded', () => {
@@ -82,12 +95,9 @@ document.addEventListener('DOMContentLoaded', () => {
   const cancelRejectBtn = document.getElementById('cancel-reject-btn');
 
   if (actionsContainer && openRejectBtn && cancelRejectBtn) {
-    // Quand on clique sur "Rejeter"
     openRejectBtn.addEventListener('click', () => {
       actionsContainer.classList.add('is-rejecting');
     });
-
-    // Quand on clique sur "Annuler"
     cancelRejectBtn.addEventListener('click', () => {
       actionsContainer.classList.remove('is-rejecting');
     });
