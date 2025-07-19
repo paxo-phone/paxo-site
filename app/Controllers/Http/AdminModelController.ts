@@ -1,9 +1,16 @@
 import type { HttpContextContract } from '@ioc:Adonis/Core/HttpContext'
 import { LucidModel } from '@ioc:Adonis/Lucid/Orm'
-import fs from 'fs/promises'
+import fs from 'fs-extra'
 import fg from 'fast-glob'
 import path from 'path'
 import Application from '@ioc:Adonis/Core/Application'
+
+import App, { ReviewCategory } from 'App/Models/App'
+import Release, { ReleaseStatus } from 'App/Models/Release'
+
+import Review from 'App/Models/App'
+import Database from '@ioc:Adonis/Lucid/Database'
+import ReleaseService from 'App/Services/ReleaseService'
 
 /*import { randomBytes } from 'node:crypto'
 import Drive from '@ioc:Adonis/Core/Drive'
@@ -13,9 +20,6 @@ import axios from "axios"*/
 import PressArticle from 'App/Models/PressArticle'
 import Project from 'App/Models/Project'
 import File from 'App/Models/File'*/
-import Review from 'App/Models/App'
-import { ReviewCategory } from 'App/Models/App'
-
 
 export const models: { [key: string]: LucidModel } = { // Models available in the admin panel
   /*Tutorial,
@@ -26,33 +30,52 @@ export const models: { [key: string]: LucidModel } = { // Models available in th
 } 
 
 export default class AdminModelController {
-   public async review({ view, params, session, response }: HttpContextContract) {
-    try {
-      const appsToReview = await Review.query() // Review est un alias pour App
-        .where('review', 0) // Cherche les applications où review est false (0)
+  public async index({ view }: HttpContextContract) {
+    // 1. Compter les nouvelles applications en attente
+    const pendingAppsCount = await App.query()
+      .where('review', ReviewCategory.WAITING)
+      .count('* as total')
+
+    // 2. Compter les nouvelles releases en attente
+    const pendingReleasesCount = await Release.query()
+      .where('status', ReleaseStatus.PENDING)
+      .count('* as total')
+
+      const appsToReview = await App.query()
+        .where('review', ReviewCategory.WAITING)
         .preload('author')
         .orderBy('created_at', 'asc');
 
-      return view.render('adminmodel/review', {
-        model: params.model,
-        items: appsToReview,
-      });
-    } catch (error) {
-      // Retourner une vue d'erreur ou un message approprié
-      session.flash({ error: 'Une erreur est survenue lors du chargement des applications à valider.' });
-      return response.redirect().back(); // Ou vers une page d'erreur
-    }
+      // 2. Récupérer la liste des MISES À JOUR (RELEASES) en attente
+      const releasesToReview = await Release.query()
+        .where('status', ReleaseStatus.PENDING)
+        .preload('app', (appQuery) => {
+          appQuery.preload('author')
+        })
+        .orderBy('created_at', 'asc');
+
+    // 3. Rendre la vue des onglets
+    return view.render('adminmodel/index', { // On utilise une nouvelle vue
+      pendingApps: pendingAppsCount[0].$extras.total,
+      pendingReleases: pendingReleasesCount[0].$extras.total,
+      apps: appsToReview,
+      releases: releasesToReview,
+    })
   }
 
-  public async reviewApp({ view, params,session }: HttpContextContract) {
+  /*******************************/ 
+  /*   REVIEW APPS    */
+  /*******************************/ 
+  public async reviewApp({ view, params, session }: HttpContextContract) {
     try{
       const app = await Review.findOrFail(params.id);
 
       await app.load('author');
 
       return view.render('adminmodel/reviewapp', {
-        model: params.model, 
-        app: app,            
+        app: app,           
+        model: Object.keys(models.Review),  
+        id: params.id, 
       });
     }
     catch (error) {
@@ -61,7 +84,7 @@ export default class AdminModelController {
     }
   }
 
-  public async explorerfile({ view, params }: HttpContextContract) {
+  public async explorerApp({ view, params }: HttpContextContract) {
     const app = await Review.findOrFail(params.id)
     const searchDirectory = Application.tmpPath(`apps/${app.uuid}/${app.name}`)
     console.log('[CHEMIN DE RECHERCHE] :', searchDirectory);
@@ -77,14 +100,14 @@ export default class AdminModelController {
     isDirectory: entry.stats!.isDirectory() // Un booléen qui nous dit si c'est un dossier
   })).sort((a, b) => a.path.localeCompare(b.path)); // On trie par nom
 
-    return view.render('adminmodel/explorerfile', {
+    return view.render('adminmodel/explorerapp', {
       app,
       model: params.model,
       fileList: fileList.sort(), // On trie la liste pour un affichage propre
     })
   }
 
-  public async reviewfile({ params, response, view, session}: HttpContextContract) {
+  public async fileApp({ params, response, view, session}: HttpContextContract) {
     // Le '*' dans la route est accessible via params['*']
     const relativeFilePath = params['*'].join('/')
     const app = await Review.findOrFail(params.id)
@@ -98,7 +121,7 @@ export default class AdminModelController {
         case '.json':
           // Pour les fichiers texte, on les lit et on les affiche avec une vue
           const codeContent = await fs.readFile(absoluteFilePath, 'utf-8')
-          return view.render('adminmodel/reviewfile', {
+          return view.render('adminmodel/fileapp', {
             app,
             model: params.model,
             fileName: relativeFilePath,
@@ -124,18 +147,17 @@ export default class AdminModelController {
     }
   }
 
-  public async approve({ params, response, session }: HttpContextContract) {
+  public async approveApp({ params, response, session }: HttpContextContract) {
     const app = await Review.findOrFail(params.id);
     app.review = ReviewCategory.APPROVED;
     app.comment = null; // Clear any previous rejection comment
     await app.save();
 
     session.flash({ success: `L'application "${app.name}" a été approuvée.` });
-    return response.redirect().toRoute('adminPanel.model.review', { model: params.model });
+    return response.redirect().toRoute('adminPanel.model.view', { model: Object.keys(models.Review),  });
   }
 
-  // The reject method now needs the 'request' object
-  public async reject({ params, request, response, session }: HttpContextContract) {
+  public async rejectApp({ params, request, response, session }: HttpContextContract) {
     const app = await Review.findOrFail(params.id);
     
     // Get the comment from the form submission
@@ -152,7 +174,159 @@ export default class AdminModelController {
     await app.save();
 
     session.flash({ success: `L'application "${app.name}" a été rejetée.` });
-    return response.redirect().toRoute('adminPanel.model.review', { model: params.model });
+    return response.redirect().toRoute('adminPanel.model.view', { model: Object.keys(models.Review),  });
+  }
+
+  /*******************************/ 
+  /*  REVIEW RELEASES CONROLLER  */ 
+  /*******************************/ 
+  public async reviewRelease({ view, params, session, response }: HttpContextContract) {
+    try {
+      // On utilise .query() pour pouvoir pré-charger les relations
+      const releaseToReview = await Release.query()
+        .where('id', params.id)
+        // C'est ici que la magie opère :
+        .preload('app', (appQuery) => {
+          // 1. On charge l'application associée à cette release...
+          appQuery.preload('author') // 2. ...et pour cette application, on charge son auteur.
+        })
+        .firstOrFail() // Renvoie une erreur 404 si la release n'est pas trouvée
+
+      // On rend la vue en lui passant l'objet 'release' complet
+      return view.render('adminmodel/reviewrelease', { // J'utilise un nom de vue plus clair
+        release: releaseToReview,
+        model: Object.keys(models.Review),  
+        id: params.id, 
+      })
+
+    } catch (error) {
+      console.error("Erreur lors du chargement de la release à valider :", error)
+      session.flash({ error: 'Impossible de charger la mise à jour pour la validation.' })
+      return response.redirect().back()
+    }
+  }
+
+  public async approveRelease({ params, response, session }: HttpContextContract) {
+    // On utilise une transaction pour s'assurer que TOUT réussit, ou que RIEN n'est fait.
+    // Si la mise à jour des fichiers échoue, les changements en base de données seront annulés.
+    const trx = await Database.transaction()
+
+    try {
+      // 1. On trouve la release à approuver et on la verrouille pour la transaction
+      const releaseToApprove = await Release.findOrFail(params.id, { client: trx })
+      
+      // 2. On archive toutes les autres releases "LIVE" de la même application
+      await Release.query({ client: trx })
+        .where('app_id', releaseToApprove.appId)
+        .where('status', ReleaseStatus.LIVE)
+        .update({ status: ReleaseStatus.ARCHIVED })
+
+      // 3. On passe la nouvelle version en "LIVE"
+      releaseToApprove.status = ReleaseStatus.LIVE
+      await releaseToApprove.save()
+
+      // 4. === ON APPELLE LE SERVICE POUR METTRE À JOUR LES FICHIERS ===
+      // Cette opération fait maintenant partie de la transaction globale.
+      await ReleaseService.publishRelease(releaseToApprove)
+
+      // 5. Si tout a réussi, on valide la transaction
+      await trx.commit()
+
+      session.flash({ success: 'La release a été approuvée et les fichiers de l\'application ont été mis à jour.' })
+
+    } catch (error) {
+      // Si une erreur se produit (dans la DB ou dans les fichiers), on annule tout.
+      await trx.rollback()
+      console.error("Échec de l'approbation de la release :", error)
+      session.flash({ error: 'Une erreur critique est survenue lors de l\'approbation.' })
+    }
+
+    return response.redirect().back()
+  }
+
+  public async rejectRelease({ params, response, session }: HttpContextContract) {
+    const releaseToReject = await Release.findOrFail(params.id)
+    
+    const releasePath = Application.tmpPath(`releases/${releaseToReject.uuid}`)
+    await fs.remove(releasePath)
+
+    await releaseToReject.delete()
+
+    session.flash({ success: 'La release a été rejetée et supprimée.' })
+    return response.redirect().back()
+  }
+
+  public async explorerRelease({ view, params }: HttpContextContract) {
+    const release = await Release.query()
+      .where('id', params.id)
+      .preload('app') 
+      .firstOrFail()
+
+    const searchDirectory = Application.tmpPath(`releases/${release.uuid}/${release.app.name}`)
+    
+    console.log('[CHEMIN DE RECHERCHE] :', searchDirectory);
+
+    const entries = await fg('**/*', { 
+      cwd: searchDirectory,
+      stats: true
+    })
+
+    const fileList = entries.map(entry => ({
+      path: entry.path,
+      isDirectory: entry.stats ? entry.stats.isDirectory() : false
+    })).sort((a, b) => a.path.localeCompare(b.path));
+
+    return view.render('adminmodel/explorerrelease', {
+      release,
+      app: release.app, 
+      fileList: fileList,
+    })
+  }
+
+  // DANS app/Controllers/Http/AdminModelController.ts
+
+  public async fileRelease({ params, response, view, session }: HttpContextContract) {
+    try {
+      const relativeFilePath = params['*'].join('/')
+      
+      // === LA CORRECTION EST ICI ===
+      // On utilise .query() pour pouvoir pré-charger la relation 'app'
+      const release = await Release.query()
+        .where('id', params.id)
+        .preload('app') // <-- ON AJOUTE LE PRELOAD
+        .firstOrFail()
+      
+      // Maintenant, 'release.app.name' existera et sera correct
+      const absoluteFilePath = Application.tmpPath(`releases/${release.uuid}/${release.app.name}/${relativeFilePath}`)
+      
+      console.log('[DEBUG] Tentative de lecture du fichier :', absoluteFilePath)
+
+      const fileExtension = path.extname(relativeFilePath).toLowerCase()
+
+      switch (fileExtension) {
+        case '.lua':
+        case '.json':
+          const codeContent = await fs.readFile(absoluteFilePath, 'utf-8')
+          return view.render('adminmodel/filerelease', {
+            release,
+            app: release.app, // On peut aussi passer l'app à la vue
+            fileName: relativeFilePath,
+            language: fileExtension === '.lua' ? 'lua' : 'json',
+            codeContent,
+          })
+
+        // ... le reste de votre code switch est correct ...
+        case '.png':
+        // ...
+          return response.download(absoluteFilePath)
+        default:
+          return response.download(absoluteFilePath, true)
+      }
+    } catch (error) {
+      console.error(`Erreur lors du service du fichier:`, error)
+      session.flash({ error: `Le fichier demandé n'a pas pu être chargé.` });
+      return response.notFound('<h1>Fichier introuvable</h1>'); 
+    }
   }
   /*
   public async index({ params, request, view }: HttpContextContract) {
