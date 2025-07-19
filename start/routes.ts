@@ -116,22 +116,66 @@ Route.get('/dash', 'DashboardController.index')
     Route.get('/', 'AdminController.index')
       .as('adminPanel.index')
 
-    Route.get('/:model/list', 'AdminModelController.review')
-      .as('adminPanel.model.review')
+    Route.get('/:model', 'AdminModelController.index')
+      .as('adminPanel.model.view')
 
-    Route.get('/:model/view/:id', 'AdminModelController.reviewApp')
-      .as('adminPanel.model.reviewapp')
+  /*
+  |--------------------------------------------------------------------------
+  | Routes for Reviewing APPLICATIONS
+  |--------------------------------------------------------------------------
+  */
+  // Shows the list of new apps to be reviewed
+  Route.get('/Review/Apps', 'AdminModelController.listApps')
+    .as('adminPanel.listApps')
 
-    Route.get('/:model/:id/explorer', 'AdminModelController.explorerfile')
-      .as('admin.model.explorerfile')
+  // Show a specific app
+  Route.get('/Review/Apps/:id', 'AdminModelController.reviewApp')
+    .as('adminPanel.reviewApp')
+  
+  // Approves a new app
+  Route.post('/Review/Apps/:id/approve', 'AdminModelController.approveApp')
+    .as('adminPanel.apps.approve')
+  
+  // Rejects a new app
+  Route.post('/Review/Apps/:id/reject', 'AdminModelController.rejectApp')
+    .as('adminPanel.apps.reject')
 
-    Route.get('/:model/:id/file/*', 'AdminModelController.reviewfile')
-      .as('admin.model.reviewfile')
+  // Shows the file explorer for a specific app
+  Route.get('/Review/Apps/:id/explorer', 'AdminModelController.explorerApp')
+    .as('adminPanel.apps.explorerApp')
 
-    Route.post('/:model/:id/approve', 'AdminModelController.approve')
-      .as('admin.model.approved')
-    Route.post('/:model/:id/reject', 'AdminModelController.reject')
-      .as('admin.model.rejected')
+  // Serves a specific file from a release for viewing/downloading
+  Route.get('/Review/Apps/:id/file/*', 'AdminModelController.fileApp')
+    .as('adminPanel.fileApp')
+
+  /*
+  |--------------------------------------------------------------------------
+  | Routes for Reviewing APP UPDATES (RELEASES)
+  |--------------------------------------------------------------------------
+  */
+  // Shows the list of pending releases to be reviewed
+  Route.get('/Review/Releases', 'AdminModelController.listReleases')
+    .as('adminPanel.listReleases')
+
+   // Show a specific release
+  Route.get('/Review/Releases/:id', 'AdminModelController.reviewRelease')
+    .as('adminPanel.reviewRelease')
+
+  // Approves a specific release
+  Route.post('/Review/Releases/:id/approve', 'AdminModelController.approveRelease')
+    .as('adminPanel.releases.approve')
+
+  // Rejects a specific release
+  Route.post('/Review/Releases/:id/reject', 'AdminModelController.rejectRelease')
+    .as('adminPanel.releases.reject')
+
+  // Shows the file explorer for a specific release
+  Route.get('/Review/Releases/:id/explorer', 'AdminModelController.explorerRelease')
+    .as('adminPanel.explorerRelease')
+
+  // Serves a specific file from a release for viewing/downloading
+  Route.get('/Review/Releases/:id/file/*', 'AdminModelController.fileRelease')
+    .as('adminPanel.fileRelease')
 /*
    Route.get('/:model/i/:id', 'AdminModelController.view')
      .as('adminPanel.model.view')
@@ -212,10 +256,11 @@ Route.group(() => {
   Route.group(() => {
     Route.get('/app/:id/manage', 'StoreController.myapp')
     Route.post('/app/:id/manage', 'StoreController.update')
-
-    Route.get('/app/:id/releases/manage', 'ReleasesController.manage')
-    Route.get('/app/:id/releases/new', 'ReleasesController.new')
-    Route.post('/app/:id/releases/new', 'ReleasesController.create')
+//  Route.get('/app/:id/releases/manage', 'ReleasesController.manage')
+//  Route.get('/app/:id/releases/new', 'ReleasesController.new')
+//  Route.post('/app/:id/releases/new', 'ReleasesController.create')
+    Route.get('/apps/:id/releases/new', 'ReleasesController.create').as('releases.create')
+    Route.post('/apps/:id/releases', 'ReleasesController.store').as('releases.store')
 
     Route.get('/myapps', 'StoreController.myapps')
       .as('store.myapps')
