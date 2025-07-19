@@ -23,6 +23,7 @@ $transition-duration: 0.3s;
     transition: all $transition-duration ease;
   }
 
+
   /* --- La navigation principale (pour les grands écrans) --- */
   .nav {
     display: none; // Cachée par défaut, affichée via media query
