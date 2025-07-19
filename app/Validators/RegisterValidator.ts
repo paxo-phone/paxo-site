@@ -1,4 +1,4 @@
-import { schema, CustomMessages, rules } from '@ioc:Adonis/Core/Validator'
+import { schema, rules } from '@ioc:Adonis/Core/Validator'
 
 export default class RegisterValidator {
   constructor() { }
@@ -15,26 +15,25 @@ export default class RegisterValidator {
       rules.unique({ table: 'users', column: 'email' })
     ]),
     password: schema.string({}, [
-      rules.confirmed(),
       rules.minLength(10),
       rules.maxLength(50),
-      rules.unique({ table: 'users', column: 'password' })
+      rules.confirmed(), 
     ])
   })
 
   public messages = { 
-    'username.required':  'error : The username nom is mandatory.',
-    'username.minLength': 'error : The username must contain at least 3 characters.',
-    'username.maxLength': 'error : The username must contain at most 20 characters.',
-    'username.unique':    'error : This username is already used.',
-    'email.required':     'error : The email adress is mandatory.',
-    'email.email':        'error : Provide a valid e-mail address.',
-    'email.unique':       'error : This email adress is already used.',
-    'password.required':  'error : The password is mandatory.',
-    'password.minLength': 'error : The password must contain at least 3 characters.',
-    'password.maxLength': 'error : The password must contain at most 20 characters.',
-    'password.confirmed': 'error : The password or the username is not correct.',
-    'invalid data':       'error : Your password must contain at least 10 characters, up to 50 characters.',
+    'username.required':  'The username nom is mandatory.',
+    'username.minLength': 'The username must contain at least 3 characters.',
+    'username.maxLength': 'The username must contain at most 20 characters.',
+    'username.unique':    'This username is already used.',
+    'email.required':     'The email adress is mandatory.',
+    'email.email':        'Provide a valid e-mail address.',
+    'email.unique':       'This email adress is already used.',
+    'password.required':  'The password is mandatory.',
+    'password.minLength': 'The password must contain at least 10 characters.',
+    'password.maxLength': 'The password must contain at most 20 characters.',
+    'password.confirmed': 'The two passwords do not match.',
+    'invalid data':       'Your password must contain at least 10 characters, up to 20 characters.',
   }
 }
 
