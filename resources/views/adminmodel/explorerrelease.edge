@@ -1,0 +1,61 @@
+@!layout('admin/index')
+
+@section('title')
+  Explorateur : {{ release.version }}
+@endsection
+
+@section('content')
+<div class="file-explorer-container">
+  
+  <a href="{{ route('adminPanel.reviewRelease', { id: release.id }) }}" class="review-page__back-link">← Retour à la validation de la release</a>
+
+  <h1>Explorateur de fichiers : <strong>{{ app.name }} - {{ release.version }}</strong></h1>
+  
+  <ul class="file-list">
+    @if(fileList.length === 0)
+      <li class="file-item--empty">Aucun fichier trouvé dans cette release.</li>
+    @else
+      @each(entry in fileList)
+        @if(entry.isDirectory)
+          <li class="file-item file-item--directory">
+            <i class="fa-solid fa-folder"></i>
+            <span>{{ entry.path }}</span>
+          </li>
+        @else
+          {{-- Si c'est un fichier, on crée un lien cliquable --}}
+          <li class="file-item">
+            {{-- CORRECTION : On utilise release.id, pas app.id --}}
+            <a href="{{ route('adminPanel.fileRelease', { id: release.id, '*': entry.path.split('/') }) }}" target="_blank">
+              @if(entry.path.endsWith('.lua'))
+                <i class="fa-solid fa-code"></i>
+              @elseif(entry.path.endsWith('.png') || entry.path.endsWith('.jpg'))
+                <i class="fa-solid fa-image"></i>
+              @elseif(entry.path.endsWith('.json'))
+                <i class="fa-solid fa-gear"></i>
+              @else
+                <i class="fa-solid fa-file"></i>
+              @endif
+              <span style="color: red">{{ entry.path }}</span>
+            </a>
+          </li>
+        @endif
+      @endeach
+    @endif
+  </ul>
+</div>
+@endsection
+
+@section('style')
+<style>
+.file-explorer-container { max-width: 900px; margin: 40px auto; padding: 0 20px; }
+.file-explorer-container h1 { font-size: 1.8rem; font-weight: 300; margin-bottom: 30px; }
+.review-page__back-link { display: inline-block; margin-bottom: 20px; color: #555; text-decoration: none; }
+.file-list { list-style: none; padding: 0; border: 1px solid #ddd; border-radius: 8px; overflow: hidden; }
+.file-item--empty { padding: 20px; color: #888; }
+.file-item a, .file-item--directory { display: flex; align-items: center; padding: 12px 20px; text-decoration: none; color: #333; border-bottom: 1px solid #eee; transition: background-color 0.2s ease; }
+.file-item a:hover { background-color: #f7f7f7; }
+.file-item:last-child a, .file-item:last-child { border-bottom: none; }
+.file-item i, .file-item--directory i { font-size: 20px; width: 35px; text-align: center; margin-right: 15px; color: #5a6a82; }
+.file-item--directory { color: #4a5a70; background-color: #f0f4f8; font-weight: bold; }
+</style>
+@endsection
