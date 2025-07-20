@@ -12,7 +12,6 @@ import Route from '@ioc:Adonis/Core/Route'
 import GitHubAppService from 'App/Services/GitHubAppService'
 import path from 'path'
 
-
 export default class StoreController {
   public async home({ request, view }: HttpContextContract) {
     const app_per_page = 15
@@ -27,7 +26,6 @@ export default class StoreController {
         query.where('category', parseInt(cat as string, 10))
       })
       .paginate(page, app_per_page)
-      
 
     return view.render('store/store', {
       pager,
@@ -56,9 +54,13 @@ export default class StoreController {
             .preload('author')
             .where('id', params.id)
             .firstOrFail()
+
+      const icon = Application.publicPath(`icons/${app.uuid}.png`)
+
       return view.render('store/app', {
               app,
               author:app.author,
+              icon,
           })
     }
     catch (error) {
@@ -194,6 +196,26 @@ export default class StoreController {
         downloads: 0,
         capabilities: manifest,
       })
+      console.log('Nouvelle application créée avec les données suivantes :', newApp)
+
+      //ICON 
+      let publicIconUrl: string | null = null;
+      const sourceIconPath = path.join(finalAppDirectory, 'icon.png') // On suppose que le nom est toujours 'icon.png'
+
+      try {
+        await fs.access(sourceIconPath) // On vérifie si le fichier existe
+
+        const publicIconsDirectory = Application.publicPath('icons')
+        const destinationIconPath = path.join(publicIconsDirectory, `${appUuid}.png`)
+
+        await fs.mkdir(publicIconsDirectory, { recursive: true })
+        await fs.copyFile(sourceIconPath, destinationIconPath)
+
+        console.log(`Icône trouvée et copiée avec succès vers : ${publicIconsDirectory}`)
+      } catch (iconError) {
+        console.warn(`Le fichier 'icon.png' n'a pas été trouvé dans le ZIP. Aucune icône ne sera définie.`)
+      }
+      
 
       await newApp.save()
       await newApp.load('author')
@@ -201,6 +223,7 @@ export default class StoreController {
       // 5. Appeler le service de backup avec le chemin final et corrigé
       console.log(`Appel du service de backup avec le dossier : ${finalAppDirectory}`)
       await GitHubAppService.commitNewApp(newApp, finalAppDirectory)
+    
 
       session.flash({ success: 'Application créée avec succès !' })
       return response.redirect().toRoute('StoreController.myapp', { id: newApp.id })
@@ -210,7 +233,7 @@ export default class StoreController {
     
     if (error.messages) { // Erreur de validation
       session.flashAll()
-      session.flash({ error: 'Veuillez corriger les erreurs.' })
+      session.flash({ error: `Veuillez corriger les erreurs : ${error.messages}` })
     } else {
       console.error('Erreur lors de la création de l\'application:', error)
       session.flash({ error: `Une erreur est survenue : ${error.message}` })
