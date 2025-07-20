@@ -46,6 +46,7 @@ yarn add uuid
 yarn add -D @types/uuid
 yarn add extract-zip
 yarn add fast-glob
+npm install @octokit/rest @octokit/auth-app
 mkdir tmp
 mkdir tmp/apps
 cp .env.example .env # Consider editing it before launching
