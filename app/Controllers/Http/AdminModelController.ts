@@ -11,6 +11,7 @@ import Release, { ReleaseStatus } from 'App/Models/Release'
 import Review from 'App/Models/App'
 import Database from '@ioc:Adonis/Lucid/Database'
 import ReleaseService from 'App/Services/ReleaseService'
+import GitHubAppService from 'App/Services/GitHubAppService'
 
 /*import { randomBytes } from 'node:crypto'
 import Drive from '@ioc:Adonis/Core/Drive'
@@ -153,6 +154,9 @@ export default class AdminModelController {
     app.comment = null; // Clear any previous rejection comment
     await app.save();
 
+    GitHubAppService.moveApp(app, 'Pending', 'Published')
+    .catch(err => console.error(`Échec du déplacement GitHub pour l'app ${app.id}:`, err));
+
     session.flash({ success: `L'application "${app.name}" a été approuvée.` });
     return response.redirect().toRoute('adminPanel.model.view', { model: Object.keys(models.Review),  });
   }
@@ -172,6 +176,9 @@ export default class AdminModelController {
     app.review = ReviewCategory.REJECTED;
     app.comment = comment; // Save the comment
     await app.save();
+
+    GitHubAppService.moveApp(app, 'Pending', 'Rejected')
+      .catch(err => console.error(`Échec du déplacement GitHub pour l'app ${app.id}:`, err));
 
     session.flash({ success: `L'application "${app.name}" a été rejetée.` });
     return response.redirect().toRoute('adminPanel.model.view', { model: Object.keys(models.Review),  });
@@ -229,6 +236,8 @@ export default class AdminModelController {
       // Cette opération fait maintenant partie de la transaction globale.
       await ReleaseService.publishRelease(releaseToApprove)
 
+      await GitHubAppService.moveRelease(releaseToApprove, 'Pending', 'Published');
+
       // 5. Si tout a réussi, on valide la transaction
       await trx.commit()
 
@@ -249,6 +258,8 @@ export default class AdminModelController {
     
     const releasePath = Application.tmpPath(`releases/${releaseToReject.uuid}`)
     await fs.remove(releasePath)
+
+    await GitHubAppService.moveRelease(releaseToReject, 'Pending', 'Rejected'); 
 
     await releaseToReject.delete()
 
