@@ -9,6 +9,10 @@ import fs from 'fs/promises'
 import fg from 'fast-glob'
 import Route from '@ioc:Adonis/Core/Route'
 
+import GitHubAppService from 'App/Services/GitHubAppService'
+import path from 'path'
+
+
 export default class StoreController {
   public async home({ request, view }: HttpContextContract) {
     const app_per_page = 15
@@ -140,108 +144,78 @@ export default class StoreController {
   }
 
   public async post({ auth, request, response, session }: HttpContextContract) {
-    const user = auth.use('web').user
-    if (!user) {
-      session.flash({ error: 'Authentification requise.' })
-      return response.redirect().back()
-    }
+    const user = auth.user!
+    const appUuid = uuidv4()
+    const baseDirectory = Application.tmpPath(`apps/${appUuid}`)
 
-    const appUuid = uuidv4() // Génération d'un UUID unique pour l'application
     try {
       const validatedData = await request.validate(AppValidator)
       const appZipFile = validatedData.app_zip
-      const contentDirectory = Application.tmpPath(`apps/${appUuid}`)
-
-      await appZipFile.move(contentDirectory, {
-        name : `${appUuid}`, // It's good practice to keep the .zip extension
-        overwrite: false,
-      });
-
-      if (appZipFile.state !== 'moved' || !appZipFile.filePath) {
-        session.flash({ error: 'Erreur lors du déplacement du fichier ZIP.' })
-        if (appZipFile.errors) {
-          console.error('Erreurs de déplacement du fichier:', appZipFile.errors)
-        }
-        return response.redirect().back()
-      }
-
-      // 5. Définir le dossier où le contenu sera extrait
-      const zipFilePath = appZipFile.filePath // Chemin du fichier ZIP déplacé
-
-      // 6. Créer le dossier de destination AVANT de tenter d'extraire
-      await fs.mkdir(contentDirectory, { recursive: true })
-
-      // 7. Extraire le zip EN UTILISANT LE BON CHEMIN
-      await Extract(zipFilePath, { dir: contentDirectory })
-      console.log(`Fichier extrait avec succès dans ${contentDirectory}`)
-
-      // 8. (Optionnel mais recommandé) Nettoyer le fichier .zip original
+      
+      // 1. Déplacer et extraire le ZIP
+      await appZipFile.move(baseDirectory, { name: 'source.zip' })
+      const zipFilePath = `${baseDirectory}/source.zip`
+      await Extract(zipFilePath, { dir: baseDirectory })
       await fs.unlink(zipFilePath)
 
-      // 9. Chercher le manifest.json dans le dossier extrait
-      console.log("====",contentDirectory)
-      const manifestPaths = await fg('**/manifest.json', { 
-            cwd: contentDirectory, // Cherche à partir du dossier d'extraction
-            absolute: true,     // Renvoie des chemins absolus
-            onlyFiles: true,
-        });
+      // === DÉBOGAGE : On vérifie ce qui a été extrait ===
+      console.log(`Fichiers extraits dans le dossier de base : ${baseDirectory}`)
+      const extractedItems = await fs.readdir(baseDirectory)
+      console.log('Contenu du dossier de base après extraction :', extractedItems)
+      // ===============================================
 
-        if (manifestPaths.length === 0) {
-            throw new Error("Le fichier manifest.json est introuvable dans le ZIP fourni.");
+      // 2. Logique intelligente pour trouver le bon dossier de l'application
+      let finalAppDirectory = baseDirectory
+      if (extractedItems.length === 1) {
+        const singleItemPath = path.join(baseDirectory, extractedItems[0])
+        const stats = await fs.stat(singleItemPath)
+        if (stats.isDirectory()) {
+          console.log('Un seul dossier racine détecté, le chemin final est maintenant :', singleItemPath)
+          finalAppDirectory = singleItemPath
         }
-        
-        // On prend le premier manifest trouvé.
-        const manifestPath = manifestPaths[0];
-        console.log(`Manifest trouvé à : ${manifestPath}`);
+      }
 
-        const fileContent = await fs.readFile(manifestPath, 'utf-8');
-        const manifest = JSON.parse(fileContent);
+      // 3. Chercher le manifest (cette partie ne change pas)
+      const manifestPaths = await fg('**/manifest.json', { cwd: finalAppDirectory, absolute: true, onlyFiles: true })
+      if (manifestPaths.length === 0) {
+        throw new Error("Le fichier manifest.json est introuvable dans le ZIP.")
+      }
+      const manifestPath = manifestPaths[0]
+      const fileContent = await fs.readFile(manifestPath, 'utf-8')
+      const manifest = JSON.parse(fileContent)
 
-
+      // 4. Créer l'application en base de données
       const newApp = await App.create({
-            userId: user.id,
-            uuid: appUuid, // Génération d'un UUID unique pour l'application
-            name: validatedData.name,
-            desc: validatedData.desc,
-            category: validatedData.category as unknown as AppCategory,
-            downloads: 0,
-            capabilities: manifest,
-          })
-
-    await newApp.save()
-
-    
-
-    // Créer une release initiale pour cette application
-    // (Adaptez cette logique si nécessaire)
-    /*
-    try {
-      await Release.create({
-        appId: newApp.id,
-        name: '1.0.0 - Version Initiale', // Ou un nom plus descriptif
-        commitSha: 'initial_upload', // Ou un placeholder
-        changelog: 'Première version de l\'application.',
-        downloadLink: appZipFile.filePath, // Lien vers le fichier ZIP téléversé
+        userId: user.id,
+        uuid: appUuid,
+        name: validatedData.name,
+        desc: validatedData.desc,
+        category: validatedData.category as unknown as AppCategory,
+        downloads: 0,
+        capabilities: manifest,
       })
-    } catch (releaseError) {
-      console.error(`Échec de la création de la release initiale pour l'app ${newApp.id}:`, releaseError.message)
-      // Vous pouvez choisir de flasher un avertissement ici
-      session.flash({ warning: 'Application créée, mais la release initiale n\'a pas pu être générée.' })
-    }*/
 
-    session.flash({ success: 'Application créée avec succès !' })
-    return response.redirect().toRoute('StoreController.myapp', { id: newApp.id }) // ou une autre route appropriée
+      await newApp.save()
+      await newApp.load('author')
+
+      // 5. Appeler le service de backup avec le chemin final et corrigé
+      console.log(`Appel du service de backup avec le dossier : ${finalAppDirectory}`)
+      await GitHubAppService.commitNewApp(newApp, finalAppDirectory)
+
+      session.flash({ success: 'Application créée avec succès !' })
+      return response.redirect().toRoute('StoreController.myapp', { id: newApp.id })
 
     } catch (error) {
-      if (error.messages) { // Erreur de validation d'AdonisJS
-        session.flashAll() // Renvoyer les anciennes entrées au formulaire
-        session.flash({ error: 'Veuillez corriger les erreurs dans le formulaire.' })
-        console.error('Erreur de validation:', error.messages)
-      } else {
-        console.error('Erreur lors de la création de l\'application:', error)
-        session.flash({ error: 'Une erreur est survenue lors de la création de l\'application.' })
-      }
-      return response.redirect().back()
+    await fs.rm(baseDirectory, { recursive: true, force: true }).catch(() => {})
+    
+    if (error.messages) { // Erreur de validation
+      session.flashAll()
+      session.flash({ error: 'Veuillez corriger les erreurs.' })
+    } else {
+      console.error('Erreur lors de la création de l\'application:', error)
+      session.flash({ error: `Une erreur est survenue : ${error.message}` })
+    }
+    return response.redirect().back()
     }
   }
 }
