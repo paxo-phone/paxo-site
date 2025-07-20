@@ -3903,14 +3903,21 @@ __metadata:
   languageName: node
   linkType: hard
 
-"axios@npm:^1.6.2":
-  version: 1.6.2
-  resolution: "axios@npm:1.6.2"
+"aws-ssl-profiles@npm:^1.1.1":
+  version: 1.1.2
+  resolution: "aws-ssl-profiles@npm:1.1.2"
+  checksum: bfcf9b2cbb9788e24e4af39a1e8b4a8afbdf65773b6a1636e643c10068ffbae46b28277c4c9f9321179400b2080092db040ba4513f9143f22d1bb053a12dab2b
+  languageName: node
+  linkType: hard
+
+"axios@npm:^1.7.7":
+  version: 1.10.0
+  resolution: "axios@npm:1.10.0"
   dependencies:
-    follow-redirects: ^1.15.0
+    follow-redirects: ^1.15.6
     form-data: ^4.0.0
     proxy-from-env: ^1.1.0
-  checksum: 4a7429e2b784be0f2902ca2680964391eae7236faa3967715f30ea45464b98ae3f1c6f631303b13dfe721b17126b01f486c7644b9ef276bfc63112db9fd379f8
+  checksum: b5fd840d499469bf968e44b8ac96f4b363c6aa4c791a50834c086a7cffbc2d77fe24f27af1aba46c3e1f4840aaf991461fc27537990596b93dea0f4df3245a86
   languageName: node
   linkType: hard
 
@@ -6158,13 +6165,23 @@ __metadata:
   languageName: node
   linkType: hard
 
-"follow-redirects@npm:^1.0.0, follow-redirects@npm:^1.15.0":
+"follow-redirects@npm:^1.0.0":
   version: 1.15.3
   resolution: "follow-redirects@npm:1.15.3"
   peerDependenciesMeta:
     debug:
       optional: true
   checksum: 584da22ec5420c837bd096559ebfb8fe69d82512d5585004e36a3b4a6ef6d5905780e0c74508c7b72f907d1fa2b7bd339e613859e9c304d0dc96af2027fd0231
+  languageName: node
+  linkType: hard
+
+"follow-redirects@npm:^1.15.6":
+  version: 1.15.9
+  resolution: "follow-redirects@npm:1.15.9"
+  peerDependenciesMeta:
+    debug:
+      optional: true
+  checksum: 859e2bacc7a54506f2bf9aacb10d165df78c8c1b0ceb8023f966621b233717dab56e8d08baadc3ad3b9db58af290413d585c999694b7c146aaf2616340c3d2a6
   languageName: node
   linkType: hard
 
@@ -7960,10 +7977,10 @@ __metadata:
   languageName: node
   linkType: hard
 
-"lru-cache@npm:^8.0.0":
-  version: 8.0.5
-  resolution: "lru-cache@npm:8.0.5"
-  checksum: 87d72196d8f46e8299c4ab576ed2ec8a07e3cbef517dc9874399c0b2470bd9bf62aacec3b67f84ed6d74aaa1ef31636d048edf996f76248fd17db72bfb631609
+"lru.min@npm:^1.0.0":
+  version: 1.1.2
+  resolution: "lru.min@npm:1.1.2"
+  checksum: d7b0c2309072b066e13e1178130f48cfef317149389e556255844ba79ee8c0fe79e0b2f2ada78cfd975803afc30a443ac3e2f87f4ce1488d8a1782ff42a16f30
   languageName: node
   linkType: hard
 
@@ -8558,19 +8575,20 @@ __metadata:
   languageName: node
   linkType: hard
 
-"mysql2@npm:^3.6.0":
-  version: 3.6.0
-  resolution: "mysql2@npm:3.6.0"
+"mysql2@npm:^3.9.8":
+  version: 3.14.2
+  resolution: "mysql2@npm:3.14.2"
   dependencies:
+    aws-ssl-profiles: ^1.1.1
     denque: ^2.1.0
     generate-function: ^2.3.1
     iconv-lite: ^0.6.3
     long: ^5.2.1
-    lru-cache: ^8.0.0
+    lru.min: ^1.0.0
     named-placeholders: ^1.1.3
     seq-queue: ^0.0.5
     sqlstring: ^2.3.2
-  checksum: 3c0f6102ce76314b3a0789626bf49beccf4e51cba72dc8509e631ccd47f12d23020832468b6e30db513e73bd2ed72b6e0e6b118a7ad808f9e32f2e3dc744ffc8
+  checksum: ba67ff50ddb7d16a244e61f42e2b4d46d07002a5acefa0a51093cc46a1019d853eed6719456549db2066b714a1d49aa7357c87ce9caf9ea39e927eea0f569514
   languageName: node
   linkType: hard
 
@@ -9278,14 +9296,14 @@ __metadata:
     "@typescript-eslint/eslint-plugin": ^6.5.0
     "@typescript-eslint/parser": ^6.5.0
     adonis-preset-ts: ^2.1.0
-    axios: ^1.6.2
+    axios: ^1.7.7
     eslint: ^8.47.0
     eslint-plugin-adonis: ^2.1.1
     file-loader: ^6.0.0
     highlight.js: ^11.9.0
     luxon: ^3.4.0
     markdown-it: ^13.0.2
-    mysql2: ^3.6.0
+    mysql2: ^3.9.8
     phc-argon2: ^1.1.4
     pino-pretty: ^10.2.0
     proxy-addr: ^2.0.7
