@@ -14,3 +14,4 @@ public/assets
 package-lock.json
 yarn.lock
 
+.pem
