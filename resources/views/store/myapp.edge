@@ -27,27 +27,19 @@
         }
     </style>
 
-    <table style="max-width: 600px;">
-        <thead>
-            <tr>
-            <th>Classement</th>
-            <th>Notes</th>
-            <th>Créateur</th>
-            <th>Langue</th>
-            <th>Taille</th>
-            </tr>
-        </thead>
-        <tbody>
-            <tr>
-            <td>N°1</td>
-            <td>5,0</td>
-            <td>{{author.username}}</td>
-            <td>Fr</td>
-            <td>100 Mo</td>
-            </tr>
-        </tbody>
-    </table>
-
+    @if(app.review == 0)
+        <h1 style="color:red;">
+            waiting for review
+        </h1>
+    @endif
+     @if(app.review == 2)
+        <h1 style="color:red;">
+            app refused
+        </h1>
+        <p>
+            Reason: {{app.comment}}
+        </p>
+    @endif
     <br>
     <br>
         <h1>
@@ -69,16 +61,18 @@
         </form>
     <br>
     <br>
+    @if(app.review == 1)
         <h1>
             Nouvelle version
         </h1>
 
-    <form action="{{ route('releases.store', { id: app.id }) }}" method="POST" enctype="multipart/form-data">
-        <label for="input_zipfile" class="drop-container" id="dropcontainer">
-            <span for="app_zip">Déposer le fichier zip ici</span>
-            <input type="file" name="app_zip" id="input_zipfile" accept=".zip,application/zip,application/x-zip-compressed" required />
-        </label>
+        <form action="{{ route('releases.store', { id: app.id }) }}" method="POST" enctype="multipart/form-data">
+            <label for="input_zipfile" class="drop-container" id="dropcontainer">
+                <span for="app_zip">Déposer le fichier zip ici</span>
+                <input type="file" name="app_zip" id="input_zipfile" accept=".zip,application/zip,application/x-zip-compressed" required />
+            </label>
 
-        <button type="submit" class="btn btn-submit">Soumettre</button>
-  </form>
+            <button type="submit" class="btn btn-submit">Soumettre</button>
+        </form>
+    @endif
 @end
