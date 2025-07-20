@@ -1,7 +1,7 @@
 @component('store/store_container')
     <div class="Group12" style="width: 274px; height: 75px; display: flex; margin: 10px;">
         <div class="img" style="width: 75px; height: 75px; background: #f4f4f4; border-radius: 20px;">
-            <img src="{{ app.image ?? '/img/logo.png'}}" style="width: 100%; height: 100%; object-fit: cover; border-radius: 20px;">
+            <img src="/icons/{{app.uuid}}.png"  style="width: 100%; height: 100%; object-fit: cover; border-radius: 20px;">
         </div>
         <div style="margin-left: 15px; width: 175px; height: 75px; overflow: hidden; display: -webkit-box; -webkit-line-clamp: 3; -webkit-box-orient: vertical; line-height: 1.2em;">
             <h1 style="font-size: 30px;">{{app.name}}</h1>
