@@ -33,6 +33,13 @@ export default class AppValidator {
     //   extnames: ['jpg', 'jpeg', 'png', 'gif'],
     // }),
   })
+
+  public schemaIcon = schema.create({
+        icon: schema.file({
+          size: '2mb',
+          extnames: ['png', 'jpg', 'jpeg', 'svg'],
+        }),
+      })
   /**
    * Custom messages for validation failures. You can make them here.
    */
