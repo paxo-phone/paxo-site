@@ -9,6 +9,8 @@ import { DateTime } from 'luxon'
 import Extract from 'extract-zip'
 import fs from 'fs/promises'
 
+import GitHubAppService from 'App/Services/GitHubAppService' 
+
 export default class ReleasesController {
 
   public async create({ view, params }: HttpContextContract) {
@@ -63,12 +65,24 @@ export default class ReleasesController {
       // 6. Nettoyer le fichier .zip original
       await fs.unlink(zipFilePath)
 
+      const appNameDirectory = `${releaseDirectory}/${app.name}`;
+
       // 7. Sauvegarder la nouvelle release en base de données
       await newRelease.save()
 
+       await newRelease.load('app', (appQuery) => {
+        appQuery.preload('author'); // On charge aussi l'auteur pour le changelog
+      });
+
+      GitHubAppService.commitNewRelease(newRelease, appNameDirectory)
+        .catch(err => console.error("Erreur non bloquante dans le backup de la release:", err));
+
+      
       session.flash({ success: 'Nouvelle version soumise avec succès pour validation !' })
       // On redirige vers la page de gestion de l'app
       return response.redirect().toRoute('StoreController.myapp', { id: appId })
+
+      
 
     } catch (error) {
       console.error("Erreur lors de la soumission de la release :", error.messages || error)
