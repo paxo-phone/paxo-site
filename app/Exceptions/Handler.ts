@@ -34,6 +34,8 @@ export default class ExceptionHandler extends HttpExceptionHandler {
   }
   
   async report (error: Error, ctx: HttpContextContract) {
+    ctx.session.flash({ errors: error })
+    return ctx.response.redirect().back()
   }
 
   public async handle(error: any, ctx: HttpContextContract) {
