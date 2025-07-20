@@ -24,4 +24,23 @@
   </tr>
   @end
 </table>
+
+<form action="{{ route('releases.store', { id: app.id }) }}" method="POST" enctype="multipart/form-data">
+        <div class="form-group">
+        <label for="version">Numéro de version</label>
+        //<input type="text" name="version" id="version" required placeholder="Numéro de version">
+        </div>
+
+        <div class="form-group">
+        <label for="notes">Notes de version</label>
+        <textarea name="notes" id="notes" rows="5" required placeholder="Corrections de bugs, nouvelles fonctionnalités..."></textarea>
+        </div>
+
+        <div class="form-group">
+        <label for="app_zip">Fichier ZIP de la nouvelle version</label>
+        <input type="file" name="app_zip" id="app_zip" required accept=".zip">
+        </div>
+
+        <button type="submit" class="btn btn-submit">Soumettre pour validation</button>
+  </form>
 @end

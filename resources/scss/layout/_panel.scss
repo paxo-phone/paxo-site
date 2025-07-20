@@ -1,0 +1,474 @@
+
+
+#div-dashboard{
+    padding:0;
+}
+
+.review-tab{
+  color:$green2;
+}
+/* =================================
+   Page de validation d'application
+   ================================= */
+
+/* Le conteneur principal de la page */
+.review-page-container {
+  max-width: 800px;
+  margin: 0px auto 50px auto; /* Centre la page */
+  padding: 20px;
+}
+
+/* Le lien de retour */
+.review-page__back-link {
+  display: inline-block;
+  margin-bottom: 25px;
+  color: #555;
+  text-decoration: none;
+  font-size: 1rem;
+  &:hover {
+    text-decoration: underline;
+  }
+}
+
+/* Le titre principal de la page */
+.review-page__header {
+  font-size: 2rem;
+  font-weight: 300;
+  color: #333;
+  margin-bottom: 30px;
+  border-bottom: 1px solid #eee;
+  padding-bottom: 15px;
+
+  strong {
+    font-weight: 600;
+  }
+}
+
+/* La "carte" qui contient les détails */
+.review-page__card {
+  background: #ffffff;
+  padding: 25px 30px;
+  border-radius: 8px;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.07);
+}
+
+.card__title {
+  margin-top: 0;
+  margin-bottom: 20px;
+  font-size: 1.4rem;
+  color: #444;
+}
+
+/* La liste des détails (ID, Nom, Auteur...) */
+.details-list {
+  display: grid;
+  grid-template-columns: 180px 1fr; /* Colonne pour les étiquettes, colonne pour les valeurs */
+  gap: 12px 20px; /* Espace vertical et horizontal */
+
+  dt { /* Les étiquettes (ex: "Auteur :") */
+    font-weight: 600;
+    color: #666;
+    text-align: right;
+  }
+
+  dd { /* Les valeurs (ex: "John Doe") */
+    margin: 0;
+    color: #333;
+  }
+}
+.capabilities-list {
+    display: flex;
+    flex-wrap: wrap; /* Permet aux tags de passer à la ligne si l'espace manque */
+    gap: 8px; /* Espace entre chaque tag */
+  }
+
+  /* Le style de chaque tag individuel */
+  .capability-tag {
+    background-color: #e9ecef; /* Un gris clair et neutre */
+    color: #495057; /* Un gris plus foncé pour le texte */
+    padding: 4px 10px; /* Un peu d'espace intérieur */
+    border-radius: 12px; /* Pour un effet "pilule" */
+    font-size: 0.85rem;
+    font-weight: 500;
+    line-height: 1.5; /* Améliore l'alignement vertical du texte */
+  }
+
+
+
+
+
+/* =================================
+        LAYOUT BASE ADMIN
+   ================================= */
+
+
+  
+/* --- Section des actions interactive --- */
+.review-page__actions {
+  margin-top: 30px;
+  position: relative; /* Crucial pour superposer les enfants */
+  height: 50px;       /* Hauteur fixe pour éviter les sauts de page, à ajuster si vos boutons sont plus grands */
+  display: flex;
+  justify-content: flex-end;
+}
+
+/* Conteneur pour les deux "états" */
+.actions__default{
+  display:flex;
+  flex-direction: row;
+  align-items: center;
+}
+.actions__reject-form {
+  position: absolute; /* On les superpose */
+  top: 0;
+  right: 0;
+  display: flex;
+  gap: 15px;
+  align-items: center;
+  transition: opacity 0.3s ease, transform 0.3s ease;
+}
+
+/* Par défaut, le formulaire de rejet est invisible et légèrement décalé vers le bas */
+.actions__reject-form {
+  opacity: 0;
+  transform: translateY(10px);
+  pointer-events: none; /* Empêche les clics quand il est invisible */
+  width: 100%; // Prend toute la largeur pour le champ de texte
+}
+
+/* Style du contenu du formulaire de rejet */
+.reject-form__content {
+  display: flex;
+  width: 100%;
+  gap: 15px;
+  align-items: center;
+}
+.reject-form__comment-input {
+  flex-grow: 1; /* Le champ de texte prend toute la place disponible */
+  padding: 10px;
+  margin:0;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  font-size: 1rem;
+}
+.reject-form__buttons {
+  display: flex;
+  gap: 10px;
+}
+
+
+/* --- Le changement d'état via la classe .is-rejecting --- */
+
+/* Quand le conteneur est en mode rejet... */
+.review-page__actions.is-rejecting {
+  /* ...on cache les boutons par défaut en les faisant glisser vers le haut */
+  .actions__default {
+    opacity: 0;
+    transform: translateY(-10px);
+    pointer-events: none;
+  }
+
+  /* ...et on affiche le formulaire en le faisant glisser à sa place */
+  .actions__reject-form {
+    opacity: 1;
+    transform: translateY(0);
+    pointer-events: auto;
+  }
+}
+
+
+
+.admin-body {
+  background-color: #f8f9fa;
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+  margin: 0;
+}
+
+/* Le conteneur principal qui crée les deux colonnes */
+.admin-layout {
+  display: flex;
+  min-height: 100vh;
+}
+
+/* --- Barre de navigation latérale (gauche) --- */
+.admin-sidebar {
+  width: 260px;
+  flex-shrink: 0;
+  background-color: #ffffff;
+  border-right: 1px solid #dee2e6;
+  display: flex;
+  flex-direction: column;
+  padding: 20px;
+}
+
+.sidebar-header {
+  margin-bottom: 30px;
+  display:flex;
+  flex-direction: column;
+  justify-content: center;
+  .logo-link {
+    display: flex;
+    justify-content: center;
+    margin-top:20%;
+    font-size: 1.5rem;
+    font-weight: 700;
+    color: #343a40;
+    text-decoration: none;
+    i {
+      margin-right: 12px;
+      color: $green1;
+    }
+  }
+  .logo-panel{
+  display: flex;
+  justify-content: center;
+}
+
+  .logo-panel img {
+      height: 30px; // Taille par défaut du logo
+      transition: all $transition-duration ease;
+  }
+}
+
+.sidebar-nav {
+  flex-grow: 1; /* Pousse le footer en bas */
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.nav-link {
+  display: flex;
+  align-items: center;
+  padding: 12px 15px;
+  text-decoration: none;
+  color: #495057;
+  font-weight: 500;
+  border-radius: 8px;
+  transition: background-color 0.2s ease, color 0.2s ease;
+
+  i {
+    width: 20px;
+    margin-right: 15px;
+    text-align: center;
+  }
+
+  &:hover {
+    background-color: #e9ecef;
+  }
+
+  &.active {
+    background-color: $green1;
+    color: white;
+  }
+}
+
+.sidebar-footer {
+  .logout-link {
+    color: #6c757d;
+    &:hover {
+      background-color: #f8d7da;
+      color: #721c24;
+    }
+  }
+}
+
+/* --- Contenu principal (droite) --- */
+.admin-main-content {
+  flex-grow: 1;
+  padding: 40px;
+  overflow-y: auto; /* Ajoute une barre de défilement si le contenu est trop long */
+}
+
+
+
+/* =================================
+        LAYOUT BASE ADMIN
+   ================================= */
+   .dashboard-header {
+  margin-bottom: 30px;
+}
+.dashboard-header h1 {
+  font-size: 2rem;
+  font-weight: 700;
+  margin: 0 0 5px 0;
+}
+.dashboard-header p {
+  font-size: 1.1rem;
+  color: #6c757d;
+}
+
+/* --- Conteneur des onglets --- */
+.tabs-container {
+  background-color: #ffffff;
+  border-radius: 12px;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.05);
+  overflow: hidden;
+}
+
+/* --- Navigation des onglets --- */
+.tab-navigation {
+  display: flex;
+  background-color: #f8f9fa;
+  border-bottom: 1px solid #dee2e6;
+}
+.tab-link {
+  flex: 1;
+  background: none;
+  border: none;
+  padding: 18px 25px;
+  cursor: pointer;
+  font-size: 1rem;
+  font-weight: 600;
+  color: #495057;
+  border-bottom: 3px solid transparent;
+  transition: all 0.2s ease-in-out;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+}
+.tab-link:hover {
+  background-color: #e9ecef;
+}
+.tab-link.active {
+  color: $green1;
+  border-bottom-color: $green1;
+  background-color: #ffffff;
+}
+.badge {
+  background-color: #6c757d;
+  color: white;
+  padding: 3px 9px;
+  font-size: 0.8rem;
+  border-radius: 12px;
+}
+.tab-link.active .badge {
+  background-color: $green1;
+}
+
+/* --- Contenu des panneaux --- */
+.tabs-content {
+  padding: 30px;
+}
+.tab-pane {
+  display: none;
+  animation: fadeIn 0.4s ease;
+}
+.tab-pane.active {
+  display: block;
+}
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(5px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+/* --- Style des cartes de la liste --- */
+.review-list {
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+  i {
+    color:$green1;
+  }
+}
+.review-card {
+  display: flex;
+  align-items: center;
+  padding: 15px;
+  border: 1px solid #e9ecef;
+  border-radius: 8px;
+  transition: box-shadow 0.2s ease;
+}
+.review-card:hover {
+  box-shadow: 0 4px 15px rgba(0,0,0,0.07);
+}
+.card-icon {
+  font-size: 1.4rem;
+  color: $green1;
+  margin-right: 20px;
+  width: 40px;
+  text-align: center;
+}
+.card-details {
+  flex-grow: 1;
+}
+.card-details h3 {
+  color:black;
+  margin: 0 0 5px 0;
+  font-size: 1.1rem;
+}
+.card-meta {
+  margin: 0;
+  color: #666;
+  font-size: 0.9rem;
+}
+.version-tag {
+  background: #e9ecef; color: #495057; padding: 2px 8px; border-radius: 4px; font-size: 0.8rem; margin-left: 10px;
+}
+.card-action .btn {
+  padding: 8px 20px;
+  font-weight: 600;
+}
+
+/* --- État vide --- */
+.empty-state {
+  text-align: center;
+  padding: 50px 20px;
+  border: 2px dashed #e9ecef;
+  border-radius: 8px;
+  color: #6c757d;
+}
+.empty-state i {
+  font-size: 2.5rem;
+  color: $green1;
+  margin-bottom: 15px;
+}
+.empty-state h4 {
+  font-size: 1.2rem;
+  margin: 0;
+}
+
+
+
+
+/* --- Review view --- */
+#actions-container{
+  display:flex;
+  justify-content: space-around;
+  flex-wrap: nowrap;
+}
+.form-review{
+  border-radius:10%;
+  margin:40px;
+  padding:0px;
+}
+.btn--review{
+  outline: none;
+    border: none; 
+
+    display: block;
+    width: fit-content;
+    font-size: 1rem;
+
+    text-decoration: none;
+    
+    color: white !important;
+    background-color: transparent;
+    padding: 1rem 2rem;
+
+    cursor: pointer;
+
+} 
+
+.btn--approve{
+  background-color: $green1;
+}
+
+.btn--epxlore{
+  background-color: #007bff;
+}
+
+.btn--reject{
+  background-color: #FF4A4A;
+}

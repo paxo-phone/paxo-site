@@ -2,20 +2,29 @@ import type { HttpContextContract } from '@ioc:Adonis/Core/HttpContext'
 
 import User from "App/Models/User"
 import RegisterValidator from 'App/Validators/RegisterValidator'
+import { ValidationException } from '@ioc:Adonis/Core/Validator'
+
 
 export default class UsersController {
   public async register({ view }: HttpContextContract) {
     return view.render('auth/register')
   }
+  
+  public async registerProcess({ auth, request, response, session }: HttpContextContract) {
+    const validator = new RegisterValidator()
+    const data = await request.validate({
+      schema: validator.schema,
+      messages: validator.messages,
+    })
 
-  public async store({ request, response, auth }: HttpContextContract) {
-    const data = await request.validate(new RegisterValidator())
     const user = await User.create(data)
-
-    auth.login(user)
-
-    response.redirect().toRoute("dash")
+    await auth.login(user)
+    
+    session.flash({ success: 'Votre compte a été créé avec succès !' })
+    return response.redirect().toRoute('dash')
   }
+
+
 
   public async login({ view }: HttpContextContract) {
     return view.render('auth/login')
@@ -25,12 +34,10 @@ export default class UsersController {
     const login = request.input('login')
     const password = request.input('password')
 
-    const redirectTo = request.input('next', '/')
-
     try {
       const user = await auth.verifyCredentials(login, password)
       await auth.login(user)
-      response.redirect().toPath(redirectTo)
+      response.redirect().toRoute("dash")
     } catch {
       session.flash({ error: 'Invalid credentials' })
       response.redirect().toRoute('auth.login')
@@ -40,6 +47,7 @@ export default class UsersController {
   public async logoutProcess({ auth, response, session }: HttpContextContract) {
     await auth.logout()
     session.flash({ success: 'Log out successfully' })
-    response.redirect('/')
+    response.redirect().toRoute("/")
   }
+
 }

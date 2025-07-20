@@ -9,6 +9,21 @@
 - [See More](#see-more)
 - [Contributors](#contributors)
 
+## App structure
+
+name/
+├── manifest.json
+├── icon.png
+├── app.lua
+
+- manifest.json is mandatory and gives the capabilities used by the app.
+```
+{
+    "access": ["files", "files_root", "os", "gsm", "gui", "time"]
+}
+```
+- icon.png is mandatory and must be 40x40
+
 ## Build the docker image
 
 Build everything with this command:
@@ -27,7 +42,13 @@ Don't forget to add all your environment variables !
 You must prepare the environement first:
 ```sh
 yarn install
+yarn add uuid
+yarn add -D @types/uuid
+yarn add extract-zip
+yarn add fast-glob
+npm install @octokit/rest @octokit/auth-app
 mkdir tmp
+mkdir tmp/apps
 cp .env.example .env # Consider editing it before launching
 node ace migration:run
 ```

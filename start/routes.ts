@@ -58,10 +58,10 @@ import type { HttpContextContract } from '@ioc:Adonis/Core/HttpContext'
 
 // DEPRECATED - Use StoreController instead
 
-// Route.group(() => {
+//Route.group(() => {
 //   Route.get('/', 'AppsController.index')
 //     .as('apps')
-//   Route.get('/cat/:category', 'AppsController.index')
+//  Route.get('/cat/:category', 'AppsController.index')
 //   Route.get('/product', 'AppsController.product')
 //   Route.get('/create', 'AppsController.create')
 //   Route.post('/createProcess', 'AppsController.createProcess')
@@ -73,7 +73,7 @@ import type { HttpContextContract } from '@ioc:Adonis/Core/HttpContext'
 //     console.warn("Development route /apps/appinstalledemo was loaded");
 //     Route.get('/appinstalldemo', 'AppsController.appinstalldemo')
 //   }
-// }).prefix('/apps')
+//}).prefix('/apps')
 //   .middleware('silentAuth')
 
 
@@ -85,7 +85,7 @@ import type { HttpContextContract } from '@ioc:Adonis/Core/HttpContext'
 Route.group(() => {
   Route.get('/register', 'UsersController.register')
     .as('auth.register')
-  Route.post('/register', 'UsersController.store')
+  Route.post('/register', 'UsersController.registerProcess')
     .as('auth.register.post')
 
   Route.get('/login', 'UsersController.login')
@@ -112,31 +112,90 @@ Route.get('/dash', 'DashboardController.index')
  * Admin panel
  * ----------------------------------------------
  */
-// Route.group(() => {
-//   Route.get('/', 'AdminController.index')
-//     .as('adminPanel.index')
+ Route.group(() => {
+    Route.get('/', 'AdminController.index')
+      .as('adminPanel.index')
 
-//   Route.get('/:model', 'AdminModelController.index')
-//     .as('adminPanel.model.index')
+    Route.get('/:model', 'AdminModelController.index')
+      .as('adminPanel.model.view')
 
-//   Route.get('/:model/i/:id', 'AdminModelController.view')
-//     .as('adminPanel.model.view')
+  /*
+  |--------------------------------------------------------------------------
+  | Routes for Reviewing APPLICATIONS
+  |--------------------------------------------------------------------------
+  */
+  // Shows the list of new apps to be reviewed
+  Route.get('/Review/Apps', 'AdminModelController.listApps')
+    .as('adminPanel.listApps')
 
-//   Route.get('/:model/create', 'AdminModelController.create')
-//     .as('adminPanel.model.create')
-//   Route.post('/:model/create', 'AdminModelController.createProcess')
+  // Show a specific app
+  Route.get('/Review/Apps/:id', 'AdminModelController.reviewApp')
+    .as('adminPanel.reviewApp')
+  
+  // Approves a new app
+  Route.post('/Review/Apps/:id/approve', 'AdminModelController.approveApp')
+    .as('adminPanel.apps.approve')
+  
+  // Rejects a new app
+  Route.post('/Review/Apps/:id/reject', 'AdminModelController.rejectApp')
+    .as('adminPanel.apps.reject')
 
-//   Route.post('/:model/inject', 'AdminModelController.injectProcess')
+  // Shows the file explorer for a specific app
+  Route.get('/Review/Apps/:id/explorer', 'AdminModelController.explorerApp')
+    .as('adminPanel.apps.explorerApp')
 
-//   Route.get('/:model/i/:id/update', 'AdminModelController.update')
-//     .as('adminPanel.model.update')
-//   Route.post('/:model/i/:id/update', 'AdminModelController.updateProcess')
+  // Serves a specific file from a release for viewing/downloading
+  Route.get('/Review/Apps/:id/file/*', 'AdminModelController.fileApp')
+    .as('adminPanel.fileApp')
 
-//   Route.get('/:model/i/:id/delete', 'AdminModelController.deleteProcess')
-//     .as('adminPanel.model.delete')
-// })
-//   .middleware(['auth', 'authAdmin'])
-//   .prefix('/admin-panel')
+  /*
+  |--------------------------------------------------------------------------
+  | Routes for Reviewing APP UPDATES (RELEASES)
+  |--------------------------------------------------------------------------
+  */
+  // Shows the list of pending releases to be reviewed
+  Route.get('/Review/Releases', 'AdminModelController.listReleases')
+    .as('adminPanel.listReleases')
+
+   // Show a specific release
+  Route.get('/Review/Releases/:id', 'AdminModelController.reviewRelease')
+    .as('adminPanel.reviewRelease')
+
+  // Approves a specific release
+  Route.post('/Review/Releases/:id/approve', 'AdminModelController.approveRelease')
+    .as('adminPanel.releases.approve')
+
+  // Rejects a specific release
+  Route.post('/Review/Releases/:id/reject', 'AdminModelController.rejectRelease')
+    .as('adminPanel.releases.reject')
+
+  // Shows the file explorer for a specific release
+  Route.get('/Review/Releases/:id/explorer', 'AdminModelController.explorerRelease')
+    .as('adminPanel.explorerRelease')
+
+  // Serves a specific file from a release for viewing/downloading
+  Route.get('/Review/Releases/:id/file/*', 'AdminModelController.fileRelease')
+    .as('adminPanel.fileRelease')
+/*
+   Route.get('/:model/i/:id', 'AdminModelController.view')
+     .as('adminPanel.model.view')
+
+   Route.get('/:model/create', 'AdminModelController.create')
+     .as('adminPanel.model.create')
+   Route.post('/:model/create', 'AdminModelController.createProcess')
+
+   Route.post('/:model/inject', 'AdminModelController.injectProcess')
+
+   Route.get('/:model/i/:id/update', 'AdminModelController.update')
+     .as('adminPanel.model.update')
+   Route.post('/:model/i/:id/update', 'AdminModelController.updateProcess')
+
+   Route.get('/:model/i/:id/delete', 'AdminModelController.deleteProcess')
+     .as('adminPanel.model.delete')
+  */
+})
+   .middleware(['auth', 'authAdmin'])
+     .prefix('/admin-panel')
 
 /**
  * ----------------------------------------------
@@ -185,19 +244,26 @@ Route.group(() => {
   Route.get('/', 'StoreController.home')
   Route.get('/app/:id', 'StoreController.app')
 
-  Route.get('/app/:appid/download', 'ReleasesController.download')
-  Route.get('/app/:appid/source', 'ReleasesController.source')
-  Route.get('/app/:appid/changelog/:relid', 'ReleasesController.changelog')
+  Route.get('/apps/:uuid/:fileName/manifest', 'StoreController.getManifest')
+    .as('apps.manifest')
+  Route.get('/apps/:uuid/:fileName', 'StoreController.getFirmware')
+    .as('apps.firmware')
+    
+//  Route.get('/app/:appid/download', 'ReleasesController.download')
+//  Route.get('/app/:appid/source', 'ReleasesController.source')
+//  Route.get('/app/:appid/changelog/:relid', 'ReleasesController.changelog')
 
   Route.group(() => {
     Route.get('/app/:id/manage', 'StoreController.myapp')
     Route.post('/app/:id/manage', 'StoreController.update')
-
-    Route.get('/app/:id/releases/manage', 'ReleasesController.manage')
-    Route.get('/app/:id/releases/new', 'ReleasesController.new')
-    Route.post('/app/:id/releases/new', 'ReleasesController.create')
+//  Route.get('/app/:id/releases/manage', 'ReleasesController.manage')
+//  Route.get('/app/:id/releases/new', 'ReleasesController.new')
+//  Route.post('/app/:id/releases/new', 'ReleasesController.create')
+    Route.get('/apps/:id/releases/new', 'ReleasesController.create').as('releases.create')
+    Route.post('/apps/:id/releases', 'ReleasesController.store').as('releases.store')
 
     Route.get('/myapps', 'StoreController.myapps')
+      .as('store.myapps')
 
     Route.get('/new', 'StoreController.new')
     Route.post('/new', 'StoreController.post')

@@ -1,11 +1,97 @@
 import type { HttpContextContract } from '@ioc:Adonis/Core/HttpContext'
-import Release from 'App/Models/Release'
+import Application from '@ioc:Adonis/Core/Application'
+import { v4 as uuidv4 } from 'uuid'
 import App from 'App/Models/App'
-import path from 'path'
-import GitLib from 'App/lib/git'
+import Release, { ReleaseStatus } from 'App/Models/Release'
+import { schema } from '@ioc:Adonis/Core/Validator'
+import { DateTime } from 'luxon'
+
+import Extract from 'extract-zip'
+import fs from 'fs/promises'
+
+import GitHubAppService from 'App/Services/GitHubAppService' 
 
 export default class ReleasesController {
 
+  public async create({ view, params }: HttpContextContract) {
+    const app = await App.findOrFail(params.id)
+    return view.render('releases/create', { app })
+  }
+
+  /**
+   * Gère la soumission du formulaire pour une nouvelle version.
+   */
+  public async store({ request, params, response, session, auth }: HttpContextContract) {
+    const appId = params.id
+    const user = auth.user!
+
+    // On récupère l'application parente pour vérifier la propriété et obtenir son nom
+    const app = await App.findOrFail(appId)
+    if (app.userId !== user.id) {
+      session.flash({ error: "Vous n'êtes pas autorisé à mettre à jour cette application." })
+      return response.redirect().toPath('/')
+    }
+
+    try {
+      // 1. Valider le fichier ZIP
+      const newReleaseSchema = schema.create({
+        app_zip: schema.file({
+          size: '10mb',
+          extnames: ['zip'],
+        }),
+      })
+      const payload = await request.validate({ schema: newReleaseSchema })
+
+      // 2. Créer l'instance de la nouvelle Release
+      const newRelease = new Release()
+      newRelease.appId = appId
+      newRelease.uuid = uuidv4()
+      newRelease.status = ReleaseStatus.PENDING
+      newRelease.version = `Update-${DateTime.now().toFormat('yyyy-LL-dd_HH-mm')}`
+      newRelease.notes = 'Mise à jour des fichiers de l\'application.'
+
+      // 3. Définir les chemins
+      const releaseDirectory = Application.tmpPath(`releases/${newRelease.uuid}`)
+
+      // 4. Déplacer le fichier ZIP
+      await payload.app_zip.move(releaseDirectory, { name: 'source.zip' })
+      const zipFilePath = `${releaseDirectory}/source.zip`
+
+      // 5. Extraire le contenu du ZIP dans le sous-dossier
+      await fs.mkdir(releaseDirectory, { recursive: true })
+      await Extract(zipFilePath, { dir: releaseDirectory })
+      console.log(`Fichiers de la release extraits dans : ${releaseDirectory}`)
+
+      // 6. Nettoyer le fichier .zip original
+      await fs.unlink(zipFilePath)
+
+      const appNameDirectory = `${releaseDirectory}/${app.name}`;
+
+      // 7. Sauvegarder la nouvelle release en base de données
+      await newRelease.save()
+
+       await newRelease.load('app', (appQuery) => {
+        appQuery.preload('author'); // On charge aussi l'auteur pour le changelog
+      });
+
+      GitHubAppService.commitNewRelease(newRelease, appNameDirectory)
+        .catch(err => console.error("Erreur non bloquante dans le backup de la release:", err));
+
+      
+      session.flash({ success: 'Nouvelle version soumise avec succès pour validation !' })
+      // On redirige vers la page de gestion de l'app
+      return response.redirect().toRoute('StoreController.myapp', { id: appId })
+
+      
+
+    } catch (error) {
+      console.error("Erreur lors de la soumission de la release :", error.messages || error)
+      session.flash({ error: "Une erreur est survenue. Veuillez vérifier le fichier et réessayer." })
+      return response.redirect().back()
+    }
+  }
+}
+/*
   public async manage({ params, view, auth, response }: HttpContextContract) {
     const user = auth.use('web').user
     if (!user) return // Backed by auth middleware
@@ -145,5 +231,5 @@ export default class ReleasesController {
 
     return response.redirect().toPath(`/store/app/${app.id}/releases/manage`)
   }
-
 }
+*/

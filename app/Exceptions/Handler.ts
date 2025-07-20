@@ -16,26 +16,43 @@
 import Logger from '@ioc:Adonis/Core/Logger'
 import HttpExceptionHandler from '@ioc:Adonis/Core/HttpExceptionHandler'
 import { HttpContextContract } from '@ioc:Adonis/Core/HttpContext'
-import { AuthenticationException } from '@adonisjs/auth/build/standalone'
 
 export default class ExceptionHandler extends HttpExceptionHandler {
+  protected ignoreStatuses = [
+    401,
+    400,
+  ]
+
   protected statusPages = {
     '403': 'errors/unauthorized',
     '404': 'errors/not-found',
     '500..599': 'errors/server-error',
   }
 
-  constructor() {
-    super(Logger)
+  constructor(protected logger: typeof Logger) {
+    super(logger)
+  }
+  
+  async report (error: Error, ctx: HttpContextContract) {
   }
 
-  async handle(error, ctx: HttpContextContract) {
-    ctx.session.flash({ error: ctx.response.getStatus() })
-
-    if (error instanceof AuthenticationException) {
-      return ctx.response.redirect().toPath(error.redirectTo)
+  public async handle(error: any, ctx: HttpContextContract) {
+    /**
+     * On vérifie si l'erreur est une erreur de validation.
+     * Le code 'E_VALIDATION_FAILURE' est le code unique pour ce type d'erreur.
+     */
+    if (error.code === 'E_VALIDATION_FAILURE') {
+      // C'est la logique qui renvoie les erreurs au formulaire.
+      ctx.session.flashAll() // Garde les anciennes valeurs (username, email)
+      ctx.session.flash({ errors: error.messages }) // Passe les messages d'erreur
+      
+      return ctx.response.redirect().back()
     }
 
-    return ctx.response.redirect().back()
+    /**
+     * Pour toutes les autres erreurs, on laisse le gestionnaire par défaut
+     * d'AdonisJS faire son travail (afficher une page 404, 500, etc.).
+     */
+    return super.handle(error, ctx)
   }
 }

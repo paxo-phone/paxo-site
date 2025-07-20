@@ -1,28 +1,120 @@
-@!layout('base/main')
+@!layout('admin/index')
 
 @section('title')
-Admin panel - {{ model }}
+  Tableau de bord de validation
 @endsection
 
 @section('content')
-<section class="container">
+  {{-- Le conteneur principal pour notre page de validation --}}
+  <div class="review-dashboard">
+    
+    {{-- Titre principal de la page --}}
+    <div class="dashboard-header">
+      <h1>Tableau de bord de validation</h1>
+      <p>Validez les nouvelles applications et les mises à jour soumises par les utilisateurs.</p>
+    </div>
 
-  <h1>Admin panel - {{ model }}</h1>
+    {{-- Conteneur pour les onglets et leur contenu --}}
+    <div class="tabs-container">
+      
+      {{-- Les boutons qui servent d'onglets --}}
+      <div class="tab-navigation">
+        <button class="tab-link active" data-tab="apps">
+          <i class="fa-solid fa-rocket"></i>
+          <span>Nouvelles Applications</span>
+          <span class="badge">{{ pendingApps }}</span>
+        </button>
+        <button class="tab-link" data-tab="releases">
+          <i class="fa-solid fa-code-branch"></i>
+          <span>Mises à jour</span>
+          <span class="badge">{{ pendingReleases }}</span>
+        </button>
+      </div>
 
-  <div>
-    @if(model !== "users")
-    <a href="{{ route('adminPanel.model.create', {model: model}) }}">Create</a>
-    @endif
+      {{-- Le contenu des panneaux, qui change en fonction de l'onglet actif --}}
+      <div class="tabs-content">
+        
+        {{-- PANNEAU 1 : LISTE DES NOUVELLES APPLICATIONS --}}
+        <div id="apps" class="tab-pane active">
+          @if(pendingApps === 0)
+            <div class="empty-state">
+              <i class="fa-solid fa-check-circle"></i>
+              <h4>Aucune nouvelle application en attente.</h4>
+              <p>Excellent travail !</p>
+            </div>
+          @else
+            <div class="review-list">
+              @each(app in apps)
+              <a href="{{ route('adminPanel.reviewApp', { id: app.id }) }}">
+                <div class="review-card">
+                  <div class="card-icon"><i class="fa-solid fa-cube"></i></div>
+                  <div class="card-details">
+                    <h3>{{ app.name }}</h3>
+                    <p class="card-meta">Soumis par <strong>{{ app.author.username }}</strong> le {{ app.createdAt.toFormat('dd LLLL yyyy') }}</p>
+                  </div>
+                  <i class="fa-solid fa-arrow-right"></i>
+                </div>
+              </a>
+              @endeach
+            </div>
+          @endif
+        </div>
+
+        {{-- PANNEAU 2 : LISTE DES MISES À JOUR (RELEASES) --}}
+        <div id="releases" class="tab-pane">
+          @if(pendingReleases === 0)
+            <div class="empty-state">
+              <i class="fa-solid fa-check-circle"></i>
+              <h4>Aucune mise à jour en attente.</h4>
+            </div>
+          @else
+            <div class="review-list">
+              @each(release in releases)
+              <a href="{{ route('adminPanel.reviewRelease', { id: release.id }) }}">
+                <div class="review-card">
+                  <div class="card-icon"><i class="fa-solid fa-arrow-up-from-bracket"></i></div>
+                  <div class="card-details">
+                    <h3>{{ release.app.name }} <span class="version-tag">{{ release.version }}</span></h3>
+                    <p class="card-meta">Soumis par <strong>{{ release.app.author.username }}</strong> le {{ release.createdAt.toFormat('dd LLLL yyyy') }}</p>
+                  </div>
+                  <i class="fa-solid fa-arrow-right"></i>
+                </div>
+              </a>
+              @endeach
+            </div>
+          @endif
+        </div>
+
+      </div>
+    </div>
   </div>
+@endsection
 
-  <div>
-    @each(item in items)
-    <a href="{{ route('adminPanel.model.view' , {model: model, id: item.id}) }}">
-      @each(attr in item)
-      <p>{{ attr }}</p>
-      @endeach
-    </a>
-    @endeach
-  </div>
-</section>
+{{-- Le JavaScript pour gérer l'interactivité des onglets --}}
+@section('script')
+<script>
+document.addEventListener('DOMContentLoaded', () => {
+  const tabLinks = document.querySelectorAll('.tab-link');
+  const tabPanes = document.querySelectorAll('.tab-pane');
+
+  tabLinks.forEach(link => {
+    link.addEventListener('click', () => {
+      const tabId = link.dataset.tab;
+
+      tabLinks.forEach(l => l.classList.remove('active'));
+      tabPanes.forEach(p => p.classList.remove('active'));
+
+      link.classList.add('active');
+      document.getElementById(tabId).classList.add('active');
+    });
+  });
+});
+</script>
+@endsection
+
+{{-- Le CSS pour styliser la page --}}
+@section('style')
+<style>
+/* ... Le CSS que je vous ai fourni précédemment ... */
+</style>
 @endsection

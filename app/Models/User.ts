@@ -3,8 +3,8 @@ import Hash from '@ioc:Adonis/Core/Hash'
 import { BaseModel, beforeSave, column } from '@ioc:Adonis/Lucid/Orm'
 
 export enum UserType {
-  DEFAULT,
-  ADMIN
+  DEFAULT = '0',
+  ADMIN = '1'
 }
 
 export default class User extends BaseModel {

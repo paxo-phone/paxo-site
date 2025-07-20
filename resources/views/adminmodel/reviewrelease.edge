@@ -1,0 +1,79 @@
+@!layout('admin/index')
+
+@section('title')
+  Validation de la release : {{ release.version }}
+@endsection
+
+@section('content')
+<div class="review-page-container">
+  
+  {{-- Un lien pour retourner à la liste des releases en attente --}}
+  <a href="{{ route('adminPanel.model.view', {model: model}) }}" class="review-page__back-link">← Retour à la liste des applications</a>
+  
+  <h1 class="review-page__header">Validation de la mise à jour</h1>
+
+  {{-- CARTE 1 : Informations sur l'application parente --}}
+  <div class="review-page__card">
+    <h3 class="card__title">Application concernée</h3>
+    <dl class="details-list">
+      <dt>Nom de l'app :</dt>
+      <dd>{{ release.app.name }}</dd>
+
+      <dt>Auteur :</dt>
+      <dd>{{ release.app.author ? release.app.author.username : 'Utilisateur inconnu' }}</dd>
+
+      <dt>Catégorie :</dt>
+      <dd>{{ release.app.category }}</dd>
+    </dl>
+  </div>
+
+  {{-- CARTE 2 : Informations sur la release elle-même --}}
+  <div class="review-page__card">
+    <h3 class="card__title">Détails de la nouvelle version</h3>
+    <dl class="details-list">
+      <dt>Version  :</dt>
+      <dd>{{ release.version }}</dd>
+
+      <dt>Notes :</dt>
+      <dd class="notes">{{ release.notes }}</dd>
+
+      <dt>Date :</dt>
+      <dd>{{ release.createdAt.toFormat('dd LLLL yyyy HH:mm') }}</dd>
+    </dl>
+  </div>
+
+  {{-- Section pour les actions d'approbation et de rejet --}}
+  <div class="review-page__actions" id="actions-container">
+  
+    {{-- ÉTAT 1 : Les boutons par défaut --}}
+    <div class="actions__default" id="default-actions">
+      
+      {{-- Bouton pour déclencher le formulaire de rejet --}}
+      <form action="{{ route('adminPanel.releases.reject', { id: release.id }) }}" method="POST" class="form-review btn--reject">
+        <button type="submit" class="btn--review" id="open-reject-form-btn">
+          <i class="fa-solid fa-xmark"></i>
+        </button>
+      </form>
+
+      
+      {{-- CORRECTION : Le bouton Explorer est maintenant un lien stylisé --}}
+      <form class="form-review btn--epxlore">
+        <a href="{{ route('adminPanel.explorerRelease', { id: release.id  }) }}" target="_blank">
+          <button type="button" class="btn--review">
+                      <i class="fa-solid fa-folder-open"></i>
+          </button>
+        </a>        
+      </form>
+      
+      {{-- Formulaire pour approuver --}}
+      <form action="{{ route('adminPanel.releases.approve', { id: release.id  }) }}" method="POST" class="form-review btn--approve">
+        <button type="submit" class="btn--review">
+          <i class="fa-solid fa-check"></i>
+        </button>
+      </form>
+    </div>
+
+    {{-- ÉTAT 2 : Le formulaire de rejet --}}
+  </div>
+</div>
+@endsection
