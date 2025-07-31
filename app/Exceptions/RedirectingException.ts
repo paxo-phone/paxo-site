@@ -1,6 +1,5 @@
 import { Exception } from '@adonisjs/core/build/standalone'
 import type { HttpContextContract } from '@ioc:Adonis/Core/HttpContext'
-import RegisterValidator from 'App/Validators/RegisterValidator'
 
 /*
 |--------------------------------------------------------------------------
