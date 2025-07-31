@@ -199,7 +199,6 @@ export default class StoreController {
       console.log('Nouvelle application créée avec les données suivantes :', newApp)
 
       //ICON 
-      let publicIconUrl: string | null = null;
       const sourceIconPath = path.join(finalAppDirectory, 'icon.png') // On suppose que le nom est toujours 'icon.png'
 
       try {
