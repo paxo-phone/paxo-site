@@ -18,68 +18,42 @@ import Application from '@ioc:Adonis/Core/Application'
 | defined inside the `contracts` directory.
 |
 */
+
 export default driveConfig({
   /*
   |--------------------------------------------------------------------------
-  | Default disk
+  | Disque par défaut (Le "Switch")
   |--------------------------------------------------------------------------
-  |
-  | The default disk to use for managing file uploads. The value is driven by
-  | the `DRIVE_DISK` environment variable.
-  |
+  | On lit la variable d'environnement STORAGE_DISK.
+  | Si elle n'est pas définie (comme en développement), on utilise 'dev_storage' par défaut.
   */
-  disk: Env.get('DRIVE_DISK'),
+  disk: Env.get('STORAGE_DISK', 'dev_storage'),
 
+  /*
+  |--------------------------------------------------------------------------
+  | Disques disponibles
+  |--------------------------------------------------------------------------
+  */
   disks: {
-    /*
-    |--------------------------------------------------------------------------
-    | Local
-    |--------------------------------------------------------------------------
-    |
-    | Uses the local file system to manage files. Make sure to turn off serving
-    | files when not using this disk.
-    |
-    */
-    local: {
+    // Disque pour le développement local (`yarn run dev`)
+    dev_storage: {
       driver: 'local',
-      visibility: 'public',
-
-      /*
-      |--------------------------------------------------------------------------
-      | Storage root - Local driver only
-      |--------------------------------------------------------------------------
-      |
-      | Define an absolute path to the storage directory from where to read the
-      | files.
-      |
-      */
-      root: Application.tmpPath('uploads'),
-
-      /*
-      |--------------------------------------------------------------------------
-      | Serve files - Local driver only
-      |--------------------------------------------------------------------------
-      |
-      | When this is set to true, AdonisJS will configure a files server to serve
-      | files from the disk root. This is done to mimic the behavior of cloud
-      | storage services that has inbuilt capabilities to serve files.
-      |
-      */
-      serveFiles: true,
-
-      /*
-      |--------------------------------------------------------------------------
-      | Base path - Local driver only
-      |--------------------------------------------------------------------------
-      |
-      | Base path is always required when "serveFiles = true". Also make sure
-      | the `basePath` is unique across all the disks using "local" driver and
-      | you are not registering routes with this prefix.
-      |
-      */
-      basePath: '/uploads',
+      visibility: 'private',
+      // Il pointe vers le dossier tmp/ à la racine de votre projet.
+      root: Application.tmpPath('persistent_storage'),
+      // Les fichiers de travail ne doivent pas être servis publiquement.
+      serveFiles: false,
     },
 
+    // Disque pour la production (Docker)
+    prod_storage: {
+      driver: 'local',
+      visibility: 'private',
+      // Il pointe vers un dossier 'storage/' qui sera rendu persistant par un volume Docker.
+      // Ce chemin est à l'intérieur du conteneur.
+      root: Application.makePath('storage'),
+      serveFiles: false,
+    },
     /*
     |--------------------------------------------------------------------------
     | S3 Driver
