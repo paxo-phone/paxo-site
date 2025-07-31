@@ -34,6 +34,7 @@ export default class ExceptionHandler extends HttpExceptionHandler {
   }
   
   async report (error: Error, ctx: HttpContextContract) {
+    await super.report(error, ctx)
   }
 
   public async handle(error: any, ctx: HttpContextContract) {
