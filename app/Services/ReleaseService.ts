@@ -1,4 +1,3 @@
-import Application from '@ioc:Adonis/Core/Application'
 import Release from 'App/Models/Release'
 import fs from 'fs-extra'
 
@@ -7,8 +6,8 @@ class ReleaseService {
     await release.load('app')
     const app = release.app
 
-    const oldAppFilesPath = Application.tmpPath(`apps/${app.uuid}`)
-    const newReleaseFilesPath = Application.tmpPath(`releases/${release.uuid}`)
+    const oldAppFilesPath = `apps/${app.uuid}`
+    const newReleaseFilesPath = `releases/${release.uuid}`
 
     console.log(`Publication de la release ${release.id} pour l'app ${app.id}...`)
     console.log(`Suppression de l'ancien dossier : ${oldAppFilesPath}`)
