@@ -12,6 +12,8 @@ import Database from '@ioc:Adonis/Lucid/Database'
 import ReleaseService from 'App/Services/ReleaseService'
 import GitHubAppService from 'App/Services/GitHubAppService'
 
+import Drive from '@ioc:Adonis/Core/Drive'
+import { LocalDriver } from '@adonisjs/core/build/standalone'
 
 /*import { randomBytes } from 'node:crypto'
 import Drive from '@ioc:Adonis/Core/Drive'
@@ -85,42 +87,52 @@ export default class AdminModelController {
     }
   }
 
-  public async explorerApp({ view, params }: HttpContextContract) {
-    const app = await Review.findOrFail(params.id)
-    const drivePath = `apps/${app.uuid}/${app.name}/`;
-    console.log('[CHEMIN DE RECHERCHE] :', drivePath);
+  public async explorerApp({ view, params, session, response }: HttpContextContract) {
+    try{
+      const app = await Review.findOrFail(params.id)
 
-    const entries = await fg('**/*', { 
-    cwd: drivePath,
-    onlyFiles: true,
-    stats: true // 
-  })
-  const fileList = entries.map(entry => ({
-    path: entry.path, // Le chemin du fichier/dossier
-    isDirectory: entry.stats!.isDirectory() // Un booléen qui nous dit si c'est un dossier
-  })).sort((a, b) => a.path.localeCompare(b.path)); // On trie par nom
+      const disk = Drive.use()
+      if (!(disk instanceof LocalDriver)) {
+        throw new Error("L'explorateur de fichiers n'est supporté que pour le driver 'local'.")
+      }
 
-    return view.render('adminmodel/explorerapp', {
-      app,
-      model: params.model,
-      fileList: fileList.sort(), // On trie la liste pour un affichage propre
-    })
-  }
+      const searchDirectory = disk.makePath(`apps/${app.uuid}/`)
+
+      console.log('[CHEMIN DE RECHERCHE ABSOLU] :', searchDirectory)
+
+      const entries = await fg('**/*', { 
+        cwd: searchDirectory,
+        stats: true
+      })
+      const fileList = entries.map(entry => ({
+        path: entry.path,
+        isDirectory: entry.stats ? entry.stats.isDirectory() : false
+      })).sort((a, b) => a.path.localeCompare(b.path));
+
+      return view.render('adminmodel/explorerapp', {
+        app,
+        model: params.model,
+        fileList: fileList.sort(),
+      })
+    }catch (error) {
+    console.error("Erreur lors de l'exploration des fichiers de l'application :", error)
+        session.flash({ error: "Impossible d'explorer les fichiers de cette application." })
+        return response.redirect().back()
+    }
+}
 
   public async fileApp({ params, response, view, session}: HttpContextContract) {
-    // Le '*' dans la route est accessible via params['*']
     const relativeFilePath = params['*'].join('/')
-    const app = await Review.findOrFail(params.id)
-    
-    const drivePath = `apps/${app.uuid}/${app.name}/${relativeFilePath}`;
-    const fileExtension = path.extname(relativeFilePath).toLowerCase()
-
+    const app = await App.findOrFail(params.id)
+    const drivePath = `apps/${app.uuid}/${relativeFilePath}`;
     try {
+      const fileExtension = path.extname(relativeFilePath).toLowerCase()
       switch (fileExtension) {
         case '.lua':
         case '.json':
-          // Pour les fichiers texte, on les lit et on les affiche avec une vue
-          const codeContent = await fs.readFile(drivePath, 'utf-8')
+
+          const codeContentBuffer = await Drive.get(drivePath)
+          const codeContent = codeContentBuffer.toString('utf-8')
           return view.render('adminmodel/fileapp', {
             app,
             model: params.model,
@@ -266,56 +278,69 @@ export default class AdminModelController {
     return response.redirect().back()
   }
 
-  public async explorerRelease({ view, params }: HttpContextContract) {
-    const release = await Release.query()
+  public async explorerRelease({ view, params, response, session }: HttpContextContract) {
+    try{
+      const release = await Release.query()
       .where('id', params.id)
       .preload('app') 
       .firstOrFail()
 
-    const drivePath = `releases/${release.uuid}/${release.app.name}/`;
+      const disk = Drive.use()
 
-    
-    console.log('[CHEMIN DE RECHERCHE] :', drivePath);
+      if (!(disk instanceof LocalDriver)) {
+        throw new Error("L'explorateur de fichiers n'est supporté que pour le driver 'local'.")
+      }
+      
+      const drivePath = `releases/${release.uuid}`;
+      const searchDirectory = disk.makePath(drivePath)
 
-    const entries = await fg('**/*', { 
-      cwd: drivePath,
-      stats: true
-    })
+      console.log('[CHEMIN DE RECHERCHE] :', searchDirectory);
 
-    const fileList = entries.map(entry => ({
-      path: entry.path,
-      isDirectory: entry.stats ? entry.stats.isDirectory() : false
-    })).sort((a, b) => a.path.localeCompare(b.path));
-
-    return view.render('adminmodel/explorerrelease', {
-      release,
-      app: release.app, 
-      fileList: fileList,
-    })
+      const entries = await fg('**/*', { 
+        cwd: searchDirectory,
+        stats: true
+      })
+      console.log('[ENTRÉES TROUVÉES] :', entries);
+      const fileList = entries.map(entry => ({
+        path: entry.path,
+        isDirectory: entry.stats ? entry.stats.isDirectory() : false
+      })).sort((a, b) => a.path.localeCompare(b.path));
+      console.log('[LISTE DE FICHIERS] :', fileList);
+      return view.render('adminmodel/explorerrelease', {
+        release,
+        app: release.app, 
+        fileList: fileList,
+      })
+    }catch (error) {
+      console.error("Erreur lors de l'exploration des fichiers de la release :", error)
+      session.flash({ error: "Impossible d'explorer les fichiers de cette release." })
+      return response.redirect().back()
+    }
   }
 
   public async fileRelease({ params, response, view, session }: HttpContextContract) {
     try {
+      //1.
       const relativeFilePath = params['*'].join('/')
       
-      // === LA CORRECTION EST ICI ===
-      // On utilise .query() pour pouvoir pré-charger la relation 'app'
       const release = await Release.query()
         .where('id', params.id)
-        .preload('app') // <-- ON AJOUTE LE PRELOAD
+        .preload('app') 
         .firstOrFail()
       
-      // Maintenant, 'release.app.name' existera et sera correct
-      const drivePath = `releases/${release.uuid}/${release.app.name}/${relativeFilePath}`;
+      //2.
+      const drivePath = `releases/${release.uuid}/${relativeFilePath}`;
       
       console.log('[DEBUG] Tentative de lecture du fichier :', drivePath)
 
       const fileExtension = path.extname(relativeFilePath).toLowerCase()
 
+      //3.
       switch (fileExtension) {
         case '.lua':
         case '.json':
-          const codeContent = await fs.readFile(drivePath, 'utf-8')
+          const codeContentBuffer = await Drive.get(drivePath)
+          const codeContent = codeContentBuffer.toString('utf-8')
           return view.render('adminmodel/filerelease', {
             release,
             app: release.app, // On peut aussi passer l'app à la vue
@@ -324,9 +349,11 @@ export default class AdminModelController {
             codeContent,
           })
 
-        // ... le reste de votre code switch est correct ...
         case '.png':
-        // ...
+        case '.jpg':
+        case '.jpeg':
+        case '.gif':
+        case '.svg':
           return response.download(drivePath)
         default:
           return response.download(drivePath, true)

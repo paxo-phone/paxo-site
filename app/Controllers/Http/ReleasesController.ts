@@ -7,8 +7,13 @@ import { DateTime } from 'luxon'
 
 import Extract from 'extract-zip'
 import fs from 'fs/promises'
+import fg from 'fast-glob'
 
 import GitHubAppService from 'App/Services/GitHubAppService' 
+
+import Application from '@ioc:Adonis/Core/Application'
+import Drive from '@ioc:Adonis/Core/Drive'
+import path from 'path'
 
 export default class ReleasesController {
 
@@ -23,15 +28,16 @@ export default class ReleasesController {
   public async store({ request, params, response, session, auth }: HttpContextContract) {
     const appId = params.id
     const user = auth.user!
-
-    // On récupère l'application parente pour vérifier la propriété et obtenir son nom
-    const app = await App.findOrFail(appId)
-    if (app.userId !== user.id) {
-      session.flash({ error: "Vous n'êtes pas autorisé à mettre à jour cette application." })
-      return response.redirect().toPath('/')
-    }
+    const releaseUuid = uuidv4()
+    const localWorkingDirectory = Application.tmpPath(`extraction_release_${releaseUuid}`)
 
     try {
+      const app = await App.findOrFail(appId)
+      if (app.userId !== user.id) {
+        session.flash({ error: "Vous n'êtes pas autorisé à mettre à jour cette application." })
+        return response.redirect().toPath('/')
+      }
+
       // 1. Valider le fichier ZIP
       const newReleaseSchema = schema.create({
         app_zip: schema.file({
@@ -41,47 +47,50 @@ export default class ReleasesController {
       })
       const payload = await request.validate({ schema: newReleaseSchema })
 
-      // 2. Créer l'instance de la nouvelle Release
+      // 2. Extraire ZIP
+      await fs.mkdir(localWorkingDirectory, { recursive: true })
+      await payload.app_zip.move(localWorkingDirectory, { name: 'source.zip' })
+      const zipFilePath = path.join(localWorkingDirectory, 'source.zip')
+      await Extract(zipFilePath, { dir: localWorkingDirectory })
+      await fs.unlink(zipFilePath)
+
+      //3. 
+      let finalAppDirectory = localWorkingDirectory
+      const extractedItems = await fs.readdir(localWorkingDirectory)
+      if (extractedItems.length === 1) {
+        const singleItemPath = path.join(localWorkingDirectory, extractedItems[0])
+        if ((await fs.stat(singleItemPath)).isDirectory()) {
+          finalAppDirectory = singleItemPath
+        }
+      }
+      //4. 
+      const filesToUpload = await fg('**/*', { cwd: finalAppDirectory, onlyFiles: true })
+      for (const file of filesToUpload) {
+        const localFilePath = path.join(finalAppDirectory, file)
+        const drivePath = `releases/${releaseUuid}/${file}`
+        await Drive.put(drivePath, await fs.readFile(localFilePath))
+      }
+
+      //5.
       const newRelease = new Release()
       newRelease.appId = appId
-      newRelease.uuid = uuidv4()
+      newRelease.uuid =  releaseUuid
       newRelease.status = ReleaseStatus.PENDING
       newRelease.version = `Update-${DateTime.now().toFormat('yyyy-LL-dd_HH-mm')}`
       newRelease.notes = 'Mise à jour des fichiers de l\'application.'
 
-      // 3. Définir les chemins
-      const drivePath = `releases/${newRelease.uuid}`
-
-      // 4. Déplacer le fichier ZIP
-      await payload.app_zip.move(drivePath, { name: 'source.zip' })
-      const zipFilePath = `${drivePath}/source.zip`
-
-      // 5. Extraire le contenu du ZIP dans le sous-dossier
-      await fs.mkdir(drivePath, { recursive: true })
-      await Extract(zipFilePath, { dir: drivePath })
-      console.log(`Fichiers de la release extraits dans : ${drivePath}`)
-
-      // 6. Nettoyer le fichier .zip original
-      await fs.unlink(zipFilePath)
-
-      const appNameDirectory = `${drivePath}/${app.name}`;
-
-      // 7. Sauvegarder la nouvelle release en base de données
       await newRelease.save()
+      await newRelease.load('app', (appQuery) => {
+        appQuery.preload('author')
+      })
 
-       await newRelease.load('app', (appQuery) => {
-        appQuery.preload('author'); // On charge aussi l'auteur pour le changelog
-      });
-
-      GitHubAppService.commitNewRelease(newRelease, appNameDirectory)
-        .catch(err => console.error("Erreur non bloquante dans le backup de la release:", err));
-
+      // 6. 
+      await GitHubAppService.commitNewRelease(newRelease, finalAppDirectory)
+         .catch(err => console.error("Erreur non bloquante dans le backup de la release:", err));
       
       session.flash({ success: 'Nouvelle version soumise avec succès pour validation !' })
       // On redirige vers la page de gestion de l'app
       return response.redirect().toRoute('StoreController.myapp', { id: appId })
-
-      
 
     } catch (error) {
       console.error("Erreur lors de la soumission de la release :", error.messages || error)
