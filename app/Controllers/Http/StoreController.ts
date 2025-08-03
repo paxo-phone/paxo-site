@@ -8,6 +8,7 @@ import Extract from 'extract-zip'
 import fs from 'fs/promises'
 import fg from 'fast-glob'
 import Route from '@ioc:Adonis/Core/Route'
+import Drive from '@ioc:Adonis/Core/Drive'
 
 import GitHubAppService from 'App/Services/GitHubAppService'
 import path from 'path'
@@ -69,24 +70,58 @@ export default class StoreController {
   }
 
   public async getManifest({ params, response, request }: HttpContextContract) {
-    const manifestPath = Application.tmpPath(`apps/${params.uuid}/.../manifest.json`); // Le chemin vers votre manifest
-    const manifestContent = await fs.readFile(manifestPath, 'utf-8');
-    const manifest = JSON.parse(manifestContent);
+    try {
+      // 1. On récupère l'App par son UUID pour avoir son nom
+      const app = await App.findByOrFail('uuid', params.uuid)
+      
+      // 2. On construit le chemin du manifest DANS Drive
+      const manifestDrivePath = `apps/${app.uuid}/${app.name}/manifest.json`
 
-    for (const build of manifest.builds) {
-      for (const part of build.parts) {
-        // On transforme "firmware.bin" en une URL complète que le navigateur peut utiliser
-        part.path = Route.makeUrl('apps.firmware', { uuid: params.uuid, fileName: part.path }, {
-          prefixUrl: request.header('origin') || '' 
-        });
+      // 3. On lit le contenu du fichier depuis Drive
+      const manifestContent = await Drive.get(manifestDrivePath)
+      const manifest = JSON.parse(manifestContent.toString('utf-8'))
+
+      // 4. On réécrit les URLs des firmwares pour qu'elles pointent vers la route 'apps.firmware'
+      for (const build of manifest.builds) {
+        for (const part of build.parts) {
+          part.path = Route.makeUrl('apps.firmware', { 
+            uuid: app.uuid, // On utilise l'UUID de l'APP
+            fileName: part.path 
+          }, {
+            prefixUrl: request.header('origin') || '' 
+          });
+        }
       }
+      return response.json(manifest)
+
+    } catch (error) {
+      console.error("Erreur lors de la récupération du manifest :", error)
+      return response.notFound({ error: 'Manifest introuvable' })
     }
-    return response.json(manifest);
   }
 
+  /**
+   * Sert un fichier de firmware d'une application en le lisant depuis Drive.
+   */
   public async getFirmware({ params, response }: HttpContextContract) {
-    const filePath = Application.tmpPath(`apps/${params.uuid}/.../${params.fileName}`); // Le chemin vers votre .bin
-    return response.download(filePath);
+    try {
+      // 1. On récupère l'App par son UUID pour avoir son nom
+      const app = await App.findByOrFail('uuid', params.uuid)
+
+      // 2. On construit le chemin du fichier DANS Drive
+      const firmwareDrivePath = `apps/${app.uuid}/${app.name}/${params.fileName}`
+
+      // 3. On lit le fichier en tant que stream et le sert dans la réponse
+      const stream = await Drive.getStream(firmwareDrivePath)
+      if (!stream) {
+        return response.notFound({ error: 'Fichier de firmware introuvable' })
+      }
+      response.stream(stream)
+      return
+    } catch (error) {
+      console.error("Erreur lors de la récupération du firmware :", error)
+      return response.notFound({ error: 'Fichier de firmware introuvable' })
+    }
   }
 
 
@@ -148,34 +183,48 @@ export default class StoreController {
   public async post({ auth, request, response, session }: HttpContextContract) {
     const user = auth.user!
     const appUuid = uuidv4()
-    const baseDirectory = Application.tmpPath(`apps/${appUuid}`)
+    const drivePath = `apps/${appUuid}`
+    const localWorkingPath = Application.tmpPath(`${appUuid}`)
 
     try {
       const validatedData = await request.validate(AppValidator)
       const appZipFile = validatedData.app_zip
       
       // 1. Déplacer et extraire le ZIP
-      await appZipFile.move(baseDirectory, { name: 'source.zip' })
-      const zipFilePath = `${baseDirectory}/source.zip`
-      await Extract(zipFilePath, { dir: baseDirectory })
+      await appZipFile.move(localWorkingPath, { name: 'source.zip' })
+      const zipFilePath = `${localWorkingPath}/source.zip`
+      await Extract(zipFilePath, { dir: drivePath })
       await fs.unlink(zipFilePath)
 
       // === DÉBOGAGE : On vérifie ce qui a été extrait ===
-      console.log(`Fichiers extraits dans le dossier de base : ${baseDirectory}`)
-      const extractedItems = await fs.readdir(baseDirectory)
+      console.log(`Fichiers extraits dans le dossier de base : ${localWorkingPath}`)
+      const extractedItems = await fs.readdir(localWorkingPath)
       console.log('Contenu du dossier de base après extraction :', extractedItems)
       // ===============================================
 
       // 2. Logique intelligente pour trouver le bon dossier de l'application
-      let finalAppDirectory = baseDirectory
+      let finalAppDirectory = localWorkingPath
       if (extractedItems.length === 1) {
-        const singleItemPath = path.join(baseDirectory, extractedItems[0])
+        const singleItemPath = path.join(drivePath, extractedItems[0])
         const stats = await fs.stat(singleItemPath)
         if (stats.isDirectory()) {
           console.log('Un seul dossier racine détecté, le chemin final est maintenant :', singleItemPath)
           finalAppDirectory = singleItemPath
         }
       }
+
+      // on bouge le fichier dans le dossier driver
+      const filesToUpload = await fg('**/*', { cwd: finalAppDirectory, onlyFiles: true })
+      
+      for (const file of filesToUpload) {
+        const localFilePath = path.join(finalAppDirectory, file)
+        const drivePath = `apps/${appUuid}/${validatedData.name}/${file}`
+        
+        // On lit le fichier local et on l'envoie à Drive
+        const content = await fs.readFile(localFilePath)
+        await Drive.put(drivePath, content)
+      }
+
 
       // 3. Chercher le manifest (cette partie ne change pas)
       const manifestPaths = await fg('**/manifest.json', { cwd: finalAppDirectory, absolute: true, onlyFiles: true })
@@ -228,7 +277,7 @@ export default class StoreController {
       return response.redirect().toRoute('StoreController.myapp', { id: newApp.id })
 
     } catch (error) {
-    await fs.rm(baseDirectory, { recursive: true, force: true }).catch(() => {})
+    await fs.rm(drivePath, { recursive: true, force: true }).catch(() => {})
     
     if (error.messages) { // Erreur de validation
       session.flashAll()
