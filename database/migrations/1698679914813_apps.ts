@@ -1,5 +1,4 @@
 import BaseSchema from '@ioc:Adonis/Lucid/Schema'
-import { AppCategory } from 'App/Models/App'
 
 export default class extends BaseSchema {
   protected tableName = 'apps'
