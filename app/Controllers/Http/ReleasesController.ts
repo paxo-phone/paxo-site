@@ -1,5 +1,4 @@
 import type { HttpContextContract } from '@ioc:Adonis/Core/HttpContext'
-import Application from '@ioc:Adonis/Core/Application'
 import { v4 as uuidv4 } from 'uuid'
 import App from 'App/Models/App'
 import Release, { ReleaseStatus } from 'App/Models/Release'
@@ -51,21 +50,21 @@ export default class ReleasesController {
       newRelease.notes = 'Mise à jour des fichiers de l\'application.'
 
       // 3. Définir les chemins
-      const releaseDirectory = Application.tmpPath(`releases/${newRelease.uuid}`)
+      const drivePath = `releases/${newRelease.uuid}`
 
       // 4. Déplacer le fichier ZIP
-      await payload.app_zip.move(releaseDirectory, { name: 'source.zip' })
-      const zipFilePath = `${releaseDirectory}/source.zip`
+      await payload.app_zip.move(drivePath, { name: 'source.zip' })
+      const zipFilePath = `${drivePath}/source.zip`
 
       // 5. Extraire le contenu du ZIP dans le sous-dossier
-      await fs.mkdir(releaseDirectory, { recursive: true })
-      await Extract(zipFilePath, { dir: releaseDirectory })
-      console.log(`Fichiers de la release extraits dans : ${releaseDirectory}`)
+      await fs.mkdir(drivePath, { recursive: true })
+      await Extract(zipFilePath, { dir: drivePath })
+      console.log(`Fichiers de la release extraits dans : ${drivePath}`)
 
       // 6. Nettoyer le fichier .zip original
       await fs.unlink(zipFilePath)
 
-      const appNameDirectory = `${releaseDirectory}/${app.name}`;
+      const appNameDirectory = `${drivePath}/${app.name}`;
 
       // 7. Sauvegarder la nouvelle release en base de données
       await newRelease.save()
