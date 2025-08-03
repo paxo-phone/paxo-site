@@ -3,7 +3,6 @@ import { LucidModel } from '@ioc:Adonis/Lucid/Orm'
 import fs from 'fs-extra'
 import fg from 'fast-glob'
 import path from 'path'
-import Application from '@ioc:Adonis/Core/Application'
 
 import App, { ReviewCategory } from 'App/Models/App'
 import Release, { ReleaseStatus } from 'App/Models/Release'
@@ -12,6 +11,7 @@ import Review from 'App/Models/App'
 import Database from '@ioc:Adonis/Lucid/Database'
 import ReleaseService from 'App/Services/ReleaseService'
 import GitHubAppService from 'App/Services/GitHubAppService'
+
 
 /*import { randomBytes } from 'node:crypto'
 import Drive from '@ioc:Adonis/Core/Drive'
@@ -87,12 +87,11 @@ export default class AdminModelController {
 
   public async explorerApp({ view, params }: HttpContextContract) {
     const app = await Review.findOrFail(params.id)
-    const searchDirectory = Application.tmpPath(`apps/${app.uuid}/${app.name}`)
-    console.log('[CHEMIN DE RECHERCHE] :', searchDirectory);
+    const drivePath = `apps/${app.uuid}/${app.name}/`;
+    console.log('[CHEMIN DE RECHERCHE] :', drivePath);
 
-    // On utilise fast-glob pour lister tous les fichiers de manière récursive
     const entries = await fg('**/*', { 
-    cwd: searchDirectory,
+    cwd: drivePath,
     onlyFiles: true,
     stats: true // 
   })
@@ -113,7 +112,7 @@ export default class AdminModelController {
     const relativeFilePath = params['*'].join('/')
     const app = await Review.findOrFail(params.id)
     
-    const absoluteFilePath = Application.tmpPath(`apps/${app.uuid}/${app.name}/${relativeFilePath}`)
+    const drivePath = `apps/${app.uuid}/${app.name}/${relativeFilePath}`;
     const fileExtension = path.extname(relativeFilePath).toLowerCase()
 
     try {
@@ -121,7 +120,7 @@ export default class AdminModelController {
         case '.lua':
         case '.json':
           // Pour les fichiers texte, on les lit et on les affiche avec une vue
-          const codeContent = await fs.readFile(absoluteFilePath, 'utf-8')
+          const codeContent = await fs.readFile(drivePath, 'utf-8')
           return view.render('adminmodel/fileapp', {
             app,
             model: params.model,
@@ -136,14 +135,14 @@ export default class AdminModelController {
         case '.gif':
         case '.svg':
           // Pour les images, on les envoie directement au navigateur
-          return response.download(absoluteFilePath)
+          return response.download(drivePath)
 
         default:
           // Pour tous les autres types de fichiers, on propose un téléchargement forcé
-          return response.download(absoluteFilePath, true)
+          return response.download(drivePath, true)
       }
     } catch (error) {
-      session.flash({ error: `Erreur lors du service du fichier ${absoluteFilePath}:` });
+      session.flash({ error: `Erreur lors du service du fichier ${drivePath}:` });
       return view.render('errors/not_found'); 
     }
   }
@@ -256,8 +255,8 @@ export default class AdminModelController {
   public async rejectRelease({ params, response, session }: HttpContextContract) {
     const releaseToReject = await Release.findOrFail(params.id)
     
-    const releasePath = Application.tmpPath(`releases/${releaseToReject.uuid}`)
-    await fs.remove(releasePath)
+    const drivePath = `releases/${releaseToReject.uuid}`;
+    await fs.remove(drivePath)
 
     await GitHubAppService.moveRelease(releaseToReject, 'Pending', 'Rejected'); 
 
@@ -273,12 +272,13 @@ export default class AdminModelController {
       .preload('app') 
       .firstOrFail()
 
-    const searchDirectory = Application.tmpPath(`releases/${release.uuid}/${release.app.name}`)
+    const drivePath = `releases/${release.uuid}/${release.app.name}/`;
+
     
-    console.log('[CHEMIN DE RECHERCHE] :', searchDirectory);
+    console.log('[CHEMIN DE RECHERCHE] :', drivePath);
 
     const entries = await fg('**/*', { 
-      cwd: searchDirectory,
+      cwd: drivePath,
       stats: true
     })
 
@@ -294,8 +294,6 @@ export default class AdminModelController {
     })
   }
 
-  // DANS app/Controllers/Http/AdminModelController.ts
-
   public async fileRelease({ params, response, view, session }: HttpContextContract) {
     try {
       const relativeFilePath = params['*'].join('/')
@@ -308,16 +306,16 @@ export default class AdminModelController {
         .firstOrFail()
       
       // Maintenant, 'release.app.name' existera et sera correct
-      const absoluteFilePath = Application.tmpPath(`releases/${release.uuid}/${release.app.name}/${relativeFilePath}`)
+      const drivePath = `releases/${release.uuid}/${release.app.name}/${relativeFilePath}`;
       
-      console.log('[DEBUG] Tentative de lecture du fichier :', absoluteFilePath)
+      console.log('[DEBUG] Tentative de lecture du fichier :', drivePath)
 
       const fileExtension = path.extname(relativeFilePath).toLowerCase()
 
       switch (fileExtension) {
         case '.lua':
         case '.json':
-          const codeContent = await fs.readFile(absoluteFilePath, 'utf-8')
+          const codeContent = await fs.readFile(drivePath, 'utf-8')
           return view.render('adminmodel/filerelease', {
             release,
             app: release.app, // On peut aussi passer l'app à la vue
@@ -329,9 +327,9 @@ export default class AdminModelController {
         // ... le reste de votre code switch est correct ...
         case '.png':
         // ...
-          return response.download(absoluteFilePath)
+          return response.download(drivePath)
         default:
-          return response.download(absoluteFilePath, true)
+          return response.download(drivePath, true)
       }
     } catch (error) {
       console.error(`Erreur lors du service du fichier:`, error)
