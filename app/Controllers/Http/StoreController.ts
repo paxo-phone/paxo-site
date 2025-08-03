@@ -183,59 +183,72 @@ export default class StoreController {
   public async post({ auth, request, response, session }: HttpContextContract) {
     const user = auth.user!
     const appUuid = uuidv4()
-    const drivePath = `apps/${appUuid}`
-    const localWorkingPath = Application.tmpPath(`${appUuid}`)
+    const localWorkingPath = Application.tmpPath(`extraction_${appUuid}`)
 
     try {
       const validatedData = await request.validate(AppValidator)
       const appZipFile = validatedData.app_zip
       
-      // 1. Déplacer et extraire le ZIP
+      // 1. On crée le dossier et on y déplace le ZIP
+      await fs.mkdir(localWorkingPath, { recursive: true })
       await appZipFile.move(localWorkingPath, { name: 'source.zip' })
-      const zipFilePath = `${localWorkingPath}/source.zip`
-      await Extract(zipFilePath, { dir: drivePath })
+      const zipFilePath = path.join( localWorkingPath,`/source.zip`)
+       
+      console.log(`step 1 : Done ${localWorkingPath}`)///// 
+
+      // 2. On extrait le ZIP
+      await Extract(zipFilePath, { dir: localWorkingPath })
       await fs.unlink(zipFilePath)
 
-      // === DÉBOGAGE : On vérifie ce qui a été extrait ===
-      console.log(`Fichiers extraits dans le dossier de base : ${localWorkingPath}`)
-      const extractedItems = await fs.readdir(localWorkingPath)
-      console.log('Contenu du dossier de base après extraction :', extractedItems)
-      // ===============================================
+      console.log(`step 2 : Done ${localWorkingPath}`) /////
 
-      // 2. Logique intelligente pour trouver le bon dossier de l'application
+      // 3. On trouve le vrai dossier des fichiers à l'intérieur
       let finalAppDirectory = localWorkingPath
+      const extractedItems = await fs.readdir(localWorkingPath)
       if (extractedItems.length === 1) {
-        const singleItemPath = path.join(drivePath, extractedItems[0])
-        const stats = await fs.stat(singleItemPath)
-        if (stats.isDirectory()) {
-          console.log('Un seul dossier racine détecté, le chemin final est maintenant :', singleItemPath)
+        const singleItemPath = path.join(localWorkingPath, extractedItems[0])
+        if ((await fs.stat(singleItemPath)).isDirectory()) {
           finalAppDirectory = singleItemPath
         }
-      }
+      } 
 
-      // on bouge le fichier dans le dossier driver
-      const filesToUpload = await fg('**/*', { cwd: finalAppDirectory, onlyFiles: true })
-      
-      for (const file of filesToUpload) {
-        const localFilePath = path.join(finalAppDirectory, file)
-        const drivePath = `apps/${appUuid}/${validatedData.name}/${file}`
-        
-        // On lit le fichier local et on l'envoie à Drive
-        const content = await fs.readFile(localFilePath)
-        await Drive.put(drivePath, content)
-      }
+      console.log(`step 3 : Done ${localWorkingPath}`) /////
 
-
-      // 3. Chercher le manifest (cette partie ne change pas)
+      // 4. On lit le manifest depuis le dossier local
       const manifestPaths = await fg('**/manifest.json', { cwd: finalAppDirectory, absolute: true, onlyFiles: true })
       if (manifestPaths.length === 0) {
         throw new Error("Le fichier manifest.json est introuvable dans le ZIP.")
       }
-      const manifestPath = manifestPaths[0]
-      const fileContent = await fs.readFile(manifestPath, 'utf-8')
-      const manifest = JSON.parse(fileContent)
+      const manifestContent = await fs.readFile(manifestPaths[0], 'utf-8')
+      const manifest = JSON.parse(manifestContent)
 
-      // 4. Créer l'application en base de données
+      console.log(`step 4 : Done ${finalAppDirectory}`) /////
+
+      // 5. On gère l'icône
+      const sourceIconPath = path.join(finalAppDirectory, 'icon.png')
+      try {
+        await fs.access(sourceIconPath)
+        const newIconName = `${appUuid}.png`
+        const publicIconsDirectory = Application.publicPath('icons')
+        await fs.mkdir(publicIconsDirectory, { recursive: true })
+        await fs.copyFile(sourceIconPath, path.join(publicIconsDirectory, newIconName))
+        } catch (e) {
+        console.warn("Le fichier 'icon.png' n'a pas été trouvé dans le ZIP.")
+      }
+
+      console.log(`step 5 : Done ${sourceIconPath}`) /////
+
+      // 6. On déplace les fichiers 
+      const filesToUpload = await fg('**/*', { cwd: finalAppDirectory, onlyFiles: true })
+      for (const file of filesToUpload) {
+        const localFilePath = path.join(finalAppDirectory, file)
+        const drivePath = `apps/${appUuid}//${file}`
+        await Drive.put(drivePath, await fs.readFile(localFilePath))
+      }
+
+      console.log(`step 6 : Done apps/${appUuid}/`) /////
+
+      // 7. On crée l'application
       const newApp = await App.create({
         userId: user.id,
         uuid: appUuid,
@@ -245,48 +258,31 @@ export default class StoreController {
         downloads: 0,
         capabilities: manifest,
       })
-      console.log('Nouvelle application créée avec les données suivantes :', newApp)
-
-      //ICON 
-      const sourceIconPath = path.join(finalAppDirectory, 'icon.png') // On suppose que le nom est toujours 'icon.png'
-
-      try {
-        await fs.access(sourceIconPath) // On vérifie si le fichier existe
-
-        const publicIconsDirectory = Application.publicPath('icons')
-        const destinationIconPath = path.join(publicIconsDirectory, `${appUuid}.png`)
-
-        await fs.mkdir(publicIconsDirectory, { recursive: true })
-        await fs.copyFile(sourceIconPath, destinationIconPath)
-
-        console.log(`Icône trouvée et copiée avec succès vers : ${publicIconsDirectory}`)
-      } catch (iconError) {
-        console.warn(`Le fichier 'icon.png' n'a pas été trouvé dans le ZIP. Aucune icône ne sera définie.`)
-      }
-      
-
       await newApp.save()
       await newApp.load('author')
 
-      // 5. Appeler le service de backup avec le chemin final et corrigé
-      console.log(`Appel du service de backup avec le dossier : ${finalAppDirectory}`)
+      console.log('step 7 : Nouvelle application créée avec les données suivantes :', newApp)
+
+      // 8. On exporte dans la backup 
       await GitHubAppService.commitNewApp(newApp, finalAppDirectory)
     
-
       session.flash({ success: 'Application créée avec succès !' })
       return response.redirect().toRoute('StoreController.myapp', { id: newApp.id })
 
-    } catch (error) {
-    await fs.rm(drivePath, { recursive: true, force: true }).catch(() => {})
-    
+    } catch (error) {    
     if (error.messages) { // Erreur de validation
       session.flashAll()
-      session.flash({ error: `Veuillez corriger les erreurs : ${error.messages}` })
+      session.flash({ error: error.messages })
     } else {
       console.error('Erreur lors de la création de l\'application:', error)
       session.flash({ error: `Une erreur est survenue : ${error.message}` })
     }
     return response.redirect().back()
+    } finally {
+      //9. On nettoie le dossier temporaire
+      await fs.rm(localWorkingPath, { recursive: true, force: true }).catch(() => {
+        console.warn(`Le dossier de travail ${localWorkingPath} n'a pas pu être nettoyé.`)
+      })
     }
   }
 }
