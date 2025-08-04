@@ -16,7 +16,7 @@ class ReleaseService {
     try {
       await fs.remove(oldAppFilesPath)
 
-      await fs.rename(newReleaseFilesPath, oldAppFilesPath)
+      await fs.move(newReleaseFilesPath, oldAppFilesPath)
 
       console.log(`Publication réussie. Les fichiers de l'app ${app.name} sont à jour.`)
     } catch (error) {
