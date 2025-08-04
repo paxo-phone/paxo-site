@@ -15,6 +15,7 @@ import GitHubAppService from 'App/Services/GitHubAppService'
 import Drive from '@ioc:Adonis/Core/Drive'
 import { LocalDriver } from '@adonisjs/core/build/standalone'
 
+
 /*import { randomBytes } from 'node:crypto'
 import Drive from '@ioc:Adonis/Core/Drive'
 import axios from "axios"*/
@@ -123,8 +124,10 @@ export default class AdminModelController {
 
   public async fileApp({ params, response, view, session}: HttpContextContract) {
     const relativeFilePath = params['*'].join('/')
+
     const app = await App.findOrFail(params.id)
     const drivePath = `apps/${app.uuid}/${relativeFilePath}`;
+
     try {
       const fileExtension = path.extname(relativeFilePath).toLowerCase()
       switch (fileExtension) {
@@ -133,6 +136,7 @@ export default class AdminModelController {
 
           const codeContentBuffer = await Drive.get(drivePath)
           const codeContent = codeContentBuffer.toString('utf-8')
+
           return view.render('adminmodel/fileapp', {
             app,
             model: params.model,
@@ -294,6 +298,7 @@ export default class AdminModelController {
       const drivePath = `releases/${release.uuid}`;
       const searchDirectory = disk.makePath(drivePath)
 
+
       console.log('[CHEMIN DE RECHERCHE] :', searchDirectory);
 
       const entries = await fg('**/*', { 
@@ -330,6 +335,7 @@ export default class AdminModelController {
       
       //2.
       const drivePath = `releases/${release.uuid}/${relativeFilePath}`;
+
       
       console.log('[DEBUG] Tentative de lecture du fichier :', drivePath)
 
@@ -339,8 +345,10 @@ export default class AdminModelController {
       switch (fileExtension) {
         case '.lua':
         case '.json':
+
           const codeContentBuffer = await Drive.get(drivePath)
           const codeContent = codeContentBuffer.toString('utf-8')
+          
           return view.render('adminmodel/filerelease', {
             release,
             app: release.app, // On peut aussi passer l'app à la vue
@@ -354,6 +362,7 @@ export default class AdminModelController {
         case '.jpeg':
         case '.gif':
         case '.svg':
+
           return response.download(drivePath)
         default:
           return response.download(drivePath, true)
