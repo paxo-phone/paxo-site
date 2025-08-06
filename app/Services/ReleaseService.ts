@@ -1,11 +1,8 @@
 import Release from 'App/Models/Release'
 import fs from 'fs-extra'
+import Drive from '@ioc:Adonis/Core/Drive'
+import { LocalDriver } from '@adonisjs/core/build/standalone'
 import path from 'path'
-import Drive from '@ioc:Adonis/Core/Drive'
-import { LocalDriver } from '@adonisjs/core/build/standalone'
-
-import Drive from '@ioc:Adonis/Core/Drive'
-import { LocalDriver } from '@adonisjs/core/build/standalone'
 
 class ReleaseService {
   public async publishRelease(release: Release) {
@@ -17,17 +14,16 @@ class ReleaseService {
       if (!(disk instanceof LocalDriver)) {
         throw new Error("La publication de release n'est supportée que pour le driver 'local'.")
       }
-
+      
       const oldAppDrivePath = `apps/${app.uuid}`
       const newReleaseDrivePath = `releases/${release.uuid}`
       const oldAppFilesPath = disk.makePath(oldAppDrivePath)
       const newReleaseFilesPath = disk.makePath(newReleaseDrivePath)
       
-
       console.log(`Publication de la release ${release.id} pour l'app ${app.id}...`)
-      console.log(`Suppression de l'ancien dossier : ${oldAppFilesPath}`)
-      console.log(`Déplacement du nouveau dossier depuis : ${newReleaseFilesPath}`)
-
+      console.log(`Ancien chemin de l'app: ${oldAppFilesPath}`)
+      console.log(`Nouveau chemin de la release: ${newReleaseFilesPath}`)
+      
       if (!(await fs.pathExists(newReleaseFilesPath))) {
         // Try to find the release directory with a partial UUID match
         const releasesDir = path.dirname(newReleaseFilesPath)
