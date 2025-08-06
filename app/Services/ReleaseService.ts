@@ -23,8 +23,7 @@ class ReleaseService {
       console.log(`Publication de la release ${release.id} pour l'app ${app.id}...`)
       console.log(`Ancien chemin de l'app: ${oldAppFilesPath}`)
       console.log(`Nouveau chemin de la release: ${newReleaseFilesPath}`)
-
-      // Check if the source directory exists
+      
       if (!(await fs.pathExists(newReleaseFilesPath))) {
         // Try to find the release directory with a partial UUID match
         const releasesDir = path.dirname(newReleaseFilesPath)
