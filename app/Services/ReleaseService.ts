@@ -4,6 +4,9 @@ import path from 'path'
 import Drive from '@ioc:Adonis/Core/Drive'
 import { LocalDriver } from '@adonisjs/core/build/standalone'
 
+import Drive from '@ioc:Adonis/Core/Drive'
+import { LocalDriver } from '@adonisjs/core/build/standalone'
+
 class ReleaseService {
   public async publishRelease(release: Release) {
     await release.load('app')
