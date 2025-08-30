@@ -246,6 +246,8 @@ Route.group(() => {
 
   Route.get('/apps/:uuid/:fileName/manifest', 'StoreController.getManifest')
     .as('apps.manifest')
+  Route.get('storage/apps/:uuid/manifest.json', 'StoreController.getManifestPath')
+    .as('apps.manifestPath')
   Route.get('/apps/:uuid/:fileName', 'StoreController.getFirmware')
     .as('apps.firmware')
     

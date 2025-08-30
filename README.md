@@ -18,8 +18,18 @@ name/
 
 - manifest.json is mandatory and gives the capabilities used by the app.
 ```
-{
-    "access": ["files", "files_root", "os", "gsm", "gui", "time"]
+{   
+    "name": "MyApp",
+    "id": "myapp",
+    "version": "1.0.0",
+    "files": [
+        { "name": "app.bin", "url": "app.bin" },
+        { "name": "config.json", "url": "config.json" },
+        { "name": "icon.png", "url": "icon.png" }
+    ],
+    "access": [
+        "files", "files_root", "os", "gsm", "gui", "time"
+    ]
 }
 ```
 - icon.png is mandatory and must be 40x40

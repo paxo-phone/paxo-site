@@ -6,14 +6,41 @@
       <h2>{{author.username}}</h2>
     </div>
   </div>
+    <a style="color:blue;" href="{{ route('apps.manifestPath', { uuid: app.uuid, fileName: app.name }) }}" download="manifest.json">
+    Télécharger le fichier
+    </a>
   @!section('script')
+    
     <script type="module" src="/dist/web/install-button.js?module"></script>
 
-    <div id="app-head-actions">
-      <esp-web-install-button manifest="{{ route('apps.manifest', { uuid: app.uuid, fileName: app.name }) }}"/>
-      <button slot="activate" class="btn btn-submit" >Télécharger</button>
-      <span slot="unsupported">Ah snap, your browser doesn't work! use a chromium.</span> 
-      <span slot="not-allowed">Ah snap, you are not allowed to use this on HTTP! use https</span>  
+    <div id="app-head-actions" class="install-app">
+      <esp-web-install-button class="install-app" manifest="{{ route('apps.manifestPath', { uuid: app.uuid, fileName: app.name }) }}"/>
+        <span slot="unsupported">Ah snap, your browser doesn't work! use a chromium.</span> 
+        <span slot="not-allowed">Ah snap, you are not allowed to use this on HTTP! use https</span>  
+        <!--s Script pour gérer le clic sur le bouton -->
+        <script>
+          document.addEventListener('DOMContentLoaded', () => {
+            const installButton = document.querySelector('esp-web-install-button');
+
+            // 2. On définit une fonction qui sait comment télécharger les fichiers de l'app
+            async function fetchAppFile(filePath) {
+              // L'URL pointe vers votre route 'getFirmware' ou une route similaire
+              const fileUrl = installButton.getAttribute('manifest');
+              const response = await fetch(fileUrl);
+              const blob = await response.blob();
+              // On convertit le Blob en objet File, car _uploadFile attend un File
+              return new File([blob], filePath.split('/').pop(), { type: blob.type });
+            }
+
+            // 3. On lance l'installation !
+            try {
+              await installer.installApp(fetchAppFile);
+              alert("Application installée avec succès !");
+            } catch (e) {
+              alert("L'installation a échoué. Vérifiez la console pour les détails.");
+}
+          });
+      </script>
       </esp-web-install-button>
     </div>
   
@@ -52,3 +79,4 @@
 
 @endif
 @end
+

@@ -71,21 +71,21 @@ export default class StoreController {
 
   public async getManifest({ params, response, request }: HttpContextContract) {
     try {
-      // 1. On récupère l'App par son UUID pour avoir son nom
+      // 1. On récupère l'App par son UUID
       const app = await App.findByOrFail('uuid', params.uuid)
       
-      // 2. On construit le chemin du manifest DANS Drive
-      const manifestDrivePath = `apps/${app.uuid}/${app.name}/manifest.json`
+      // 2. On construit le chemin du manifest DANS Drive en utilisant le nom nettoyé
+      const manifestDrivePath = `apps/${app.uuid}/manifest.json`
 
       // 3. On lit le contenu du fichier depuis Drive
       const manifestContent = await Drive.get(manifestDrivePath)
       const manifest = JSON.parse(manifestContent.toString('utf-8'))
 
-      // 4. On réécrit les URLs des firmwares pour qu'elles pointent vers la route 'apps.firmware'
+      // 4. On réécrit les URLs des firmwares (cette partie ne change pas)
       for (const build of manifest.builds) {
         for (const part of build.parts) {
           part.path = Route.makeUrl('apps.firmware', { 
-            uuid: app.uuid, // On utilise l'UUID de l'APP
+            uuid: app.uuid,
             fileName: part.path 
           }, {
             prefixUrl: request.header('origin') || '' 
@@ -100,6 +100,24 @@ export default class StoreController {
     }
   }
 
+  public async getManifestPath({ params, response }: HttpContextContract) {
+    try {
+      // 1. On récupère l'App par son UUID
+      const app = await App.findByOrFail('uuid', params.uuid)
+      
+      // 2. On construit le chemin du manifest DANS Drive en utilisant le nom nettoyé
+      const manifestDrivePath = `apps/${app.uuid}/manifest.json`
+
+      // 3. On lit le contenu du fichier depuis Drive
+      const manifestContent = await Drive.get(manifestDrivePath)
+    
+      return manifestContent
+
+    } catch (error) {
+      console.error("Erreur lors de la récupération du manifest :", error)
+      return response.notFound({ error: 'Manifest introuvable' })
+    }
+  }
   /**
    * Sert un fichier de firmware d'une application en le lisant depuis Drive.
    */
@@ -108,16 +126,21 @@ export default class StoreController {
       // 1. On récupère l'App par son UUID pour avoir son nom
       const app = await App.findByOrFail('uuid', params.uuid)
 
-      // 2. On construit le chemin du fichier DANS Drive
-      const firmwareDrivePath = `apps/${app.uuid}/${app.name}/${params.fileName}`
+      // === LA CORRECTION EST ICI ===
+      // On nettoie le nom de l'application de la même manière que lors de l'écriture
+      const sanitizedAppName = app.name.replace(/\.\.|[\\/]/g, '_')
 
-      // 3. On lit le fichier en tant que stream et le sert dans la réponse
+      // 2. On construit le chemin du fichier DANS Drive en utilisant le nom nettoyé
+      const firmwareDrivePath = `apps/${app.uuid}/${sanitizedAppName}/${params.fileName}`
+
+      // 3. On lit le fichier en tant que stream et le sert dans la réponse (votre logique est conservée)
       const stream = await Drive.getStream(firmwareDrivePath)
       if (!stream) {
         return response.notFound({ error: 'Fichier de firmware introuvable' })
       }
       response.stream(stream)
       return
+
     } catch (error) {
       console.error("Erreur lors de la récupération du firmware :", error)
       return response.notFound({ error: 'Fichier de firmware introuvable' })

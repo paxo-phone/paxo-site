@@ -1,4 +1,4 @@
-import{y as e,z as t,i as o,_ as i,t as l,s as n,x as s}from"./styles-BL2ZH5Dw.js";const a=e`
+import{w as e,y as t,a as o,_ as i,t as l,i as n,x as a}from"./styles-XdZATt8s.js";const s=e`
   <svg
     version="1.1"
     id="Capa_1"
@@ -17,7 +17,7 @@ import{y as e,z as t,i as o,_ as i,t as l,s as n,x as s}from"./styles-BL2ZH5Dw.j
       />
     </g>
   </svg>
-`;let r=class extends n{render(){const e=(()=>{var e,t;const o=window.navigator.userAgent,i=(null===(t=null===(e=window.navigator)||void 0===e?void 0:e.userAgentData)||void 0===t?void 0:t.platform)||window.navigator.platform;return-1!==["macOS","Macintosh","MacIntel","MacPPC","Mac68K"].indexOf(i)?"Mac OS":-1!==["iPhone","iPad","iPod"].indexOf(i)?"iOS":-1!==["Win32","Win64","Windows","WinCE"].indexOf(i)?"Windows":/Android/.test(o)?"Android":/Linux/.test(i)?"Linux":null})();return s`
+`;let r=class extends n{render(){const e=(()=>{var e,t;const o=window.navigator.userAgent,i=(null===(t=null===(e=window.navigator)||void 0===e?void 0:e.userAgentData)||void 0===t?void 0:t.platform)||window.navigator.platform;return-1!==["macOS","Macintosh","MacIntel","MacPPC","Mac68K"].indexOf(i)?"Mac OS":-1!==["iPhone","iPad","iPod"].indexOf(i)?"iOS":-1!==["Win32","Win64","Windows","WinCE"].indexOf(i)?"Windows":/Android/.test(o)?"Android":/Linux/.test(i)?"Linux":null})();return a`
       <ew-dialog open @closed=${this._handleClose}>
         <div slot="headline">No port selected</div>
         <div slot="content">
@@ -38,7 +38,7 @@ import{y as e,z as t,i as o,_ as i,t as l,s as n,x as s}from"./styles-BL2ZH5Dw.j
               Make sure that the USB cable you use can be used for data and is
               not a power-only cable.
             </li>
-            ${"Linux"===e?s`
+            ${"Linux"===e?a`
                   <li>
                     If you are using a Linux flavor, make sure that your user is
                     part of the <code>dialout</code> group so it has permission
@@ -78,7 +78,7 @@ import{y as e,z as t,i as o,_ as i,t as l,s as n,x as s}from"./styles-BL2ZH5Dw.j
                     >Mac</a
                   >
                   <br />
-                  (download via blue button with ${a} icon)
+                  (download via blue button with ${s} icon)
                 </li>
                 <li>
                   CH340, CH341 drivers:
@@ -95,19 +95,19 @@ import{y as e,z as t,i as o,_ as i,t as l,s as n,x as s}from"./styles-BL2ZH5Dw.j
                     >Mac</a
                   >
                   <br />
-                  (download via blue button with ${a} icon)
+                  (download via blue button with ${s} icon)
                 </li>
               </ul>
             </li>
           </ol>
         </div>
         <div slot="actions">
-          ${this.doTryAgain?s`
+          ${this.doTryAgain?a`
                 <ew-text-button @click=${this.close}>Cancel</ew-text-button>
                 <ew-text-button @click=${this.tryAgain}>
                   Try Again
                 </ew-text-button>
-              `:s`
+              `:a`
                 <ew-text-button @click=${this.close}>Close</ew-text-button>
               `}
         </div>
