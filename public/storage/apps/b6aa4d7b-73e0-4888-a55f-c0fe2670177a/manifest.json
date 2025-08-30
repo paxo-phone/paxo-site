@@ -1,0 +1,14 @@
+{   
+    "name": "Feur",
+    "id": "feur",
+    "version": "1.0.0",
+    "files": [
+        { "name": "app.lua"},
+        { "name": "icon.png"},
+        { "name": "feur.png"},
+        { "name": "favicon.ico"}
+    ],
+    "access": [
+        "files", "files_root", "os", "gsm", "gui", "time"
+    ]
+}

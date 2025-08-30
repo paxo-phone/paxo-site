@@ -40,7 +40,7 @@ export default driveConfig({
       driver: 'local',
       visibility: 'private',
       // Il pointe vers le dossier tmp/ à la racine de votre projet.
-      root: Application.tmpPath('persistent_storage'),
+      root: Application.publicPath('storage'),
       // Les fichiers de travail ne doivent pas être servis publiquement.
       serveFiles: false,
     },
@@ -51,7 +51,7 @@ export default driveConfig({
       visibility: 'private',
       // Il pointe vers un dossier 'storage/' qui sera rendu persistant par un volume Docker.
       // Ce chemin est à l'intérieur du conteneur.
-      root: Application.makePath('storage'),
+      root: Application.publicPath('storage'),
       serveFiles: false,
     },
     /*
