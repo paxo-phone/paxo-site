@@ -1,8 +1,7 @@
 {
   "name": "paxo-site",
   "version": "1.0.0",
-  "private": true,
-  "license": "CC0-1.0",
+  "license": "MIT",
   "scripts": {
     "dev": "node ace serve --watch",
     "build": "node ace build --production",
