@@ -46,7 +46,7 @@
     "@adonisjs/core": "^5.8.0",
     "@adonisjs/fold": "^8.2.0",
     "@adonisjs/i18n": "^1.6.0",
-    "@adonisjs/lucid": "^18.4.0",
+    "@adonisjs/lucid": "^21.8.2",
     "@adonisjs/mail": "^8.2.1",
     "@adonisjs/repl": "^3.1.0",
     "@adonisjs/session": "^6.2.0",
